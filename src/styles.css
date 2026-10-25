@@ -4,6 +4,7 @@
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
+  --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
   --pink: #E0187A; /* H1 and every mouse-over on the whole page (Martin, 25.10.); 4.6:1 against white */
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
@@ -302,6 +303,9 @@ dialog.legal::backdrop { background: #435960; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--c); padding-left: 14px; }
+
+/* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
+.btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 
 /* ---------- mouse-over: always pink (Martin, 25.10.) ---------- */
 .logo svg g { transition: fill .2s ease; }

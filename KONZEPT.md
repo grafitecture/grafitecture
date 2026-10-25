@@ -23,6 +23,7 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - Alle großen Headlines in Pink: „Marken mit KI.“, „Was ich baue“, „Ich bin Martin.“, „So läuft’s“, „Referenzen“, „Bereit?“ sowie die Titel von Impressum und Datenschutz.
 - Alle Mouse-over-Zustände in Pink (#E0187A, Kontrast 4,6 : 1 zu Weiß in beide Richtungen): Links und Navigation pink, Buttons pink mit weißer Schrift, Logo im Kopf pink. E-Mail-Adresse, Impressum und Datenschutz ohne Unterstreichung, beim Darüberfahren wird die Schrift pink (auch im dunklen Footer dasselbe Pink). Pink ist die einzige Farbe neben #435960 und Weiß.
 - Leads mit festem Umbruch: „KI-Websites, Agenten und Content-Systeme. / Auf dem Fundament …“ und „Vom ersten Gespräch zum laufenden System, / in fünf klaren Schritten.“ (DE und EN, ab 560 px immer zwei Zeilen).
+- Buttons, Fotos und die pinke Hover-Fläche der Kundenlogos mit ganz leichter Rundung an allen vier Ecken (4 px).
 - Fotos von Martin (mit Higgsfield bearbeitet): Porträt in „Über mich“ über den Eckdaten, Hauseingang neben „Bereit?“ im Kontakt. In Farbe, ohne Rahmen.
 
 ### Rechtstexte (Stand Oktober 2026)
