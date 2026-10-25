@@ -147,6 +147,24 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .lead.lead-2l { max-width: none; }
 @media (min-width: 560px) { .lead-2l .ln { white-space: nowrap; } }
 
+/* ---------- main headlines (Martin, 25.10.): grey #435960; now and then a lime wave runs through the type ----------
+   app.js adds .is-waving for one pass, about every 8–14 s while the headline is in view (never with reduced
+   motion). The wave is a band of the full #dafd55 in a gradient clipped to the letters. It sits on the inline
+   spans, whose box covers ascenders and descenders (the block's tight line box would cut them off).
+   Outside a pass the type is plain #435960. */
+/* gradient 246% of the text width: the band (45–55 %) starts just left of the first letter and ends just right of
+   the last one; across two lines it runs through line one, then line two. Most of the band is the full #dafd55
+   (46.5–53.5 %), only its edges are short soft transitions. */
+.is-waving > span {
+  background-image: linear-gradient(105deg, var(--c) 45%, var(--lime) 46.5% 53.5%, var(--c) 55%);
+  background-image: linear-gradient(105deg in oklab, var(--c) 45%, var(--lime) 46.5% 53.5%, var(--c) 55%);
+  background-size: 246% 100%; background-repeat: no-repeat;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: lime-wave 2.4s ease-in-out both;
+}
+@keyframes lime-wave { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (forced-colors: active) { .is-waving > span { animation: none; background: none; -webkit-text-fill-color: currentColor; } }
+
 /* ---------- hero (type only) ---------- */
 .hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }

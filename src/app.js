@@ -128,6 +128,32 @@
     }
   }
 
+  /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------
+     First pass shortly after a headline comes into view, then every 8–14 s while it stays there.
+     No waves with reduced motion or forced colours; the type then simply stays #435960. */
+  const heads = $$('.hero h1, .sec-head h2, .legal-hd h2');
+  const calm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce), (forced-colors: active)') : { matches: false };
+  if (heads.length && 'IntersectionObserver' in window && !calm.matches) {
+    const timers = new Map();
+    const next = (h, ms) => { clearTimeout(timers.get(h)); timers.set(h, setTimeout(() => wave(h), ms)); };
+    const wave = (h) => {
+      if (!document.hidden && !calm.matches) {
+        h.classList.remove('is-waving');
+        void h.offsetWidth;            // restart the animation even if a pass is still running
+        h.classList.add('is-waving');
+      }
+      next(h, 8000 + Math.random() * 6000);
+    };
+    heads.forEach((h) => h.addEventListener('animationend', (e) => {
+      if (e.animationName === 'lime-wave') h.classList.remove('is-waving');
+    }));
+    const headObs = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) next(en.target, 700);
+      else { clearTimeout(timers.get(en.target)); en.target.classList.remove('is-waving'); }
+    }), { threshold: 0.5 });
+    heads.forEach((h) => headObs.observe(h));
+  }
+
   /* ---------------- mobile menu ---------------- */
   const menuBtn = $('#menu-btn');
   const panel = $('#menu-panel');
