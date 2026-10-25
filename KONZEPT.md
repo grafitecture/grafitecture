@@ -20,7 +20,7 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 ### Nachträge 25.10.2026
 
 - Kundenlogos halb so groß; beim Darüberfahren kleinere Fläche in Pink, Logo weiß.
-- Alle Mouse-over-Zustände in Pink (#E0187A, Kontrast 4,6 : 1 zu Weiß in beide Richtungen): Links und Navigation pink, Buttons pink mit weißer Schrift, Logo im Kopf pink, im dunklen Footer pinke Unterstreichung. Pink ist die einzige Farbe neben #435960 und Weiß.
+- Alle Mouse-over-Zustände in Pink (#E0187A, Kontrast 4,6 : 1 zu Weiß in beide Richtungen): Links und Navigation pink, Buttons pink mit weißer Schrift, Logo im Kopf pink. E-Mail-Adresse, Impressum und Datenschutz ohne Unterstreichung, beim Darüberfahren wird die Schrift pink (im dunklen Footer ein helleres Pink, #FF8FC4, damit sie lesbar bleibt). Pink ist die einzige Farbe neben #435960 und Weiß.
 - Leads mit festem Umbruch: „KI-Websites, Agenten und Content-Systeme. / Auf dem Fundament …“ und „Vom ersten Gespräch zum laufenden System, / in fünf klaren Schritten.“ (DE und EN, ab 560 px immer zwei Zeilen).
 - Fotos von Martin (mit Higgsfield bearbeitet): Porträt in „Über mich“ über den Eckdaten, Hauseingang neben „Bereit?“ im Kontakt. In Farbe, ohne Rahmen.
 

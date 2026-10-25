@@ -33,6 +33,7 @@
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --pink: #E0187A; /* every mouse-over (Martin, 25.10.); 4.6:1 against white in both directions */
+  --pink-on-dark: #FF8FC4; /* the same pink, lighter, for mouse-over text on the dark footer (3.5:1) */
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
 
@@ -150,6 +151,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-panel li { border-bottom: 1px solid var(--c); }
 .menu-panel a.m-link { display: block; padding-block: 16px; text-decoration: none; font-size: var(--h4); line-height: 1.1; letter-spacing: -.02em; }
 .menu-panel .m-legal { display: flex; gap: 22px; font-size: .9375rem; }
+.menu-panel .m-legal a { text-decoration: none; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -260,7 +262,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .panel p { max-width: 54ch; }
 .panel .btn { justify-self: start; margin-top: 6px; }
 .mailline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-top: var(--s3); }
-.mailline a { font-size: var(--h6); word-break: break-all; }
+.mailline a { font-size: var(--h6); word-break: break-all; text-decoration: none; }
 .copy {
   appearance: none; background: transparent; color: var(--c); border: 1px solid var(--c); cursor: pointer;
   font: 500 var(--small)/1 var(--font); letter-spacing: .16em; text-transform: uppercase; padding: 9px 11px;
@@ -289,8 +291,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .ftr { background: var(--c); color: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
 .ftr :focus-visible { outline-color: var(--w); }
 /* on the dark footer the text stays white and the underline turns pink, so it stays readable */
-.ftr a:hover { color: var(--w); text-decoration-color: var(--pink); text-decoration-thickness: 3px; }
-.ftr .ftr-logo:hover svg g { fill: var(--pink); }
+/* e-mail, Impressum, Datenschutz: not underlined, the type turns pink on mouse-over (Martin, 25.10.) */
+.ftr a { text-decoration: none; }
+.ftr a:hover { color: var(--pink-on-dark); }
+.ftr .ftr-logo:hover svg g { fill: var(--pink-on-dark); }
 /* same size as the header logo at every width */
 .ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
 .ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
