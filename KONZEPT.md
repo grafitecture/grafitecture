@@ -8,9 +8,9 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 
 Änderungswünsche von Martin, umgesetzt:
 
-- **Hero ohne Bild:** nur Typografie. Zeile „Weniger Routine. Mehr Gestaltung.“, H1 „Marken mit KI.“ (bis 17.942rem), Lead „Ich baue KI-Systeme, die für Ihre Marke arbeiten.“, kurzer Text, zwei Buttons. Der Hero füllt den ersten Bildschirm, darüber viel Weiß.
+- **Hero ohne Bild:** nur Typografie. Zeile „Weniger Routine. Mehr Gestaltung.“, H1 „Marken mit KI.“ (bis 17.942rem), immer mit Umbruch nach „Marken“ bzw. „Brands“, auch im Vorschaubild für Links, Lead „Ich baue KI-Systeme, die für Ihre Marke arbeiten.“, kurzer Text, zwei Buttons. Der Hero füllt den ersten Bildschirm, darüber viel Weiß.
 - **Farben:** ausschließlich #435960 und Weiß (Kontrast 7,4 : 1). Keine Tönungen, keine Transparenzen. Hover und Fokus kehren um: Fläche #435960, Schrift und Logo weiß. Einzige farbige Fläche ist der Footer.
-- **Logo:** `LOGO_GT_2026.svg` im Kopf, `LOGO_GT_weiss_2026.svg` im Footer über die volle Breite. Aus dem A4-Artboard auf die Wortmarke zugeschnitten (ohne „tinytecture“), inline eingebunden.
+- **Logo:** `LOGO_GT_2026.svg` im Kopf, `LOGO_GT_weiss_2026.svg` im Footer, immer genauso groß wie das Logo im Kopf. Aus dem A4-Artboard auf die Wortmarke zugeschnitten (ohne „tinytecture“), inline eingebunden.
 - **Kundenlogos:** aus `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS` (27 Logos, weiß auf transparent). Umgefärbt in #435960, auf das Logo zugeschnitten, halbtransparente Teile (z. B. „.com“ bei flaeshapp) auf volle Deckkraft gebracht. Größen optisch ausgeglichen (gleiche Fläche, leichte Korrektur nach Schwärzung) und auf Martins Wunsch auf die Hälfte verkleinert, Raster 2/3/5 Spalten ohne Zellrahmen. Verlinkt, wo eine Website bekannt ist.
 - **Stadtplan-Gedanke verworfen:** keine Blattnummern, kein Grundriss, kein Bauzeitenplan, keine Maßlinien, kein Siegel, kein Nordpfeil.
 - **Gestaltung:** ruhig und einfach. Große Weißflächen (Abstand zwischen Abschnitten bis 17.942rem), große Headlines (h2 bis 11.089rem), Listen nur mit feinen Linien. Ablauf als nummerierte Schritte 01–05, Kennzahlen 26 / 27 / 24/7.

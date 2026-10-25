@@ -29,9 +29,9 @@ OG = f"""<!doctype html><html><head><meta charset="utf-8"><style>
 html, body {{ margin: 0; width: 1200px; height: 630px; background: {C}; color: {W}; font-family: GS, sans-serif; }}
 .f {{ box-sizing: border-box; width: 1200px; height: 630px; padding: 76px 84px 70px; display: flex; flex-direction: column; justify-content: space-between; }}
 .f svg {{ width: 380px; height: auto; display: block; }}
-h1 {{ margin: 0; font-weight: 400; font-size: 168px; line-height: .9; letter-spacing: -.045em; }}
+h1 {{ margin: 0; font-weight: 400; font-size: 150px; line-height: .9; letter-spacing: -.045em; }}
 p {{ margin: 22px 0 0; font-size: 26px; letter-spacing: .01em; }}
-</style></head><body><div class="f">{logo_w}<div><h1>Marken mit KI.</h1><p>Martin Schweppe, Diplom-Designer · Mannheim</p></div></div></body></html>"""
+</style></head><body><div class="f">{logo_w}<div><h1>Marken<br>mit KI.</h1><p>Martin Schweppe, Diplom-Designer · Mannheim</p></div></div></body></html>"""
 
 async def main():
     (A / "icons").mkdir(exist_ok=True); (A / "og").mkdir(exist_ok=True)

@@ -16,7 +16,8 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Font: Google Sans, self-hosted (`assets/fonts`, Latin subset, weight 400–700).
 - Type scale, golden ratio with clamp, maximum at 1920 px: h1 17.942rem, h2 11.089rem, h3 6.854rem, h4 4.236rem, h5 2.618rem, h6 1.618rem, p 1rem, small 0.618rem, 0.382rem.
 - Calm and simple: large white space, large headlines, no image in the hero, no city-map or floor-plan motifs.
-- Logo: `assets/logo/grafitecture.svg` in the header, `grafitecture-white.svg` in the footer.
+- Logo: `assets/logo/grafitecture.svg` in the header, `grafitecture-white.svg` in the footer. Both always the same size (`--logo-h`).
+- The H1 always breaks after the first word: "Marken / mit KI.", "Brands / with AI." (explicit `<br>`), also in the OG image.
 - Client logos: one-colour #435960 PNGs made by `tools/prepare_clients.py` from white-on-transparent sources (Martin's folder `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS`). Display size is half of the balanced size (`--logo-k` in styles.css).
 
 ## Content rules
