@@ -8,7 +8,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - `python3 build.py` (standard library only) regenerates `public/` and `vercel.json`. Vercel serves `public/` as is; there is no build step on Vercel.
 - Never edit `public/` by hand. Commit `public/` and `vercel.json` together with every source change.
 - `dist/artifact/index.html` is the claude.ai artifact preview (font and client logos inlined, no mailto form action). It is not committed.
-- Pushing to `main` deploys to production.
+- Vercel project `grafitecture` is linked to this repository; pushing to `main` deploys to production (https://grafitecture.vercel.app, behind Vercel Authentication). The domain grafitecture.de is not connected yet; only connect it after Martin confirms.
 
 ## Design rules (set by Martin, binding)
 

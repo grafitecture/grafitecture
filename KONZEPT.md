@@ -1,6 +1,7 @@
 # Grafitecture Website · Konzept & Stand
 
 Repository: https://github.com/grafitecture/grafitecture (Branch `main`, Vercel liefert `public/` aus)
+Vercel: Projekt `grafitecture`, mit dem Repository verbunden, jeder Push auf `main` geht live auf https://grafitecture.vercel.app (per Vercel-Login geschützt). Domain grafitecture.de noch nicht verbunden.
 Vorschau (privates Artifact): https://claude.ai/artifact/V21UNy1YJ9uLywDrYpKTT5
 Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`; Schrift, Logos, Kundenlogos und Icons in `assets/`.
 
