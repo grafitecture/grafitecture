@@ -7,9 +7,9 @@
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
   /* the accent (Martin, 25.10., replaces the pink): main headlines and every mouse-over on the whole page.
-     Lime type on white would only reach 1.2:1, so on white the lime is a marker band behind the letters and the
-     type stays #435960 (6.4:1 on lime). Buttons and the client-logo field fill lime with #435960 type.
-     Only on the dark footer does the type itself turn lime (6.4:1 on #435960). */
+     Headlines: lime marker band behind the letters, type #435960 (6.4:1 on lime).
+     Mouse-over: type and logos themselves turn lime (Martin's choice; on white only 1.2:1 while hovered);
+     buttons and the client-logo field fill lime with #435960 type. */
   --lime: #dafd55;
   --mark: .36em;   /* marker band: thickness ... */
   --mark-o: -.3em; /* ... and offset from the underline position (negative = up into the letters) */
@@ -302,8 +302,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* ---------- footer (inverted) ---------- */
 .ftr { background: var(--c); color: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
 .ftr :focus-visible { outline-color: var(--w); }
-/* e-mail, Impressum, Datenschutz: not underlined; on the dark footer the type itself turns lime on mouse-over
-   (rule at the end, with the other mouse-overs) */
+/* e-mail, Impressum, Datenschutz: not underlined; the type turns lime on mouse-over (rules at the end) */
 .ftr a { text-decoration: none; }
 /* same size as the header logo at every width */
 .ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
@@ -343,38 +342,23 @@ dialog.legal::backdrop { background: #435960; }
 .btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
-/* small type gets a relatively wider band, so the marker still reads as a marker and not as a line */
-.nav a, .lang button, .menu-btn, .film-btn, .menu-panel .m-legal a { --mark: .5em; --mark-o: -.42em; }
-/* header logo: the same marker band behind the lower part of the wordmark */
-.logo { position: relative; }
-.logo svg { position: relative; }
-.logo::before {
-  content: ""; position: absolute; left: -2px; right: -2px; bottom: 4px; height: 52%;
-  background: var(--lime); opacity: 0; transition: opacity .2s ease;
-}
-.lang button, .menu-btn, .film-btn { text-decoration: underline transparent; text-decoration-thickness: var(--mark); text-underline-offset: var(--mark-o); text-decoration-skip-ink: none; transition: text-decoration-color .2s ease; }
+.logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
+.lang button, .menu-btn, .film-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
 /* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
 @media (hover: hover) {
-  /* text links on white (nav, menu, e-mail, Impressum, Datenschutz): the lime marker band slides under the type,
-     which stays #435960 (underlines are painted below the text) */
-  .site a:hover {
-    color: var(--c); text-decoration-line: underline; text-decoration-color: var(--lime);
-    text-decoration-thickness: var(--mark); text-underline-offset: var(--mark-o); text-decoration-skip-ink: none;
-  }
-  /* links that are fields (buttons, logos) or sit on the dark footer get no marker */
-  .site :is(.btn, .logo, .logos a, .ftr a, .skip):hover { text-decoration: none; }
-  /* on the dark footer the type itself turns lime */
-  .site .ftr a:hover { color: var(--lime); }
-  .ftr .ftr-logo:hover svg g { fill: var(--lime); }
-  .logo:hover::before { opacity: 1; }
-  .lang button:hover, .menu-btn:hover, .film-btn:hover { text-decoration-color: var(--lime); }
-  /* buttons and the client-logo field fill lime, the type stays #435960 */
-  .btn:hover, .btn-line:hover, .copy:hover, .x:hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
+  /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
+     Impressum, Datenschutz, language, menu and film buttons, header and footer logo */
+  .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
+  .lang button:hover, .menu-btn:hover, .film-btn:hover { color: var(--lime); }
+  .logo:hover svg g, .ftr .ftr-logo:hover svg g { fill: var(--lime); }
+  /* buttons and the client-logo field fill lime, the type on them stays #435960 */
+  .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
+  .site .logos a:hover { color: var(--c); }
 }
 
 @media (prefers-reduced-motion: reduce) {

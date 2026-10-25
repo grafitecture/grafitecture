@@ -31,7 +31,7 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 
 ## Gestaltung
 
-- Farben: #435960 und Weiß (Kontrast 7,4 : 1), Akzent Lime #dafd55 für die Headline-Markierung und alle Mouse-over-Zustände. Auf Weiß liegt Lime immer hinter der Schrift (Textmarker), Schrift auf Lime ist #435960.
+- Farben: #435960 und Weiß (Kontrast 7,4 : 1), Akzent Lime #dafd55: als Markierung hinter den Headlines und für alle Mouse-over-Zustände (Schrift und Logo werden Lime, Buttons füllen sich Lime). Schrift auf Lime ist #435960.
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
