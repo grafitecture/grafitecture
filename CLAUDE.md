@@ -18,7 +18,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Calm and simple: large white space, large headlines, no image in the hero, no city-map or floor-plan motifs.
 - Logo: `assets/logo/grafitecture.svg` in the header, `grafitecture-white.svg` in the footer. Both always the same size (`--logo-h`).
 - The H1 always breaks after the first word: "Marken / mit KI.", "Brands / with AI." (explicit `<br>`), also in the OG image.
-- Exceptions Martin asked for: the client-logo hover shows a smaller pink field (`--pink` #FF3EA5) behind the logo, which turns white; and two colour photos (below).
+- Exceptions Martin asked for: every mouse-over is pink (`--pink` #E0187A, 4.6:1 against white): links and nav turn pink, buttons fill pink with white text, client logos get a smaller pink field and turn white, on the dark footer the underline turns pink while the text stays white. Plus two colour photos (below).
 - Photos, as supplied by Martin: portrait in "Über mich" (left column above the facts), entrance photo next to "Bereit?" in the contact section. Files in `assets/photos` (640 and 1280 px), alt text in both languages via `data-alt-de`/`data-alt-en`.
 - Fixed line breaks: services lead after "Content-Systeme." / "content systems.", process lead after the comma (class `lead-2l`, two lines from 560 px up).
 - Client logos: one-colour #435960 PNGs made by `tools/prepare_clients.py` from white-on-transparent sources (Martin's folder `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS`). Display size is half of the balanced size (`--logo-k` in styles.css).
