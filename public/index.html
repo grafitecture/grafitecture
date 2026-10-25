@@ -26,17 +26,18 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Grafitecture GmbH", "url": "https://www.grafitecture.de/", "email": "martin.schweppe@grafitecture.de", "image": "https://www.grafitecture.de/assets/og/grafitecture-og.png", "logo": "https://www.grafitecture.de/assets/logo/grafitecture.svg", "foundingDate": "2000", "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309", "addressLocality": "Mannheim", "addressCountry": "DE"}, "employee": {"@type": "Person", "name": "Martin Schweppe", "jobTitle": "Geschäftsführer, Diplom-Designer"}, "knowsLanguage": ["de", "en"]}</script>
 <style>
 @font-face { font-family: "Google Sans"; src: url("assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
-/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55, for every mouse-over),
-   one typeface (Google Sans) on a golden-ratio scale, very large headlines and wide white space.
-   Images: a very light grey film behind the hero and two photos; the only dark area is the footer. */
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero and the footer
+   are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale, very large
+   headlines and wide white space. Images: two photos. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
-  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency:
-     on mouse-over, type and logos themselves turn lime, nothing is put behind them (Martin's choice; lime on white
-     is only 1.2:1). Buttons and the client-logo field fill lime with #435960 type. Headlines stay #435960. */
+  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency.
+     Hero and footer are lime fields with #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
+     nothing is put behind them (Martin's choice; lime on white is only 1.2:1); on the lime fields they turn white
+     instead. Buttons and the client-logo field fill lime with #435960 type (white on the lime hero). */
   --lime: #dafd55;
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
@@ -193,8 +194,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @keyframes lime-wave { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (forced-colors: active) { .is-waving > span { animation: none; background: none; -webkit-text-fill-color: currentColor; } }
 
-/* ---------- hero (type only) ---------- */
-.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
+/* ---------- hero: a plain lime field, no image, no animation (Martin, 25.10.) ---------- */
+.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; background: var(--lime); }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
@@ -203,46 +204,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
 @media (min-width: 1100px) {
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
-}
-
-/* ---------- hero film (Martin, 25.10.) ----------
-   A free collage on white: thin lines and arrows, binary digits, numbers, terminal commands, typeface names,
-   AI icons, Pantone colour chips wandering through. Silent seamless loop behind the type; it fades into the
-   white page at its top and bottom edge. */
-.hero { position: relative; isolation: isolate; }
-.hero-film { position: absolute; inset: 0 0 auto; z-index: -1; overflow: hidden; pointer-events: none; }
-.hero-film video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
-@media (min-width: 1100px) {
-  /* desktop: the film fills the first screen, the lower part of the hero stands on white */
-  .hero-film {
-    height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px));
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
-  }
-}
-@media (max-width: 1099px) {
-  /* tablets and phones: the film is a band behind the top of the hero, so the collage stays whole and the
-     type below it stands on white */
-  .hero-film {
-    height: clamp(300px, 62vw, 560px);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
-  }
-}
-.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.film-btn {
-  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
-  display: inline-flex; align-items: center; padding: 10px 0; margin: -10px 0;
-  font: 500 var(--small)/1.5 var(--font); letter-spacing: .16em; text-transform: uppercase;
-}
-.film-btn .if-on, .film-btn .if-off { display: inline-flex; align-items: center; gap: 10px; }
-.film-btn.is-paused .if-on, .film-btn:not(.is-paused) .if-off { display: none; }
-.film-btn svg { width: 8px; height: 10px; flex: none; }
-@media (max-width: 559px) {
-  /* icon only on small screens; the label stays for screen readers */
-  .film-btn { padding: 14px; margin: -14px -14px -14px 0; }
-  .film-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .film-btn svg { width: 10px; height: 12px; }
 }
 
 /* ---------- lists: services and process ---------- */
@@ -341,15 +302,14 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .fields { grid-template-columns: 1fr 1fr; column-gap: var(--s4); } .field.wide { grid-column: 1 / -1; } }
 @media (min-width: 1100px) { .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s6); } }
 
-/* ---------- footer (inverted) ---------- */
-.ftr { background: var(--c); color: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
-.ftr :focus-visible { outline-color: var(--w); }
-/* e-mail, Impressum, Datenschutz: not underlined; the type turns lime on mouse-over (rules at the end) */
+/* ---------- footer: a lime field like the hero (Martin, 25.10.), #435960 type and logo ---------- */
+.ftr { background: var(--lime); color: var(--c); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
+/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns white (rules at the end) */
 .ftr a { text-decoration: none; }
 /* same size as the header logo at every width */
-.ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
+.ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--c); }
 .ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
-.ftr-grid { display: grid; gap: var(--s4); border-top: 1px solid var(--w); padding-top: var(--s4); }
+.ftr-grid { display: grid; gap: var(--s4); border-top: 1px solid var(--c); padding-top: var(--s4); }
 .ftr-grid .small { display: block; margin-bottom: 10px; }
 .ftr-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .site .ftr-meta { margin-top: var(--s5); }
@@ -385,22 +345,27 @@ dialog.legal::backdrop { background: #435960; }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .film-btn { transition: color .2s ease, border-color .2s ease; }
+.lang button, .menu-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
 /* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
 @media (hover: hover) {
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
-     Impressum, Datenschutz, language, menu and film buttons, header and footer logo */
+     Impressum, Datenschutz, language and menu buttons, header logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
-  .lang button:hover, .menu-btn:hover, .film-btn:hover { color: var(--lime); }
-  .logo:hover svg g, .ftr .ftr-logo:hover svg g { fill: var(--lime); }
+  .lang button:hover, .menu-btn:hover { color: var(--lime); }
+  .logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
+  /* on the lime hero and footer, lime would not show: there the type and the footer logo turn white,
+     and the hero buttons fill white with #435960 type */
+  .site :is(.hero, .ftr) a:hover { color: var(--w); text-decoration-color: var(--w); }
+  .ftr .ftr-logo:hover svg g { fill: var(--w); }
+  .site .hero :is(.btn, .btn-line):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -452,15 +417,8 @@ dialog.legal::backdrop { background: #435960; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top" data-sec aria-labelledby="hero-title">
-  <div class="hero-film" aria-hidden="true"><video id="hero-video" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1920" height="1080" poster="assets/hero/hero-poster.jpg?v=ec165126b8" data-mp4="assets/hero/hero-film.mp4?v=185526f213" data-webm="assets/hero/hero-film.webm?v=83dc094f3b"></video></div>
   <div class="wrap">
-    <div class="hero-top">
-      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
-      <button type="button" class="film-btn" id="film-btn" hidden>
-        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1 1h2.6v10H1zM6.4 1H9v10H6.4z" fill="currentColor"/></svg><span class="lbl"><span lang="de">Film anhalten</span><span lang="en">Pause film</span></span></span>
-        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5 1v10l8-5z" fill="currentColor"/></svg><span class="lbl"><span lang="de">Film abspielen</span><span lang="en">Play film</span></span></span>
-      </button>
-    </div>
+    <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
     <div>
       <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
       <div class="hero-foot">
@@ -661,7 +619,7 @@ dialog.legal::backdrop { background: #435960; }
 
 <footer class="ftr">
   <div class="wrap">
-    <a class="ftr-logo" href="#top" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#FFFFFF"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36s3.45,1.08,5.24,1.4,3.53.48,5.24.48c3.57,0,6.24-.85,8-2.56s2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16s-5.39,2.24-8.64,2.24c-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7s-2.24-6.61-2.24-10.72.75-7.68,2.24-10.72,3.59-5.37,6.28-7,5.85-2.44,9.48-2.44c3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2s-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16s-9.01,5.24-16,5.24h0ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88s2.52-4.67,2.52-8.24-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44s-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16s3.8-1.36,6.04-1.36c1.12,0,1.96.04,2.52.12s1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28s-2.61,2.12-3.28,3.8-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28s-2.2-6.99-2.2-11.36.75-8.13,2.24-11.28,3.57-5.56,6.24-7.24,5.76-2.52,9.28-2.52c3.25,0,6.17.8,8.76,2.4s4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2s-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28h0ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92s2.56-5,2.56-9.16-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92-2.56,4.97-2.56,9.08.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88s6.67-4.04,11.84-4.04c1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28s2.45,1.44,4.16,1.44c.96,0,1.79-.08,2.48-.24s1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24h0Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64s-5.92-8.92-5.92-15.48c0-4.16.84-7.81,2.52-10.96s4.03-5.61,7.04-7.4,6.55-2.68,10.6-2.68,7.4.85,10.04,2.56,4.65,4.09,6.04,7.16c1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84s3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36s-5.52,1.2-8.56,1.2h0Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52s-5.8-4.12-7.56-7.32-2.64-6.99-2.64-11.36.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16s4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72s-3.43-.96-5.08-.96c-3.25,0-5.79,1-7.6,3s-2.72,4.92-2.72,8.76.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2h0Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28s2.45,1.44,4.16,1.44c.96,0,1.79-.08,2.48-.24s1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24h0Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16s-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2h0Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44s-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12s2.69-3.25,4.48-4.16,3.8-1.36,6.04-1.36c1.12,0,1.96.04,2.52.12s1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92s-1.72-.2-2.84-.2c-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8s-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64s-5.92-8.92-5.92-15.48c0-4.16.84-7.81,2.52-10.96s4.03-5.61,7.04-7.4,6.55-2.68,10.6-2.68,7.4.85,10.04,2.56,4.65,4.09,6.04,7.16c1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72s-3.36-2.6-5.92-2.6c-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84s3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36s-5.52,1.2-8.56,1.2h0Z"/></g></svg></a>
+    <a class="ftr-logo" href="#top" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
     <div class="ftr-grid">
       <p><span class="small"><span lang="de">Büro</span><span lang="en">Studio</span></span>Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim</p>
       <p><span class="small"><span lang="de">Kontakt</span><span lang="en">Contact</span></span><a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>
@@ -695,8 +653,6 @@ dialog.legal::backdrop { background: #435960; }
       <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
       <h3 class="h6">Marken</h3>
       <p>Die gezeigten Kundenlogos sind Marken der jeweiligen Inhaber und dienen ausschließlich als Referenz.</p>
-      <h3 class="h6">Bildnachweis</h3>
-      <p>Der Film im Kopfbereich der Seite ist mit KI erzeugt (Higgsfield AI).</p>
     </div>
     <div class="legal-body" lang="en">
       <p class="note">English translation for convenience. The German version is legally binding.</p>
@@ -716,8 +672,6 @@ dialog.legal::backdrop { background: #435960; }
       <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
       <h3 class="h6">Trademarks</h3>
       <p>The client logos shown are trademarks of their respective owners and are used solely as references.</p>
-      <h3 class="h6">Image credits</h3>
-      <p>The film at the top of the page was generated with AI (Higgsfield AI).</p>
     </div>
   </div>
 </dialog>
@@ -850,53 +804,11 @@ dialog.legal::backdrop { background: #435960; }
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero film ----------------
-     A very light, silent loop behind the hero type. It is only loaded when motion is welcome and data is not
-     scarce; otherwise the poster stays as a still image. The button pauses and resumes it (WCAG 2.2.2), and the
-     film also rests while the hero is out of view or the tab is hidden. */
-  const film = $('#hero-video');
-  const filmBtn = $('#film-btn');
-  if (film && filmBtn) {
-    const reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-    const saveData = !!(navigator.connection && navigator.connection.saveData);
-    let userPaused = false, inView = true, started = false;
-    const sync = () => {
-      filmBtn.classList.toggle('is-paused', userPaused);
-      if (!started) return;
-      if (!userPaused && inView && !document.hidden) {
-        const p = film.play();
-        // autoplay refused (e.g. iOS low-power mode): show "play", so a tap can start it
-        if (p && p.catch) p.catch(() => { userPaused = true; filmBtn.classList.add('is-paused'); });
-      } else {
-        film.pause();
-      }
-    };
-    const start = () => {
-      // H.264 MP4 (1920 px) where supported, otherwise the small VP9 WebM
-      const h264 = film.canPlayType('video/mp4; codecs="avc1.640028"');
-      film.src = h264 ? film.dataset.mp4 : film.dataset.webm;
-      film.muted = true;
-      started = true;
-      filmBtn.hidden = false;
-      film.addEventListener('error', () => { filmBtn.hidden = true; }, { once: true });
-      sync();
-    };
-    if (!reduce.matches && !saveData) {
-      filmBtn.addEventListener('click', () => { userPaused = !userPaused; sync(); });
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(film);
-      }
-      document.addEventListener('visibilitychange', sync);
-      if (reduce.addEventListener) reduce.addEventListener('change', () => { if (reduce.matches) { userPaused = true; sync(); } });
-      if (document.readyState === 'complete') start();
-      else window.addEventListener('load', start, { once: true });
-    }
-  }
-
   /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------
      First pass shortly after a headline comes into view, then every 8–14 s while it stays there.
      No waves with reduced motion or forced colours; the type then simply stays #435960. */
-  const heads = $$('.hero h1, .sec-head h2, .legal-hd h2');
+  // not the hero H1: it stands on the lime hero, where a lime wave would not show
+  const heads = $$('.sec-head h2, .legal-hd h2');
   const calm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce), (forced-colors: active)') : { matches: false };
   if (heads.length && 'IntersectionObserver' in window && !calm.matches) {
     const timers = new Map();

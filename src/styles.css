@@ -1,14 +1,15 @@
-/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55, for every mouse-over),
-   one typeface (Google Sans) on a golden-ratio scale, very large headlines and wide white space.
-   Images: a very light grey film behind the hero and two photos; the only dark area is the footer. */
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero and the footer
+   are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale, very large
+   headlines and wide white space. Images: two photos. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
-  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency:
-     on mouse-over, type and logos themselves turn lime, nothing is put behind them (Martin's choice; lime on white
-     is only 1.2:1). Buttons and the client-logo field fill lime with #435960 type. Headlines stay #435960. */
+  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency.
+     Hero and footer are lime fields with #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
+     nothing is put behind them (Martin's choice; lime on white is only 1.2:1); on the lime fields they turn white
+     instead. Buttons and the client-logo field fill lime with #435960 type (white on the lime hero). */
   --lime: #dafd55;
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
@@ -165,8 +166,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @keyframes lime-wave { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (forced-colors: active) { .is-waving > span { animation: none; background: none; -webkit-text-fill-color: currentColor; } }
 
-/* ---------- hero (type only) ---------- */
-.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
+/* ---------- hero: a plain lime field, no image, no animation (Martin, 25.10.) ---------- */
+.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; background: var(--lime); }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
@@ -175,46 +176,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
 @media (min-width: 1100px) {
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
-}
-
-/* ---------- hero film (Martin, 25.10.) ----------
-   A free collage on white: thin lines and arrows, binary digits, numbers, terminal commands, typeface names,
-   AI icons, Pantone colour chips wandering through. Silent seamless loop behind the type; it fades into the
-   white page at its top and bottom edge. */
-.hero { position: relative; isolation: isolate; }
-.hero-film { position: absolute; inset: 0 0 auto; z-index: -1; overflow: hidden; pointer-events: none; }
-.hero-film video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
-@media (min-width: 1100px) {
-  /* desktop: the film fills the first screen, the lower part of the hero stands on white */
-  .hero-film {
-    height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px));
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
-  }
-}
-@media (max-width: 1099px) {
-  /* tablets and phones: the film is a band behind the top of the hero, so the collage stays whole and the
-     type below it stands on white */
-  .hero-film {
-    height: clamp(300px, 62vw, 560px);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
-  }
-}
-.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.film-btn {
-  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
-  display: inline-flex; align-items: center; padding: 10px 0; margin: -10px 0;
-  font: 500 var(--small)/1.5 var(--font); letter-spacing: .16em; text-transform: uppercase;
-}
-.film-btn .if-on, .film-btn .if-off { display: inline-flex; align-items: center; gap: 10px; }
-.film-btn.is-paused .if-on, .film-btn:not(.is-paused) .if-off { display: none; }
-.film-btn svg { width: 8px; height: 10px; flex: none; }
-@media (max-width: 559px) {
-  /* icon only on small screens; the label stays for screen readers */
-  .film-btn { padding: 14px; margin: -14px -14px -14px 0; }
-  .film-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .film-btn svg { width: 10px; height: 12px; }
 }
 
 /* ---------- lists: services and process ---------- */
@@ -313,15 +274,14 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .fields { grid-template-columns: 1fr 1fr; column-gap: var(--s4); } .field.wide { grid-column: 1 / -1; } }
 @media (min-width: 1100px) { .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s6); } }
 
-/* ---------- footer (inverted) ---------- */
-.ftr { background: var(--c); color: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
-.ftr :focus-visible { outline-color: var(--w); }
-/* e-mail, Impressum, Datenschutz: not underlined; the type turns lime on mouse-over (rules at the end) */
+/* ---------- footer: a lime field like the hero (Martin, 25.10.), #435960 type and logo ---------- */
+.ftr { background: var(--lime); color: var(--c); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
+/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns white (rules at the end) */
 .ftr a { text-decoration: none; }
 /* same size as the header logo at every width */
-.ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
+.ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--c); }
 .ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
-.ftr-grid { display: grid; gap: var(--s4); border-top: 1px solid var(--w); padding-top: var(--s4); }
+.ftr-grid { display: grid; gap: var(--s4); border-top: 1px solid var(--c); padding-top: var(--s4); }
 .ftr-grid .small { display: block; margin-bottom: 10px; }
 .ftr-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .site .ftr-meta { margin-top: var(--s5); }
@@ -357,22 +317,27 @@ dialog.legal::backdrop { background: #435960; }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .film-btn { transition: color .2s ease, border-color .2s ease; }
+.lang button, .menu-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
 /* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
 @media (hover: hover) {
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
-     Impressum, Datenschutz, language, menu and film buttons, header and footer logo */
+     Impressum, Datenschutz, language and menu buttons, header logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
-  .lang button:hover, .menu-btn:hover, .film-btn:hover { color: var(--lime); }
-  .logo:hover svg g, .ftr .ftr-logo:hover svg g { fill: var(--lime); }
+  .lang button:hover, .menu-btn:hover { color: var(--lime); }
+  .logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
+  /* on the lime hero and footer, lime would not show: there the type and the footer logo turn white,
+     and the hero buttons fill white with #435960 type */
+  .site :is(.hero, .ftr) a:hover { color: var(--w); text-decoration-color: var(--w); }
+  .ftr .ftr-logo:hover svg g { fill: var(--w); }
+  .site .hero :is(.btn, .btn-line):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }
 
 @media (prefers-reduced-motion: reduce) {

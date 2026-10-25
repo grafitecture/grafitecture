@@ -12,7 +12,6 @@ Placeholders in src/body.html:
    {{CLIENTS}} {{CLIENT_COUNT}}  reference list, see CLIENTS below. A client shows its logo when
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
    {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
-   {{HERO_FILM}}                 background film of the hero, see hero_film_html()
 """
 import base64, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
 
@@ -202,30 +201,9 @@ def natural_size_jpeg(f: pathlib.Path):
     raise ValueError(f"no SOF in {f}")
 
 
-# hero film (25.10.2026, second version): a free collage of lines, arrows, binary digits, commands, typeface names,
-# AI icons and wandering Pantone chips; keyframe GPT Image 2.5, motion MiniMax H3 (Higgsfield), background whitened
-# and cross-faded into a seamless 8.6 s loop by tools/hero_film.py. assets/hero holds the finished files:
-# hero-film.mp4 (1920x1080 H.264, no audio), hero-film.webm (1280x720 VP9 fallback), hero-poster.jpg (first frame).
-# app.js chooses the file and starts it only without reduced motion / save-data; otherwise the poster stays.
-HERO_FILES = ("hero-film.mp4", "hero-film.webm", "hero-poster.jpg")
-
-
-def hero_film_html(mode: str) -> str:
-    if mode == "inline":   # artifact preview: poster embedded, films published next to the page as supporting files
-        poster = ASSETS / "hero" / "hero-poster.jpg"
-        p = f"data:image/jpeg;base64,{base64.b64encode(poster.read_bytes()).decode()}"
-        mp4, webm = "assets/hero/hero-film.mp4", "assets/hero/hero-film.webm"
-    else:
-        mp4, webm, p = (versioned(f"assets/hero/{n}") for n in HERO_FILES)
-    return (f'<div class="hero-film" aria-hidden="true"><video id="hero-video" muted loop playsinline preload="none" '
-            f'disablepictureinpicture disableremoteplayback width="1920" height="1080" poster="{p}" '
-            f'data-mp4="{mp4}" data-webm="{webm}"></video></div>')
-
-
 def render_body(mode: str) -> str:
     body = (SRC / "body.html").read_text()
-    body = (body.replace("{{HERO_FILM}}", hero_film_html(mode))
-                .replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
+    body = (body.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
                 .replace("{{LOGO_WHITE}}", inline_logo("grafitecture-white.svg"))
                 .replace("{{ARROW}}", ARROW)
                 .replace("{{CLIENTS}}", clients_html(mode))
@@ -286,7 +264,7 @@ def build_deploy():
     if out.exists():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
-    for sub in ("fonts", "logo", "og", "photos", "hero"):
+    for sub in ("fonts", "logo", "og", "photos"):
         shutil.copytree(ASSETS / sub, out / "assets" / sub)
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
@@ -360,9 +338,6 @@ def build_artifact():
 </script>
 """
     (out / "index.html").write_text(page)
-    (out / "assets" / "hero").mkdir(parents=True)
-    for n in HERO_FILES[:2]:   # the films, published with the artifact as supporting files
-        shutil.copy(ASSETS / "hero" / n, out / "assets" / "hero" / n)
     return out
 
 
