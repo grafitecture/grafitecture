@@ -32,8 +32,7 @@
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
-  --pink: #E0187A; /* every mouse-over (Martin, 25.10.); 4.6:1 against white in both directions */
-  --pink-on-dark: #FF8FC4; /* the same pink, lighter, for mouse-over text on the dark footer (3.5:1) */
+  --pink: #E0187A; /* H1 and every mouse-over on the whole page (Martin, 25.10.); 4.6:1 against white */
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
 
@@ -178,6 +177,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 
 /* ---------- hero (type only) ---------- */
 .hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
+/* the headline in pink (Martin, 25.10.) */
+.hero h1 { color: var(--pink); }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
@@ -293,8 +294,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* on the dark footer the text stays white and the underline turns pink, so it stays readable */
 /* e-mail, Impressum, Datenschutz: not underlined, the type turns pink on mouse-over (Martin, 25.10.) */
 .ftr a { text-decoration: none; }
-.ftr a:hover { color: var(--pink-on-dark); }
-.ftr .ftr-logo:hover svg g { fill: var(--pink-on-dark); }
+.ftr a:hover { color: var(--pink); }
+.ftr .ftr-logo:hover svg g { fill: var(--pink); }
 /* same size as the header logo at every width */
 .ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
 .ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
