@@ -205,24 +205,29 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
-/* ---------- hero film (Martin, 25.10.): "AI with human in the loop" ----------
-   A hand rests on white paper; fine grey lines flow around the fingertip. Very light, greys only, silent,
-   seamless loop behind the type. Fades into the white page at the top and bottom edge. */
+/* ---------- hero film (Martin, 25.10.) ----------
+   A free collage on white: thin lines and arrows, binary digits, numbers, terminal commands, typeface names,
+   AI icons, Pantone colour chips wandering through. Silent seamless loop behind the type; it fades into the
+   white page at its top and bottom edge. */
 .hero { position: relative; isolation: isolate; }
-.hero-film {
-  position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 62%, transparent);
-          mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 62%, transparent);
-}
-.hero-film video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
-@media (max-width: 759px) {
-  /* small screens: the film is a band behind the top of the hero, so the scene stays whole and calm */
+.hero-film { position: absolute; inset: 0 0 auto; z-index: -1; overflow: hidden; pointer-events: none; }
+.hero-film video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+@media (min-width: 1100px) {
+  /* desktop: the film fills the first screen, the lower part of the hero stands on white */
   .hero-film {
-    bottom: auto; height: min(120vw, 560px);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent);
-            mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent);
+    height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px));
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
   }
-  .hero-film video { object-position: 75% 50%; }
+}
+@media (max-width: 1099px) {
+  /* tablets and phones: the film is a band behind the top of the hero, so the collage stays whole and the
+     type below it stands on white */
+  .hero-film {
+    height: clamp(300px, 62vw, 560px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 62%, transparent);
+  }
 }
 .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .film-btn {
@@ -447,7 +452,7 @@ dialog.legal::backdrop { background: #435960; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top" data-sec aria-labelledby="hero-title">
-  <div class="hero-film" aria-hidden="true"><video id="hero-video" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1920" height="1080" poster="assets/hero/hero-poster.jpg?v=af2f2901c4" data-mp4="assets/hero/hero-film.mp4?v=56753dcd72" data-webm="assets/hero/hero-film.webm?v=49dddcbc39"></video></div>
+  <div class="hero-film" aria-hidden="true"><video id="hero-video" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback width="1920" height="1080" poster="assets/hero/hero-poster.jpg?v=ec165126b8" data-mp4="assets/hero/hero-film.mp4?v=185526f213" data-webm="assets/hero/hero-film.webm?v=83dc094f3b"></video></div>
   <div class="wrap">
     <div class="hero-top">
       <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>

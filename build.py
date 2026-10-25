@@ -202,8 +202,9 @@ def natural_size_jpeg(f: pathlib.Path):
     raise ValueError(f"no SOF in {f}")
 
 
-# hero film (25.10.2026, theme "AI with human in the loop"): keyframe GPT Image 2.5, motion MiniMax H3 (Higgsfield),
-# then graded to very light greys and cross-faded into a seamless 8.6 s loop. assets/hero holds the finished files:
+# hero film (25.10.2026, second version): a free collage of lines, arrows, binary digits, commands, typeface names,
+# AI icons and wandering Pantone chips; keyframe GPT Image 2.5, motion MiniMax H3 (Higgsfield), background whitened
+# and cross-faded into a seamless 8.6 s loop by tools/hero_film.py. assets/hero holds the finished files:
 # hero-film.mp4 (1920x1080 H.264, no audio), hero-film.webm (1280x720 VP9 fallback), hero-poster.jpg (first frame).
 # app.js chooses the file and starts it only without reduced motion / save-data; otherwise the poster stays.
 HERO_FILES = ("hero-film.mp4", "hero-film.webm", "hero-poster.jpg")

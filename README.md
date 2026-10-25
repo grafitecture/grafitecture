@@ -35,7 +35,7 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
-- Hero-Film in hellen Grautönen (`assets/hero`, aufbereitet mit `tools/hero_film.py`): nahtlose Schleife ohne Ton, mit Schalter zum Anhalten; bei „Bewegung reduzieren“ nur das Standbild.
+- Hero-Film (`assets/hero`, aufbereitet mit `tools/hero_film.py`): freie Komposition aus Linien, Pfeilen, Binärzahlen, Befehlen, Schriftnamen, KI-Icons und wandernden Pantone-Chips auf Weiß; nahtlose Schleife ohne Ton, mit Schalter zum Anhalten; bei „Bewegung reduzieren“ nur das Standbild.
 
 ## Sprache und Links
 
