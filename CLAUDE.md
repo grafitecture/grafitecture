@@ -13,9 +13,10 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 ## Design rules (set by Martin, binding)
 
 - Colours: #435960 and #FFFFFF, plus one accent, lime #dafd55 (`--lime`, Martin 25.10., replaced the earlier pink). No tints, no opacity-based colours. Exceptions: the two colour photos and the grey hero film (below).
-- The accent is used exactly as #dafd55, never a darker or lighter variant. Text on a lime field is always #435960 (6.4:1), never white.
-- All main headlines carry a lime marker band behind the letters (a thick underline, `--mark`/`--mark-o`), the type stays #435960 (hero H1, the section headlines, the Impressum/Datenschutz titles).
-- Every mouse-over on the whole page is lime, and nothing is put behind type or logos (Martin 25.10.): the type itself turns #dafd55 (links, nav, menu, e-mail, Impressum/Datenschutz, language, menu and film buttons), the header and footer logos turn #dafd55. Martin chose this knowing lime type on white is only 1.2:1 while hovered. Buttons, copy and close buttons fill lime with #435960 type; client logos get a smaller lime field and stay #435960. The e-mail address and the Impressum/Datenschutz links are not underlined. All hover rules sit in one `@media (hover: hover)` block, so taps on touch screens leave nothing lime behind.
+- The accent is always the full tone #dafd55: never a darker or lighter variant, no tint, no transparency. Text on a lime field is always #435960 (6.4:1), never white.
+- Nothing is put behind type or logos (Martin 25.10.): no marker, no underlay. Martin chose lime type knowing it is only 1.2:1 on white.
+- All main headlines are set in #dafd55 (hero H1, the section headlines, the Impressum/Datenschutz titles).
+- Every mouse-over on the whole page is lime: the type itself turns #dafd55 (links, nav, menu, e-mail, Impressum/Datenschutz, language, menu and film buttons), the header and footer logos turn #dafd55. Buttons, copy and close buttons fill lime with #435960 type; client logos get a smaller lime field and stay #435960. The e-mail address and the Impressum/Datenschutz links are not underlined. All hover rules sit in one `@media (hover: hover)` block, so taps on touch screens leave nothing lime behind.
 - Font: Google Sans, self-hosted (`assets/fonts`, Latin subset, weight 400–700).
 - Type scale, golden ratio with clamp, maximum at 1920 px: h1 17.942rem, h2 11.089rem, h3 6.854rem, h4 4.236rem, h5 2.618rem, h6 1.618rem, p 1rem, small 0.618rem, 0.382rem.
 - Calm and simple: large white space, large headlines, no city-map or floor-plan motifs.

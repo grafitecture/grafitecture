@@ -1,18 +1,15 @@
-/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55, as a marker and for
-   every mouse-over), one typeface (Google Sans) on a golden-ratio scale, very large headlines and wide white space.
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55, for the main headlines
+   and every mouse-over), one typeface (Google Sans) on a golden-ratio scale, very large headlines and wide white space.
    Images: a very light grey film behind the hero and two photos; the only dark area is the footer. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
-  /* the accent (Martin, 25.10., replaces the pink): main headlines and every mouse-over on the whole page.
-     Headlines: lime marker band behind the letters, type #435960 (6.4:1 on lime).
-     Mouse-over: type and logos themselves turn lime (Martin's choice; on white only 1.2:1 while hovered);
-     buttons and the client-logo field fill lime with #435960 type. */
+  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency:
+     main headlines and, on mouse-over, type and logos themselves are lime, nothing is put behind them
+     (Martin's choice; lime on white is only 1.2:1). Buttons and the client-logo field fill lime with #435960 type. */
   --lime: #dafd55;
-  --mark: .36em;   /* marker band: thickness ... */
-  --mark-o: -.3em; /* ... and offset from the underline position (negative = up into the letters) */
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
 
@@ -152,12 +149,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 
 /* ---------- hero (type only) ---------- */
 .hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
-/* all main headlines in the accent (Martin, 25.10.): hero, section headlines, legal overlays.
-   Type #435960 with a lime marker band behind the lower part of every line. */
-.hero h1, .sec-head h2, .legal-hd h2 {
-  text-decoration: underline var(--lime); text-decoration-thickness: var(--mark);
-  text-underline-offset: var(--mark-o); text-decoration-skip-ink: none;
-}
+/* all main headlines in the accent (Martin, 25.10.): hero, section headlines, legal overlays; the type itself in
+   the full #dafd55, nothing behind it */
+.hero h1, .sec-head h2, .legal-hd h2 { color: var(--lime); }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
