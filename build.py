@@ -163,6 +163,43 @@ def clients_html(mode: str) -> str:
     return "\n".join(rows)
 
 
+# photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos
+PHOTOS = {
+    "IMG_PORTRAIT": ("martin-schweppe", "Martin Schweppe, Diplom-Designer", "Martin Schweppe, graduate designer",
+                     "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"),
+    "IMG_DOOR": ("eingang", "Hauseingang mit Holztür und der Jahreszahl 1926", "Entrance with a wooden door marked 1926",
+                 "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"),
+}
+
+
+def photo_html(key: str, mode: str) -> str:
+    stem, alt_de, alt_en, sizes = PHOTOS[key]
+    small, large = ASSETS / "photos" / f"{stem}-640.jpg", ASSETS / "photos" / f"{stem}-1280.jpg"
+    w, h = natural_size_jpeg(large)
+    alts = f'alt="{html.escape(alt_de)}" data-alt-de="{html.escape(alt_de)}" data-alt-en="{html.escape(alt_en)}"'
+    if mode == "inline":
+        src = f'src="data:image/jpeg;base64,{base64.b64encode(small.read_bytes()).decode()}"'
+    else:
+        a, b = f"assets/photos/{small.name}", f"assets/photos/{large.name}"
+        if mode == "deploy":
+            a, b = versioned(a), versioned(b)
+        src = f'src="{b}" srcset="{a} 640w, {b} 1280w" sizes="{sizes}"'
+    return (f'<figure class="photo"><img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async"></figure>')
+
+
+def natural_size_jpeg(f: pathlib.Path):
+    data = f.read_bytes(); i = 2
+    while i < len(data):
+        if data[i] != 0xFF:
+            i += 1; continue
+        marker = data[i + 1]
+        if marker in (0xC0, 0xC1, 0xC2):
+            h, w = struct.unpack(">HH", data[i + 5:i + 9])
+            return w, h
+        i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    raise ValueError(f"no SOF in {f}")
+
+
 def render_body(mode: str) -> str:
     body = (SRC / "body.html").read_text()
     body = (body.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
@@ -170,6 +207,8 @@ def render_body(mode: str) -> str:
                 .replace("{{ARROW}}", ARROW)
                 .replace("{{CLIENTS}}", clients_html(mode))
                 .replace("{{CLIENT_COUNT}}", str(len(CLIENTS))))
+    for key in PHOTOS:
+        body = body.replace("{{" + key + "}}", photo_html(key, mode))
     left = re.findall(r"\{\{[A-Z_]+\}\}", body)
     assert not left, f"unreplaced placeholders: {left}"
     return body
@@ -224,7 +263,7 @@ def build_deploy():
     if out.exists():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
-    for sub in ("fonts", "logo", "og"):
+    for sub in ("fonts", "logo", "og", "photos"):
         shutil.copytree(ASSETS / sub, out / "assets" / sub)
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):

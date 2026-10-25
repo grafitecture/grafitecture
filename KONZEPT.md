@@ -17,6 +17,12 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Gestaltung:** ruhig und einfach. Große Weißflächen (Abstand zwischen Abschnitten bis 17.942rem), große Headlines (h2 bis 11.089rem), Listen nur mit feinen Linien. Ablauf als nummerierte Schritte 01–05, Kennzahlen 26 / 27 / 24/7.
 - **Schrift und Skala** unverändert aus V2: Google Sans, Goldener Schnitt mit clamp (h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem).
 
+### Nachträge 25.10.2026
+
+- Kundenlogos halb so groß; beim Darüberfahren kleinere Fläche in Pink (#FF3EA5), Logo weiß. Einzige Farbe neben #435960 und Weiß.
+- Leads mit festem Umbruch: „KI-Websites, Agenten und Content-Systeme. / Auf dem Fundament …“ und „Vom ersten Gespräch zum laufenden System, / in fünf klaren Schritten.“ (DE und EN, ab 560 px immer zwei Zeilen).
+- Fotos von Martin (mit Higgsfield bearbeitet): Porträt in „Über mich“ über den Eckdaten, Hauseingang neben „Bereit?“ im Kontakt. In Farbe, ohne Rahmen.
+
 ### Rechtstexte (Stand Oktober 2026)
 
 - **Impressum:** § 5 DDG, vertreten durch Martin Schweppe (Geschäftsführer), E-Mail, HRB 432625 Amtsgericht Mannheim, USt-IdNr. DE209730809, verantwortlich nach § 18 Abs. 2 MStV, Hinweis zur Verbraucherstreitbeilegung (VSBG), Markenhinweis zu den Kundenlogos. Entfernt: Bildnachweis Higgsfield (kein Film mehr), Haftungs- und Urheberrechtsfloskeln. Kein Link zur OS-Plattform (EU hat sie am 20.07.2025 abgeschaltet).

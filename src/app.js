@@ -39,6 +39,7 @@
     document.documentElement.lang = lang;
     document.title = T[lang].title;
     $$('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+    $$('img[data-alt-de]').forEach((img) => { img.alt = lang === 'de' ? img.dataset.altDe : img.dataset.altEn; });
     const call = $('#call-btn');
     if (call) call.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(T[lang].call);
     $$('.field.invalid').forEach((field) => {
