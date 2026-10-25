@@ -7,9 +7,9 @@ Website der Grafitecture GmbH, Mannheim. One-Pager auf Deutsch und Englisch, sta
 ```
 public/        fertige Website, wird von Vercel so ausgeliefert (nicht von Hand bearbeiten)
 src/           Inhalt (body.html), Gestaltung (styles.css), Verhalten (app.js)
-assets/        Schrift, Logo, Kundenlogos, Icons, Vorschaubild für Links
+assets/        Schrift, Logo, Kundenlogos, Fotos, Hero-Film, Icons, Vorschaubild für Links
 build.py       baut public/ und vercel.json aus src/ und assets/
-tools/         Hilfsskripte für Kundenlogos und Icons (brauchen Pillow bzw. Playwright)
+tools/         Hilfsskripte für Kundenlogos, Icons und den Hero-Film (brauchen Pillow, Playwright bzw. ffmpeg)
 vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Sicherheits- und Cache-Header
 KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 ```
@@ -31,10 +31,11 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 
 ## Gestaltung
 
-- Farben: ausschließlich #435960 und Weiß (Kontrast 7,4 : 1). Hover und Fokus kehren die Farben um.
+- Farben: #435960 und Weiß (Kontrast 7,4 : 1), Akzent Lime #dafd55 für die Headline-Markierung und alle Mouse-over-Zustände. Auf Weiß liegt Lime immer hinter der Schrift (Textmarker), Schrift auf Lime ist #435960.
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
-- Kein Bild im Hero, große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
+- Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
+- Hero-Film in hellen Grautönen (`assets/hero`, aufbereitet mit `tools/hero_film.py`): nahtlose Schleife ohne Ton, mit Schalter zum Anhalten; bei „Bewegung reduzieren“ nur das Standbild.
 
 ## Sprache und Links
 

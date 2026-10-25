@@ -85,6 +85,49 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
+  /* ---------------- hero film ----------------
+     A very light, silent loop behind the hero type. It is only loaded when motion is welcome and data is not
+     scarce; otherwise the poster stays as a still image. The button pauses and resumes it (WCAG 2.2.2), and the
+     film also rests while the hero is out of view or the tab is hidden. */
+  const film = $('#hero-video');
+  const filmBtn = $('#film-btn');
+  if (film && filmBtn) {
+    const reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+    const saveData = !!(navigator.connection && navigator.connection.saveData);
+    let userPaused = false, inView = true, started = false;
+    const sync = () => {
+      filmBtn.classList.toggle('is-paused', userPaused);
+      if (!started) return;
+      if (!userPaused && inView && !document.hidden) {
+        const p = film.play();
+        // autoplay refused (e.g. iOS low-power mode): show "play", so a tap can start it
+        if (p && p.catch) p.catch(() => { userPaused = true; filmBtn.classList.add('is-paused'); });
+      } else {
+        film.pause();
+      }
+    };
+    const start = () => {
+      // H.264 MP4 (1920 px) where supported, otherwise the small VP9 WebM
+      const h264 = film.canPlayType('video/mp4; codecs="avc1.640028"');
+      film.src = h264 ? film.dataset.mp4 : film.dataset.webm;
+      film.muted = true;
+      started = true;
+      filmBtn.hidden = false;
+      film.addEventListener('error', () => { filmBtn.hidden = true; }, { once: true });
+      sync();
+    };
+    if (!reduce.matches && !saveData) {
+      filmBtn.addEventListener('click', () => { userPaused = !userPaused; sync(); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(film);
+      }
+      document.addEventListener('visibilitychange', sync);
+      if (reduce.addEventListener) reduce.addEventListener('change', () => { if (reduce.matches) { userPaused = true; sync(); } });
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start, { once: true });
+    }
+  }
+
   /* ---------------- mobile menu ---------------- */
   const menuBtn = $('#menu-btn');
   const panel = $('#menu-panel');

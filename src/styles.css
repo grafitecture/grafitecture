@@ -1,11 +1,18 @@
-/* Layout concept: quiet and plain. One colour (#435960) on white, one typeface (Google Sans) on a golden-ratio
-   scale, very large headlines and wide white space. No images; the only inversion is the footer with the white logo. */
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55, as a marker and for
+   every mouse-over), one typeface (Google Sans) on a golden-ratio scale, very large headlines and wide white space.
+   Images: a very light grey film behind the hero and two photos; the only dark area is the footer. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
-  --pink: #E0187A; /* H1 and every mouse-over on the whole page (Martin, 25.10.); 4.6:1 against white */
+  /* the accent (Martin, 25.10., replaces the pink): main headlines and every mouse-over on the whole page.
+     Lime type on white would only reach 1.2:1, so on white the lime is a marker band behind the letters and the
+     type stays #435960 (6.4:1 on lime). Buttons and the client-logo field fill lime with #435960 type.
+     Only on the dark footer does the type itself turn lime (6.4:1 on #435960). */
+  --lime: #dafd55;
+  --mark: .36em;   /* marker band: thickness ... */
+  --mark-o: -.3em; /* ... and offset from the underline position (negative = up into the letters) */
 
   --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
 
@@ -51,7 +58,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 img, svg { max-width: 100%; }
 a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
 a { transition: color .2s ease, text-decoration-color .2s ease; }
-a:hover { color: var(--pink); text-decoration-color: var(--pink); text-decoration-thickness: 2px; }
 ::selection { background: var(--c); color: var(--w); }
 :focus-visible { outline: 2px solid var(--c); outline-offset: 4px; }
 
@@ -91,7 +97,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .nav a { text-decoration: none; font-size: .9375rem; padding-block: 10px; border-bottom: 1px solid transparent; }
 .nav a { transition: color .2s ease, border-color .2s ease; }
 .nav a[aria-current="true"] { border-bottom-color: var(--c); }
-.nav a:hover { color: var(--pink); border-bottom-color: var(--pink); }
 .lang { display: inline-flex; gap: 4px; }
 .lang button {
   appearance: none; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--c); cursor: pointer;
@@ -133,10 +138,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   transition: background-color .3s ease, color .3s ease;
 }
 .btn svg { width: 22px; height: 10px; flex: none; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
-.btn:hover { background: var(--pink); border-color: var(--pink); color: var(--w); }
-.btn:hover svg { transform: translateX(5px); }
 .btn-line { background: transparent; color: var(--c); }
-.btn-line:hover { background: var(--pink); border-color: var(--pink); color: var(--w); }
 .btn-sm { min-height: 46px; padding: 0 20px; font-size: .9375rem; gap: 14px; }
 
 /* ---------- sections ---------- */
@@ -150,8 +152,12 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 
 /* ---------- hero (type only) ---------- */
 .hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
-/* all main headlines in pink (Martin, 25.10.): hero, section headlines, legal overlays */
-.hero h1, .sec-head h2, .legal-hd h2 { color: var(--pink); }
+/* all main headlines in the accent (Martin, 25.10.): hero, section headlines, legal overlays.
+   Type #435960 with a lime marker band behind the lower part of every line. */
+.hero h1, .sec-head h2, .legal-hd h2 {
+  text-decoration: underline var(--lime); text-decoration-thickness: var(--mark);
+  text-underline-offset: var(--mark-o); text-decoration-skip-ink: none;
+}
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
@@ -160,6 +166,41 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
 @media (min-width: 1100px) {
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
+}
+
+/* ---------- hero film (Martin, 25.10.): "AI with human in the loop" ----------
+   A hand rests on white paper; fine grey lines flow around the fingertip. Very light, greys only, silent,
+   seamless loop behind the type. Fades into the white page at the top and bottom edge. */
+.hero { position: relative; isolation: isolate; }
+.hero-film {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 62%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 62%, transparent);
+}
+.hero-film video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
+@media (max-width: 759px) {
+  /* small screens: the film is a band behind the top of the hero, so the scene stays whole and calm */
+  .hero-film {
+    bottom: auto; height: min(120vw, 560px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent);
+  }
+  .hero-film video { object-position: 75% 50%; }
+}
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.film-btn {
+  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
+  display: inline-flex; align-items: center; padding: 10px 0; margin: -10px 0;
+  font: 500 var(--small)/1.5 var(--font); letter-spacing: .16em; text-transform: uppercase;
+}
+.film-btn .if-on, .film-btn .if-off { display: inline-flex; align-items: center; gap: 10px; }
+.film-btn.is-paused .if-on, .film-btn:not(.is-paused) .if-off { display: none; }
+.film-btn svg { width: 8px; height: 10px; flex: none; }
+@media (max-width: 559px) {
+  /* icon only on small screens; the label stays for screen readers */
+  .film-btn { padding: 14px; margin: -14px -14px -14px 0; }
+  .film-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .film-btn svg { width: 10px; height: 12px; }
 }
 
 /* ---------- lists: services and process ---------- */
@@ -185,7 +226,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .about-side .photo, .sec-head-photo .photo { max-width: none; }
   .sec-head-photo { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: var(--s6); align-items: start; }
 }
-/* photos (Martin, 25.10.): shown as supplied, no frame, no rounding */
+/* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
 .photo { margin: 0; }
 .photo img { display: block; width: 100%; max-width: 100%; height: auto; }
 .facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--c); align-content: start; }
@@ -216,16 +257,14 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   min-height: clamp(84px, 6vw + 62px, 176px); padding: clamp(14px, 1.6vw, 30px);
 }
 .logos a { position: relative; display: grid; place-items: center; width: 100%; height: 100%; text-decoration: none; }
-/* hover: a smaller pink field behind the logo, logo turns white */
+/* hover: a smaller lime field behind the logo, the logo stays #435960 */
 .logos a::before {
-  content: ""; position: absolute; inset: 16% 12%; background: var(--pink);
+  content: ""; position: absolute; inset: 16% 12%; background: var(--lime);
   opacity: 0; transform: scale(.94); transition: opacity .25s ease, transform .25s ease;
 }
-.logos a:hover::before, .logos a:focus-visible::before { opacity: 1; transform: none; }
-.logos img { position: relative; display: block; width: calc(var(--w, 140) * var(--logo-k) * 1px); max-width: 40%; height: auto; transition: filter .25s ease; }
+.logos a:focus-visible::before { opacity: 1; transform: none; }
+.logos img { position: relative; display: block; width: calc(var(--w, 140) * var(--logo-k) * 1px); max-width: 40%; height: auto; }
 .logos .logo-txt { position: relative; font-size: var(--h6); line-height: 1.25; text-align: center; letter-spacing: -.01em; }
-.logos a:hover img, .logos a:focus-visible img { filter: brightness(0) invert(1); }
-.logos a:hover .logo-txt, .logos a:focus-visible .logo-txt { color: var(--w); }
 .logos a:focus-visible { outline: 2px solid var(--c); outline-offset: -4px; }
 @media (min-width: 760px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1100px) { .logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } .logos img { max-width: 50%; } }
@@ -241,7 +280,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   appearance: none; background: transparent; color: var(--c); border: 1px solid var(--c); cursor: pointer;
   font: 500 var(--small)/1 var(--font); letter-spacing: .16em; text-transform: uppercase; padding: 9px 11px;
 }
-.copy:hover { background: var(--pink); border-color: var(--pink); color: var(--w); }
 .fields { display: grid; gap: var(--s4); }
 .field { display: grid; gap: 8px; }
 .field input, .field textarea {
@@ -264,11 +302,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* ---------- footer (inverted) ---------- */
 .ftr { background: var(--c); color: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
 .ftr :focus-visible { outline-color: var(--w); }
-/* on the dark footer the text stays white and the underline turns pink, so it stays readable */
-/* e-mail, Impressum, Datenschutz: not underlined, the type turns pink on mouse-over (Martin, 25.10.) */
+/* e-mail, Impressum, Datenschutz: not underlined; on the dark footer the type itself turns lime on mouse-over
+   (rule at the end, with the other mouse-overs) */
 .ftr a { text-decoration: none; }
-.ftr a:hover { color: var(--pink); }
-.ftr .ftr-logo:hover svg g { fill: var(--pink); }
 /* same size as the header logo at every width */
 .ftr-logo { display: inline-flex; padding-block: 6px; margin-bottom: var(--s5); color: var(--w); }
 .ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
@@ -297,7 +333,6 @@ dialog.legal::backdrop { background: #435960; }
   appearance: none; border: 1px solid var(--c); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.x:hover { background: var(--pink); border-color: var(--pink); color: var(--w); }
 .legal-body h3 { margin: 34px 0 10px; }
 .legal-body h3:first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
@@ -307,16 +342,40 @@ dialog.legal::backdrop { background: #435960; }
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
 .btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 
-/* ---------- mouse-over: always pink (Martin, 25.10.) ---------- */
-.logo svg g { transition: fill .2s ease; }
-.logo:hover svg g { fill: var(--pink); }
-.lang button { transition: color .2s ease, border-color .2s ease; }
-.lang button:hover { color: var(--pink); border-bottom-color: var(--pink); }
-.menu-btn { transition: color .2s ease; }
-.menu-btn:hover { color: var(--pink); }
-.menu-panel a.m-link:hover { color: var(--pink); }
+/* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
+/* small type gets a relatively wider band, so the marker still reads as a marker and not as a line */
+.nav a, .lang button, .menu-btn, .film-btn, .menu-panel .m-legal a { --mark: .5em; --mark-o: -.42em; }
+/* header logo: the same marker band behind the lower part of the wordmark */
+.logo { position: relative; }
+.logo svg { position: relative; }
+.logo::before {
+  content: ""; position: absolute; left: -2px; right: -2px; bottom: 4px; height: 52%;
+  background: var(--lime); opacity: 0; transition: opacity .2s ease;
+}
+.lang button, .menu-btn, .film-btn { text-decoration: underline transparent; text-decoration-thickness: var(--mark); text-underline-offset: var(--mark-o); text-decoration-skip-ink: none; transition: text-decoration-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
+
+/* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
+@media (hover: hover) {
+  /* text links on white (nav, menu, e-mail, Impressum, Datenschutz): the lime marker band slides under the type,
+     which stays #435960 (underlines are painted below the text) */
+  .site a:hover {
+    color: var(--c); text-decoration-line: underline; text-decoration-color: var(--lime);
+    text-decoration-thickness: var(--mark); text-underline-offset: var(--mark-o); text-decoration-skip-ink: none;
+  }
+  /* links that are fields (buttons, logos) or sit on the dark footer get no marker */
+  .site :is(.btn, .logo, .logos a, .ftr a, .skip):hover { text-decoration: none; }
+  /* on the dark footer the type itself turns lime */
+  .site .ftr a:hover { color: var(--lime); }
+  .ftr .ftr-logo:hover svg g { fill: var(--lime); }
+  .logo:hover::before { opacity: 1; }
+  .lang button:hover, .menu-btn:hover, .film-btn:hover { text-decoration-color: var(--lime); }
+  /* buttons and the client-logo field fill lime, the type stays #435960 */
+  .btn:hover, .btn-line:hover, .copy:hover, .x:hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
+  .btn:hover svg { transform: translateX(5px); }
+  .logos a:hover::before { opacity: 1; transform: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   dialog.legal[open] { animation: none; }

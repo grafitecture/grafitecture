@@ -39,8 +39,15 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top" data-sec aria-labelledby="hero-title">
+  {{HERO_FILM}}
   <div class="wrap">
-    <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
+    <div class="hero-top">
+      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
+      <button type="button" class="film-btn" id="film-btn" hidden>
+        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1 1h2.6v10H1zM6.4 1H9v10H6.4z" fill="currentColor"/></svg><span class="lbl"><span lang="de">Film anhalten</span><span lang="en">Pause film</span></span></span>
+        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5 1v10l8-5z" fill="currentColor"/></svg><span class="lbl"><span lang="de">Film abspielen</span><span lang="en">Play film</span></span></span>
+      </button>
+    </div>
     <div>
       <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
       <div class="hero-foot">
@@ -249,6 +256,8 @@
       <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
       <h3 class="h6">Marken</h3>
       <p>Die gezeigten Kundenlogos sind Marken der jeweiligen Inhaber und dienen ausschließlich als Referenz.</p>
+      <h3 class="h6">Bildnachweis</h3>
+      <p>Der Film im Kopfbereich der Seite ist mit KI erzeugt (Higgsfield AI).</p>
     </div>
     <div class="legal-body" lang="en">
       <p class="note">English translation for convenience. The German version is legally binding.</p>
@@ -268,6 +277,8 @@
       <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
       <h3 class="h6">Trademarks</h3>
       <p>The client logos shown are trademarks of their respective owners and are used solely as references.</p>
+      <h3 class="h6">Image credits</h3>
+      <p>The film at the top of the page was generated with AI (Higgsfield AI).</p>
     </div>
   </div>
 </dialog>
