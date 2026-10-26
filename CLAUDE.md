@@ -9,6 +9,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Never edit `public/` by hand. Commit `public/` and `vercel.json` together with every source change.
 - `dist/artifact/index.html` is the claude.ai artifact preview (font and client logos inlined, no mailto form action). It is not committed.
 - Vercel project `grafitecture` is linked to this repository; pushing to `main` deploys to production (https://grafitecture.vercel.app, behind Vercel Authentication). The domain grafitecture.de is not connected yet; only connect it after Martin confirms.
+- Privacy set-up after the note by Sebastian Enders (26.10.2026): `vercel.json` pins the function region to Frankfurt (`"regions": ["fra1"]`, set in `vercel_config()` in build.py; the site has no functions, static files come from the nearest CDN location). The team must stay on Vercel Pro (the DPA covers Pro and Enterprise; Hobby is non-commercial only). Keep Vercel Web Analytics and Speed Insights off; adding them or any other Vercel feature that loads a script needs the privacy policy updated first.
 
 ## Design rules (set by Martin, binding)
 

@@ -39,11 +39,19 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Impressum:** § 5 DDG, vertreten durch Martin Schweppe (Geschäftsführer), E-Mail, HRB 432625 Amtsgericht Mannheim, USt-IdNr. DE209730809, verantwortlich nach § 18 Abs. 2 MStV, Hinweis zur Verbraucherstreitbeilegung (VSBG), Markenhinweis zu den Kundenlogos. Entfernt: Haftungs- und Urheberrechtsfloskeln. Kein Link zur OS-Plattform (EU hat sie am 20.07.2025 abgeschaltet).
 - **Wirtschafts-Identifikationsnummer:** ab Dezember 2026 Pflichtangabe, aber nur wenn keine USt-IdNr. angegeben ist. Die USt-IdNr. steht drin, damit ist das erfüllt.
 - **Datenschutz, gekürzt auf 5 Punkte:** 1. Verantwortlicher. 2. Hosting bei Vercel Inc. (Logdaten, Art. 6 Abs. 1 lit. f, AV-Vertrag Art. 28, USA über EU-US Data Privacy Framework Art. 45 und Standardvertragsklauseln Art. 46). 3. Kontakt per E-Mail (Formular öffnet nur das Mailprogramm). 4. Keine Cookies, kein Tracking, keine Drittanbieter. 5. Rechte und Beschwerde beim LfDI Baden-Württemberg.
+- **Cookie-Banner:** nicht nötig (§ 25 TDDDG). Die Seite setzt keine Cookies, speichert nichts im Browser und lädt nur von der eigenen Domain.
+
+### Prüfung Hosting und Datenschutz (26.10.2026, Anmerkung von Sebastian Enders)
+
+- **US-Anbieter in der Datenschutzerklärung:** war schon erledigt. Punkt 2 nennt Vercel Inc. mit US-Anschrift, die Logdaten, die Rechtsgrundlage, den AV-Vertrag und die Übermittlung in die USA (Data Privacy Framework, Art. 45, und Standardvertragsklauseln, Art. 46).
+- **AV-Vertrag (DPA):** Vercels DPA gilt für Kunden im Pro- und Enterprise-Tarif und wird mit den Vertragsbedingungen wirksam, ohne Unterschrift (Fassung vom 17.03.2026, gültig ab 31.03.2026, mit den EU-Standardvertragsklauseln). Der kostenlose Hobby-Tarif ist nur für nicht-kommerzielle Nutzung; die Seite braucht Pro. Empfehlung: DPA als PDF zu den Unterlagen legen (vercel.com/legal/dpa).
+- **Function Region:** seit 26.10. Frankfurt (`fra1`), festgelegt in `vercel.json` (`regions`). Die Seite hat keine Functions; die statischen Dateien liefert Vercels CDN vom Standort aus, der dem Besucher am nächsten ist.
+- **Vercel Web Analytics, Speed Insights:** auf der Seite nicht eingebunden (kein Skript, keine Cookies, kein Speicher im Browser, nur Anfragen an die eigene Domain; geprüft). Die Content-Security-Policy lässt keine fremden Quellen zu.
 
 ### Technik
 
 - Favicon, Apple-Touch-Icon und OG-Bild (1200 × 630) aus der Wortmarke, nur zwei Farben (`tools/render_assets.py`).
-- `vercel.json`: Content-Security-Policy (nur eigene Domain), X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy; `/assets` ein Jahr cachebar, URLs mit Inhalts-Hash (`?v=…`), damit Änderungen trotzdem sofort ankommen.
+- `vercel.json`: Content-Security-Policy (nur eigene Domain), X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy; `/assets` ein Jahr cachebar, URLs mit Inhalts-Hash (`?v=…`), damit Änderungen trotzdem sofort ankommen. Function Region Frankfurt (`regions: ["fra1"]`).
 - Kontaktformular: prüft Eingaben, öffnet das Mailprogramm mit vorbereiteter Nachricht und zeigt sie zusätzlich zum Kopieren. Ohne JavaScript öffnet es ebenfalls nur das Mailprogramm; nichts wird an einen Server geschickt.
 - Geprüft mit Playwright bei 1920, 1512, 820 und 390 px, DE und EN: keine Konsolen- oder CSP-Fehler, kein horizontales Scrollen, nur #435960, Weiß und Lime im Einsatz, Menü, Overlays, Deep-Links und Formular funktionieren.
 
@@ -66,6 +74,7 @@ Konzept „Planmappe“ mit Papierstadt-Animation, Big Shoulders/Archivo/Martian
 - Übernommene Zusagen bestätigen: kostenloses 30-Minuten-Strategiegespräch, Antwort in der Regel innerhalb von 24 Stunden.
 - Kundenlogo Zahnarztpraxis Theurer: In der weißen Vorlage überlagert der Zahn die Schrift. Bei Bedarf eine bessere Vorlage in den Ordner legen.
 - Mit dem Livegang wird die alte Datenschutzerklärung auf grafitecture.de ersetzt (sie nennt eine fremde Firma, „Dots United GmbH“).
+- Im Vercel-Dashboard bestätigen: Team „grafitecture“ im Pro-Tarif, Web Analytics und Speed Insights im Projekt aus.
 
 ## Build und Pflege
 

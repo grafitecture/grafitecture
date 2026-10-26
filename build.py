@@ -246,6 +246,9 @@ def vercel_config() -> dict:
         "framework": None,
         "outputDirectory": "public",
         "cleanUrls": True,
+        # Vercel Functions would run in Frankfurt (privacy note by S. Enders, 26.10.2026).
+        # The site has no functions; the static files are served by the CDN closest to the visitor.
+        "regions": ["fra1"],
         "headers": [
             {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
             {"source": "/(.*)", "headers": [

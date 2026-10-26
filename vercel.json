@@ -3,6 +3,9 @@
   "framework": null,
   "outputDirectory": "public",
   "cleanUrls": true,
+  "regions": [
+    "fra1"
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

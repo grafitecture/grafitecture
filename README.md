@@ -10,7 +10,7 @@ src/           Inhalt (body.html), Gestaltung (styles.css), Verhalten (app.js)
 assets/        Schrift, Logo, Kundenlogos, Fotos, Icons, Vorschaubild für Links
 build.py       baut public/ und vercel.json aus src/ und assets/
 tools/         Hilfsskripte für Kundenlogos und Icons (brauchen Pillow bzw. Playwright)
-vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Sicherheits- und Cache-Header
+vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Function Region Frankfurt, Sicherheits- und Cache-Header
 KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 ```
 
@@ -26,6 +26,7 @@ KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 2. Das Projekt im Pro-Team anlegen. Der Hobby-Tarif ist nur für nicht-kommerzielle Nutzung, und Vercels Auftragsverarbeitungsvertrag, auf den die Datenschutzerklärung verweist, gilt für Pro.
 3. Unter „Settings → Domains“ `grafitecture.de` und `www.grafitecture.de` hinzufügen und die angezeigten DNS-Einträge beim Domain-Anbieter setzen.
 4. Web Analytics und Speed Insights ausgeschaltet lassen. Wer sie einschaltet, muss die Datenschutzerklärung ergänzen.
+5. Die Function Region steht in `vercel.json` auf Frankfurt (`fra1`) und muss im Dashboard nicht eingestellt werden. Die Seite hat keine Functions; die statischen Dateien kommen vom nächstgelegenen CDN-Standort.
 
 Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vorschau-Deployments kann sie die Vercel-Toolbar blockieren; die Live-Seite ist davon nicht betroffen.
 
