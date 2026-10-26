@@ -13,7 +13,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 ## Design rules (set by Martin, binding)
 
 - Colours: #435960 and #FFFFFF, plus one accent, lime #dafd55 (`--lime`, Martin 25.10., replaced the earlier pink). No tints, no opacity-based colours. Exception: the two colour photos.
-- Lime fields (#dafd55, full width) with #435960 type, lines and logo: the hero and the footer (Martin 25.10.), the process section „So läuft’s“ and the contact section „Bereit?“ (Martin 26.10.). They carry the class `is-lime`; the contact field runs straight into the lime footer. No image and no animation in the hero; the header stays white. The figures section after „So läuft’s“ has its normal top padding again (no `flush`), since the colour change separates them.
+- Lime fields (#dafd55, full width) with #435960 type, lines and logo: the hero and the footer (Martin 25.10.), the process section „So läuft’s“ and the contact section „Bereit?“ (Martin 26.10.). They carry the class `is-lime`; the contact field runs straight into the lime footer. No image and no animation in the hero; the header stays white. The figures section (26 / 27 / 24/7) was removed on 26.10.; „Referenzen“ follows „So läuft’s“ with its normal top padding.
 - The accent is always the full tone #dafd55: never a darker or lighter variant, no tint, no transparency. Text on a lime field is always #435960 (6.4:1), never white.
 - Nothing is put behind type or logos (Martin 25.10.): no marker, no underlay. Martin chose lime type knowing it is only 1.2:1 on white.
 - All main headlines are #435960 like the rest of the type (hero H1, the section headlines, the Impressum/Datenschutz titles; Martin 25.10., after trying pink and lime). Now and then a lime wave runs through the headlines on white (sections and Impressum/Datenschutz; not those on lime fields, where it would not show): `app.js` adds `.is-waving` for one 2.4 s pass, first 0.7 s after a headline comes into view, then every 8–14 s while it stays there; never with reduced motion or forced colours. The wave is a gradient clipped to the letters of the inline spans (mostly the full #dafd55, short soft edges); outside a pass the type is plain #435960.
@@ -31,7 +31,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 ## Content rules
 
 - Every visible text exists twice: `<span lang="de">…</span><span lang="en">…</span>`.
-- `body.html` placeholders filled by build.py: `{{LOGO_DARK}}`, `{{LOGO_WHITE}}`, `{{ARROW}}`, `{{CLIENTS}}`, `{{CLIENT_COUNT}}`, `{{IMG_PORTRAIT}}`, `{{IMG_DOOR}}`. Client names, order and links: `CLIENTS` in build.py.
+- `body.html` placeholders filled by build.py: `{{LOGO_DARK}}`, `{{LOGO_WHITE}}`, `{{ARROW}}`, `{{CLIENTS}}`, `{{CLIENT_COUNT}}` (currently unused), `{{IMG_PORTRAIT}}`, `{{IMG_DOOR}}`. Client names, order and links: `CLIENTS` in build.py.
 - Impressum and Datenschutz are dialogs in body.html (status October 2026: § 5 DDG, § 18 Abs. 2 MStV, hosting Vercel). Keep the privacy policy short, and update it whenever a cookie, analytics, external font or other third-party service is added.
 - No cookies, no tracking, no third-party requests; the CSP in vercel.json allows only 'self'.
 

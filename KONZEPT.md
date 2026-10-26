@@ -14,7 +14,7 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Logo:** `LOGO_GT_2026.svg` im Kopf und im Footer (der Footer ist seit 25.10. Lime, das weiße Logo wird nicht mehr gebraucht), immer genauso groß wie das Logo im Kopf. Aus dem A4-Artboard auf die Wortmarke zugeschnitten (ohne „tinytecture“), inline eingebunden.
 - **Kundenlogos:** aus `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS` (27 Logos, weiß auf transparent). Umgefärbt in #435960, auf das Logo zugeschnitten, halbtransparente Teile (z. B. „.com“ bei flaeshapp) auf volle Deckkraft gebracht. Größen optisch ausgeglichen (gleiche Fläche, leichte Korrektur nach Schwärzung) und auf Martins Wunsch auf die Hälfte verkleinert, Raster 2/3/5 Spalten ohne Zellrahmen. Verlinkt, wo eine Website bekannt ist.
 - **Stadtplan-Gedanke verworfen:** keine Blattnummern, kein Grundriss, kein Bauzeitenplan, keine Maßlinien, kein Siegel, kein Nordpfeil.
-- **Gestaltung:** ruhig und einfach. Große Weißflächen (Abstand zwischen Abschnitten bis 17.942rem), große Headlines (h2 bis 11.089rem), Listen nur mit feinen Linien. Ablauf als nummerierte Schritte 01–05, Kennzahlen 26 / 27 / 24/7.
+- **Gestaltung:** ruhig und einfach. Große Weißflächen (Abstand zwischen Abschnitten bis 17.942rem), große Headlines (h2 bis 11.089rem), Listen nur mit feinen Linien. Ablauf als nummerierte Schritte 01–05.
 - **Schrift und Skala** unverändert aus V2: Google Sans, Goldener Schnitt mit clamp (h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem).
 
 ### Nachträge 25.10.2026
@@ -31,6 +31,8 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Hero und Footer in Lime (25.10.):** Beide Bereiche sind jetzt Flächen im vollen #dafd55, Schrift, Linien und Logo in #435960 (6,4 : 1). Kein Bild und keine Animation im Hero; der Hero-Film (erst die Hand auf Papier, dann die Collage mit Pantone-Chips) ist entfernt, er liegt in der Git-Historie. Im Footer jetzt das dunkle Logo. Mouse-over auf den Lime-Flächen: Schrift und Footer-Logo werden weiß, die Hero-Buttons füllen sich weiß mit Schrift in #435960. Der Bildnachweis im Impressum ist mit dem Film entfallen.
 
 - **„So läuft’s“ und „Bereit?“ in Lime (26.10.):** Beide Abschnitte haben jetzt vollflächig den Hintergrund #dafd55 wie Hero und Footer; Schrift und Linien #435960. „Bereit?“ geht nahtlos in den Lime-Footer über. Mouse-over dort wie im Hero: Schrift weiß, Buttons füllen sich weiß. Die Farbwelle läuft nur noch durch die Headlines auf Weiß.
+
+- **Kennzahlen entfernt (26.10.):** Der Block „26 Jahre Gestaltung / 27 Referenzen / 24/7 Autonomer Betrieb“ ist raus. Auf „So läuft’s“ (Lime) folgen direkt die Referenzen auf Weiß.
 
 ### Rechtstexte (Stand Oktober 2026)
 
