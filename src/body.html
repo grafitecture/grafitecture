@@ -40,9 +40,18 @@
 <!-- ===================== HERO ===================== -->
 <section class="hero is-lime" id="top" data-sec aria-labelledby="hero-title">
   <div class="wrap">
-    <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
+    <div class="hero-top">
+      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
+      <button type="button" class="art-btn" id="art-btn" hidden>
+        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl"><span lang="de">Animation anhalten</span><span lang="en">Pause animation</span></span></span>
+        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="lbl"><span lang="de">Animation abspielen</span><span lang="en">Play animation</span></span></span>
+      </button>
+    </div>
     <div>
-      <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
+      <div class="hero-head">
+        <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
+        {{HERO_ART}}
+      </div>
       <div class="hero-foot">
         <p class="h4"><span lang="de">Ich baue KI-Systeme, die für Ihre Marke arbeiten.</span><span lang="en">I build AI systems that work for your brand.</span></p>
         <div class="hero-side">

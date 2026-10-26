@@ -12,6 +12,7 @@ Placeholders in src/body.html:
    {{CLIENTS}} {{CLIENT_COUNT}}  reference list, see CLIENTS below. A client shows its logo when
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
    {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
+   {{HERO_ART}}                  hero line animation: still of the last drawing, see HERO_LINES below
 """
 import base64, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
 
@@ -201,11 +202,39 @@ def natural_size_jpeg(f: pathlib.Path):
     raise ValueError(f"no SOF in {f}")
 
 
+# hero line animation (Martin, 26.10.2026): drawings made with Nano Banana Pro on Higgsfield AI, traced to 1-px centre
+# lines by tools/hero_lines.py into assets/hero/lines.json. The page carries the last drawing as an inline SVG still;
+# app.js loads the file and animates all twelve on a canvas.
+HERO_LINES = ASSETS / "hero" / "lines.json"
+HERO_LABEL = ("Linienzeichnungen zur Geschichte der Technik: Feuer, Rad, Buchdruck, Entdecker, Dampfmaschine, "
+              "Eisenbahn, Glühbirne, Flugzeug, Rakete, Internet, KI und fliegendes Auto",
+              "Line drawings of the history of technology: fire, wheel, printing press, explorers, steam engine, "
+              "railway, light bulb, aeroplane, rocket, internet, AI and flying car")
+
+
+def hero_art_html(mode: str) -> str:
+    data = json.loads(HERO_LINES.read_text())
+    last = data["scenes"][-1]
+    still = (f'<svg class="hero-still" viewBox="0 0 {data["w"]} {data["h"]}" aria-hidden="true" focusable="false">'
+             + "".join(f'<path d="{d}"/>' for d in last["d"]) + "</svg>")
+    de, en = (html.escape(t) for t in HERO_LABEL)
+    if mode == "inline":
+        src, extra = "", ('<script type="application/json" id="hero-lines">'
+                          + json.dumps(data, separators=(",", ":")) + "</script>")
+    else:
+        rel = "assets/hero/lines.json"
+        src = f' data-src="{versioned(rel) if mode == "deploy" else rel}"'
+        extra = ""
+    return (f'<div class="hero-art" id="hero-art" role="img" aria-label="{de}" data-label-de="{de}" '
+            f'data-label-en="{en}"{src}>{still}</div>{extra}')
+
+
 def render_body(mode: str) -> str:
     body = (SRC / "body.html").read_text()
     body = (body.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
                 .replace("{{LOGO_WHITE}}", inline_logo("grafitecture-white.svg"))
                 .replace("{{ARROW}}", ARROW)
+                .replace("{{HERO_ART}}", hero_art_html(mode))
                 .replace("{{CLIENTS}}", clients_html(mode))
                 .replace("{{CLIENT_COUNT}}", str(len(CLIENTS))))
     for key in PHOTOS:
@@ -269,6 +298,8 @@ def build_deploy():
     (out / "assets").mkdir(parents=True)
     for sub in ("fonts", "logo", "og", "photos"):
         shutil.copytree(ASSETS / sub, out / "assets" / sub)
+    (out / "assets" / "hero").mkdir()
+    shutil.copy(HERO_LINES, out / "assets" / "hero" / HERO_LINES.name)   # not the source drawings
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
