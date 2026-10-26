@@ -209,34 +209,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
-/* ---------- hero: line animation (Martin, 26.10.) ----------
-   Only lines: 1 px, #435960, transparent on the lime field, nothing behind the type. Next to the H1 from 900 px
-   and on phones held sideways, otherwise above it. The still (last drawing, inline SVG) shows without JavaScript
-   and with reduced motion; app.js draws the animation on a canvas in the same box. */
-.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.hero-head { display: grid; gap: var(--s4); }
-.hero-art { position: relative; order: -1; width: min(100%, 77.5svh); aspect-ratio: 5 / 4; color: var(--c); }
-.hero-art > svg, .hero-art > canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.hero-still { fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
-.hero-still path { vector-effect: non-scaling-stroke; }
-@media (min-width: 900px), (min-width: 600px) and (orientation: landscape) {
-  .hero-head { grid-template-columns: max-content minmax(0, 1fr); align-items: center; column-gap: var(--s5); }
-  .hero-art { order: 0; width: 100%; max-height: 72svh; }
-}
-.art-btn {
-  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
-  display: inline-flex; align-items: center; padding: 10px 0; margin: -10px 0;
-  font: 500 var(--small)/1.5 var(--font); letter-spacing: .16em; text-transform: uppercase;
-}
-.art-btn .if-on, .art-btn .if-off { display: inline-flex; align-items: center; gap: 10px; }
-.art-btn.is-paused .if-on, .art-btn:not(.is-paused) .if-off { display: none; }
-.art-btn svg { width: 10px; height: 12px; flex: none; }
-@media (max-width: 559px) {
-  /* icon only on small screens; the label stays for screen readers */
-  .art-btn { padding: 14px; margin: -14px -14px -14px 0; }
-  .art-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-}
-
 /* ---------- lists: services and process ---------- */
 .rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--c); }
 .row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--c); }
@@ -370,7 +342,7 @@ dialog.legal::backdrop { background: #435960; }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .art-btn { transition: color .2s ease, border-color .2s ease; }
+.lang button, .menu-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
@@ -388,7 +360,7 @@ dialog.legal::backdrop { background: #435960; }
   .site .logos a:hover { color: var(--c); }
   /* on the lime fields (hero, process, contact, footer) lime would not show: there the type and the footer logo
      turn white, and buttons fill white with #435960 type */
-  .site .is-lime a:hover, .is-lime .art-btn:hover { color: var(--w); text-decoration-color: var(--w); }
+  .site .is-lime a:hover { color: var(--w); text-decoration-color: var(--w); }
   .is-lime .ftr-logo:hover svg g { fill: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }
@@ -443,18 +415,9 @@ dialog.legal::backdrop { background: #435960; }
 <!-- ===================== HERO ===================== -->
 <section class="hero is-lime" id="top" data-sec aria-labelledby="hero-title">
   <div class="wrap">
-    <div class="hero-top">
-      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
-      <button type="button" class="art-btn" id="art-btn" hidden>
-        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl"><span lang="de">Animation anhalten</span><span lang="en">Pause animation</span></span></span>
-        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="lbl"><span lang="de">Animation abspielen</span><span lang="en">Play animation</span></span></span>
-      </button>
-    </div>
+    <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
     <div>
-      <div class="hero-head">
-        <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
-        <div class="hero-art" id="hero-art" role="img" aria-label="Linienzeichnungen zur Geschichte der Technik: Feuer, Rad, Buchdruck, Entdecker, Dampfmaschine, Eisenbahn, Glühbirne, Flugzeug, Rakete, Internet, KI und fliegendes Auto" data-label-de="Linienzeichnungen zur Geschichte der Technik: Feuer, Rad, Buchdruck, Entdecker, Dampfmaschine, Eisenbahn, Glühbirne, Flugzeug, Rakete, Internet, KI und fliegendes Auto" data-label-en="Line drawings of the history of technology: fire, wheel, printing press, explorers, steam engine, railway, light bulb, aeroplane, rocket, internet, AI and flying car" data-src="assets/hero/lines.json?v=d0c41b77c8"><svg class="hero-still" viewBox="0 0 1000 800" aria-hidden="true" focusable="false"><path d="M103.7 449.5l550.6 98.2"/><path d="M250.5 393.2l1.2-3.2 2.5-3.3 5.7-5.1 4.8-2.9 9-2.5 9.1 0 7.6 1.6 7.6 2.6 9.5 5.5 5.3 4.1 9.9 10 8.3 12.4 5.4 11.4 4.8 13.4 5.1 25.7 2.7 3.8 3.3 1.7 4.8 1.1 14.8 1.5 22.8 .9 27.7 2.5 27.1 3.8 133.9 25.7 30.9 7.1 20 6 5.1 1"/><path d="M585.7 447.2l-11.9-4.2-66.2-19.5-31.4-8.6-38.6-9.1-28.1-4.8-4.8-.5-13.3 0-3.8 1.6-1.4 1.7-.5 3.3 .6 2.5 3.8 7.1 5.3 7.6 9.3 11.4 7.2 7.2 6.2 5 6.6 4.3 8.1 4.3 21 7.2 27.6 7.1 120.5 26.4"/><path d="M584.8 399.3l-26.8-40.3-1.8-5.7 .2-1.9 1.4-2.4 3.7-2.8 3.3-1.8 29.5-12.4 23.8-11.9 22-12.2 14.7-9.6 2.9-.1 5.7 2.6 16.7 9.3 29.5 17.8 2.9 .9 8.5 6.5 3 3.7 .3 5.3-1.7 4.3-5 6.6-4.7 4.3-9.5 7-7.6 4.8-7.6 4.3-13.4 6.4-20 7.8-14.7 4.3-11.5 2.5-16.7 2.4-8 .5-19.1-.2"/><path d="M649.3 472.6l-.2-2.1 2.6-5.7 5.1-7.2 5.2-5.2 3.8-3.2 4.3-2.6 9.5-4 9.5-2.1 13.4-.5 10 1.5 6.2 1.5 11.4 4.3 9 5.1 8.1 6.2 7.1 7.1 4.7 5.8 6.2 9 6.2 11.9 3.6 11.5 2.7 11.9 2.6 20.4 2.2 2.7 4.3 1.1 17.1 .1 22.4 1.4 24.8-.5 18.1-2.4 31.9-7.3 14.8-4.1 4.7-2.6 20.6-18.9 6.6-8.5"/><path d="M473.5 281.7l-.7-1-2.3-.7-23.9-2.4-17.6 0-23.3 2.4-37.7 7-27.1 3.5-10 2.4-21.5 6.7-28.5 11.7-17.2 8.6-15.7 9.3-6.2 4.6-3.8 3.8-1.7 1.9-1.5 2.9-1.6 8.1 .2 2.8 1.4 2.9 10.9 14.3 4.2 4.7 5.7 5.3"/><path d="M712.9 443.8l-4.4 10.5-3.2 5.5-21.4 1.7-10.5 1.9-7.6 2-7.2 2.6-9.3 4.8-7.3 6.8-2.3 4.2-2 6.2-1 5.3 0 9.5 1 6.2 2 6.9 2.7 5.5 3.4 3.8 6.2 4.4 9 4 11 3.5 12.4 2.3 10 1 16.2 0 18.1-2.4 6.6-1.5 10.5-3.4 8.6-4 5.2-3.5 1.8-1.4 2.8-4.2 3.7-9.6 1.9-2.8 3.6-3.8 1.5-.5"/><path d="M286.6 333.3l7.6-.5 43.8-8 24.3-3.8 43.9-5.7 12.8-.4 4.3-.6 3.8 .4 31.9 .6 4.3 1 2.4 1.2 4.8 4.1 3.3 .4 3.8 1.8 3.7 4.7 5.3 10.5 2.5 3.4 4.7 3.6 9.1 5.1 4.6 4.1 1.9 3.8 1.1 6.2-.1 3.4-2.2 11.9-.1 2.8"/><path d="M712.9 329l4.8-.4 9.1 .9 20.9 1 36.7 2.8 20 2.4 26.8 4.9 3.7 1.2 2.4 .1 3.3 1.6 16.2 5.2 11.7 4.7 6.9 3.8 3.3 1.1 1.9 1.8 7.1 3.9 25.3 18.6 7.6 6.5 3.9 3.9 5.2 8 8.1 8.9 8.6 4.5 1.9 .2"/><path d="M125.1 252.3l203.4 15.3 56.2 4.7"/><path d="M296.7 331.7l-1.4-2.2 1.8-2.7 4.7-3.3 14.3-7.7 25.3-10.4 14.7-4.8 10-2.5 59.6-10 31.4-4.3 15.3-1.5 2.8-.9 4.8 .5 16.7-1 27.1 .1 7.2 .9 2.3 .8 3.3 3 .9 2.3"/><path d="M657.9 491.9l-4-2.4-2.2-2.3-1.1-2.4 0-2.9 .8-1.9 4.4-4.7 5.2-3.2 6.2-2.4 9.5-2.5 12.4-1.9 6.2-.5 18.1 0 12.9 1.5 7.6 1.5 7.6 2.4 6.2 2.9 5.2 4.1 1.9 4.3-.1 2.3-1.8 3.9-2.8 2.6-4.3 2.4-7.6 2.9-9.1 2.4-12.8 2-6.2 .5-6.7-.5-8.6 .5-10.4-1-6.2-.9-10-2.5-8.1-2.9-2.2-1.3"/><path d="M295.3 379.8l-2.3 2.6-1.9 3.8-1.2 .9-20.9 2-18.4 4.4-14 6.9-4.8 4.4-3.2 4.3-1.5 3.8-1 4.7 0 10 .5 4.3 1.5 5.7 3.9 7.7 3.1 3.2 4.8 3 4.8 2.2 9.5 2.8 17.6 2.6 18.1 0 13.4-1.5 16.2-3.5 9-3.3 5.7-2.8 8-5.3"/><path d="M16 285.7l52.9 4.8 173.4 17.6"/><path d="M419 315.2l-6.2 4.3-3.3 3.3-1.1 1.9-.3 3.8 2 8.1 4.6 9.1 8.6 10.9 7.6 6.6 10 6.2 9.1 3.8 16.7 5.2 17.6 4.8 17.6 3.9 26.7 5.2 31.4 4.8 18.1 1.9 4.3 0 1.4-.4"/><path d="M425.8 314.9l-8.2 4.8-5.2 4.6-.5 1.4 0 3.3 .6 3.4 1.4 4.2 2.6 5.3 6.4 9 8.5 8.6 9.5 6.3 10 4.5 11.5 3.8 33.3 8.7 23.8 4.8 20 3.3 24.3 3.3 17.2 1.5"/><path d="M945.4 494.8l-2.4-.5-3.3 .6-15 3.6-33.1 6.4-11.5 3.4-8 4.3-11 7.1-13.7 10.8-.3 1 .7 .9 2.8 1.3 10 1.1 12.4-1.5 30.5-6.3 10-2.8 3.8-1.9 6.2-4.7 11-9.9"/><path d="M676.7 404.3l4.3 0 13.8 1.5 25.3 3.8 24.8 4.7 22.3 5.4 21.5 6.2 25.2 8.6 22.4 8.5 28.6 12.3"/><path d="M979.2 477.6l-6.2 3.2-11.4 3.8-17.1 4.3-43.9 8.7-18.1 2.4-8.1 .5-20.5 0-8.5-.5-34.3-3.4-19.6-2.8"/><path d="M314.2 391.9l-1.4 .5-11.4-1.9-13.9-.5-14.3 1.5-13.8 2.8-9.5 3.2-5.2 2.7-3.8 2.7-3.2 4.2-.1 2 .9 1.9 2.8 2.8 2.4 1.3 10.5 3.4 12.9 2 16.1 .4 15.8-1.4 15.7-3.5 8.1-3 6-3.6"/><path d="M532.4 376.2l-18.4-44.8-2-6.7 0-9.5 2-10.5 2.4-9 1.4-2.9 2.2-2.3 6.2-3.7 3.3-1.1 2.4 0 1.9 .3 4.5 2.6 4.1 1 2.4 1.4 4.1 5.6 5.1 9.1 2.2 2.8 3.3 2.7 9.6 6.1 3.5 3.6 1.7 4.8 .1 9 .6 1.9 1.2 1.5"/><path d="M434.3 407.6l.8 2.9 5.7 11.4 9.3 14.8 7 9 4.8 4.7 2.4 1.6 7.1 3.6 17.6 5.7 93.4 25.9"/><path d="M37 356.2l20 2.4 151 21.9"/><path d="M593.8 406.7l28.2 .9 32.3 2.4 18.6 2 23.8 3.3 20.5 3.8 14.3 3.5 16.2 4.7 15.3 5.6"/><path d="M752.5 342.8l19 6.5 25.8 8 36.2 13.8 24.7 11.2 19.1 9.5 31.4 16.8"/><path d="M244.2 346.2l2.4 .4 8.5 0 10.5-.9 18.6 0 19.1 2 11.4 1.9 28.1 7.2 57.2 18.9"/><path d="M63.2 423.3l157.2 27.7"/><path d="M925.8 394.6l2.9 1.3 10.5 8.9 11.4 10.9 2.7 3.4 14 20.4 8 12.9 6.4 11.9 2.2 6.7-.1 3.3-2.2 4.3-3.3 4.3-11.4 10.9-8.1 5.4-14.3 5.9-2.4 0"/><path d="M93.6 305.7l127.2 12.8"/><path d="M831.9 340.6l2.5-1.4 11-2 10.9-1 11 0 10.5 1 8.5 1.4 10.5 2.8 8.1 3.5 2.9 1.8 4.1 4.2 3 8.6 1 5.7 0 6.7-1.6 7.6-1.3 2.9"/><path d="M488.6 287.6l-17.2 0-30.9 2.4-31.5 3.8-35.2 5.7"/><path d="M718.7 339.5l-.7 2.9-1.7 3.8-2.5 3.3-5.6 5.7-7.2 6-12.4 8.1-20 10.6-10.9 4.7-18.6 6.7-16.2 3.9"/><path d="M652.4 452.9l4.8-4.7 6.2-4.7 5.2-3.1 7.2-3.1 6.7-2 8.1-1.4 11.4-.5 13.3 2 14.3 5 11.9 6.3 11.5 9"/><path d="M541 290.9l-2.9 .7-4.3 2.3-1.7 1.8-1 1.9-1.1 10.9-.4 27.7 1.5 5.2 1.9 3.3 15.4 18.1 4.3 6.2 9.2 15.8"/><path d="M774.9 441l27.6 15.7 8.1 5.8 12.9 10.7 4.7 2.9 37.7 11.4 4.3 1 1.1-.1"/><path d="M776.8 440.5l7.6 1.6 7.6 2.4 30.5 12.6 14.3 6.9 9.1 5.2 16.1 11 6.7 5.1 2.6 3.1"/><path d="M378 301.9l29.6 3.2 50.5 4.4 24.3 3.3"/><path d="M537.5 288l-8.9 5.8-2.7 3.8-.6 2.8-.1 15.3-1.4 12.4 0 9.5 1.1 4.8 4.5 9.5 10.4 28.6 .1 1.2"/><path d="M659.6 304.2l24.3 16.9 4.2 3.6 .6 .9-.6 .5-58.5-8.5"/><path d="M838.5 342.2l1.6-1.2 6.2-1 5.3-.5 15.7 0 13.8 1.5 15.2 4.1 4.8 2.7 1.7 1.7 1.1 2.4-.3 3.3-1.5 2.3-2.4 1.6-10 3.4-1.9 1.3"/><path d="M584.8 399.5l-.5 1.5 .4 4.7 3.9 15.3 1.4 11.9-1.4 15.2 0 33.4-1.4 4.2"/><path d="M924.8 498.8l-.4 1.7-4.2 4.2-12.9 9.9-7.1 4.3-12.4 3.8-16.7 3.5-16.7 2.8-4-.3"/><path d="M324.7 338.5l17.1 4.5 19.1 6.7 14.3 5.9 26.2 13.4"/><path d="M637.7 337.1l-12.4-.9-14.8 .5-11.9 1.5-1.9 .9-1.1 1.4 .3 1.9 2.4 4.7 2.3 3.3 1.3 1.1 5.8 1.3 20 2.9"/><path d="M623.9 320l60.9 9 20 2.4"/><path d="M547.2 514.8l29 4.8 51 9.5"/><path d="M660.5 344.3l-.4-1 .4-7.1-1-4.3-3.2-3.7-2.9-.6-3.3 .6-3.4 1.9-4.3 3.7-3.6 4.3-4.6 7.1-2.6 5.7-2.3 7.2-1.1 6.6 0 5.3 .9 3.8 1.4 1.9"/><path d="M578.6 341.4l3.3 4.3 7.1 7.1 6.1 9.6 1.4 3.8 1.1 5.2-1.8 9.5 0 1.9 .9 1.3 1.9 .6 3.8-.6 8.6-3.5 6.7-2 5.7 0 1.6 .6"/><path d="M564.8 341.4l-4.7-14.3-2-3.8-2.4-2.8-2.8-2.1-2.9-.8-4.7 .5-3.4 1.3-2.8 2-1.9 2.9-.9 3.3-.1 5.7 1.6 9.1 4.6 11.4"/><path d="M692.5 486.2l-1.5-.9-27.1-5.7-4.8 .6-1.8 .9-.4 .8 .4 .8 1.8 .6 32.9 5.3"/><path d="M551 297.6l9.5 4.1 20.7 6.7 19.8 4.4 17.6 2.8 2.9 .1"/><path d="M660.1 357.6l-4.7 2.4-37.3 23.6-18.1 9.3"/><path d="M567.3 344.2l-3.4 6.3 .1 1.9 1.4 3.3 22.8 28.1 6.6 7.6 6.6 6.2 .5 1.4"/><path d="M502.4 382.4l-3.7-10-7-13.8-4.6-4.6-3.8-1.5-3.8 .5-4.7 1.9-2.9 1.8-2.7 2.8-1.1 3.3 0 2.4 1.4 10.5"/><path d="M526.7 281.9l-9.6 4.9-4.1 4.6-1.9 4.7-5.1 19.1-2.2 3.8-4.8 3.2-15.2 6.8"/><path d="M706.7 342.4l-9-5.5-11.4-3.9-2.9-.6-4.3 0-3.8 .9-3.3 1.3-4.3 2.7-7.1 7-1.9 4.5-2.8 10.5"/><path d="M323.3 400.5l1.9-.5 4.7 .5 56.6 10.3"/><path d="M626.2 361.4l-27.6-5.1-1 .8-.3 1.5 1.8 2.6 5.7 2.4 8.6 2 13.3 2"/><path d="M555.3 302.8l11.4 4.3 13.1 4.1 18.3 3.9 17.7 3"/><path d="M275.9 409.2l-19.8-4.4-8.1 0-3 1.4 .2 .7 2.3 .7 27.2 3.8"/><path d="M467.1 320.9l-3.8-1.4-4.3 1.1-4.7 2.1-4.3 2.7-3.7 4.1-1.5 7.1-1 14.3 0 8.6 .8 7.5"/><path d="M382.8 412.9l9.7 14.7 4.1 5.3 15.3 15.2 10.9 7.6"/><path d="M470 321.4l-9.1 4.9-3.2 3.2-1.4 2.4-1.1 6.6 .5 16.2-1.1 16.6"/><path d="M642 484.3l1.1 4.8 2.7 3.8 5.2 4.1 6.2 3.1 14.3 4.6 10.5 2 7.6 .5"/><path d="M474.8 324.3l-4.3 .6-5.3 2.9-1.7 1.7-1.4 3.3-1.2 8.6 .5 6.7-.5 20.5 .5 3.8"/><path d="M397.6 401l4.6 10 5.1 8.1 14.7 20 1.7 4.3-.4 5.7"/><path d="M460 315.7l-1.4 .9-4.3 1.4-7.7 4-3.7 3.2-1.6 2.9-1.7 9.5-1 11 0 8.5 .4 3.4"/><path d="M265.1 371.9l7.7-1.9 4.7-.5 10 1.1 7.2 1.9 7.6 3.1 11.9 8.2"/><path d="M526.7 383.8l2.8-1.3 4.7-1.1 5 .5 24.2 4.5 9.5 2.8 4.7 2.2"/><path d="M763.4 483.4l-.6 4.3-1 1.9-2.7 3.3-5.2 3.9-7.1 3.6-10 3.3-9.1 2-6.7 .5"/><path d="M655.5 334l-1.1-.9-1.5-.2-4.7 2.8-5.7 6.7-2.3 3.8-5.2 11.4-1.1 5.2 0 6.7 1 1.2 1.8 .3"/><path d="M938.7 451l-11.9 4.6-14.3 3.8-13.3 2.9-5.2 .6-2.9-.5"/><path d="M501.4 282.3l-3.8 .7-3.3 1.6-4.1 3.9-1.5 2.9-.6 2.8-.5 10-1.4 9.1-1.9 2.2-6.2 3.5"/><path d="M329.9 417.1l-5.7 2.7-14.3 4.4-18.1 2.9-7.1 .1"/><path d="M394.7 290.9l-20.9-.5-13.9 1-10 0"/><path d="M235.3 357.4l-2.2 9.3-2.7 3.8 0 3.3 1.5 10.5 3.3 14.3 .9 1.9"/><path d="M713.4 487.2l-1.8-5.7-3-4.3-3.8-3-2.8-.7-1.9 1.3-4.8 4.8-1.5 2.3-1.5 6.7 .2 3.3 .9 1.9"/><path d="M593.8 449.5l39.6 12.4"/><path d="M709.1 477.6l6.7-6.1 2.9-1.9 1.9 .1 2.3 1.2 3 2.9 .5 2.4-1.1 1.9-11 8.8-.9 .3"/><path d="M294.7 409.5l-2.5-5.7-1.9-2.8-4.2-3.6-2.4-.1-4.2 3.7-2.6 4.8-1.3 7.1 .5 2.8"/><path d="M736.4 451.3l-1.1 4 0 6.3 .5 1 11.4 4.5 12.6 6.8"/><path d="M533.8 351.9l11.8 15.2 5.5 9.1 2.7 5.7"/><path d="M443.3 371.9l-8.4 13.3-2.9 5.7-1.1 4.3 .5 8.1"/><path d="M714.8 486.7l30.1 3.9 2 1.2"/><path d="M694.4 354.3l-10 1.8-22 2"/><path d="M658.2 350l-3.4 .6-2.4 1.5-2 2.2-1.8 4.4-4.7 1.7-1.9 1.5-3.6 4.3-1.7 4.8"/><path d="M326.3 410.6l-6.4-3.8-10-2.5-5.2 .2-6.2 3.5-1 1.1"/><path d="M868.1 349.7l5.9-3.8 3.3-1.6 2.4 .3 3.2 2.1 .6 1.9-1 1.8-8.5 5.8"/><path d="M229.9 410l.2 2.4 .9 2.4 5.1 4.7 9 4.1 7.7 1.6"/><path d="M581.1 308.7l-2.4 3.6-.1 5.3 3 14.8 1.9 4.1"/><path d="M955.4 454.3l-3.7 3.3-.3 .9 .7 .7 6.7 3.5 4.7 1.1 .9-.9-.6-1.9-5-4.3"/><path d="M555.7 404.3l20.5 1.4 8.1 0"/><path d="M722.3 480.8l1.1 .6 7.6 1.1 7.2 2 5.7 2.3 4.3 2.8"/><path d="M320.9 413.3l-1.9-1.2-8.1-1.6-8.1-1-8.1 0"/><path d="M696.7 500l.6-1.4 4.5-5.7 .2-.9-1-.9-3.8 1-3.7 2-4.3 4-.6 1.5"/><path d="M569.1 346.6l1.5 5.3 9.9 18.1"/><path d="M510.5 369l4.3 6.2 10.9 11 .5 1.9"/><path d="M481.3 353l2.6 4.1 .1 2.3-5.9 2.6-9.5 5.1"/><path d="M291.8 402.9l4.8-4.2 5.7-3.3 3.3 1.4 1.6 1.8 .3 2.8-1.4 2.4"/><path d="M709.3 453.2l6 .2 6.7 1 8.1 2.3 2.4 1.4"/><path d="M658.5 348.7l-6.1-2.4-3.8-.1-1.9 1-3.8 4-3.8 .6-1-.4"/><path d="M270.9 420l5.2-4.1 6.7-2 .8 .5 0 .8-5.3 5.1"/><path d="M547 318.2l3.7 4.2-.3 1.3-13.7 6.7"/><path d="M491.7 286.9l1.6 .7 6.7 0 11 .9"/><path d="M715.8 333.8l-8.6-1.4-5.2 1.3-4.3 2.9"/><path d="M939.7 430l1.7 3.3 .7 2.9 0 9.1-1 3.3"/><path d="M414.7 325.7l11.9 0 7.2 .9"/><path d="M880.5 352.2l11.1 3.2 6.7 2.7"/><path d="M856.8 348.6l1-2 1.9-1.6 1.4-.5 1.9 .4 4.2 3.7 1.3 2.3 .1 1.9"/><path d="M910.6 357.1l-1.4 2.9-3.3 3.3-2.9 1.8-5.7 2.5"/><path d="M259 409.5l-2 1.3-7.1 2.7-3.5 2.1"/><path d="M879.2 358.6l1.9-.8 11.4 2.7"/><path d="M655.5 334l.3 5-1 4.3-.6 1.4-1.8 1.5"/><path d="M669.1 485.3l-7.6 3.7-3.5 2.8"/><path d="M692.9 480.5l-8.5 1-3.9 1.4"/><path d="M714.1 495.4l1.7-.1 6.2 1.6 2.5 1.6"/><path d="M713.4 487.2l-2.2 2.4-.6 2.3 .5 1.4 3 2.1"/><path d="M294.7 409.5l-2.3 2-1.3 2.3 .4 1.4 2.7 1.9"/><path d="M714.1 495.4l-1.2 2-5.2 1.4-1.9 1.2"/><path d="M583.8 339.5l2.2 8.1-.3 1.4"/><path d="M769.2 511l7.6 2.9"/><path d="M294.2 417.1l1-.3 2.8 .4 2.9 .6 .9 .8"/><path d="M647.2 337.1l7.6 1.4"/><path d="M637.2 361.9l-1.9 5.7"/><path d="M276.4 406.4l-4.1 .3-1.4 .9"/></svg></div>
-      </div>
+      <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
       <div class="hero-foot">
         <p class="h4"><span lang="de">Ich baue KI-Systeme, die für Ihre Marke arbeiten.</span><span lang="en">I build AI systems that work for your brand.</span></p>
         <div class="hero-side">
@@ -782,7 +745,6 @@ dialog.legal::backdrop { background: #435960; }
     document.title = T[lang].title;
     $$('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
     $$('img[data-alt-de]').forEach((img) => { img.alt = lang === 'de' ? img.dataset.altDe : img.dataset.altEn; });
-    $$('[data-label-de]').forEach((el) => el.setAttribute('aria-label', lang === 'de' ? el.dataset.labelDe : el.dataset.labelEn));
     const call = $('#call-btn');
     if (call) call.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(T[lang].call);
     $$('.field.invalid').forEach((field) => {
@@ -826,205 +788,6 @@ dialog.legal::backdrop { background: #435960; }
       });
     }, { rootMargin: '-42% 0px -52% 0px' });
     $$('[data-sec]').forEach((s) => secObs.observe(s));
-  }
-
-  /* ---------------- hero: line animation (Martin, 26.10.) ----------------
-     Twelve line drawings from the history of technology, from the Neanderthal at the fire to the flying car
-     (drawn with Nano Banana Pro on Higgsfield AI, traced to centre lines by tools/hero_lines.py). Only lines:
-     1 px, #435960, transparent on the lime hero. The lines of the next drawing fly in from all directions and take
-     the place of the current ones, which fly out. Without JavaScript, with reduced motion or data saver the last
-     drawing stays as a still. The button pauses and resumes (WCAG 2.2.2); the animation also rests while the hero
-     is out of view or the tab is hidden. */
-  const art = $('#hero-art');
-  const artBtn = $('#art-btn');
-  const still = art && $('.hero-still', art);
-  const linesData = $('#hero-lines');           // inlined in the artifact preview; the live site fetches the file
-  const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-  const saveData = !!(navigator.connection && navigator.connection.saveData);
-  if (art && artBtn && still && !reduceMotion.matches && !saveData && window.requestAnimationFrame
-      && (linesData || (window.fetch && art.dataset.src))) {
-    const go = () => {
-      const load = linesData ? Promise.resolve().then(() => JSON.parse(linesData.textContent))
-        : fetch(art.dataset.src).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))));
-      load.then(heroLines).catch(() => { /* the still stays */ });
-    };
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go, { once: true });
-  }
-
-  function heroLines(data) {
-    const VW = data.w, VH = data.h, CX = VW / 2, CY = VH / 2;
-    const HOLD = 1500, HOLD_END = 2600, HOLD_START = 900;     // ms a finished drawing stands still
-    const rnd = (a, b) => a + Math.random() * (b - a);
-    const side = () => (Math.random() < 0.5 ? -1 : 1);
-    // strokes: absolute points ("M x y l dx dy ..."), centre and radius
-    const scenes = data.scenes.map((sc) => sc.d.map((d) => {
-      const n = d.match(/-?(?:\d+\.?\d*|\.\d+)/g).map(Number);
-      const p = new Float32Array(n.length);
-      let x = n[0], y = n[1], cx = 0, cy = 0, r = 0;
-      p[0] = x; p[1] = y;
-      for (let i = 2; i < n.length; i += 2) { x += n[i]; y += n[i + 1]; p[i] = x; p[i + 1] = y; }
-      for (let i = 0; i < p.length; i += 2) { cx += p[i]; cy += p[i + 1]; }
-      cx /= p.length / 2; cy /= p.length / 2;
-      for (let i = 0; i < p.length; i += 2) r = Math.max(r, Math.hypot(p[i] - cx, p[i + 1] - cy));
-      return { p, cx, cy, r };
-    }));
-    const N = scenes.length;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    if (!ctx || !N) return;
-    canvas.setAttribute('aria-hidden', 'true');
-    art.appendChild(canvas);
-
-    // a way out of the box, roughly away from the centre, on a slight curve, turning
-    function flight(s) {
-      let ang = Math.atan2(s.cy - CY, s.cx - CX);
-      ang = Math.hypot(s.cx - CX, s.cy - CY) < 80 ? rnd(0, 2 * Math.PI) : ang + rnd(-0.45, 0.45);
-      const dist = 660 + s.r + rnd(0, 160), bend = rnd(0.08, 0.24) * dist * side();
-      return { dx: Math.cos(ang) * dist, dy: Math.sin(ang) * dist,
-               bx: -Math.sin(ang) * bend, by: Math.cos(ang) * bend, rot: rnd(0.3, 0.9) * side() };
-    }
-    // one change: the lines of drawing b fly in, longest first. A line of drawing a leaves as soon as the first
-    // new line that will lie near it enters the box, so the new lines take the place of the old ones.
-    const CELL = 50, GX = Math.ceil(VW / CELL), GY = Math.ceil(VH / CELL);
-    const grid = new Float64Array(GX * GY);
-    const cell = (x, y) => Math.min(GY - 1, Math.max(0, Math.floor(y / CELL))) * GX
-      + Math.min(GX - 1, Math.max(0, Math.floor(x / CELL)));
-    function plan(a, b) {
-      const B = scenes[b];
-      const inc = B.map((s, j) => {
-        const delay = Math.max(0, (j / B.length) * 950 + rnd(-90, 90)), dur = rnd(900, 1150);
-        return Object.assign({ s, delay, dur, end: delay + dur }, flight(s));
-      });
-      const landed = Math.max(...inc.map((c) => c.end));
-      grid.fill(Infinity);
-      inc.forEach((c) => {
-        const hit = c.delay + 0.15 * c.dur, p = c.s.p;
-        for (let i = 0; i < p.length; i += 2) {
-          const k = cell(p[i], p[i + 1]);
-          if (hit < grid[k]) grid[k] = hit;
-        }
-      });
-      const out = scenes[a].map((s) => {
-        let hit = Infinity;
-        const p = s.p;
-        for (let i = 0; i < p.length; i += 2) {
-          const gx = Math.floor(p[i] / CELL), gy = Math.floor(p[i + 1] / CELL);
-          for (let v = gy - 1; v <= gy + 1; v++) {
-            for (let u = gx - 1; u <= gx + 1; u++) {
-              if (u >= 0 && v >= 0 && u < GX && v < GY && grid[v * GX + u] < hit) hit = grid[v * GX + u];
-            }
-          }
-        }
-        if (hit === Infinity) hit = rnd(0, landed * 0.45);   // nothing new lands here
-        const dur = rnd(640, 800);
-        return Object.assign({ s, delay: Math.min(hit + rnd(0, 120), landed * 0.55), dur }, flight(s));
-      });
-      return { inc, out, total: Math.max(landed, ...out.map((o) => o.delay + o.dur)) };
-    }
-
-    let dpr = 1, S = 1, ox = 0, oy = 0, color = '#435960';
-    let from = N - 1, to = 0, cur = null, t0 = 0, clock = 0, hold = HOLD_START, last = 0, raf = 0;
-    let paused = false, inView = true;
-
-    function line(s, tx, ty, rot) {
-      const X = s.cx + tx, Y = s.cy + ty;
-      if (X + s.r < 0 || X - s.r > VW || Y + s.r < 0 || Y - s.r > VH) return;
-      const c = Math.cos(rot), sn = Math.sin(rot), p = s.p;
-      for (let i = 0; i < p.length; i += 2) {
-        const x = p[i] - s.cx, y = p[i + 1] - s.cy;
-        const px = ox + (X + x * c - y * sn) * S, py = oy + (Y + x * sn + y * c) * S;
-        if (i) ctx.lineTo(px, py); else ctx.moveTo(px, py);
-      }
-    }
-    function paint() {
-      const t = clock - t0;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      if (!cur) {
-        scenes[from].forEach((s) => line(s, 0, 0, 0));
-      } else {
-        cur.out.forEach((o) => {                 // leaving: accelerates away
-          const k = Math.min(Math.max((t - o.delay) / o.dur, 0), 1);
-          if (k >= 1) return;
-          const e = k * k * k, w = Math.sin(Math.PI * e);
-          line(o.s, o.dx * e + o.bx * w, o.dy * e + o.by * w, o.rot * e);
-        });
-        cur.inc.forEach((c) => {                 // arriving: slows down and lands
-          const k = Math.min(Math.max((t - c.delay) / c.dur, 0), 1);
-          if (k <= 0) return;
-          const u = (1 - k) ** 3, w = Math.sin(Math.PI * u);
-          line(c.s, c.dx * u + c.bx * w, c.dy * u + c.by * w, c.rot * u);
-        });
-      }
-      ctx.lineWidth = dpr;                       // 1 CSS pixel
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = color;
-      ctx.stroke();
-    }
-    function tick(now) {
-      raf = 0;
-      clock += last ? Math.min(now - last, 50) : 0;
-      last = now;
-      if (!cur && clock - t0 >= hold) {
-        to = (from + 1) % N;
-        cur = plan(from, to);
-        t0 = clock;
-      }
-      if (cur) {
-        if (clock - t0 >= cur.total) {
-          from = to; cur = null; t0 = clock;
-          hold = from === N - 1 ? HOLD_END : HOLD;
-        }
-        paint();
-      }
-      run();
-    }
-    function run() {
-      if (!raf && !paused && inView && !document.hidden) raf = requestAnimationFrame(tick);
-    }
-    function rest() {
-      if (raf) cancelAnimationFrame(raf);
-      raf = 0;
-      last = 0;
-    }
-    function size() {
-      const r = art.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 3);
-      const w = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
-      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-      S = Math.min(w / VW, h / VH);
-      ox = (w - VW * S) / 2;
-      oy = (h - VH * S) / 2;
-      color = getComputedStyle(art).color || color;
-      paint();
-    }
-    function sync() {
-      artBtn.classList.toggle('is-paused', paused);
-      if (paused || !inView || document.hidden) rest(); else run();
-    }
-
-    size();                                      // the still, now drawn on the canvas
-    still.style.visibility = 'hidden';
-    artBtn.hidden = false;
-    artBtn.addEventListener('click', () => { paused = !paused; sync(); });
-    document.addEventListener('visibilitychange', sync);
-    if (reduceMotion.addEventListener) {
-      // motion switched off while running: finish the current drawing at once and stop there
-      reduceMotion.addEventListener('change', () => {
-        if (!reduceMotion.matches) return;
-        if (cur) { from = to; cur = null; t0 = clock; }
-        paused = true;
-        sync();
-        paint();
-      });
-    }
-    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(art);
-    if ('ResizeObserver' in window) new ResizeObserver(size).observe(art);
-    else window.addEventListener('resize', size);
-    sync();
   }
 
   /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------

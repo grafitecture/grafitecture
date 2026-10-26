@@ -181,34 +181,6 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
-/* ---------- hero: line animation (Martin, 26.10.) ----------
-   Only lines: 1 px, #435960, transparent on the lime field, nothing behind the type. Next to the H1 from 900 px
-   and on phones held sideways, otherwise above it. The still (last drawing, inline SVG) shows without JavaScript
-   and with reduced motion; app.js draws the animation on a canvas in the same box. */
-.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.hero-head { display: grid; gap: var(--s4); }
-.hero-art { position: relative; order: -1; width: min(100%, 77.5svh); aspect-ratio: 5 / 4; color: var(--c); }
-.hero-art > svg, .hero-art > canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.hero-still { fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
-.hero-still path { vector-effect: non-scaling-stroke; }
-@media (min-width: 900px), (min-width: 600px) and (orientation: landscape) {
-  .hero-head { grid-template-columns: max-content minmax(0, 1fr); align-items: center; column-gap: var(--s5); }
-  .hero-art { order: 0; width: 100%; max-height: 72svh; }
-}
-.art-btn {
-  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
-  display: inline-flex; align-items: center; padding: 10px 0; margin: -10px 0;
-  font: 500 var(--small)/1.5 var(--font); letter-spacing: .16em; text-transform: uppercase;
-}
-.art-btn .if-on, .art-btn .if-off { display: inline-flex; align-items: center; gap: 10px; }
-.art-btn.is-paused .if-on, .art-btn:not(.is-paused) .if-off { display: none; }
-.art-btn svg { width: 10px; height: 12px; flex: none; }
-@media (max-width: 559px) {
-  /* icon only on small screens; the label stays for screen readers */
-  .art-btn { padding: 14px; margin: -14px -14px -14px 0; }
-  .art-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-}
-
 /* ---------- lists: services and process ---------- */
 .rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--c); }
 .row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--c); }
@@ -342,7 +314,7 @@ dialog.legal::backdrop { background: #435960; }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .art-btn { transition: color .2s ease, border-color .2s ease; }
+.lang button, .menu-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
@@ -360,7 +332,7 @@ dialog.legal::backdrop { background: #435960; }
   .site .logos a:hover { color: var(--c); }
   /* on the lime fields (hero, process, contact, footer) lime would not show: there the type and the footer logo
      turn white, and buttons fill white with #435960 type */
-  .site .is-lime a:hover, .is-lime .art-btn:hover { color: var(--w); text-decoration-color: var(--w); }
+  .site .is-lime a:hover { color: var(--w); text-decoration-color: var(--w); }
   .is-lime .ftr-logo:hover svg g { fill: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }

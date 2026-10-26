@@ -7,9 +7,9 @@ Website der Grafitecture GmbH, Mannheim. One-Pager auf Deutsch und Englisch, sta
 ```
 public/        fertige Website, wird von Vercel so ausgeliefert (nicht von Hand bearbeiten)
 src/           Inhalt (body.html), Gestaltung (styles.css), Verhalten (app.js)
-assets/        Schrift, Logo, Kundenlogos, Fotos, Icons, Vorschaubild für Links, Hero-Linien (hero/)
+assets/        Schrift, Logo, Kundenlogos, Fotos, Icons, Vorschaubild für Links
 build.py       baut public/ und vercel.json aus src/ und assets/
-tools/         Hilfsskripte für Kundenlogos, Icons und Hero-Linien (brauchen Pillow, Playwright bzw. scikit-image)
+tools/         Hilfsskripte für Kundenlogos und Icons (brauchen Pillow bzw. Playwright)
 vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Function Region Frankfurt, Sicherheits- und Cache-Header
 KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 ```
@@ -36,8 +36,7 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
-- Hero, „So läuft’s“, „Bereit?“ und Footer als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960.
-- Im Hero eine Animation nur aus Linien (1 px, #435960): zwölf Stationen der Technikgeschichte vom Neandertaler am Feuer bis zum fliegenden Roadster; die Linien der nächsten Zeichnung fliegen aus allen Richtungen an und ersetzen die alten. Zeichnungen mit Higgsfield AI (Nano Banana Pro), Mittellinien mit `tools/hero_lines.py`.
+- Hero, „So läuft’s“, „Bereit?“ und Footer als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild und ohne Animation.
 
 ## Sprache und Links
 
