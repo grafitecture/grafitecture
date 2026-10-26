@@ -42,7 +42,7 @@
   <div class="wrap">
     <div class="hero-top">
       <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
-      <button type="button" class="sheen-btn" id="sheen-btn" hidden>
+      <button type="button" class="sheen-btn" data-sheen-btn hidden>
         <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
         <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
       </button>
@@ -210,7 +210,13 @@
 
 <footer class="ftr is-lime">
   <div class="wrap">
-    <a class="ftr-logo" href="#top" aria-label="Grafitecture">{{LOGO_DARK}}</a>
+    <div class="ftr-top">
+      <a class="ftr-logo" href="#top" aria-label="Grafitecture">{{LOGO_DARK}}</a>
+      <button type="button" class="sheen-btn" data-sheen-btn hidden>
+        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
+        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
+      </button>
+    </div>
     <div class="ftr-grid">
       <p><span class="small"><span lang="de">Büro</span><span lang="en">Studio</span></span>Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim</p>
       <p><span class="small"><span lang="de">Kontakt</span><span lang="en">Contact</span></span><a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>

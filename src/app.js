@@ -85,23 +85,43 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero: the surface shimmers (Martin, 26.10.) ----------------
-     Only the hero field changes colour, very slowly and quietly, like shot silk: four soft areas drift over the
-     lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint, aqua). Painted
-     12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work), which the
-     browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of bands. The
-     field fades in from plain lime, rests while the hero is out of view or the tab is hidden, and the button
-     pauses it (WCAG 2.2.2). Without JavaScript and with reduced motion the hero stays plain lime. */
-  const hero = $('.hero');
-  const sheenBtn = $('#sheen-btn');
+  /* ---------------- hero and footer: the surface shimmers (Martin, 26.10.) ----------------
+     Only the hero field and the footer change colour, very slowly and quietly, like shot silk: four soft areas
+     drift over the lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint,
+     aqua). Painted 12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work),
+     which the browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of
+     bands. Each field fades in from plain lime when it first comes into view and rests while it is out of view
+     or the tab is hidden. In the footer the colours fade out towards its top edge, so the lime contact section
+     still runs straight into it. One pause state for both fields, set by either button (WCAG 2.2.2). Without
+     JavaScript and with reduced motion both stay plain lime. */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-  if (hero && sheenBtn && !reduceMotion.matches && window.requestAnimationFrame) {
-    const cv = document.createElement('canvas');
-    const g = cv.getContext('2d');
-    if (g) sheen(cv, g);
+  const sheenBtns = $$('[data-sheen-btn]');
+  const sheens = [];
+  let sheenPaused = false;
+  if (!reduceMotion.matches && window.requestAnimationFrame) {
+    // field, time shift (s) so the two fields differ, share of the height over which the colour fades in from the top
+    [[$('.hero'), 0, 0], [$('.ftr'), 57, 0.5]].forEach(([field, shift, fadeTop]) => {
+      if (!field) return;
+      const cv = document.createElement('canvas');
+      const g = cv.getContext('2d');
+      if (g) sheens.push(sheen(field, cv, g, shift, fadeTop));
+    });
+    if (sheens.length) {
+      const setPaused = (p) => {
+        sheenPaused = p;
+        sheenBtns.forEach((b) => b.classList.toggle('is-paused', p));
+        sheens.forEach((sync) => sync());
+      };
+      sheenBtns.forEach((b) => {
+        b.hidden = false;
+        b.addEventListener('click', () => setPaused(!sheenPaused));
+      });
+      if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) setPaused(true); });
+    }
   }
 
-  function sheen(cv, g) {
+  // one shimmering field; returns its sync function
+  function sheen(field, cv, g, shift, fadeTop) {
     const LIME = [218, 253, 85];
     const PAL = [LIME, [255, 242, 0], [77, 255, 184], [87, 245, 255]];   // lime, neon yellow, mint, aqua
     // areas: centre x, y (share of the field), drift x, y (share), drift periods (s), radius (share of the
@@ -114,11 +134,11 @@
     ];
     const STEP = 38, FADE = 4, RES = 6, TAU = Math.PI * 2;   // s per colour change, s to fade in, CSS px per pixel
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
-    let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [];
-    let clock = 0, last = 0, painted = -1, raf = 0, paused = false, inView = true;
-    cv.className = 'hero-sheen';
+    let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [], rows = null;
+    let clock = 0, last = 0, painted = -1, raf = 0, inView = true;
+    cv.className = 'sheen';
     cv.setAttribute('aria-hidden', 'true');
-    hero.prepend(cv);
+    field.prepend(cv);
 
     function colour(off, t) {
       const u = t / STEP + off, k = Math.floor(u), f0 = u - k, f = f0 * f0 * (3 - 2 * f0);
@@ -126,7 +146,7 @@
       return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
     }
     function paint() {
-      const t = clock, e = Math.min(1, t / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
+      const t = clock + shift, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
       // per area: squared distance along x and y in units of its radius (the bell is separable)
       const areas = AREAS.map(([x, y, dx, dy, px, py, r, off], n) => {
         const cx = (x + dx * Math.sin(TAU * t / px)) * w, cy = (y + dy * Math.sin(TAU * t / py + 1.3)) * h;
@@ -138,12 +158,13 @@
       const d = img.data;
       let p = 0;
       for (let j = 0; j < H; j++) {
+        const kr = ramp * rows[j];
         for (let i = 0; i < W; i++) {
           let r = LIME[0], gr = LIME[1], b = LIME[2];
           for (let n = 0; n < areas.length; n++) {
             const a = areas[n], q = a.X[i] + a.Y[j];
             if (q < 1) {
-              const k = ramp * (1 - q) * (1 - q), c = a.c;
+              const k = kr * (1 - q) * (1 - q), c = a.c;
               r += (c[0] - r) * k; gr += (c[1] - gr) * k; b += (c[2] - b) * k;
             }
           }
@@ -162,7 +183,7 @@
       run();
     }
     function run() {
-      if (!raf && !paused && inView && !document.hidden) raf = requestAnimationFrame(tick);
+      if (!raf && !sheenPaused && inView && !document.hidden) raf = requestAnimationFrame(tick);
     }
     function rest() {
       if (raf) cancelAnimationFrame(raf);
@@ -170,7 +191,7 @@
       last = 0;
     }
     function size() {
-      const rect = hero.getBoundingClientRect();
+      const rect = field.getBoundingClientRect();
       w = rect.width || 1;
       h = rect.height || 1;
       const nw = Math.max(8, Math.ceil(w / RES)), nh = Math.max(8, Math.ceil(h / RES));
@@ -180,23 +201,25 @@
         img = g.createImageData(W, H);
         xs = AREAS.map(() => new Float32Array(W));
         ys = AREAS.map(() => new Float32Array(H));
+        rows = new Float32Array(H);
+      }
+      for (let j = 0; j < H; j++) {               // colour strength by row: fades in from the top edge if asked
+        const f = fadeTop ? Math.min(1, ((j + 0.5) * RES) / (fadeTop * h)) : 1;
+        rows[j] = f * f * (3 - 2 * f);
       }
       paint();
     }
     function sync() {
-      sheenBtn.classList.toggle('is-paused', paused);
-      if (paused || !inView || document.hidden) rest(); else run();
+      if (sheenPaused || !inView || document.hidden) rest(); else run();
     }
 
     size();
-    sheenBtn.hidden = false;
-    sheenBtn.addEventListener('click', () => { paused = !paused; sync(); });
     document.addEventListener('visibilitychange', sync);
-    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) { paused = true; sync(); } });
-    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(hero);
-    if ('ResizeObserver' in window) new ResizeObserver(size).observe(hero);
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(field);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(field);
     else window.addEventListener('resize', size);
     sync();
+    return sync;
   }
 
   /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------
