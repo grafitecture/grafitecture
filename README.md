@@ -35,7 +35,7 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
-- Hero und Footer als Flächen in Lime #dafd55 mit Schrift in #435960, ohne Bild und ohne Animation.
+- Hero, „So läuft’s“, „Bereit?“ und Footer als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild und ohne Animation.
 
 ## Sprache und Links
 

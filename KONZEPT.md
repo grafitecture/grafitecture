@@ -30,6 +30,8 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
   - Auf Touch-Geräten (ohne Maus) gibt es keine Hover-Zustände, damit nach einem Tipp nichts Lime hängen bleibt.
 - **Hero und Footer in Lime (25.10.):** Beide Bereiche sind jetzt Flächen im vollen #dafd55, Schrift, Linien und Logo in #435960 (6,4 : 1). Kein Bild und keine Animation im Hero; der Hero-Film (erst die Hand auf Papier, dann die Collage mit Pantone-Chips) ist entfernt, er liegt in der Git-Historie. Im Footer jetzt das dunkle Logo. Mouse-over auf den Lime-Flächen: Schrift und Footer-Logo werden weiß, die Hero-Buttons füllen sich weiß mit Schrift in #435960. Der Bildnachweis im Impressum ist mit dem Film entfallen.
 
+- **„So läuft’s“ und „Bereit?“ in Lime (26.10.):** Beide Abschnitte haben jetzt vollflächig den Hintergrund #dafd55 wie Hero und Footer; Schrift und Linien #435960. „Bereit?“ geht nahtlos in den Lime-Footer über. Mouse-over dort wie im Hero: Schrift weiß, Buttons füllen sich weiß. Die Farbwelle läuft nur noch durch die Headlines auf Weiß.
+
 ### Rechtstexte (Stand Oktober 2026)
 
 - **Impressum:** § 5 DDG, vertreten durch Martin Schweppe (Geschäftsführer), E-Mail, HRB 432625 Amtsgericht Mannheim, USt-IdNr. DE209730809, verantwortlich nach § 18 Abs. 2 MStV, Hinweis zur Verbraucherstreitbeilegung (VSBG), Markenhinweis zu den Kundenlogos. Entfernt: Haftungs- und Urheberrechtsfloskeln. Kein Link zur OS-Plattform (EU hat sie am 20.07.2025 abgeschaltet).

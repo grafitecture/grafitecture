@@ -88,8 +88,8 @@
   /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------
      First pass shortly after a headline comes into view, then every 8–14 s while it stays there.
      No waves with reduced motion or forced colours; the type then simply stays #435960. */
-  // not the hero H1: it stands on the lime hero, where a lime wave would not show
-  const heads = $$('.sec-head h2, .legal-hd h2');
+  // not on the lime fields (hero, process, contact), where a lime wave would not show
+  const heads = $$('.sec:not(.is-lime) .sec-head h2, .legal-hd h2');
   const calm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce), (forced-colors: active)') : { matches: false };
   if (heads.length && 'IntersectionObserver' in window && !calm.matches) {
     const timers = new Map();
