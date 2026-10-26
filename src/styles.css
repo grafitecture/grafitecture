@@ -181,6 +181,23 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
+/* ---------- hero: the surface shimmers (Martin, 26.10.) ----------
+   Only the hero field changes colour, very slowly: soft areas of neon yellow, mint and aqua drift over the lime,
+   like shot silk. app.js paints them on a canvas (.hero-sheen) at a sixth of the resolution, which the browser
+   scales up smoothly behind the content. The type stays at least 5.4:1 on every colour. Without JavaScript and
+   with reduced motion the hero stays plain lime. The small button pauses it (WCAG 2.2.2). */
+.hero { position: relative; isolation: isolate; }
+.hero-sheen { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; pointer-events: none; }
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.sheen-btn {
+  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
+  display: inline-flex; padding: 14px; margin: -14px -14px -14px 0;
+}
+.sheen-btn .if-on, .sheen-btn .if-off { display: inline-flex; }
+.sheen-btn.is-paused .if-on, .sheen-btn:not(.is-paused) .if-off { display: none; }
+.sheen-btn svg { width: 10px; height: 12px; flex: none; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
 /* ---------- lists: services and process ---------- */
 .rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--c); }
 .row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--c); }
@@ -314,7 +331,7 @@ dialog.legal::backdrop { background: #435960; }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn { transition: color .2s ease, border-color .2s ease; }
+.lang button, .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
@@ -332,7 +349,7 @@ dialog.legal::backdrop { background: #435960; }
   .site .logos a:hover { color: var(--c); }
   /* on the lime fields (hero, process, contact, footer) lime would not show: there the type and the footer logo
      turn white, and buttons fill white with #435960 type */
-  .site .is-lime a:hover { color: var(--w); text-decoration-color: var(--w); }
+  .site .is-lime a:hover, .is-lime .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
   .is-lime .ftr-logo:hover svg g { fill: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }

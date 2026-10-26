@@ -85,6 +85,120 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
+  /* ---------------- hero: the surface shimmers (Martin, 26.10.) ----------------
+     Only the hero field changes colour, very slowly and quietly, like shot silk: four soft areas drift over the
+     lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint, aqua). Painted
+     12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work), which the
+     browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of bands. The
+     field fades in from plain lime, rests while the hero is out of view or the tab is hidden, and the button
+     pauses it (WCAG 2.2.2). Without JavaScript and with reduced motion the hero stays plain lime. */
+  const hero = $('.hero');
+  const sheenBtn = $('#sheen-btn');
+  const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  if (hero && sheenBtn && !reduceMotion.matches && window.requestAnimationFrame) {
+    const cv = document.createElement('canvas');
+    const g = cv.getContext('2d');
+    if (g) sheen(cv, g);
+  }
+
+  function sheen(cv, g) {
+    const LIME = [218, 253, 85];
+    const PAL = [LIME, [255, 242, 0], [77, 255, 184], [87, 245, 255]];   // lime, neon yellow, mint, aqua
+    // areas: centre x, y (share of the field), drift x, y (share), drift periods (s), radius (share of the
+    // longer side), where in the colour cycle it starts
+    const AREAS = [
+      [0.15, 0.20, 0.14, 0.10, 97, 131, 0.62, 0.4],
+      [0.85, 0.25, 0.12, 0.14, 113, 89, 0.58, 1.5],
+      [0.70, 0.85, 0.16, 0.10, 127, 101, 0.66, 2.5],
+      [0.30, 0.75, 0.10, 0.12, 89, 149, 0.52, 3.4],
+    ];
+    const STEP = 38, FADE = 4, RES = 6, TAU = Math.PI * 2;   // s per colour change, s to fade in, CSS px per pixel
+    const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
+    let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [];
+    let clock = 0, last = 0, painted = -1, raf = 0, paused = false, inView = true;
+    cv.className = 'hero-sheen';
+    cv.setAttribute('aria-hidden', 'true');
+    hero.prepend(cv);
+
+    function colour(off, t) {
+      const u = t / STEP + off, k = Math.floor(u), f0 = u - k, f = f0 * f0 * (3 - 2 * f0);
+      const a = PAL[k % PAL.length], b = PAL[(k + 1) % PAL.length];
+      return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+    }
+    function paint() {
+      const t = clock, e = Math.min(1, t / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
+      // per area: squared distance along x and y in units of its radius (the bell is separable)
+      const areas = AREAS.map(([x, y, dx, dy, px, py, r, off], n) => {
+        const cx = (x + dx * Math.sin(TAU * t / px)) * w, cy = (y + dy * Math.sin(TAU * t / py + 1.3)) * h;
+        const R2 = (r * m) ** 2, X = xs[n], Y = ys[n];
+        for (let i = 0; i < W; i++) X[i] = ((i + 0.5) * RES - cx) ** 2 / R2;
+        for (let j = 0; j < H; j++) Y[j] = ((j + 0.5) * RES - cy) ** 2 / R2;
+        return { X, Y, c: colour(off, t) };
+      }).reverse();                                   // the first area lies on top
+      const d = img.data;
+      let p = 0;
+      for (let j = 0; j < H; j++) {
+        for (let i = 0; i < W; i++) {
+          let r = LIME[0], gr = LIME[1], b = LIME[2];
+          for (let n = 0; n < areas.length; n++) {
+            const a = areas[n], q = a.X[i] + a.Y[j];
+            if (q < 1) {
+              const k = ramp * (1 - q) * (1 - q), c = a.c;
+              r += (c[0] - r) * k; gr += (c[1] - gr) * k; b += (c[2] - b) * k;
+            }
+          }
+          const dz = BAYER[((j & 3) << 2) | (i & 3)];
+          d[p] = r + dz; d[p + 1] = gr + dz; d[p + 2] = b + dz; d[p + 3] = 255;
+          p += 4;
+        }
+      }
+      g.putImageData(img, 0, 0);
+    }
+    function tick(now) {
+      raf = 0;
+      clock += last ? Math.min(now - last, 100) / 1000 : 0;
+      last = now;
+      if (clock - painted >= 1 / 12) { painted = clock; paint(); }
+      run();
+    }
+    function run() {
+      if (!raf && !paused && inView && !document.hidden) raf = requestAnimationFrame(tick);
+    }
+    function rest() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      last = 0;
+    }
+    function size() {
+      const rect = hero.getBoundingClientRect();
+      w = rect.width || 1;
+      h = rect.height || 1;
+      const nw = Math.max(8, Math.ceil(w / RES)), nh = Math.max(8, Math.ceil(h / RES));
+      if (nw !== W || nh !== H) {
+        W = cv.width = nw;
+        H = cv.height = nh;
+        img = g.createImageData(W, H);
+        xs = AREAS.map(() => new Float32Array(W));
+        ys = AREAS.map(() => new Float32Array(H));
+      }
+      paint();
+    }
+    function sync() {
+      sheenBtn.classList.toggle('is-paused', paused);
+      if (paused || !inView || document.hidden) rest(); else run();
+    }
+
+    size();
+    sheenBtn.hidden = false;
+    sheenBtn.addEventListener('click', () => { paused = !paused; sync(); });
+    document.addEventListener('visibilitychange', sync);
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) { paused = true; sync(); } });
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(hero);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(hero);
+    else window.addEventListener('resize', size);
+    sync();
+  }
+
   /* ---------------- headlines: now and then a lime wave runs through the grey type ----------------
      First pass shortly after a headline comes into view, then every 8–14 s while it stays there.
      No waves with reduced motion or forced colours; the type then simply stays #435960. */
