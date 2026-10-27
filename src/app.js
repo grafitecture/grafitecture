@@ -86,7 +86,7 @@
   }
 
   /* ---------------- hero and footer: the surface shimmers (Martin, 26.10.) ----------------
-     Only the hero field and the footer change colour, very slowly and quietly, like shot silk: four soft areas
+     Only the hero field and the footer change colour, slowly and quietly, like shot silk: four soft areas
      drift over the lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint,
      aqua). Painted 12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work),
      which the browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of
@@ -133,6 +133,7 @@
       [0.30, 0.75, 0.10, 0.12, 89, 149, 0.52, 3.4],
     ];
     const STEP = 38, FADE = 4, RES = 6, TAU = Math.PI * 2;   // s per colour change, s to fade in, CSS px per pixel
+    const SPEED = 1.6;     // Martin 27.10.: a little faster, so a colour change takes about 24 s, a drift 56–93 s
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
     let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [], rows = null;
     let clock = 0, last = 0, painted = -1, raf = 0, inView = true;
@@ -146,7 +147,7 @@
       return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
     }
     function paint() {
-      const t = clock + shift, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
+      const t = (clock + shift) * SPEED, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
       // per area: squared distance along x and y in units of its radius (the bell is separable)
       const areas = AREAS.map(([x, y, dx, dy, px, py, r, off], n) => {
         const cx = (x + dx * Math.sin(TAU * t / px)) * w, cy = (y + dy * Math.sin(TAU * t / py + 1.3)) * h;
