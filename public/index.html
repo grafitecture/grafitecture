@@ -240,6 +240,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .rows.steps .row { grid-template-columns: 2.6em minmax(0, 1fr); column-gap: var(--s2); align-items: baseline; }
 .rows.steps .row .num { font-size: var(--h4); }
 .rows.steps .row p { grid-column: 2; }
+/* services on phones: only the headlines, the descriptions stay on tablet and desktop (Martin 27.10.) */
+@media (max-width: 759px) { .rows.svc .row p { display: none; } }
 @media (min-width: 900px) {
   .rows.svc .row { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--s5); align-items: start; }
   .rows.steps .row { grid-template-columns: clamp(5rem, 8vw, 10rem) minmax(0, 5fr) minmax(0, 6fr); gap: var(--s5); align-items: baseline; }

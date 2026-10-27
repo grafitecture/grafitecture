@@ -29,6 +29,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Buttons, photos and the lime hover field have a very slight rounding on all four corners (`--r` 4px); everything else stays square.
 - Photos, as supplied by Martin: portrait in "Über mich" (left column above the facts), entrance photo next to "Bereit?" in the contact section. Files in `assets/photos` (640 and 1280 px), alt text in both languages via `data-alt-de`/`data-alt-en`.
 - Fixed line breaks: services lead after "Content-Systeme." / "content systems.", process lead after the comma (class `lead-2l`, two lines from 560 px up).
+- Services („Was ich baue“) on phones (Martin 27.10.): below 760 px only the six headlines show, the descriptions are hidden by CSS (`.rows.svc .row p`); from 760 px (tablet, desktop) headline and description as before. Keep the descriptions in body.html.
 - Client logos: one-colour #435960 PNGs made by `tools/prepare_clients.py` from white-on-transparent sources (Martin's folder `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS`). Display size is half of the balanced size (`--logo-k` in styles.css).
 
 ## Content rules

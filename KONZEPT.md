@@ -39,6 +39,8 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 
 - **Hero auf dem Smartphone (27.10.):** „Weniger Routine. Mehr Gestaltung.“ bricht nie um; auf sehr schmalen Geräten (unter 380 px) mit etwas weniger Laufweite, damit die Zeile bis 320 px neben das Pause-Symbol passt. „Marken mit KI.“ steht auf dem Smartphone etwa 40 px höher, näher an der Kopfzeile (Abstand 4,236rem statt 6,854rem); dadurch sind bei 390 × 844 beide Buttons im ersten Bildschirm. Tablet und Desktop unverändert.
 
+- **Leistungen auf dem Smartphone (27.10.):** Unter 760 px Breite stehen bei „Was ich baue“ nur noch die sechs Überschriften, die Beschreibungen sind ausgeblendet. Auf Tablet und Desktop bleiben Überschrift und Beschreibung wie bisher.
+
 - **Linien-Animation im Hero wieder entfernt (26.10.):** Eine Animation nur aus 1-px-Linien (zwölf Stationen der Technikgeschichte vom Neandertaler am Feuer bis zum fliegenden Roadster, Zeichnungen mit Nano Banana Pro auf Higgsfield AI) war kurz online und ist auf Martins Wunsch wieder raus. Der Hero ist wieder die reine Lime-Fläche ohne Bild und Animation. Zeichnungen, Skript und Animation liegen in der Git-Historie (Commit 1310fc4).
 
 ### Rechtstexte (Stand Oktober 2026)
