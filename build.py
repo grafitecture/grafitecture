@@ -49,11 +49,11 @@ CLIENTS = [
     ("Gemeinschaftspraxis Günther", "https://www.gemeinschaftspraxis-guenther.de/"),
     ("Tanja Weber", None),
     ("Covendos", "https://www.covendos.com/"),
-    ("Zweite Liebe", "https://sanremowebseite.vercel.app/"),
+    ("Zweite Liebe", "https://sanremo.de/"),
     ("WHITEsmile", "https://www.whitesmile.de/"),
     ("ag+", "https://ahrens-gonzalves.de/"),
     ("CCI Transport", "https://www.cci-transport.de/"),
-    ("SanRemo", "https://sanremowebseite.vercel.app/"),
+    ("SanRemo", "https://sanremo.de/"),
     ("starks", None),
 ]
 
