@@ -200,6 +200,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* ---------- hero ---------- */
 .hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
 .hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
+/* phones: "Marken mit KI." a little higher, closer to the kicker (Martin 27.10.) */
+@media (max-width: 759px) { .hero .wrap { justify-content: flex-start; gap: var(--s5); } }
 .hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
 .hero-foot .h4 { max-width: 16ch; }
 .hero-side { display: grid; gap: var(--s4); align-content: end; max-width: 40rem; }
@@ -218,6 +220,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .hero, .ftr { position: relative; isolation: isolate; }
 .sheen { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero-top, .ftr-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+/* the kicker always stays on one line (Martin 27.10.); on the narrowest phones with a little less tracking */
+.hero-top .small { white-space: nowrap; }
+@media (max-width: 379px) { .hero-top .small { letter-spacing: .1em; } }
 .sheen-btn {
   appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; padding: 14px; margin: -14px -14px -14px 0;

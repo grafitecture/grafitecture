@@ -25,6 +25,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Calm and simple: large white space, large headlines, no city-map or floor-plan motifs.
 - Logo: `assets/logo/grafitecture.svg` in the header and, since the footer is lime, also in the footer (`grafitecture-white.svg` is no longer used). Both always the same size (`--logo-h`).
 - The H1 always breaks after the first word: "Marken / mit KI.", "Brands / with AI." (explicit `<br>`), also in the OG image.
+- Hero on phones (Martin 27.10.): the kicker „Weniger Routine. Mehr Gestaltung.“ never wraps (`white-space: nowrap`, below 380 px with letter-spacing .1em instead of .16em so it fits next to the pause icon down to 320 px). Below 760 px the hero content starts at the top (`justify-content: flex-start`) with `--s5` between kicker and H1 instead of `--s6`, so „Marken mit KI.“ sits a little higher. Tablet and desktop unchanged.
 - Buttons, photos and the lime hover field have a very slight rounding on all four corners (`--r` 4px); everything else stays square.
 - Photos, as supplied by Martin: portrait in "Über mich" (left column above the facts), entrance photo next to "Bereit?" in the contact section. Files in `assets/photos` (640 and 1280 px), alt text in both languages via `data-alt-de`/`data-alt-en`.
 - Fixed line breaks: services lead after "Content-Systeme." / "content systems.", process lead after the comma (class `lead-2l`, two lines from 560 px up).
