@@ -9,7 +9,7 @@ public/        fertige Website, wird von Vercel so ausgeliefert (nicht von Hand 
 src/           Inhalt (body.html), Gestaltung (styles.css), Verhalten (app.js)
 assets/        Schrift, Logo, Kundenlogos, Fotos, Icons, Vorschaubild für Links
 build.py       baut public/ und vercel.json aus src/ und assets/
-tools/         Hilfsskripte für Kundenlogos und Icons (brauchen Pillow bzw. Playwright)
+tools/         Hilfsskripte für Kundenlogos, Icons und den Farbkreis des Hero (brauchen Pillow bzw. Playwright, colour_wheel.py nur Python)
 vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Function Region Frankfurt, Sicherheits- und Cache-Header
 KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 ```
@@ -37,7 +37,7 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
 - Hero, „So läuft’s“ und „Bereit?“ als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild. Der Footer ist weiß.
-- Die Hero-Fläche changiert ganz langsam durch Lime, Neongelb, Mint und Aqua (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`); bei „Bewegung reduzieren“ bleibt sie reines Lime.
+- Die Hero-Fläche changiert durch das ganze Farbspektrum, immer zwei Farben zugleich (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`, Farbkreis aus `tools/colour_wheel.py`, Schrift überall mindestens 4,5 : 1); bei „Bewegung reduzieren“ bleibt sie reines Lime.
 
 ## Sprache und Links
 

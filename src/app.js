@@ -85,27 +85,30 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero: the surface shimmers (Martin, 26.10.) ----------------
-     Only the hero field changes colour, slowly and quietly, like shot silk: four soft areas
-     drift over the lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint,
-     aqua). Painted 12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work),
-     which the browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of
-     bands. The field fades in from plain lime when it first comes into view and rests while it is out of view
-     or the tab is hidden. The pause button next to the kicker stops it (WCAG 2.2.2). Without JavaScript and with
-     reduced motion it stays plain lime. The footer shimmered too from 26.10. and is plain white since 28.10.
-     (Martin); sheen() still takes a time shift and a fade from the top edge, the footer used 57 s and 0.5. */
+  /* ---------------- hero: the surface shimmers (Martin, 26.10.; two colours of the whole spectrum since 28.10.) ----------------
+     The hero field changes colour like shot silk, and at any moment exactly two colours play against each other:
+     four soft areas drift over the field, two carry the first colour and two the second, and where they meet the
+     two mix in linear light (no grey, no third colour). The pair travels once around the whole colour wheel in
+     about 72 s, the second colour running 60–100° ahead of the first, so every hue comes by; it starts with lime
+     and neon cyan. The wheel is Martin's variant A (28.10.): yellow, green and cyan as full neon, red, pink,
+     violet and blue as light neon tones, all chosen so the #435960 type keeps at least 4.5:1 (WCAG AA) on every
+     colour and every mix; fully saturated red, pink, violet or blue would make it unreadable. Painted 12 times a
+     second on a canvas at a sixth of the screen resolution, which the browser scales up smoothly behind the
+     content; a fine ordered dither keeps the gradients free of bands. The field fades in from plain lime when it
+     first comes into view and rests while it is out of view or the tab is hidden. The pause button next to the
+     kicker stops it (WCAG 2.2.2). Without JavaScript and with reduced motion it stays plain lime. The footer
+     shimmered too from 26.10. and is plain white since 28.10. (Martin; its variant is in the git history). */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   const sheenBtns = $$('[data-sheen-btn]');
   const sheens = [];
   let sheenPaused = false;
   if (!reduceMotion.matches && window.requestAnimationFrame) {
-    // field, time shift (s), share of the height over which the colour fades in from the top
-    [[$('.hero'), 0, 0]].forEach(([field, shift, fadeTop]) => {
-      if (!field) return;
+    const hero = $('.hero');
+    if (hero) {
       const cv = document.createElement('canvas');
       const g = cv.getContext('2d');
-      if (g) sheens.push(sheen(field, cv, g, shift, fadeTop));
-    });
+      if (g) sheens.push(sheen(hero, cv, g));
+    }
     if (sheens.length) {
       const setPaused = (p) => {
         sheenPaused = p;
@@ -120,57 +123,67 @@
     }
   }
 
-  // one shimmering field; returns its sync function
-  function sheen(field, cv, g, shift, fadeTop) {
-    const LIME = [218, 253, 85];
-    const PAL = [LIME, [255, 242, 0], [77, 255, 184], [87, 245, 255]];   // lime, neon yellow, mint, aqua
+  // the shimmering field; returns its sync function
+  function sheen(field, cv, g) {
+    // the colour wheel, variant A (Martin 28.10.): 36 colours 10° apart in OKLCH hue, from the lime towards green,
+    // cyan, blue, violet, pink, orange and yellow; each the most saturated colour of its hue on which #435960 keeps
+    // at least 4.6:1, so with blending, rounding and dither it never drops below 4.5:1 (tools/colour_wheel.py)
+    const WHEEL = 'dafd55 a7ff00 4bff00 00ff7b 00ffab 00ffca 00ffe2 00fff6 00f4ff 00e3ff 60dbff 82d7ff 96d3ff a4d0ff b0cdff bacbff c3c9ff cdc5ff d7c2ff e3beff f3b8ff ffb3f7 ffb6e5 ffb8d8 ffb9cd ffbac3 ffbbb9 ffbcb0 ffbda5 ffbe99 ffbf8a ffc074 ffc24d ffcc00 ffe300 fdff00'
+      .split(' ').map((c) => [0, 2, 4].map((i) => parseInt(c.slice(i, i + 2), 16)));
     // areas: centre x, y (share of the field), drift x, y (share), drift periods (s), radius (share of the
-    // longer side), where in the colour cycle it starts
+    // longer side); the first two (top left, bottom right) carry the first colour, the last two the second
     const AREAS = [
-      [0.15, 0.20, 0.14, 0.10, 97, 131, 0.62, 0.4],
-      [0.85, 0.25, 0.12, 0.14, 113, 89, 0.58, 1.5],
-      [0.70, 0.85, 0.16, 0.10, 127, 101, 0.66, 2.5],
-      [0.30, 0.75, 0.10, 0.12, 89, 149, 0.52, 3.4],
+      [0.15, 0.20, 0.14, 0.10, 97, 131, 0.62],
+      [0.70, 0.85, 0.16, 0.10, 127, 101, 0.66],
+      [0.85, 0.25, 0.12, 0.14, 113, 89, 0.58],
+      [0.30, 0.75, 0.10, 0.12, 89, 149, 0.52],
     ];
-    const STEP = 38, FADE = 4, RES = 6, TAU = Math.PI * 2;   // s per colour change, s to fade in, CSS px per pixel
-    const SPEED = 1.6;     // Martin 27.10.: a little faster, so a colour change takes about 24 s, a drift 56–93 s
+    const SPEED = 4;              // Martin 28.10.: faster again (26.10.: 1, 27.10.: 1.6); the areas drift in 22–37 s
+    const TURN = 288;             // s for the pair to go once around the wheel at SPEED 1 (72 s now)
+    const GAP = [80, 20, 197];    // the second colour runs 80° ± 20° ahead, period at SPEED 1 (49 s now)
+    const SOFT = 2;               // each area falls off like a bell, weight e^-SOFT at its radius
+    const FADE = 4, RES = 6, TAU = Math.PI * 2;   // s to fade in, CSS px per canvas pixel
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
-    let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [], rows = null;
+    const lin = (v) => (v <= 10.31475 ? v / 3294.6 : ((v / 255 + 0.055) / 1.055) ** 2.4);         // sRGB 0–255 to linear light
+    const enc = (l) => 255 * (l <= 0.0031308 ? 12.92 * l : 1.055 * l ** (1 / 2.4) - 0.055);   // and back
+    const mix = new Float32Array(256 * 3);      // this frame's blend from the first colour to the second
+    let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [];
     let clock = 0, last = 0, painted = -1, raf = 0, inView = true;
     cv.className = 'sheen';
     cv.setAttribute('aria-hidden', 'true');
     field.prepend(cv);
 
-    function colour(off, t) {
-      const u = t / STEP + off, k = Math.floor(u), f0 = u - k, f = f0 * f0 * (3 - 2 * f0);
-      const a = PAL[k % PAL.length], b = PAL[(k + 1) % PAL.length];
-      return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+    // the wheel at a hue (degrees from the lime), in linear light
+    function wheel(deg) {
+      const u = (((deg / 10) % 36) + 36) % 36, k = Math.floor(u), f = u - k, a = WHEEL[k], b = WHEEL[(k + 1) % 36];
+      return [0, 1, 2].map((c) => lin(a[c] + (b[c] - a[c]) * f));
     }
     function paint() {
-      const t = (clock + shift) * SPEED, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
-      // per area: squared distance along x and y in units of its radius (the bell is separable)
-      const areas = AREAS.map(([x, y, dx, dy, px, py, r, off], n) => {
-        const cx = (x + dx * Math.sin(TAU * t / px)) * w, cy = (y + dy * Math.sin(TAU * t / py + 1.3)) * h;
-        const R2 = (r * m) ** 2, X = xs[n], Y = ys[n];
-        for (let i = 0; i < W; i++) X[i] = ((i + 0.5) * RES - cx) ** 2 / R2;
-        for (let j = 0; j < H; j++) Y[j] = ((j + 0.5) * RES - cy) ** 2 / R2;
-        return { X, Y, c: colour(off, t) };
-      }).reverse();                                   // the first area lies on top
-      const d = img.data;
+      const t = clock * SPEED, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
+      // the pair; both start at the lime and part while the field fades in
+      const hue = (360 * t) / TURN, gap = GAP[0] + GAP[1] * Math.sin((TAU * t) / GAP[2]);
+      const ca = wheel(ramp * hue), cb = wheel(ramp * (hue + gap));
+      for (let k = 0; k < 256; k++) {
+        for (let c = 0; c < 3; c++) mix[k * 3 + c] = enc(ca[c] + ((cb[c] - ca[c]) * k) / 255);
+      }
+      // per area: its bell along x and along y (the bell is separable)
+      AREAS.forEach(([x, y, dx, dy, px, py, r], n) => {
+        const cx = (x + dx * Math.sin((TAU * t) / px)) * w, cy = (y + dy * Math.sin((TAU * t) / py + 1.3)) * h;
+        const k = SOFT / (r * m) ** 2, X = xs[n], Y = ys[n];
+        for (let i = 0; i < W; i++) X[i] = Math.exp(-k * ((i + 0.5) * RES - cx) ** 2);
+        for (let j = 0; j < H; j++) Y[j] = Math.exp(-k * ((j + 0.5) * RES - cy) ** 2);
+      });
+      const d = img.data, [X0, X1, X2, X3] = xs;
       let p = 0;
       for (let j = 0; j < H; j++) {
-        const kr = ramp * rows[j];
+        const y0 = ys[0][j], y1 = ys[1][j], y2 = ys[2][j], y3 = ys[3][j];
         for (let i = 0; i < W; i++) {
-          let r = LIME[0], gr = LIME[1], b = LIME[2];
-          for (let n = 0; n < areas.length; n++) {
-            const a = areas[n], q = a.X[i] + a.Y[j];
-            if (q < 1) {
-              const k = kr * (1 - q) * (1 - q), c = a.c;
-              r += (c[0] - r) * k; gr += (c[1] - gr) * k; b += (c[2] - b) * k;
-            }
-          }
-          const dz = BAYER[((j & 3) << 2) | (i & 3)];
-          d[p] = r + dz; d[p + 1] = gr + dz; d[p + 2] = b + dz; d[p + 3] = 255;
+          const a = X0[i] * y0 + X1[i] * y1, b = X2[i] * y2 + X3[i] * y3;
+          let s = b / (a + b || 1);                // share of the second colour
+          s = s * s * (3 - 2 * s);                 // twice: large plain areas of each colour and a soft but
+          s = s * s * (3 - 2 * s);                 // narrow zone where they meet, so the pair stays clear
+          const q = Math.round(s * 255) * 3, dz = BAYER[((j & 3) << 2) | (i & 3)];
+          d[p] = mix[q] + dz; d[p + 1] = mix[q + 1] + dz; d[p + 2] = mix[q + 2] + dz; d[p + 3] = 255;
           p += 4;
         }
       }
@@ -202,11 +215,6 @@
         img = g.createImageData(W, H);
         xs = AREAS.map(() => new Float32Array(W));
         ys = AREAS.map(() => new Float32Array(H));
-        rows = new Float32Array(H);
-      }
-      for (let j = 0; j < H; j++) {               // colour strength by row: fades in from the top edge if asked
-        const f = fadeTop ? Math.min(1, ((j + 0.5) * RES) / (fadeTop * h)) : 1;
-        rows[j] = f * f * (3 - 2 * f);
       }
       paint();
     }
