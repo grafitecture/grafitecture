@@ -85,22 +85,22 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero and footer: the surface shimmers (Martin, 26.10.) ----------------
-     Only the hero field and the footer change colour, slowly and quietly, like shot silk: four soft areas
+  /* ---------------- hero: the surface shimmers (Martin, 26.10.) ----------------
+     Only the hero field changes colour, slowly and quietly, like shot silk: four soft areas
      drift over the lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint,
      aqua). Painted 12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work),
      which the browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of
-     bands. Each field fades in from plain lime when it first comes into view and rests while it is out of view
-     or the tab is hidden. In the footer the colours fade out towards its top edge, so the lime contact section
-     still runs straight into it. One pause state for both fields, set by either button (WCAG 2.2.2). Without
-     JavaScript and with reduced motion both stay plain lime. */
+     bands. The field fades in from plain lime when it first comes into view and rests while it is out of view
+     or the tab is hidden. The pause button next to the kicker stops it (WCAG 2.2.2). Without JavaScript and with
+     reduced motion it stays plain lime. The footer shimmered too from 26.10. and is plain white since 28.10.
+     (Martin); sheen() still takes a time shift and a fade from the top edge, the footer used 57 s and 0.5. */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   const sheenBtns = $$('[data-sheen-btn]');
   const sheens = [];
   let sheenPaused = false;
   if (!reduceMotion.matches && window.requestAnimationFrame) {
-    // field, time shift (s) so the two fields differ, share of the height over which the colour fades in from the top
-    [[$('.hero'), 0, 0], [$('.ftr'), 57, 0.5]].forEach(([field, shift, fadeTop]) => {
+    // field, time shift (s), share of the height over which the colour fades in from the top
+    [[$('.hero'), 0, 0]].forEach(([field, shift, fadeTop]) => {
       if (!field) return;
       const cv = document.createElement('canvas');
       const g = cv.getContext('2d');

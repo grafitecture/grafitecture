@@ -26,16 +26,16 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Grafitecture GmbH", "url": "https://www.grafitecture.de/", "email": "martin.schweppe@grafitecture.de", "image": "https://www.grafitecture.de/assets/og/grafitecture-og.png", "logo": "https://www.grafitecture.de/assets/logo/grafitecture.svg", "foundingDate": "2000", "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309", "addressLocality": "Mannheim", "addressCountry": "DE"}, "employee": {"@type": "Person", "name": "Martin Schweppe", "jobTitle": "Geschäftsführer, Diplom-Designer"}, "knowsLanguage": ["de", "en"]}</script>
 <style>
 @font-face { font-family: "Google Sans"; src: url("assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
-/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero and the footer
-   are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale, very large
-   headlines and wide white space. Images: two photos. */
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
+   and „Bereit?“ are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale,
+   very large headlines and wide white space. The footer is white (Martin, 28.10.). Images: two photos. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
   /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency.
-     Hero and footer are lime fields with #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
+     The lime fields carry #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
      nothing is put behind them (Martin's choice; lime on white is only 1.2:1); on the lime fields they turn white
      instead. Buttons and the client-logo field fill lime with #435960 type (white on the lime hero). */
   --lime: #dafd55;
@@ -193,8 +193,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @keyframes lime-wave { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (forced-colors: active) { .is-waving > span { animation: none; background: none; -webkit-text-fill-color: currentColor; } }
 
-/* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“, „Bereit?“ and the footer, full width ----------
-   Plain #dafd55 behind #435960 type and lines; no image, no animation. Mouse-over rules for them at the end. */
+/* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“ and „Bereit?“, full width ----------
+   Plain #dafd55 behind #435960 type and lines; no image, no animation. Mouse-over rules for them at the end.
+   The footer was a lime field too and is white since 28.10. (Martin). */
 .is-lime { background: var(--lime); color: var(--c); }
 
 /* ---------- hero ---------- */
@@ -211,13 +212,13 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
-/* ---------- hero and footer: the surface shimmers (Martin, 26.10.) ----------
-   Only the hero field and the footer change colour, very slowly: soft areas of neon yellow, mint and aqua drift
-   over the lime, like shot silk (in the footer fading out towards its top edge, so the contact section still runs
-   straight into it). app.js paints them on a canvas (.sheen) at a sixth of the resolution, which the browser
+/* ---------- hero: the surface shimmers (Martin, 26.10.) ----------
+   Only the hero field changes colour, very slowly: soft areas of neon yellow, mint and aqua drift over the lime,
+   like shot silk. app.js paints them on a canvas (.sheen) at a sixth of the resolution, which the browser
    scales up smoothly behind the content. The type stays at least 5.4:1 on every colour. Without JavaScript and
-   with reduced motion both stay plain lime. The small buttons pause both (WCAG 2.2.2). */
-.hero, .ftr { position: relative; isolation: isolate; }
+   with reduced motion it stays plain lime. The small button pauses it (WCAG 2.2.2). The footer shimmered too
+   until 28.10.; it is plain white now (Martin). */
+.hero { position: relative; isolation: isolate; }
 .sheen { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero-top, .ftr-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 /* the kicker always stays on one line (Martin 27.10.); on the narrowest phones with a little less tracking */
@@ -324,9 +325,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .fields { grid-template-columns: 1fr 1fr; column-gap: var(--s4); } .field.wide { grid-column: 1 / -1; } }
 @media (min-width: 1100px) { .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s6); } }
 
-/* ---------- footer: a lime field like the hero (Martin, 25.10.), #435960 type and logo ---------- */
-.ftr { padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
-/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns white (rules at the end) */
+/* ---------- footer: white (Martin, 28.10.; before that lime with the shimmer), #435960 type, line and logo ---------- */
+.ftr { background: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
+/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns lime like everywhere on white
+   (rules at the end) */
 .ftr a { text-decoration: none; }
 /* same size as the header logo at every width */
 .ftr-top { margin-bottom: var(--s5); }
@@ -375,19 +377,18 @@ dialog.legal::backdrop { background: #435960; }
 /* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
 @media (hover: hover) {
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
-     Impressum, Datenschutz, language and menu buttons, header logo */
+     Impressum, Datenschutz, language and menu buttons, header and footer logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
   .lang button:hover, .menu-btn:hover { color: var(--lime); }
-  .logo:hover svg g { fill: var(--lime); }
+  .logo:hover svg g, .ftr-logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
-  /* on the lime fields (hero, process, contact, footer) lime would not show: there the type and the footer logo
-     turn white, and buttons fill white with #435960 type */
+  /* on the lime fields (hero, process, contact) lime would not show: there the type turns white, and buttons
+     fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
-  .is-lime .ftr-logo:hover svg g { fill: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }
 
@@ -635,14 +636,10 @@ dialog.legal::backdrop { background: #435960; }
 
 </main>
 
-<footer class="ftr is-lime">
+<footer class="ftr">
   <div class="wrap">
     <div class="ftr-top">
       <a class="ftr-logo" href="#top" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
-      <button type="button" class="sheen-btn" data-sheen-btn hidden>
-        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
-        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
-      </button>
     </div>
     <div class="ftr-grid">
       <p><span class="small"><span lang="de">Büro</span><span lang="en">Studio</span></span>Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim</p>
@@ -828,22 +825,22 @@ dialog.legal::backdrop { background: #435960; }
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero and footer: the surface shimmers (Martin, 26.10.) ----------------
-     Only the hero field and the footer change colour, slowly and quietly, like shot silk: four soft areas
+  /* ---------------- hero: the surface shimmers (Martin, 26.10.) ----------------
+     Only the hero field changes colour, slowly and quietly, like shot silk: four soft areas
      drift over the lime on slow paths, and each passes through fresh, bright colours (lime, neon yellow, mint,
      aqua). Painted 12 times a second on a canvas at a sixth of the screen resolution (a few milliseconds of work),
      which the browser scales up smoothly behind the content; a fine ordered dither keeps the gradients free of
-     bands. Each field fades in from plain lime when it first comes into view and rests while it is out of view
-     or the tab is hidden. In the footer the colours fade out towards its top edge, so the lime contact section
-     still runs straight into it. One pause state for both fields, set by either button (WCAG 2.2.2). Without
-     JavaScript and with reduced motion both stay plain lime. */
+     bands. The field fades in from plain lime when it first comes into view and rests while it is out of view
+     or the tab is hidden. The pause button next to the kicker stops it (WCAG 2.2.2). Without JavaScript and with
+     reduced motion it stays plain lime. The footer shimmered too from 26.10. and is plain white since 28.10.
+     (Martin); sheen() still takes a time shift and a fade from the top edge, the footer used 57 s and 0.5. */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   const sheenBtns = $$('[data-sheen-btn]');
   const sheens = [];
   let sheenPaused = false;
   if (!reduceMotion.matches && window.requestAnimationFrame) {
-    // field, time shift (s) so the two fields differ, share of the height over which the colour fades in from the top
-    [[$('.hero'), 0, 0], [$('.ftr'), 57, 0.5]].forEach(([field, shift, fadeTop]) => {
+    // field, time shift (s), share of the height over which the colour fades in from the top
+    [[$('.hero'), 0, 0]].forEach(([field, shift, fadeTop]) => {
       if (!field) return;
       const cv = document.createElement('canvas');
       const g = cv.getContext('2d');

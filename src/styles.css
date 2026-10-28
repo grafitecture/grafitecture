@@ -1,13 +1,13 @@
-/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero and the footer
-   are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale, very large
-   headlines and wide white space. Images: two photos. */
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
+   and „Bereit?“ are lime fields, and every mouse-over is lime), one typeface (Google Sans) on a golden-ratio scale,
+   very large headlines and wide white space. The footer is white (Martin, 28.10.). Images: two photos. */
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, lines, buttons, logo */
   --w: #FFFFFF;   /* white */
   --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
   /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency.
-     Hero and footer are lime fields with #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
+     The lime fields carry #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
      nothing is put behind them (Martin's choice; lime on white is only 1.2:1); on the lime fields they turn white
      instead. Buttons and the client-logo field fill lime with #435960 type (white on the lime hero). */
   --lime: #dafd55;
@@ -165,8 +165,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @keyframes lime-wave { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (forced-colors: active) { .is-waving > span { animation: none; background: none; -webkit-text-fill-color: currentColor; } }
 
-/* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“, „Bereit?“ and the footer, full width ----------
-   Plain #dafd55 behind #435960 type and lines; no image, no animation. Mouse-over rules for them at the end. */
+/* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“ and „Bereit?“, full width ----------
+   Plain #dafd55 behind #435960 type and lines; no image, no animation. Mouse-over rules for them at the end.
+   The footer was a lime field too and is white since 28.10. (Martin). */
 .is-lime { background: var(--lime); color: var(--c); }
 
 /* ---------- hero ---------- */
@@ -183,13 +184,13 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
 }
 
-/* ---------- hero and footer: the surface shimmers (Martin, 26.10.) ----------
-   Only the hero field and the footer change colour, very slowly: soft areas of neon yellow, mint and aqua drift
-   over the lime, like shot silk (in the footer fading out towards its top edge, so the contact section still runs
-   straight into it). app.js paints them on a canvas (.sheen) at a sixth of the resolution, which the browser
+/* ---------- hero: the surface shimmers (Martin, 26.10.) ----------
+   Only the hero field changes colour, very slowly: soft areas of neon yellow, mint and aqua drift over the lime,
+   like shot silk. app.js paints them on a canvas (.sheen) at a sixth of the resolution, which the browser
    scales up smoothly behind the content. The type stays at least 5.4:1 on every colour. Without JavaScript and
-   with reduced motion both stay plain lime. The small buttons pause both (WCAG 2.2.2). */
-.hero, .ftr { position: relative; isolation: isolate; }
+   with reduced motion it stays plain lime. The small button pauses it (WCAG 2.2.2). The footer shimmered too
+   until 28.10.; it is plain white now (Martin). */
+.hero { position: relative; isolation: isolate; }
 .sheen { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero-top, .ftr-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 /* the kicker always stays on one line (Martin 27.10.); on the narrowest phones with a little less tracking */
@@ -296,9 +297,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .fields { grid-template-columns: 1fr 1fr; column-gap: var(--s4); } .field.wide { grid-column: 1 / -1; } }
 @media (min-width: 1100px) { .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s6); } }
 
-/* ---------- footer: a lime field like the hero (Martin, 25.10.), #435960 type and logo ---------- */
-.ftr { padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
-/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns white (rules at the end) */
+/* ---------- footer: white (Martin, 28.10.; before that lime with the shimmer), #435960 type, line and logo ---------- */
+.ftr { background: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
+/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns lime like everywhere on white
+   (rules at the end) */
 .ftr a { text-decoration: none; }
 /* same size as the header logo at every width */
 .ftr-top { margin-bottom: var(--s5); }
@@ -347,19 +349,18 @@ dialog.legal::backdrop { background: #435960; }
 /* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
 @media (hover: hover) {
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
-     Impressum, Datenschutz, language and menu buttons, header logo */
+     Impressum, Datenschutz, language and menu buttons, header and footer logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
   .lang button:hover, .menu-btn:hover { color: var(--lime); }
-  .logo:hover svg g { fill: var(--lime); }
+  .logo:hover svg g, .ftr-logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
-  /* on the lime fields (hero, process, contact, footer) lime would not show: there the type and the footer logo
-     turn white, and buttons fill white with #435960 type */
+  /* on the lime fields (hero, process, contact) lime would not show: there the type turns white, and buttons
+     fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
-  .is-lime .ftr-logo:hover svg g { fill: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
 }
 

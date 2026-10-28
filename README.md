@@ -36,8 +36,8 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
-- Hero, „So läuft’s“, „Bereit?“ und Footer als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild.
-- Die Flächen von Hero und Footer changieren ganz langsam durch Lime, Neongelb, Mint und Aqua (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`; im Footer zur Oberkante hin auslaufend); bei „Bewegung reduzieren“ bleiben sie reines Lime.
+- Hero, „So läuft’s“ und „Bereit?“ als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild. Der Footer ist weiß.
+- Die Hero-Fläche changiert ganz langsam durch Lime, Neongelb, Mint und Aqua (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`); bei „Bewegung reduzieren“ bleibt sie reines Lime.
 
 ## Sprache und Links
 
