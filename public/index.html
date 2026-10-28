@@ -140,8 +140,12 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-btn .bars::before { top: 0; } .menu-btn .bars::after { bottom: 0; }
 .menu-btn[aria-expanded="true"] .bars::before { top: 4.25px; transform: rotate(45deg); }
 .menu-btn[aria-expanded="true"] .bars::after { bottom: 4.25px; transform: rotate(-45deg); }
+/* language switch (Martin 28.10.): in the header only from 1100 px; on phones and tablets it sits in the menu,
+   in its bottom row next to Impressum and Datenschutz, so the header there shows only the logo and „Menü“ */
+.hdr .lang { display: none; }
 @media (min-width: 1100px) {
   .nav { display: flex; }
+  .hdr .lang { display: inline-flex; }
   .hdr .hdr-cta { display: inline-flex; }
   .menu-btn { display: none; }
 }
@@ -153,7 +157,12 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-panel ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c); }
 .menu-panel li { border-bottom: 1px solid var(--c); }
 .menu-panel a.m-link { display: block; padding-block: 16px; text-decoration: none; font-size: var(--h4); line-height: 1.1; letter-spacing: -.02em; }
+.menu-panel .m-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px 22px; flex-wrap: wrap; }
 .menu-panel .m-legal { display: flex; gap: 22px; font-size: .9375rem; }
+.menu-panel .lang { margin-right: -4px; }   /* the last letter lines up with the right edge of the list above */
+/* a 44 px tall touch target for each language button, without changing how it looks */
+.menu-panel .lang button { position: relative; }
+.menu-panel .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
 .menu-panel .m-legal a { text-decoration: none; }
 
 /* ---------- buttons ---------- */
@@ -432,9 +441,15 @@ dialog.legal::backdrop { background: #435960; }
     <li><a class="m-link" href="#kontakt"><span lang="de">Kontakt</span><span lang="en">Contact</span></a></li>
   </ol>
   <a class="btn" href="#kontakt"><span lang="de">Kostenloses Strategiegespräch</span><span lang="en">Free strategy call</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-  <div class="m-legal">
-    <a href="#impressum" data-open="impressum"><span lang="de">Impressum</span><span lang="en">Legal notice</span></a>
-    <a href="#datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></a>
+  <div class="m-foot">
+    <div class="m-legal">
+      <a href="#impressum" data-open="impressum"><span lang="de">Impressum</span><span lang="en">Legal notice</span></a>
+      <a href="#datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></a>
+    </div>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" data-set-lang="de" aria-pressed="true" title="Deutsch">DE</button>
+      <button type="button" data-set-lang="en" aria-pressed="false" title="English">EN</button>
+    </div>
   </div>
 </div>
 

@@ -30,6 +30,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - Photos, as supplied by Martin: portrait in "Über mich" (left column above the facts), entrance photo next to "Bereit?" in the contact section. Files in `assets/photos` (640 and 1280 px), alt text in both languages via `data-alt-de`/`data-alt-en`.
 - Fixed line breaks: services lead after "Content-Systeme." / "content systems.", process lead after the comma (class `lead-2l`, two lines from 560 px up).
 - Services („Was ich baue“) on phones (Martin 27.10.): below 760 px only the six headlines show, the descriptions are hidden by CSS (`.rows.svc .row p`); from 760 px (tablet, desktop) headline and description as before. Keep the descriptions in body.html.
+- Language switch (Martin 28.10.): from 1100 px DE/EN sits in the header as before. Below 1100 px (phones, tablets, wherever the menu button shows) the header shows only the logo and „Menü“, and DE/EN sits in the menu, in its bottom row to the right of Impressum/Datenschutz, in the same look (active language underlined; `.menu-panel .lang`, an invisible `::after` makes each button a 44 px tall touch target). Both groups are driven by `setLang()` through `[data-set-lang]`; switching in the menu keeps it open, so it changes language in place.
 - Client logos: one-colour #435960 PNGs made by `tools/prepare_clients.py` from white-on-transparent sources (Martin's folder `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS`). Display size is half of the balanced size (`--logo-k` in styles.css).
 
 ## Content rules

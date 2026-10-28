@@ -41,5 +41,5 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 
 ## Sprache und Links
 
-Standard ist Deutsch. Englisch über den Schalter DE/EN oder per `…/#en` bzw. `…/?lang=en`.
+Standard ist Deutsch. Englisch über den Schalter DE/EN (am Desktop in der Kopfzeile, auf Handy und Tablet im Menü) oder per `…/#en` bzw. `…/?lang=en`.
 Impressum und Datenschutz direkt verlinkbar: `…/#impressum`, `…/#datenschutz`.
