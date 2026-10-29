@@ -12,7 +12,7 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Hero:** Zeile „Weniger Routine. Mehr Gestaltung.“, H1 „Marken mit KI.“ (bis 17.942rem), immer mit Umbruch nach „Marken“ bzw. „Brands“, auch im Vorschaubild für Links, Lead „Ich baue KI-Systeme, die für Ihre Marke arbeiten.“, kurzer Text, zwei Buttons. Der Hero füllt den ersten Bildschirm, seit 25.10. als Fläche in Lime (siehe Nachträge).
 - **Farben:** #435960 und Weiß (Kontrast 7,4 : 1), dazu seit 25.10. ein Akzent in Lime #dafd55 (siehe Nachträge). Keine Tönungen, keine Transparenzen. Der Hero ist eine Lime-Fläche (seit 26.10. auch „So läuft’s“ und „Bereit?“); die Hero-Fläche changiert seit 26.10., seit 28.10. durch das ganze Farbspektrum, immer zwei Farben zugleich. Der Footer ist seit 28.10. weiß (siehe Nachträge).
 - **Logo:** `LOGO_GT_2026.svg` im Kopf und im Footer (der Footer war ab 25.10. Lime und ist seit 28.10. weiß; das weiße Logo wird nicht mehr gebraucht), immer genauso groß wie das Logo im Kopf. Aus dem A4-Artboard auf die Wortmarke zugeschnitten (ohne „tinytecture“), inline eingebunden.
-- **Kundenlogos:** aus `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS` (27 Logos, weiß auf transparent). Umgefärbt in #435960, auf das Logo zugeschnitten, halbtransparente Teile (z. B. „.com“ bei flaeshapp) auf volle Deckkraft gebracht. Größen optisch ausgeglichen (gleiche Fläche, leichte Korrektur nach Schwärzung) und auf Martins Wunsch auf die Hälfte verkleinert, Raster 2/3/5 Spalten ohne Zellrahmen. Verlinkt, wo eine Website bekannt ist.
+- **Kundenlogos:** aus `Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS` (28 Logos, weiß auf transparent; ecowerth seit 29.10. aus einer farbigen Vorlage, siehe Nachträge). Umgefärbt in #435960, auf das Logo zugeschnitten, halbtransparente Teile (z. B. „.com“ bei flaeshapp) auf volle Deckkraft gebracht. Größen optisch ausgeglichen (gleiche Fläche, leichte Korrektur nach Schwärzung) und auf Martins Wunsch auf die Hälfte verkleinert, Raster 2/3/5 Spalten ohne Zellrahmen. Verlinkt, wo eine Website bekannt ist.
 - **Stadtplan-Gedanke verworfen:** keine Blattnummern, kein Grundriss, kein Bauzeitenplan, keine Maßlinien, kein Siegel, kein Nordpfeil.
 - **Gestaltung:** ruhig und einfach. Große Weißflächen (Abstand zwischen Abschnitten bis 17.942rem), große Headlines (h2 bis 11.089rem), Listen nur mit feinen Linien. Ablauf als nummerierte Schritte 01–05.
 - **Schrift und Skala** unverändert aus V2: Google Sans, Goldener Schnitt mit clamp (h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem).
@@ -45,6 +45,8 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 - **Leistungen auf dem Smartphone (27.10.):** Unter 760 px Breite stehen bei „Was ich baue“ nur noch die sechs Überschriften, die Beschreibungen sind ausgeblendet. Auf Tablet und Desktop bleiben Überschrift und Beschreibung wie bisher.
 
 - **Sprachwahl auf Handy und Tablet im Menü (28.10., Martin):** Unter 1100 px Breite, also überall, wo das Menü-Symbol erscheint, steht DE/EN nicht mehr in der Kopfzeile; die zeigt dort nur noch Logo und „Menü“. Die Sprachwahl sitzt im Menü in der untersten Zeile, rechts neben Impressum und Datenschutz, im gleichen Stil wie oben (aktive Sprache unterstrichen, Tippfläche 44 px hoch). Beim Umschalten bleibt das Menü offen und wechselt sofort die Sprache. Am Desktop bleibt DE/EN oben in der Kopfzeile.
+
+- **Neues Kundenlogo ecowerth (29.10., Martin):** an letzter Stelle der Referenzen, ohne Link (wie Healthklick, Vitaphone, Tanja Weber und starks, also auch ohne Lime-Fläche beim Darüberfahren). Martins Vorlage ist farbig: drei Balken in Blau, Grün und Rot, dazwischen zwei hellgraue Faltungen, Schrift dunkelblau. Wie alle Logos einfarbig in #435960. Die hellgrauen Faltungen sind weggelassen, weil sie einfarbig mit den Balken zu einem Zickzack verschmelzen würden (wirkte wie ein Σ); so bleiben die drei Balken wie im Farblogo. Vorlage `KUNDENLOGOS/ecowerth.png`, der Schritt steht in `SHADING` in `tools/prepare_clients.py`. Mit 28 Logos verschiebt sich der optische Größenausgleich minimal (WHITEsmile 1 px breiter, SanRemo 1 px höher).
 
 - **Linien-Animation im Hero wieder entfernt (26.10.):** Eine Animation nur aus 1-px-Linien (zwölf Stationen der Technikgeschichte vom Neandertaler am Feuer bis zum fliegenden Roadster, Zeichnungen mit Nano Banana Pro auf Higgsfield AI) war kurz online und ist auf Martins Wunsch wieder raus. Der Hero ist wieder die reine Lime-Fläche ohne Bild und Animation. Zeichnungen, Skript und Animation liegen in der Git-Historie (Commit 1310fc4).
 
@@ -80,7 +82,7 @@ Konzept „Planmappe“ mit Papierstadt-Animation, Big Shoulders/Archivo/Martian
 ## Inhalte
 
 - Struktur und Inhalte nach vibewith-ai.com, für Martin Schweppe, Diplom-Designer, neu geschrieben (Sie-Form, DE + EN).
-- Keine erfundenen Kundenstimmen; stattdessen echte Referenzen (27 Kunden von grafitecture.de).
+- Keine erfundenen Kundenstimmen; stattdessen echte Referenzen (27 Kunden von grafitecture.de, seit 29.10. dazu ecowerth).
 
 ## Offene Punkte
 
@@ -93,6 +95,6 @@ Konzept „Planmappe“ mit Papierstadt-Animation, Big Shoulders/Archivo/Martian
 ## Build und Pflege
 
 - `python3 build.py` erzeugt `public/` (Live-Seite, wird mit committet) und `vercel.json` sowie `dist/artifact/` (Vorschau mit eingebetteter Schrift und Logos, nicht im Repository). Danach committen und nach `main` pushen; Vercel veröffentlicht automatisch.
-- Kundenlogos neu einlesen: Logos (weiß auf transparent) in `KUNDENLOGOS` legen, Zuordnung in `tools/prepare_clients.py` ergänzen, Skript ausführen, dann `build.py`. Reihenfolge, Namen und Links stehen in `CLIENTS` in `build.py`.
+- Kundenlogos neu einlesen: Logos (weiß auf transparent; farbig auf transparent geht auch, eine hellgraue Schattierung dann in `SHADING` eintragen) in `KUNDENLOGOS` legen, Zuordnung in `tools/prepare_clients.py` ergänzen, Skript ausführen, dann `build.py`. Reihenfolge, Namen und Links stehen in `CLIENTS` in `build.py`.
 - Icons und OG-Bild neu erzeugen: `python3 tools/render_assets.py`.
 - Farbkreis des Hero-Farbspiels neu berechnen (z. B. mit anderem Mindestkontrast): `python3 tools/colour_wheel.py 4.6`, die ausgegebene Zeile in `WHEEL` in `src/app.js` eintragen, dann `build.py`.

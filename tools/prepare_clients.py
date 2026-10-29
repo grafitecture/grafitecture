@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Turns the client logos from Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS (white on transparent, webp) into
-one-colour #435960 PNGs on transparent, cropped to the logo, saved as assets/clients/<slug>.png.
-The alpha channel is the logo shape, so only the colour changes; nothing is redrawn."""
+"""Turns the client logos from Desktop/CLAUDE_GRAFITECTURE/KUNDENLOGOS (white on transparent, webp; a few in
+colour on transparent, see SHADING) into one-colour #435960 PNGs on transparent, cropped to the logo, saved as
+assets/clients/<slug>.png. The alpha channel is the logo shape, so only the colour changes; nothing is redrawn."""
 import pathlib, sys
 from PIL import Image
 
@@ -39,7 +39,38 @@ MAP = {
     "gt_cci.webp": "cci-transport",
     "sanremo.webp": "sanremo",
     "starks.webp": "starks",
+    "ecowerth.png": "ecowerth",          # colour logo (29.10.2026), see SHADING
 }
+
+# Colour sources: light grey that only shades, and the colours it touches. It is left out, because in one colour it
+# would merge with its neighbours. ecowerth: the two light grey folds between the blue, green and red bar of the
+# striped "E" would turn it into a zigzag; without them the three bars stay, as in the colour logo.
+SHADING = {
+    "ecowerth.png": ((217, 217, 217), [(23, 125, 193), (110, 165, 46), (172, 25, 32)]),
+}
+
+
+def drop_shading(im, grey, neighbours):
+    """Alpha of a colour logo without its grey shading. Only next to the grey is a pixel split into neighbour
+    colour and grey (the source blends them at the edges); every other edge keeps its anti-aliasing as it is."""
+    import numpy as np
+    from scipy import ndimage
+    arr = np.asarray(im).astype(np.float64)
+    rgb, a = arr[..., :3], arr[..., 3]
+    g = np.array(grey, dtype=np.float64)
+    core = (a >= 200) & (np.linalg.norm(rgb - g, axis=-1) < 28)
+    near = ndimage.binary_dilation(core, structure=np.ones((3, 3), bool), iterations=2)
+    share, err = np.ones(a.shape), np.full(a.shape, np.inf)      # share of grey per pixel, best-fitting neighbour
+    for c in neighbours:
+        c = np.array(c, dtype=np.float64)
+        v = g - c
+        t = np.clip(((rgb - c) * v).sum(-1) / (v @ v), 0, 1)
+        e = np.linalg.norm(rgb - (c + t[..., None] * v), axis=-1)
+        better = e < err
+        share[better], err[better] = t[better], e[better]
+    keep = np.where(share >= 0.75, 0.0, 1.0 - share)               # mostly grey: soft edge of the shading, drop
+    return Image.fromarray(np.where(near, a * keep, a).round().astype(np.uint8), "L")
+
 
 def full_strength(alpha):
     """Some sources draw parts at reduced opacity (e.g. a grey ".com"). In one colour that would read as a
@@ -60,7 +91,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 stats = {}
 for src_name, slug in MAP.items():
     im = Image.open(SRC / src_name).convert("RGBA")
-    a = im.getchannel("A")
+    a = drop_shading(im, *SHADING[src_name]) if src_name in SHADING else im.getchannel("A")
     a = a.point(lambda v: 0 if v < 6 else v)          # drop near-invisible fringe
     a = full_strength(a)
     box = a.getbbox()

@@ -55,6 +55,7 @@ CLIENTS = [
     ("CCI Transport", "https://www.cci-transport.de/"),
     ("SanRemo", "https://www.sanremo.ma/"),
     ("starks", None),
+    ("ecowerth", None),
 ]
 
 TITLE_DE = "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des., Mannheim"
