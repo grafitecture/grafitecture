@@ -165,17 +165,18 @@ def clients_html(mode: str) -> str:
     return "\n".join(rows)
 
 
-# photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos
+# photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos.
+# Last field: a very small caption under the photo, the same in both languages (None = no caption).
 PHOTOS = {
     "IMG_PORTRAIT": ("martin-schweppe", "Martin Schweppe, Diplom-Designer", "Martin Schweppe, graduate designer",
-                     "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"),
+                     "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw", "Martin Schweppe"),  # caption: Martin 29.10.
     "IMG_DOOR": ("eingang", "Hauseingang mit Holztür und der Jahreszahl 1926", "Entrance with a wooden door marked 1926",
-                 "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"),
+                 "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw", None),
 }
 
 
 def photo_html(key: str, mode: str) -> str:
-    stem, alt_de, alt_en, sizes = PHOTOS[key]
+    stem, alt_de, alt_en, sizes, caption = PHOTOS[key]
     small, large = ASSETS / "photos" / f"{stem}-640.jpg", ASSETS / "photos" / f"{stem}-1280.jpg"
     w, h = natural_size_jpeg(large)
     alts = f'alt="{html.escape(alt_de)}" data-alt-de="{html.escape(alt_de)}" data-alt-en="{html.escape(alt_en)}"'
@@ -186,7 +187,9 @@ def photo_html(key: str, mode: str) -> str:
         if mode == "deploy":
             a, b = versioned(a), versioned(b)
         src = f'src="{b}" srcset="{a} 640w, {b} 1280w" sizes="{sizes}"'
-    return (f'<figure class="photo"><img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async"></figure>')
+    cap = f'<figcaption class="small">{html.escape(caption)}</figcaption>' if caption else ""
+    return (f'<figure class="photo"><img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async">'
+            f'{cap}</figure>')
 
 
 def natural_size_jpeg(f: pathlib.Path):

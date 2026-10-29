@@ -232,6 +232,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
 .photo { margin: 0; }
 .photo img { display: block; width: 100%; max-width: 100%; height: auto; }
+/* a very small caption under the portrait (Martin, 29.10.): the smallest step of the scale, like the other labels */
+.photo figcaption { margin-top: 10px; }
 .facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); align-content: start; }
 .facts > div { padding: 18px 0 20px; border-bottom: 1px solid var(--line); min-width: 0; }
 .facts > div:nth-child(odd) { padding-right: 16px; }

@@ -260,6 +260,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 /* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
 .photo { margin: 0; }
 .photo img { display: block; width: 100%; max-width: 100%; height: auto; }
+/* a very small caption under the portrait (Martin, 29.10.): the smallest step of the scale, like the other labels */
+.photo figcaption { margin-top: 10px; }
 .facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); align-content: start; }
 .facts > div { padding: 18px 0 20px; border-bottom: 1px solid var(--line); min-width: 0; }
 .facts > div:nth-child(odd) { padding-right: 16px; }
@@ -530,11 +532,11 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="sec" id="ueber-mich" data-sec aria-labelledby="t-about">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-about"><span lang="de">Ich bin Martin.</span><span lang="en">I’m Martin.</span></h2>
+      <h2 id="t-about"><span lang="de">Human in the loop.</span><span lang="en">Human in the loop.</span></h2>
     </header>
     <div class="about-grid">
       <div class="about-side">
-        <figure class="photo"><img src="assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" data-alt-de="Martin Schweppe, Diplom-Designer" data-alt-en="Martin Schweppe, graduate designer" width="1280" height="1707" loading="lazy" decoding="async"></figure>
+        <figure class="photo"><img src="assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" data-alt-de="Martin Schweppe, Diplom-Designer" data-alt-en="Martin Schweppe, graduate designer" width="1280" height="1707" loading="lazy" decoding="async"><figcaption class="small">Martin Schweppe</figcaption></figure>
         <dl class="facts">
         <div><dt class="small"><span lang="de">Abschluss</span><span lang="en">Degree</span></dt><dd>Diplom-Designer</dd></div>
         <div><dt class="small"><span lang="de">Büro</span><span lang="en">Studio</span></dt><dd>Grafitecture GmbH</dd></div>
