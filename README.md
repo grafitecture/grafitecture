@@ -32,12 +32,12 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 
 ## Gestaltung
 
-- Farben: #435960 und Weiß (Kontrast 7,4 : 1), auch für alle Headlines. Akzent Lime #dafd55 immer im vollen Ton für alle Mouse-over-Zustände: Schrift und Logo werden Lime (auf den Lime-Flächen Weiß), Buttons füllen sich Lime. Nichts wird unterlegt. Schrift auf Lime ist #435960.
+- Farben: #435960 und Weiß (Kontrast 7,4 : 1), auch für alle Headlines. Akzent Lime #dafd55 immer im vollen Ton für alle Mouse-over-Zustände: Schrift und Logo werden Lime (auf den Lime-Flächen Weiß), Buttons füllen sich Lime. Nichts wird unterlegt. Schrift auf Lime ist #435960. Alle Linien und Unterstreichungen sind Lime, auf den Lime-Flächen weiß (`--line`); nur der Fokusrahmen für die Tastatur bleibt #435960.
 - Schrift: Google Sans, Skala im Goldenen Schnitt mit `clamp()` (Maximum bei 1920 px):
   h1 17.942rem · h2 11.089rem · h3 6.854rem · h4 4.236rem · h5 2.618rem · h6 1.618rem · p 1rem · small 0.618rem · 0.382rem.
 - Große Headlines, große Weißflächen. Kundenlogos einfarbig in #435960.
 - Hero, „So läuft’s“ und „Bereit?“ als vollflächige Lime-Flächen #dafd55 mit Schrift in #435960; der Hero ohne Bild. Der Footer ist weiß.
-- Die Hero-Fläche changiert durch das ganze Farbspektrum, immer zwei Farben zugleich (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`, Farbkreis aus `tools/colour_wheel.py`, Schrift überall mindestens 4,5 : 1); bei „Bewegung reduzieren“ bleibt sie reines Lime.
+- Die Hero-Fläche changiert durch das ganze Farbspektrum, immer zwei Farben zugleich (Canvas hinter dem Inhalt, `sheen()` in `src/app.js`, Farbkreis aus `tools/colour_wheel.py`, Schrift überall mindestens 4,5 : 1); bei „Bewegung reduzieren“ bleibt sie reines Lime. Dasselbe Farbspiel liegt beim Öffnen von Impressum und Datenschutz neben dem weißen Blatt, auf derselben Zeitachse wie der Hero.
 
 ## Sprache und Links
 

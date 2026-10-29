@@ -85,7 +85,8 @@
     $$('[data-sec]').forEach((s) => secObs.observe(s));
   }
 
-  /* ---------------- hero: the surface shimmers (Martin, 26.10.; two colours of the whole spectrum since 28.10.) ----------------
+  /* ---------------- shimmering fields: the hero (Martin, 26.10.; two colours of the whole spectrum since 28.10.) and,
+     since 29.10., the field behind Impressum and Datenschutz ----------------
      The hero field changes colour like shot silk, and at any moment exactly two colours play against each other:
      four soft areas drift over the field, two carry the first colour and two the second, and where they meet the
      two mix in linear light (no grey, no third colour). The pair travels once around the whole colour wheel in
@@ -97,23 +98,32 @@
      content; a fine ordered dither keeps the gradients free of bands. The field fades in from plain lime when it
      first comes into view and rests while it is out of view or the tab is hidden. The pause button next to the
      kicker stops it (WCAG 2.2.2). Without JavaScript and with reduced motion it stays plain lime. The footer
-     shimmered too from 26.10. and is plain white since 28.10. (Martin; its variant is in the git history). */
+     shimmered too from 26.10. and is plain white since 28.10. (Martin; its variant is in the git history).
+     Since 29.10. (Martin) the screen behind the Impressum and Datenschutz sheet shimmers the same way, instead of
+     the plain #435960 backdrop. Hero and dialogs share one timeline: a dialog opens in the colours the hero shows at
+     that moment, and the hero carries on from there when it closes. Only the visible field runs (the hero rests
+     while a dialog covers it); each dialog has its own pause icon, and every icon pauses all fields. */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   const sheenBtns = $$('[data-sheen-btn]');
   const sheens = [];
   let sheenPaused = false;
+  let clock = 0, last = 0;   // the shared timeline in seconds, and the time of its last frame
+  const legalOpen = () => !!document.querySelector('dialog.legal[open]');
+  const syncSheens = () => sheens.forEach((sync) => sync());
   if (!reduceMotion.matches && window.requestAnimationFrame) {
-    const hero = $('.hero');
-    if (hero) {
+    const add = (field, covered) => {
       const cv = document.createElement('canvas');
       const g = cv.getContext('2d');
-      if (g) sheens.push(sheen(hero, cv, g));
-    }
+      if (g) sheens.push(sheen(field, cv, g, covered));
+    };
+    const hero = $('.hero');
+    if (hero) add(hero, legalOpen);                            // covered while a legal dialog is open
+    $$('dialog.legal').forEach((d) => add(d, () => !d.open));  // runs only while its dialog is open
     if (sheens.length) {
       const setPaused = (p) => {
         sheenPaused = p;
         sheenBtns.forEach((b) => b.classList.toggle('is-paused', p));
-        sheens.forEach((sync) => sync());
+        syncSheens();
       };
       sheenBtns.forEach((b) => {
         b.hidden = false;
@@ -123,8 +133,9 @@
     }
   }
 
-  // the shimmering field; returns its sync function
-  function sheen(field, cv, g) {
+  // a shimmering field: a canvas painted behind its content (in a dialog only beside the sheet, see styles.css);
+  // covered() says when the field is hidden although on screen. Returns its sync function.
+  function sheen(field, cv, g, covered) {
     // the colour wheel, variant A (Martin 28.10.): 36 colours 10° apart in OKLCH hue, from the lime towards green,
     // cyan, blue, violet, pink, orange and yellow; each the most saturated colour of its hue on which #435960 keeps
     // at least 4.6:1, so with blending, rounding and dither it never drops below 4.5:1 (tools/colour_wheel.py)
@@ -148,7 +159,7 @@
     const enc = (l) => 255 * (l <= 0.0031308 ? 12.92 * l : 1.055 * l ** (1 / 2.4) - 0.055);   // and back
     const mix = new Float32Array(256 * 3);      // this frame's blend from the first colour to the second
     let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [];
-    let clock = 0, last = 0, painted = -1, raf = 0, inView = true;
+    let painted = -1, raf = 0, inView = true;
     cv.className = 'sheen';
     cv.setAttribute('aria-hidden', 'true');
     field.prepend(cv);
@@ -191,21 +202,24 @@
     }
     function tick(now) {
       raf = 0;
-      clock += last ? Math.min(now - last, 100) / 1000 : 0;
-      last = now;
+      if (now !== last) {   // the timeline moves once per frame, however many fields run
+        clock += last ? Math.min(now - last, 100) / 1000 : 0;
+        last = now;
+      }
       if (clock - painted >= 1 / 12) { painted = clock; paint(); }
       run();
     }
     function run() {
-      if (!raf && !sheenPaused && inView && !document.hidden) raf = requestAnimationFrame(tick);
+      if (!raf && !sheenPaused && inView && !document.hidden && !covered()) raf = requestAnimationFrame(tick);
     }
     function rest() {
-      if (raf) cancelAnimationFrame(raf);
+      if (!raf) return;
+      cancelAnimationFrame(raf);
       raf = 0;
-      last = 0;
+      last = 0;   // the next field to run starts without a jump
     }
     function size() {
-      const rect = field.getBoundingClientRect();
+      const rect = cv.getBoundingClientRect();
       w = rect.width || 1;
       h = rect.height || 1;
       const nw = Math.max(8, Math.ceil(w / RES)), nh = Math.max(8, Math.ceil(h / RES));
@@ -219,13 +233,14 @@
       paint();
     }
     function sync() {
-      if (sheenPaused || !inView || document.hidden) rest(); else run();
+      if (sheenPaused || !inView || document.hidden || covered()) rest(); else run();
     }
 
     size();
     document.addEventListener('visibilitychange', sync);
-    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(field);
-    if ('ResizeObserver' in window) new ResizeObserver(size).observe(field);
+    // watch the canvas itself: in a dialog it is hidden while the dialog is closed or the sheet fills the screen
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; sync(); }).observe(cv);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv);
     else window.addEventListener('resize', size);
     sync();
     return sync;
@@ -325,7 +340,9 @@
     if (copyMsg) copyMsg.addEventListener('click', () => copyText(lastText, copyMsg));
   }
 
-  /* ---------------- legal dialogs ---------------- */
+  /* ---------------- legal dialogs ----------------
+     Each dialog covers the whole screen: the white sheet (.legal-in, it scrolls) and beside it the shimmering field
+     (since 29.10., see above). The hero rests while a dialog is open and takes over the timeline when it closes. */
   const legalIds = ['impressum', 'datenschutz'];
   function openLegal(id) {
     const d = document.getElementById(id);
@@ -334,21 +351,29 @@
     setMenu(false);
     if (!d.open) {
       if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+      // focus „Schließen“ as before; the sheet is a scroll area now and would otherwise take the first focus
+      const x = $('[data-close]', d);
+      if (x) x.focus({ preventScroll: true });
     }
-    d.scrollTop = 0;
+    const sheet = $('.legal-in', d);
+    if (sheet) sheet.scrollTop = 0;
     document.documentElement.style.overflow = 'hidden';
+    syncSheens();
   }
   $$('[data-open]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); openLegal(a.dataset.open); }));
   $$('dialog.legal').forEach((d) => {
+    // a click on the field beside the sheet closes the dialog; only when it was also pressed there, so letting go
+    // of a text selection beside the sheet keeps it open
+    let pressed = null;
+    d.addEventListener('pointerdown', (e) => { pressed = e.target; });
     d.addEventListener('click', (e) => {
-      if (e.target !== d) return;
-      const r = d.getBoundingClientRect();
-      const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-      if (!inside) d.close();
+      if (e.target === d && pressed === d) d.close();
+      pressed = null;
     });
     $$('[data-close]', d).forEach((b) => b.addEventListener('click', () => d.close()));
     d.addEventListener('close', () => {
-      if (!$$('dialog.legal[open]').length) document.documentElement.style.overflow = '';
+      if (!legalOpen()) document.documentElement.style.overflow = '';
+      syncSheens();
     });
   });
   const h = (location.hash || '').slice(1);
