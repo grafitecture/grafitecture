@@ -28,7 +28,7 @@ FONTS = [
 
 # name, website (None = not linked). Order = order on the page.
 CLIENTS = [
-    ("L'Année", "https://1898.ma/"),
+    ("L'Année", "https://www.lannee.de/"),   # Martin 30.10. (before 1898.ma)
     ("Dentaid", "https://www.dentaid-direkt.de/"),
     ("Healthklick", None),
     ("fläsh", "https://flaesh.com/"),
