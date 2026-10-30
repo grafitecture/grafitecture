@@ -48,7 +48,7 @@ CLIENTS = [
     ("Zahnarztpraxis Theurer", "https://www.zahnarztpraxis-theurer.de/"),
     ("Gemeinschaftspraxis Günther", "https://www.gemeinschaftspraxis-guenther.de/"),
     ("Tanja Weber", None),
-    ("Covendos", "https://www.covendos.com/"),
+    ("Covendos", None),   # link removed (Martin 30.10.)
     ("Zweite Liebe", "https://www.sanremo.ma/"),
     ("WHITEsmile", "https://www.whitesmile.de/"),
     ("ag+", "https://ahrens-gonzalves.de/"),
@@ -56,6 +56,7 @@ CLIENTS = [
     ("SanRemo", "https://www.sanremo.ma/"),
     ("starks", None),
     ("ecowerth", None),
+    ("Covendos Healthcare Group", None),   # Martin 30.10., not linked
 ]
 
 TITLE_DE = "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des., Mannheim"

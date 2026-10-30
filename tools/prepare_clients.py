@@ -40,6 +40,7 @@ MAP = {
     "sanremo.webp": "sanremo",
     "starks.webp": "starks",
     "ecowerth.png": "ecowerth",          # colour logo (29.10.2026), see SHADING
+    "covendos-healthcare-group.png": "covendos-healthcare-group",   # colour logo, red on transparent (30.10.2026)
 }
 
 # Colour sources: light grey that only shades, and the colours it touches. It is left out, because in one colour it
