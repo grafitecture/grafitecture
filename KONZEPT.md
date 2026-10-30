@@ -50,7 +50,9 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 
 - **Neues Kundenlogo Covendos Healthcare Group, Covendos ohne Link (30.10., Martin):** Das Logo mit Bildmarke und Schriftzug „Covendos Healthcare Group“ steht als eigenes Logo an letzter Stelle der Referenzen, nach ecowerth; das bisherige Covendos-Zeichen (Bildmarke im Kreis) bleibt an seinem Platz. Beide sind nicht verlinkt (bisher führte Covendos auf covendos.com), also auch ohne Lime-Fläche beim Darüberfahren. Martins Vorlage ist rot auf transparent, der dunklere Verlauf im Schrägstrich spielt einfarbig keine Rolle: Der Schrägstrich ist durch eine Lücke vom Trichter getrennt, deshalb reicht die Form allein (kein Eintrag in `SHADING`). Vorlage `KUNDENLOGOS/covendos-healthcare-group.png`. Mit 29 Logos verschiebt sich der optische Größenausgleich minimal (WHITEsmile 1 px schmaler, SanRemo 1 px niedriger).
 
-- **L'Année verlinkt auf lannee.de (30.10., Martin):** Das Logo von L'Année führt jetzt auf https://www.lannee.de/ (vorher auf 1898.ma, wie das Logo 1898, das dort bleibt). Eintrag in `CLIENTS` in `build.py`.
+- **L'Année verlinkt auf lannee.de (30.10., Martin):** Das Logo von L'Année führt jetzt auf https://www.lannee.de/ (vorher auf 1898.ma). Eintrag in `CLIENTS` in `build.py`.
+
+- **1898 verlinkt auf lannee.de (30.10., Martin):** Auch das Logo 1898 führt jetzt auf https://www.lannee.de/ (vorher auf 1898.ma). Damit verweist kein Logo mehr auf 1898.ma. Eintrag in `CLIENTS` in `build.py`.
 
 - **„Über mich“: neue Headline und Bildunterschrift (29.10., Martin):** Die Headline heißt in Deutsch und Englisch „Human in the loop.“ (vorher „Ich bin Martin.“ / „I’m Martin.“). Sie steht ab 390 px auf einer Zeile, auf ganz schmalen Geräten auf zwei. Unter dem Porträt steht ganz klein „Martin Schweppe“, in beiden Sprachen gleich: kleinste Stufe der Skala (0,618rem), in Versalien wie die übrigen Beschriftungen (z. B. „Abschluss“), 10 px unter dem Foto. Technisch das fünfte Feld in `PHOTOS` in `build.py` (Bildunterschrift, `None` = keine); das Eingangsfoto hat keine.
 

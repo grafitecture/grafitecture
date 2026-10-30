@@ -37,7 +37,7 @@ CLIENTS = [
     ("42health", "http://42health.de/"),
     ("tinytecture", "https://www.tinytecture.de/"),
     ("Detmers", "http://detmers.de/"),
-    ("1898", "https://1898.ma/"),
+    ("1898", "https://www.lannee.de/"),   # Martin 30.10. (before 1898.ma)
     ("CORE", "https://www.core-cc.com/"),
     ("raumrent", "https://www.raumrent.de/"),
     ("Ultracain", "https://www.ultracain.de/"),
