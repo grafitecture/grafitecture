@@ -236,6 +236,7 @@ ld = {
                 "addressLocality": "Mannheim", "addressCountry": "DE"},
     "employee": {"@type": "Person", "name": "Martin Schweppe", "jobTitle": "Geschäftsführer, Diplom-Designer"},
     "knowsLanguage": ["de", "en"],
+    "sameAs": ["https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/"],   # Martin 01.11.2026
 }
 
 
