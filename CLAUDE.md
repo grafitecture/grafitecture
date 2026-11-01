@@ -41,7 +41,7 @@ Static one-pager for Grafitecture GmbH (Martin Schweppe, Diplom-Designer, Mannhe
 - `body.html` placeholders filled by build.py: `{{LOGO_DARK}}`, `{{LOGO_WHITE}}`, `{{ARROW}}`, `{{CLIENTS}}`, `{{CLIENT_COUNT}}` (currently unused), `{{IMG_PORTRAIT}}`, `{{IMG_DOOR}}`. Client names, order and links: `CLIENTS` in build.py.
 - Impressum and Datenschutz are dialogs in body.html (status October 2026: § 5 DDG, § 18 Abs. 2 MStV, hosting Vercel). Keep the privacy policy short, and update it whenever a cookie, analytics, external font or other third-party service is added.
 - No cookies, no tracking, no third-party requests; the CSP in vercel.json allows only 'self'.
-- Instagram (Martin 01.11.2026): a plain text link „Instagram“ in the footer's contact column under the e-mail address (https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/, new tab), plus `sameAs` in the JSON-LD. No icon, no embed, nothing loaded from Instagram; the privacy policy (point 4) says so in one sentence.
+- Instagram (Martin 01.11.2026): its own footer column „Social“ (the same label in DE and EN) with a plain text link „Instagram“ (https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/, new tab), plus `sameAs` in the JSON-LD. Footer columns: Büro, Kontakt, Social, Rechtliches; one column on phones, two by two from 760 px, four from 1300 px (below that the e-mail address would wrap in a quarter column). No icon, no embed, nothing loaded from Instagram; the privacy policy (point 4) says so in one sentence.
 
 ## Before pushing
 

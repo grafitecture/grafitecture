@@ -339,7 +339,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .ftr-grid .small { display: block; margin-bottom: 10px; }
 .ftr-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .site .ftr-meta { margin-top: var(--s5); }
-@media (min-width: 760px) { .ftr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Büro, Kontakt, Social, Rechtliches (Social since 01.11., Martin): two by two from 760 px, four columns from
+   1300 px (below that the e-mail address would wrap in a quarter column) */
+@media (min-width: 760px) { .ftr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1300px) { .ftr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* ---------- legal dialogs ----------
    Impressum and Datenschutz open as a white sheet from the right. Behind it the screen shimmers like the hero
@@ -672,7 +675,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
     </div>
     <div class="ftr-grid">
       <p><span class="small"><span lang="de">Büro</span><span lang="en">Studio</span></span>Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim</p>
-      <p><span class="small"><span lang="de">Kontakt</span><span lang="en">Contact</span></span><a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a><br><a href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+      <p><span class="small"><span lang="de">Kontakt</span><span lang="en">Contact</span></span><a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>
+      <p><span class="small">Social</span><a href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
       <div><span class="small"><span lang="de">Rechtliches</span><span lang="en">Legal</span></span><p class="ftr-legal"><a href="#impressum" data-open="impressum"><span lang="de">Impressum</span><span lang="en">Legal notice</span></a><a href="#datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></a></p></div>
     </div>
     <p class="ftr-meta small">© 2000–2026 Grafitecture GmbH</p>

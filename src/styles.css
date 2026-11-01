@@ -311,7 +311,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .ftr-grid .small { display: block; margin-bottom: 10px; }
 .ftr-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .site .ftr-meta { margin-top: var(--s5); }
-@media (min-width: 760px) { .ftr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Büro, Kontakt, Social, Rechtliches (Social since 01.11., Martin): two by two from 760 px, four columns from
+   1300 px (below that the e-mail address would wrap in a quarter column) */
+@media (min-width: 760px) { .ftr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1300px) { .ftr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* ---------- legal dialogs ----------
    Impressum and Datenschutz open as a white sheet from the right. Behind it the screen shimmers like the hero
