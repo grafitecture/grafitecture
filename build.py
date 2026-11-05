@@ -736,6 +736,72 @@ def sitemap(dates: dict) -> str:
 """
 
 
+# robots.txt (05.11.2026). Search engines and AI answer engines may read and cite everything; AI training is allowed
+# too (Martin, 05.11.2026). Explicit groups, so the decision is visible and easy to change: to stop training, set
+# AI_TRAINING = False (the training crawlers then get „Disallow: /“; search and citations stay allowed).
+# Names checked against the operators' documentation and github.com/ai-robots-txt/ai.robots.txt on 05.11.2026.
+AI_TRAINING = True
+BOTS_SEARCH = ["Googlebot", "Bingbot", "OAI-SearchBot", "ChatGPT-User", "Claude-SearchBot", "Claude-User", "PerplexityBot",
+               "Perplexity-User", "Applebot", "DuckAssistBot", "MistralAI-User", "meta-webindexer", "Meta-ExternalFetcher"]
+BOTS_TRAINING = ["GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended", "CCBot", "meta-externalagent", "Bytespider"]
+
+
+def robots() -> str:
+    def group(names, rule):
+        return "".join(f"User-agent: {n}\n" for n in names) + rule + "\n"
+    return ("# grafitecture.de – built by build.py, do not edit by hand\n\n"
+            "# Search engines and AI answer engines: read and cite\n" + group(BOTS_SEARCH, "Allow: /") + "\n"
+            "# AI training (Google-Extended and Applebot-Extended are opt-out tokens, not crawlers)\n"
+            + group(BOTS_TRAINING, "Allow: /" if AI_TRAINING else "Disallow: /") + "\n"
+            "# Everyone else\n" + group(["*"], "Allow: /") + f"\nSitemap: {SITE_URL}sitemap.xml\n")
+
+
+def llms_txt(de_body: str) -> str:
+    """/llms.txt (llmstxt.org): a short Markdown summary for AI tools and agents, built from the German page so it
+    never drifts from it. Google does not use it; it is served with X-Robots-Tag: noindex."""
+    def text(t):
+        return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t))).replace("\u00ad", "").replace(" .", ".").strip()
+    lead = text(re.search(r'<div class="hero-side">\s*<p>(.*?)</p>', de_body, flags=re.S).group(1))
+    steps = [text(h) for h in re.findall(r'<li class="row"><span class="num"[^>]*>\d+</span><h3 class="h4">(.*?)</h3>', de_body)]
+    svc = "".join(f"- **{n}:** {d}\n" for n, d in services(de_body))
+    pages = "".join(f"- [{name}]({abs_url(path)}): {what}\n" for name, path, what in (
+        ("Startseite", "/", "Leistungen, Über mich, Ablauf, Referenzen (Kundenlogos) und Kontakt, auf Deutsch"),
+        ("Home (English)", "/en", "the same page in English"),
+        ("Impressum", "/impressum", "Anbieterkennzeichnung, Handelsregister, USt-IdNr."),
+        ("Datenschutz", "/datenschutz", "Datenschutzerklärung")))
+    return f"""# Grafitecture GmbH
+
+> {DESC["de"]}
+
+{lead}
+
+- Geschäftsführer: Martin Schweppe, Diplom-Designer
+- Anschrift: Grafitecture GmbH, Rebenstr. 9a, 68309 Mannheim, Deutschland
+- E-Mail: martin.schweppe@grafitecture.de
+- Erstes Strategiegespräch: 30 Minuten, kostenlos
+- Sprachen: Deutsch, Englisch
+
+## Leistungen
+
+{svc}
+## Ablauf
+
+{" → ".join(steps)}
+
+## Referenzen
+
+Ausgewählte Kunden aus 26 Jahren: {", ".join(n for n, _ in CLIENTS)}.
+
+## Seiten
+
+{pages}
+## Optional
+
+- [Legal notice (English)]({abs_url("/en/legal-notice")})
+- [Privacy policy (English)]({abs_url("/en/privacy-policy")})
+"""
+
+
 def manifest() -> dict:
     """Web app manifest (05.11.2026): name, colours and the „g“ icon for home screens and browser UIs."""
     icons = []
@@ -759,6 +825,7 @@ def vercel_config() -> dict:
         "redirects": redirects(),
         "headers": [
             {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+            {"source": "/llms.txt", "headers": [{"key": "X-Robots-Tag", "value": "noindex"}]},
             # previews and the vercel.app aliases never get indexed (Vercel sets this too; this keeps it explicit)
             {"source": "/(.*)", "has": [{"type": "host", "value": r".*\.vercel\.app"}],
              "headers": [{"key": "X-Robots-Tag", "value": "noindex"}]},
@@ -801,7 +868,8 @@ def build_deploy():
     write(out, "sitemap.xml", sitemap(lastmod(docs)))
     write(out, f"{INDEXNOW_KEY}.txt", INDEXNOW_KEY)
     (out / "favicon.ico").write_bytes(favicon_ico(ASSETS / "icons" / "favicon-32.png"))
-    write(out, "robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
+    write(out, "robots.txt", robots())
+    write(out, "llms.txt", llms_txt(page_body("de")))
     (ROOT / "vercel.json").write_text(json.dumps(vercel_config(), indent=2) + "\n")
     return out
 

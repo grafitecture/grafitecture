@@ -1,6 +1,6 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:02 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:03 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
 ## Intern (51)

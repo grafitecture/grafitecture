@@ -1,3 +1,32 @@
+# grafitecture.de – built by build.py, do not edit by hand
+
+# Search engines and AI answer engines: read and cite
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+User-agent: meta-webindexer
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# AI training (Google-Extended and Applebot-Extended are opt-out tokens, not crawlers)
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: meta-externalagent
+User-agent: Bytespider
+Allow: /
+
+# Everyone else
 User-agent: *
 Allow: /
 

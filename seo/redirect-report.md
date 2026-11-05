@@ -1,6 +1,6 @@
 # Redirect-Report
 
-Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 11:02 UTC.
+Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 11:03 UTC.
 70 Weiterleitungen aus `seo/redirect-map.csv` und `vercel.json`, dazu 7 Adressen, die 404 liefern müssen.
 **Alle in Ordnung.**
 
@@ -76,7 +76,7 @@ Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 11:02 UTC.
 | `/en/legal-notice/` | `/en/legal-notice` | 308 | ✅ |
 | `/datenschutz/` | `/datenschutz` | 308 | ✅ |
 | `/en/privacy-policy/` | `/en/privacy-policy` | 308 | ✅ |
-| `/gibt-es-nicht-1793876528062` | (404) | 404 | ✅ |
+| `/gibt-es-nicht-1793876601753` | (404) | 404 | ✅ |
 | `/wp-login.php` | (404) | 404 | ✅ |
 | `/wp-admin/` | (404) | 404 | ✅ |
 | `/xmlrpc.php` | (404) | 404 | ✅ |
