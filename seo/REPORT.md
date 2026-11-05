@@ -10,7 +10,7 @@ zusätzlich als eigene Seiten · Title und Description unverändert.
 |---|---|---|
 | Lighthouse mobil (CI, Median aus 3 Läufen) | nicht messbar (PageSpeed/npm hier gesperrt) | **100 / 100 / 100 / 100** auf `/`, `/en`, `/impressum` (Performance / Barrierefreiheit / Best Practices / SEO) |
 | Labor mobil (4× CPU, langsames 4G, lokal) | LCP 592 ms · CLS 0 · TBT 0 · 95 KB | LCP 540 ms · CLS 0 · TBT 0 · 79 KB |
-| Lighthouse simuliert (CI) | – | LCP 1,2–1,4 s · CLS 0 · TBT 0 ms |
+| Lighthouse simuliert (CI) | – | LCP 1,2–1,4 s · CLS 0 · TBT 0–43 ms (Budget 200) |
 | axe (WCAG 2.2 A/AA), 6 Seiten × 2 Breiten | – | **0 Verstöße** |
 | Indexierbare Adressen | 1 (`/`, beide Sprachen gemischt) | 6 (`/`, `/en`, 4 Rechtstext-Seiten), je mit hreflang |
 | Wörter, die Crawler ohne CSS verschmolzen lesen | 111 („LeistungenServices“) | 0 inline (Rest nur zwischen Block-Elementen) |
@@ -28,7 +28,7 @@ Rechtstext-Seiten (von der CI gefunden), 4 Kundenlinks über Weiterleitung bzw. 
 
 Belege „lokal“: `python3 scripts/serve.py` (Nachbau von Vercel aus `vercel.json`) + `curl -I`. Belege „Preview“: echtes
 Vercel-Deployment `grafitecturewebseite-ghjut12hy-grafitecture.vercel.app` (Commit f34d52c) über die Vercel-API.
-Belege „CI“: GitHub Actions Run 42018362914 (Commit 0596fb5), grün.
+Belege „CI“: GitHub Actions Runs 42018362914 (0596fb5) und 42019046176 (f0e2498), grün.
 
 | Bereich | Prüfpunkt | Status | Beleg |
 |---|---|---|---|
@@ -63,7 +63,7 @@ Belege „CI“: GitHub Actions Run 42018362914 (Commit 0596fb5), grün.
 | 7 KI | Inhalt ohne JavaScript, ohne Sprachgemisch | ✅ | lxml-Extraktion: `/` nur Deutsch, `/en` nur Englisch; Rechtstexte ohne JS erreichbar |
 | 7 KI | llms.txt | ✅ | Preview `/llms.txt` 200 mit `x-robots-tag: noindex` |
 | 7 KI | Inhalte für Antwortmaschinen | ⚠️ | Empfehlungen in `seo/content-empfehlungen.md` (nichts umgeschrieben) |
-| 8 Perf. | Lighthouse ≥ 95, CWV grün, Budgets | ✅ | CI: 100 / 100 / 100 / 100, LCP ≤ 1,4 s, CLS 0, TBT 0 |
+| 8 Perf. | Lighthouse ≥ 95, CWV grün, Budgets | ✅ | CI: 100 / 100 / 100 / 100, LCP ≤ 1,4 s, CLS 0, TBT ≤ 43 ms |
 | 8 Perf. | Schrift lokal, WOFF2, Fallback mit size-adjust | ✅ | 47 statt 61 KB, Tabellen identisch (`tools/make_woff2.py`) |
 | 8 Perf. | Caching | ✅ | `/assets/*` `max-age=31536000, immutable` mit Content-Hash |
 | 9 Sicherheit | CSP ohne `'unsafe-inline'` für Scripts, COOP | ✅ | Preview-Header: `script-src 'self' 'sha256-…' 'sha256-…'`, `cross-origin-opener-policy: same-origin` |
