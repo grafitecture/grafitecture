@@ -361,6 +361,13 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
 
+/* ---------- 404 page (05.11.2026, src/404.html): the white header with logo and DE/EN at every width (there is no
+   menu), a plain lime field like the hero (no shimmer), then the footer of the start page ---------- */
+.nf .hdr .lang { display: inline-flex; margin-right: -4px; }
+/* a 44 px tall touch target for each language button, as in the menu */
+.nf .hdr .lang button { position: relative; }
+.nf .hdr .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
+
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
 .btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 

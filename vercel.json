@@ -6,6 +6,308 @@
   "regions": [
     "fra1"
   ],
+  "redirects": [
+    {
+      "source": "/impressum",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum/",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/Impressum",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/Impressum/",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/imprint",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/imprint/",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.html",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.htm",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.php",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.asp",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/legal-notice",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/legal-notice/",
+      "destination": "/#impressum",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutz",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutz/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/Datenschutz",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/Datenschutz/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutzerklaerung",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutzerklaerung/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutzerklarung",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutzerklarung/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "/#datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/kontakt",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/kontakt/",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/Kontakt",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/Kontakt/",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/leistungen",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/leistungen/",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/Leistungen",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/Leistungen/",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/services/",
+      "destination": "/#leistungen",
+      "permanent": true
+    },
+    {
+      "source": "/ueber-mich",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/ueber-mich/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/agentur",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/agentur/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/agentur-2",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/agentur-2/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/author/martinschweppe",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/author/martinschweppe/",
+      "destination": "/#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/referenzen",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/referenzen/",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/Referenzen",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/Referenzen/",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/kunden",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/kunden/",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/wp-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/wp-sitemap-posts-page-1.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/wp-sitemap-users-1.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap-index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/apple-touch-icon-precomposed.png",
+      "destination": "/apple-touch-icon.png",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

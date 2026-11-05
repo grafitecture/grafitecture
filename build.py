@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Builds the website from src/ and assets/ (V3, 25.10.2026). Standard library only, no installs.
    public/        the live site. Committed to Git; Vercel serves this folder as is (no build step on Vercel).
+                  index.html from src/body.html, 404.html from src/404.html (with the footer of body.html),
+                  sitemap.xml, robots.txt, favicon.ico.
    vercel.json    Vercel settings (output folder, headers), written to the repository root.
    dist/artifact/ preview page for a claude.ai artifact (font and logos inlined). Not committed.
 
@@ -78,7 +80,8 @@ def versioned(rel: str) -> str:
     return f"{rel}?v={h}"
 
 
-def font_css(inline: bool) -> str:
+def font_css(inline: bool, prefix: str = "") -> str:
+    """prefix "/" makes the font URL absolute, for the 404 page, which shows up under any path."""
     out = []
     for fam, file, extra in FONTS:
         fmt = "woff2" if file.endswith(".woff2") else "woff"
@@ -86,7 +89,7 @@ def font_css(inline: bool) -> str:
             data = base64.b64encode((ASSETS / "fonts" / file).read_bytes()).decode()
             src = f'url(data:font/{fmt};base64,{data}) format("{fmt}")'
         else:
-            src = f'url("{versioned("assets/fonts/" + file)}") format("{fmt}")'
+            src = f'url("{prefix}{versioned("assets/fonts/" + file)}") format("{fmt}")'
         out.append(f'@font-face {{ font-family: "{fam}"; src: {src}; {extra} font-style: normal; font-display: swap; }}')
     return "\n".join(out)
 
@@ -246,6 +249,121 @@ def copy_clients(out: pathlib.Path):
         shutil.copytree(d, out / "assets" / "clients", ignore=shutil.ignore_patterns("*.txt", "*.json", ".*"))
 
 
+# Permanent redirects (308) for addresses that people and search engines still ask for (05.11.2026).
+# Taken from the 404 requests Vercel logged since the launch on 20.10.: mostly pages of the old WordPress site
+# (/impressum 71 requests, /datenschutz 21, /author/martinschweppe 11, /imprint 10, /contact 6, /kontakt 5, …) and
+# its sitemaps (/wp-sitemap.xml 26, …). Impressum and Datenschutz open as dialogs (app.js opens #impressum and
+# #datenschutz on load), the sections are anchors. Everything else (scanners asking for /login, /.env, /admin …)
+# gets the 404 page.
+REDIRECTS = {
+    "/#impressum": ["/impressum", "/Impressum", "/imprint", "/impressum.html", "/impressum.htm", "/impressum.php",
+                    "/impressum.asp", "/legal-notice"],
+    "/#datenschutz": ["/datenschutz", "/Datenschutz", "/datenschutzerklaerung", "/datenschutzerklarung", "/privacy",
+                      "/privacy-policy"],
+    "/#kontakt": ["/kontakt", "/Kontakt", "/contact"],
+    "/#leistungen": ["/leistungen", "/Leistungen", "/services"],
+    "/#ueber-mich": ["/ueber-mich", "/about", "/about-us", "/agentur", "/agentur-2", "/author/martinschweppe"],
+    "/#referenzen": ["/referenzen", "/Referenzen", "/kunden"],
+    "/sitemap.xml": ["/wp-sitemap.xml", "/wp-sitemap-posts-page-1.xml", "/wp-sitemap-users-1.xml",
+                     "/sitemap_index.xml", "/sitemap-index.xml"],
+    "/apple-touch-icon.png": ["/apple-touch-icon-precomposed.png"],
+}
+
+
+def redirects() -> list:
+    out = []
+    for dest, sources in REDIRECTS.items():
+        for src in sources:
+            for variant in (src, src + "/") if not re.search(r"\.\w+$", src) else (src,):
+                out.append({"source": variant, "destination": dest, "permanent": True})
+    return out
+
+
+def footer_for_404() -> str:
+    """The footer of the start page, with links that lead back to it (Impressum and Datenschutz open there)."""
+    body = (SRC / "body.html").read_text()
+    ftr = re.search(r'<footer class="ftr">.*?</footer>', body, flags=re.S).group(0)
+    ftr = ftr.replace('href="#top"', 'href="/"')
+    ftr = re.sub(r' data-open="[^"]*"', "", ftr)
+    return ftr.replace('href="#', 'href="/#')
+
+
+NF_SCRIPT = """(() => {
+  'use strict';
+  const site = document.getElementById('site');
+  const T = { de: 'Seite nicht gefunden · Grafitecture', en: 'Page not found · Grafitecture' };
+  const links = Array.from(document.querySelectorAll('a[href^="/"]'));
+  links.forEach((a) => { a.dataset.href = a.getAttribute('href'); });
+  function setLang(l) {
+    const lang = l === 'en' ? 'en' : 'de';
+    site.dataset.lang = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang];
+    document.querySelectorAll('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+    // the start page then opens in the same language (app.js reads ?lang=en): /?lang=en, /?lang=en#kontakt
+    links.forEach((a) => {
+      const h = a.dataset.href, i = h.indexOf('#');
+      a.setAttribute('href', lang === 'en' ? '/?lang=en' + (i < 0 ? '' : h.slice(i)) : h);
+    });
+  }
+  document.querySelectorAll('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+  let initial = 'de';
+  try { if (new URLSearchParams(location.search).get('lang') === 'en' || location.hash === '#en') initial = 'en'; } catch (e) { /* ignore */ }
+  setLang(initial);
+})();"""
+
+
+def render_404() -> str:
+    body = (SRC / "404.html").read_text()
+    body = (body.replace("{{FOOTER}}", footer_for_404())
+                .replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
+                .replace("{{ARROW}}", ARROW))
+    left = re.findall(r"\{\{[A-Z_]+\}\}", body)
+    assert not left, f"unreplaced placeholders in 404.html: {left}"
+    font_url = "/" + versioned("assets/fonts/GoogleSans-latin-wght.woff")
+    return f"""<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seite nicht gefunden · Grafitecture</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
+<style>
+{font_css(False, "/")}
+{styles}
+</style>
+</head>
+<body>
+{body}
+<script>
+{NF_SCRIPT}
+</script>
+</body>
+</html>
+"""
+
+
+def favicon_ico(png: pathlib.Path) -> bytes:
+    """/favicon.ico (asked for 43 times since the launch): the 32 px PNG wrapped in an ICO container."""
+    data = png.read_bytes()
+    w, h = struct.unpack(">II", data[16:24])
+    header = struct.pack("<HHH", 0, 1, 1)
+    entry = struct.pack("<BBBBHHII", w % 256, h % 256, 0, 0, 1, 32, len(data), 6 + 16)
+    return header + entry + data
+
+
+SITEMAP = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{SITE_URL}</loc></url>
+</urlset>
+"""
+
+
 def vercel_config() -> dict:
     return {
         "$schema": "https://openapi.vercel.sh/vercel.json",
@@ -255,6 +373,7 @@ def vercel_config() -> dict:
         # Vercel Functions would run in Frankfurt (privacy note by S. Enders, 26.10.2026).
         # The site has no functions; the static files are served by the CDN closest to the visitor.
         "regions": ["fra1"],
+        "redirects": redirects(),
         "headers": [
             {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
             {"source": "/(.*)", "headers": [
@@ -319,7 +438,10 @@ def build_deploy():
 </html>
 """
     (out / "index.html").write_text(html_doc)
-    (out / "robots.txt").write_text("User-agent: *\nAllow: /\n")
+    (out / "404.html").write_text(render_404())   # Vercel serves it with status 404 for any unknown address
+    (out / "sitemap.xml").write_text(SITEMAP)
+    (out / "favicon.ico").write_bytes(favicon_ico(ASSETS / "icons" / "favicon-32.png"))
+    (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
     (ROOT / "vercel.json").write_text(json.dumps(vercel_config(), indent=2) + "\n")
     return out
 
