@@ -1,0 +1,4 @@
+Contact: mailto:martin.schweppe@grafitecture.de
+Expires: 2027-11-01T00:00:00Z
+Preferred-Languages: de, en
+Canonical: https://www.grafitecture.de/.well-known/security.txt

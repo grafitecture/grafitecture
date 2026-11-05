@@ -134,9 +134,22 @@ GOOGLE_SITE_VERIFICATION = "E5hh_5YzfsqNIsu4hf9doWHHFXT4N5GLNTrq7SMHQeg"
 ARROW = ('<svg viewBox="0 0 22 10" aria-hidden="true" focusable="false">'
          '<path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>')
 
-CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; "
+# Content-Security-Policy: only this domain. Scripts by hash since 05.11.2026 (no 'unsafe-inline'): every inline
+# <script> goes through script_tag(), which records its SHA-256; vercel.json lists exactly those. Styles keep
+# 'unsafe-inline' (inline <style> and the style="--w:…" of the client logos). JSON-LD is data, not script.
+SCRIPT_HASHES = set()
+CSP = ("default-src 'self'; script-src 'self' {hashes}; style-src 'self' 'unsafe-inline'; "
        "img-src 'self' data:; font-src 'self' data:; connect-src 'self'; form-action mailto:; "
        "frame-ancestors 'none'; base-uri 'self'; object-src 'none'")
+# /.well-known/security.txt (RFC 9116). Renew before it expires: seo_check.py fails 30 days before.
+SECURITY_TXT_EXPIRES = "2027-11-01T00:00:00Z"
+
+
+def script_tag(js: str) -> str:
+    """<script> with the code on its own lines; the exact text between the tags is what the browser hashes."""
+    text = "\n" + js + "\n"
+    SCRIPT_HASHES.add("'sha256-" + base64.b64encode(hashlib.sha256(text.encode()).digest()).decode() + "'")
+    return f"<script>{text}</script>"
 
 
 def versioned(rel: str) -> str:
@@ -569,9 +582,7 @@ def render_404() -> str:
 </head>
 <body>
 {body}
-<script>
-{NF_SCRIPT}
-</script>
+{script_tag(NF_SCRIPT)}
 </body>
 </html>
 """
@@ -627,9 +638,7 @@ def render_home(lang: str) -> str:
 </head>
 <body>
 {body}
-<script>
-{app}
-</script>
+{script_tag(app)}
 </body>
 </html>
 """
@@ -804,6 +813,11 @@ Ausgewählte Kunden aus 26 Jahren: {", ".join(n for n, _ in CLIENTS)}.
 """
 
 
+def security_txt() -> str:
+    return (f"Contact: mailto:martin.schweppe@grafitecture.de\nExpires: {SECURITY_TXT_EXPIRES}\n"
+            f"Preferred-Languages: de, en\nCanonical: {SITE}/.well-known/security.txt\n")
+
+
 def manifest() -> dict:
     """Web app manifest (05.11.2026): name, colours and the „g“ icon for home screens and browser UIs."""
     icons = []
@@ -832,7 +846,8 @@ def vercel_config() -> dict:
             {"source": "/(.*)", "has": [{"type": "host", "value": r".*\.vercel\.app"}],
              "headers": [{"key": "X-Robots-Tag", "value": "noindex"}]},
             {"source": "/(.*)", "headers": [
-                {"key": "Content-Security-Policy", "value": CSP},
+                {"key": "Content-Security-Policy", "value": CSP.format(hashes=" ".join(sorted(SCRIPT_HASHES)))},
+                {"key": "Cross-Origin-Opener-Policy", "value": "same-origin"},
                 {"key": "X-Content-Type-Options", "value": "nosniff"},
                 {"key": "X-Frame-Options", "value": "DENY"},
                 {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
@@ -870,6 +885,7 @@ def build_deploy():
     write(out, "404.html", render_404())   # Vercel serves it with status 404 for any unknown address
     write(out, "sitemap.xml", sitemap(lastmod(docs)))
     write(out, f"{INDEXNOW_KEY}.txt", INDEXNOW_KEY)
+    write(out, ".well-known/security.txt", security_txt())
     (out / "favicon.ico").write_bytes(favicon_ico(ASSETS / "icons" / "favicon-32.png"))
     write(out, "robots.txt", robots())
     write(out, "llms.txt", llms_txt(page_body("de")))
