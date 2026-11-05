@@ -28,7 +28,10 @@ class H(http.server.BaseHTTPRequestHandler):
     def send(self, code, body=b"", ctype=None, extra=None, path="/"):
         self.send_response(code)
         hdrs = {}
+        host = (self.headers.get("Host") or "").split(":")[0]
         for rule in CFG.get("headers", []):
+            if any(c["type"] == "host" and not re.fullmatch(c["value"], host) for c in rule.get("has", [])):
+                continue
             if to_re(rule["source"]).match(path):
                 for h in rule["headers"]:
                     hdrs[h["key"]] = h["value"]

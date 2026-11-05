@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.grafitecture.de/</loc></url>
-  <url><loc>https://www.grafitecture.de/en</loc></url>
-  <url><loc>https://www.grafitecture.de/impressum</loc></url>
-  <url><loc>https://www.grafitecture.de/en/legal-notice</loc></url>
-  <url><loc>https://www.grafitecture.de/datenschutz</loc></url>
-  <url><loc>https://www.grafitecture.de/en/privacy-policy</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.grafitecture.de/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/"/>
+    <image:image><image:loc>https://www.grafitecture.de/assets/photos/martin-schweppe-1280.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.grafitecture.de/assets/photos/eingang-1280.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.grafitecture.de/en</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/"/>
+    <image:image><image:loc>https://www.grafitecture.de/assets/photos/martin-schweppe-1280.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.grafitecture.de/assets/photos/eingang-1280.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.grafitecture.de/impressum</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/impressum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/impressum"/>
+  </url>
+  <url>
+    <loc>https://www.grafitecture.de/en/legal-notice</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/impressum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en/legal-notice"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/impressum"/>
+  </url>
+  <url>
+    <loc>https://www.grafitecture.de/datenschutz</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/datenschutz"/>
+  </url>
+  <url>
+    <loc>https://www.grafitecture.de/en/privacy-policy</loc>
+    <lastmod>2026-11-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.grafitecture.de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/datenschutz"/>
+  </url>
 </urlset>

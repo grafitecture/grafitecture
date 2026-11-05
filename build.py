@@ -22,7 +22,7 @@ Placeholders in src/body.html:
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
    {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
 """
-import base64, csv, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
+import base64, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
 from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -42,6 +42,10 @@ PAGES = {
 }
 # production aliases on vercel.app (behind Vercel Authentication): send them to the real domain
 VERCEL_ALIASES = ["grafitecturewebseite-grafitecture.vercel.app", "grafitecturewebseite-git-main-grafitecture.vercel.app"]
+# IndexNow (Bing, Yandex, Seznam, Naver …; not Google): the key is public by design, it lives in /<key>.txt.
+# .github/workflows/indexnow.yml sends the sitemap addresses after every production deployment.
+INDEXNOW_KEY = "af047a6e4bbe9d70d8e2657ed6e5d075"
+ROBOTS_INDEX = "index, follow, max-image-preview:large"
 
 
 def abs_url(path: str) -> str:
@@ -543,6 +547,7 @@ def head(lang: str, page: str, title: str, desc: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
+<meta name="robots" content="{ROBOTS_INDEX}">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="{abs_url(PAGES[page][lang])}">
 {alt}{verify}<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -629,11 +634,47 @@ def favicon_ico(png: pathlib.Path) -> bytes:
     return header + entry + data
 
 
-def sitemap() -> str:
-    urls = "".join(f"  <url><loc>{abs_url(p)}</loc></url>\n" for paths in PAGES.values() for p in paths.values())
+def content_hash(doc: str) -> str:
+    """What a reader gets from a page: title, description and the visible text of <main> (no markup, no asset
+    versions). lastmod in the sitemap changes only when this changes."""
+    title = re.search(r"<title>(.*?)</title>", doc, flags=re.S).group(1)
+    desc = re.search(r'<meta name="description" content="([^"]*)"', doc).group(1)
+    main = re.search(r"<main.*?</main>", doc, flags=re.S).group(0)
+    text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", main))).strip()
+    return hashlib.sha256(f"{title}\n{desc}\n{text}".encode()).hexdigest()[:16]
+
+
+def lastmod(docs: dict) -> dict:
+    """seo/lastmod.json keeps, per address, the hash of its content and the day it last changed. Dates only move
+    when the content changes, so rebuilding never changes the sitemap by itself (commit the file with the change)."""
+    f = ROOT / "seo" / "lastmod.json"
+    known = json.loads(f.read_text()) if f.exists() else {}
+    today = datetime.date.today().isoformat()
+    out = {}
+    for path, doc in docs.items():
+        h = content_hash(doc)
+        old = known.get(path, {})
+        out[path] = {"hash": h, "date": old["date"] if old.get("hash") == h else today}
+    f.write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
+    return {p: v["date"] for p, v in out.items()}
+
+
+def sitemap(dates: dict) -> str:
+    """Every indexable address with its last content change, its language versions (hreflang) and, on the start
+    pages, the two photos (Google image search)."""
+    photos = "".join(f'    <image:image><image:loc>{SITE}/assets/photos/{stem}-1280.jpg</image:loc></image:image>\n'
+                     for stem, *_ in PHOTOS.values())
+    urls = []
+    for page, paths in PAGES.items():
+        alts = "".join(f'    <xhtml:link rel="alternate" hreflang="{l}" href="{abs_url(paths[l])}"/>\n' for l in LANGS)
+        alts += f'    <xhtml:link rel="alternate" hreflang="x-default" href="{abs_url(paths["de"])}"/>\n'
+        for lang in LANGS:
+            p = paths[lang]
+            urls.append(f"  <url>\n    <loc>{abs_url(p)}</loc>\n    <lastmod>{dates[p]}</lastmod>\n{alts}"
+                        f"{photos if page == 'home' else ''}  </url>\n")
     return f"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{urls}</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+{"".join(urls)}</urlset>
 """
 
 
@@ -649,6 +690,9 @@ def vercel_config() -> dict:
         "redirects": redirects(),
         "headers": [
             {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+            # previews and the vercel.app aliases never get indexed (Vercel sets this too; this keeps it explicit)
+            {"source": "/(.*)", "has": [{"type": "host", "value": r".*\.vercel\.app"}],
+             "headers": [{"key": "X-Robots-Tag", "value": "noindex"}]},
             {"source": "/(.*)", "headers": [
                 {"key": "Content-Security-Policy", "value": CSP},
                 {"key": "X-Content-Type-Options", "value": "nosniff"},
@@ -676,12 +720,16 @@ def build_deploy():
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
+    docs = {}
     for lang in LANGS:
-        write(out, out_file(PAGES["home"][lang]), render_home(lang))
+        docs[PAGES["home"][lang]] = render_home(lang)
         for page in ("impressum", "datenschutz"):
-            write(out, out_file(PAGES[page][lang]), render_legal(page, lang))
+            docs[PAGES[page][lang]] = render_legal(page, lang)
+    for path, doc in docs.items():
+        write(out, out_file(path), doc)
     write(out, "404.html", render_404())   # Vercel serves it with status 404 for any unknown address
-    write(out, "sitemap.xml", sitemap())
+    write(out, "sitemap.xml", sitemap(lastmod(docs)))
+    write(out, f"{INDEXNOW_KEY}.txt", INDEXNOW_KEY)
     (out / "favicon.ico").write_bytes(favicon_ico(ASSETS / "icons" / "favicon-32.png"))
     write(out, "robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
     (ROOT / "vercel.json").write_text(json.dumps(vercel_config(), indent=2) + "\n")
