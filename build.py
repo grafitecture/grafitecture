@@ -396,21 +396,71 @@ app = (SRC / "app.js").read_text()
 for l in LANGS:   # app.js sets document.title from its own table: keep both in step
     assert TITLE[l] in app, f"title ({l}) in app.js differs from TITLE in build.py"
 
-ld = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Grafitecture GmbH",
-    "url": SITE_URL,
-    "email": "martin.schweppe@grafitecture.de",
-    "image": SITE_URL + OG_IMAGE["de"],
-    "logo": SITE_URL + "assets/logo/grafitecture.svg",
-    "foundingDate": "2000",
-    "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309",
-                "addressLocality": "Mannheim", "addressCountry": "DE"},
-    "employee": {"@type": "Person", "name": "Martin Schweppe", "jobTitle": "Geschäftsführer, Diplom-Designer"},
-    "knowsLanguage": ["de", "en"],
-    "sameAs": ["https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/"],   # Martin 01.11.2026
+# ---------------------------------------------------------------- structured data (JSON-LD, 05.11.2026)
+# One linked @graph per page with stable @ids. Only what the page shows: no telephone, opening hours or ratings
+# (there are none on the site). Services and texts in the language of the page.
+ORG_ID, SITE_ID, PERSON_ID, LOGO_ID = SITE + "/#organization", SITE + "/#website", SITE + "/#martin-schweppe", SITE + "/#logo"
+LD_TEXT = {
+    "de": {"job": "Geschäftsführer, Diplom-Designer", "degree": "Diplom-Designer", "catalog": "Leistungen",
+           "home": "Startseite"},
+    "en": {"job": "Managing Director, graduate designer (Dipl.-Des.)", "degree": "Diplom-Designer (graduate designer)",
+           "catalog": "Services", "home": "Home"},
 }
+
+
+def services(page_html: str) -> list:
+    """The six services („Was ich baue“) as shown on the page: headline and description."""
+    out = []
+    ul = re.search(r'<ul class="rows svc">(.*?)</ul>', page_html, flags=re.S).group(1)
+    for h3, p in re.findall(r'<h3 class="h4">(.*?)</h3>\s*<p>(.*?)</p>', ul, flags=re.S):
+        clean = lambda t: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", t))).replace("\u00ad", "").strip()
+        out.append((clean(h3), clean(p)))
+    assert len(out) == 6, out
+    return out
+
+
+def jsonld(page: str, lang: str, title: str, desc: str, body: str) -> str:
+    url = abs_url(PAGES[page][lang])
+    t = LD_TEXT[lang]
+    org = {
+        "@type": "ProfessionalService", "@id": ORG_ID,
+        "name": "Grafitecture GmbH", "alternateName": "Grafitecture", "url": SITE_URL,
+        "logo": {"@type": "ImageObject", "@id": LOGO_ID, "url": SITE_URL + "assets/logo/grafitecture-logo.png",
+                 "contentUrl": SITE_URL + "assets/logo/grafitecture-logo.png", "width": 1200, "height": 400,
+                 "caption": "Grafitecture"},
+        "image": SITE_URL + OG_IMAGE[lang],
+        "description": DESC[lang],
+        "email": "martin.schweppe@grafitecture.de",
+        "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309",
+                    "addressLocality": "Mannheim", "addressCountry": "DE"},
+        "foundingDate": "2000",
+        "employee": {"@id": PERSON_ID},
+        "knowsLanguage": ["de", "en"],
+        "sameAs": ["https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/"],   # Martin 01.11.2026
+    }
+    if page == "home":
+        org["hasOfferCatalog"] = {"@type": "OfferCatalog", "name": t["catalog"], "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "description": d, "provider": {"@id": ORG_ID}}}
+            for n, d in services(body)]}
+    person = {
+        "@type": "Person", "@id": PERSON_ID, "name": "Martin Schweppe", "jobTitle": t["job"],
+        "worksFor": {"@id": ORG_ID},
+        "image": SITE_URL + "assets/photos/martin-schweppe-1280.jpg",
+        "hasCredential": {"@type": "EducationalOccupationalCredential", "credentialCategory": "degree", "name": t["degree"]},
+    }
+    website = {"@type": "WebSite", "@id": SITE_ID, "url": SITE_URL, "name": "Grafitecture",
+               "publisher": {"@id": ORG_ID}, "inLanguage": list(LANGS)}
+    webpage = {"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": title, "description": desc,
+               "inLanguage": lang, "isPartOf": {"@id": SITE_ID}, "about": {"@id": ORG_ID},
+               "primaryImageOfPage": {"@type": "ImageObject", "url": SITE_URL + OG_IMAGE[lang]}}
+    graph = [org, website, person, webpage]
+    if page != "home":
+        name = re.search(r'<h1[^>]*>(.*?)</h1>', body, flags=re.S).group(1)
+        webpage["breadcrumb"] = {"@id": url + "#breadcrumb"}
+        graph.append({"@type": "BreadcrumbList", "@id": url + "#breadcrumb", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": t["home"], "item": abs_url(PAGES["home"][lang])},
+            {"@type": "ListItem", "position": 2, "name": name, "item": url}]})
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
 
 def copy_clients(out: pathlib.Path):
@@ -527,7 +577,7 @@ def render_404() -> str:
 
 # ---------------------------------------------------------------- page head
 
-def head(lang: str, page: str, title: str, desc: str) -> str:
+def head(lang: str, page: str, title: str, desc: str, body: str) -> str:
     font_url = "/" + versioned("assets/fonts/GoogleSans-latin-wght.woff")
     alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{abs_url(PAGES[page][l])}">\n' for l in LANGS)
     alt += f'<link rel="alternate" hreflang="x-default" href="{abs_url(PAGES[page]["de"])}">\n'
@@ -546,8 +596,7 @@ def head(lang: str, page: str, title: str, desc: str) -> str:
 <meta property="og:locale:alternate" content="{'en_GB' if lang == 'de' else 'de_DE'}">
 <meta name="twitter:card" content="summary_large_image">
 """
-    if page == "home":
-        og += f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n'
+    og += f'<script type="application/ld+json">{jsonld(page, lang, title, desc, body)}</script>\n'
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{html.escape(title)}</title>
@@ -568,13 +617,14 @@ def head(lang: str, page: str, title: str, desc: str) -> str:
 
 
 def render_home(lang: str) -> str:
+    body = page_body(lang)
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
-{head(lang, "home", TITLE[lang], DESC[lang])}
+{head(lang, "home", TITLE[lang], DESC[lang], body)}
 </head>
 <body>
-{page_body(lang)}
+{body}
 <script>
 {app}
 </script>
@@ -618,13 +668,14 @@ def render_legal(page: str, lang: str) -> str:
 {footer_html(lang)}
 </div>"""
     title, desc = LEGAL_META[(page, lang)]
+    body = lang_links(only_lang(markup, lang), lang, page)
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
-{head(lang, page, title, desc)}
+{head(lang, page, title, desc, body)}
 </head>
 <body>
-{lang_links(only_lang(markup, lang), lang, page)}
+{body}
 </body>
 </html>
 """
