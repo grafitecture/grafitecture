@@ -1,0 +1,70 @@
+# Nach jedem erfolgreichen Vercel-Deployment (Phase 12/13, 05.11.2026).
+# Produktion: Smoke-Test, alle Weiterleitungen gegen https://www.grafitecture.de, IndexNow für geänderte Seiten.
+# Vorschau: Weiterleitungen gegen die Vorschau-URL, wenn das Secret VERCEL_AUTOMATION_BYPASS_SECRET gesetzt ist
+# (Vercel → Settings → Deployment Protection → Protection Bypass for Automation; die Vorschauen sind per Login geschützt).
+name: Nach dem Deployment
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      indexnow_all:
+        description: 'IndexNow: alle Adressen der Sitemap melden'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  production:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' && startsWith(github.event.deployment_status.environment, 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Smoke-Test
+        run: |
+          set -e
+          code() { curl -s -o /dev/null -w '%{http_code}' "$1"; }
+          for u in / /en /impressum /datenschutz /en/legal-notice /en/privacy-policy /robots.txt /sitemap.xml /llms.txt; do
+            c=$(code "https://www.grafitecture.de$u"); echo "$u $c"; test "$c" = 200
+          done
+          c=$(code "https://www.grafitecture.de/gibt-es-nicht-$RANDOM"); echo "fantasy $c"; test "$c" = 404
+          c=$(code "https://grafitecture.de/"); echo "apex $c"; test "$c" = 308
+          curl -sI https://www.grafitecture.de/ | grep -qi '^content-security-policy:'
+          ! curl -sI https://www.grafitecture.de/ | grep -qi '^x-robots-tag:.*noindex'
+      - name: Weiterleitungen gegen die Produktion
+        run: node scripts/check-redirects.mjs https://www.grafitecture.de
+      - name: IndexNow (geänderte Seiten)
+        run: python3 scripts/indexnow.py ${{ inputs.indexnow_all && '--all' || '' }}
+
+  preview:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      !startsWith(github.event.deployment_status.environment, 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Weiterleitungen gegen die Vorschau
+        if: env.VERCEL_AUTOMATION_BYPASS_SECRET != ''
+        run: node scripts/check-redirects.mjs "${{ github.event.deployment_status.target_url }}"
+      - name: Hinweis
+        if: env.VERCEL_AUTOMATION_BYPASS_SECRET == ''
+        run: echo "Kein VERCEL_AUTOMATION_BYPASS_SECRET – Vorschau-Check übersprungen (siehe Kopf dieser Datei)."

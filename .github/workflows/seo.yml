@@ -1,0 +1,51 @@
+# SEO- und Technik-Checks bei jedem Push und Pull Request (Phase 12, 05.11.2026).
+# Bricht ab, wenn public/ nicht zum Quellcode passt, eine Seite gegen die Regeln verstößt, ein interner Link oder
+# eine Weiterleitung kaputt ist, Lighthouse mobil unter 95 fällt oder axe einen Barrierefreiheitsfehler findet.
+name: SEO & Technik
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Browser-Werkzeuge (nur hier, die Website selbst braucht keine)
+        run: |
+          npm install --no-save --no-package-lock playwright@1 @axe-core/playwright@4
+          npx playwright install --with-deps chromium
+      - name: npm run seo:check -- --full
+        run: npm run seo:check -- --full
+      - name: Externe Links (nur Hinweis, bricht nicht ab)
+        if: always()
+        run: |
+          python3 scripts/serve.py 8080 &
+          sleep 1
+          node scripts/check-links.mjs http://127.0.0.1:8080 --external || true
+      - name: Berichte aufheben
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-berichte
+          path: |
+            seo/*-report.md
+            seo/lighthouse/
+          if-no-files-found: ignore

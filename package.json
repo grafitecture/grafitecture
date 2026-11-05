@@ -1,0 +1,15 @@
+{
+  "name": "grafitecture-website",
+  "private": true,
+  "description": "grafitecture.de: static site, built by python3 build.py into public/. Only scripts for the checks, no dependencies. (No \"build\" script on purpose: Vercel serves public/ as committed.)",
+  "scripts": {
+    "seo:check": "node scripts/run-checks.mjs",
+    "seo:links": "node scripts/check-links.mjs",
+    "seo:external-links": "node scripts/check-links.mjs --external",
+    "seo:redirects": "node scripts/check-redirects.mjs",
+    "serve": "python3 scripts/serve.py 8080"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

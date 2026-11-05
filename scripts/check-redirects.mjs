@@ -62,7 +62,9 @@ for (const c of cases) {
   if (loc) {
     const t = await get(new URL(loc.pathname + loc.search, BASE).href);   // the fragment never reaches the server
     if (t.status !== 200) problems.push(`Ziel antwortet ${t.status} (mehr als ein Hop oder kaputt)`);
-    if (/noindex/i.test(t.robots) || /<meta name="robots" content="[^"]*noindex/i.test(t.body)) {
+    // previews on *.vercel.app are noindex on purpose; there only the page's own meta tag counts
+    const previewHost = new URL(BASE).host.endsWith('.vercel.app');
+    if ((!previewHost && /noindex/i.test(t.robots)) || /<meta name="robots" content="[^"]*noindex/i.test(t.body)) {
       if (!/\.(xml|png|ico|txt)$/.test(loc.pathname)) problems.push('Ziel ist noindex');
     }
   }

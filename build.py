@@ -99,13 +99,13 @@ CLIENTS = [
 
 # Title and description: Martin's wording, unchanged on 05.11.2026 at his request (the title is longer than the
 # ~60 characters Google shows; seo_check.py reports that as a warning only). English: the title app.js already used;
-# the English description was missing and is a translation of the German one (05.11.2026).
+# the English description was missing: a translation of the German one, shortened to 160 characters (05.11.2026).
 TITLE = {"de": "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des., Mannheim",
          "en": "Grafitecture · AI systems for brands · Martin Schweppe, Dipl.-Des., Mannheim"}
 DESC = {"de": ("Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: KI-Websites, KI-Agenten, "
                "Content-Engines und Workflow-Automation. Grafitecture GmbH, Mannheim, seit 2000."),
-        "en": ("Martin Schweppe, graduate designer, builds AI systems for brands: AI websites, AI agents, "
-               "content engines and workflow automation. Grafitecture GmbH, Mannheim, since 2000.")}
+        "en": ("Martin Schweppe, graduate designer, builds AI systems for brands: AI websites, agents, "
+               "content engines and automation. Grafitecture GmbH, Mannheim, since 2000.")}
 OG_TITLE = {"de": "Grafitecture · Marken mit KI. Ich baue KI-Systeme, die für Ihre Marke arbeiten.",
             "en": "Grafitecture · Brands with AI. I build AI systems that work for your brand."}
 OG_ALT = {"de": "Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim",
