@@ -9,13 +9,19 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff2?v=b0add59dd8" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face { font-family: "Google Sans"; src: url("/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Google Sans"; src: url("/assets/fonts/GoogleSans-latin-wght.woff2?v=b0add59dd8") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
 /* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
    and „Bereit?“ are lime fields, every line is lime, and every mouse-over is lime), one typeface (Google Sans) on a
    golden-ratio scale, very large headlines and wide white space. The footer is white (Martin, 28.10.).
    Images: two photos. */
+/* Fallback while Google Sans loads (05.11.2026): Arial, scaled to the width and line metrics of Google Sans, so the
+   text does not move when the web font arrives (values from tools/make_woff2.py). Only visible for a moment, if at all. */
+@font-face {
+  font-family: "Google Sans Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 100.83%; ascent-override: 95.80%; descent-override: 28.36%; line-gap-override: 0%;
+}
 :root {
   color-scheme: light;
   --c: #435960;   /* the one colour: text, buttons, logo */
@@ -30,7 +36,7 @@
      (.is-lime sets it). Not the keyboard focus ring: it stays #435960, a lime ring would not show on white. */
   --line: var(--lime);
 
-  --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
+  --font: "Google Sans", "Google Sans Fallback", "Helvetica Neue", Arial, sans-serif;
 
   /* Golden-ratio type scale (phi = 1.618), max values reached at 1920 px viewport, fluid down to 375 px */
   --h1: clamp(3.75rem, 0.31rem + 14.7vw, 17.942rem);

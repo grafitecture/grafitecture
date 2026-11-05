@@ -1,6 +1,6 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:03 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:06 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
 ## Intern (51)
@@ -38,7 +38,7 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/clients/whitesmile.png?v=ac78ddef3c` | 200 | ✅ | /en, / |
 | `/assets/clients/zahnarztpraxis-theurer.png?v=64b0834e50` | 200 | ✅ | /en, / |
 | `/assets/clients/zweite-liebe.png?v=ae57b352a5` | 200 | ✅ | /en, / |
-| `/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
+| `/assets/fonts/GoogleSans-latin-wght.woff2?v=b0add59dd8` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
 | `/assets/og/grafitecture-og-en.png` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en |
 | `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /impressum, / |
 | `/assets/photos/eingang-1280.avif?v=4ac14248df` | 200 | ✅ | /en, / |

@@ -59,8 +59,10 @@ def out_file(path: str) -> str:
 
 FONTS = [
     # family, file, extra descriptors  (Google Sans, SIL OFL, subset to Latin, variable weight 400–700)
-    ("Google Sans", "GoogleSans-latin-wght.woff", "font-weight: 400 700;"),
+    # WOFF2 since 05.11.2026 (tools/make_woff2.py, 47 instead of 61 KB); the WOFF stays in assets/ for the tools
+    ("Google Sans", "GoogleSans-latin-wght.woff2", "font-weight: 400 700;"),
 ]
+FONT_FILE = "assets/fonts/" + FONTS[0][1]
 
 # name, website (None = not linked). Order = order on the page.
 CLIENTS = [
@@ -547,7 +549,7 @@ def render_404() -> str:
                 .replace("{{ARROW}}", ARROW))
     left = re.findall(r"\{\{[A-Z_]+\}\}", body)
     assert not left, f"unreplaced placeholders in 404.html: {left}"
-    font_url = "/" + versioned("assets/fonts/GoogleSans-latin-wght.woff")
+    font_url = "/" + versioned(FONT_FILE)
     return f"""<!doctype html>
 <html lang="de">
 <head>
@@ -559,7 +561,7 @@ def render_404() -> str:
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{font_url}" as="font" type="font/woff2" crossorigin>
 <style>
 {font_css(False, "/")}
 {styles}
@@ -578,7 +580,7 @@ def render_404() -> str:
 # ---------------------------------------------------------------- page head
 
 def head(lang: str, page: str, title: str, desc: str, body: str) -> str:
-    font_url = "/" + versioned("assets/fonts/GoogleSans-latin-wght.woff")
+    font_url = "/" + versioned(FONT_FILE)
     alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{abs_url(PAGES[page][l])}">\n' for l in LANGS)
     alt += f'<link rel="alternate" hreflang="x-default" href="{abs_url(PAGES[page]["de"])}">\n'
     verify = (f'<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">\n'
@@ -609,7 +611,7 @@ def head(lang: str, page: str, title: str, desc: str, body: str) -> str:
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{font_url}" as="font" type="font/woff2" crossorigin>
 {og}<style>
 {font_css(False, "/")}
 {styles}
@@ -852,7 +854,8 @@ def build_deploy():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
     for sub in ("fonts", "logo", "og", "photos"):
-        shutil.copytree(ASSETS / sub, out / "assets" / sub)
+        # the WOFF is kept in assets/ for tools/render_assets.py only; the site uses the WOFF2
+        shutil.copytree(ASSETS / sub, out / "assets" / sub, ignore=shutil.ignore_patterns("*.woff") if sub == "fonts" else None)
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "favicon-48.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
