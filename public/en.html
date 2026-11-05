@@ -401,8 +401,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.legal-body h3 { margin: 34px 0 10px; }
-.legal-body h3:first-child { margin-top: 0; }
+.legal-body :is(h2, h3) { margin: 34px 0 10px; }
+.legal-body :is(h2, h3):first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }

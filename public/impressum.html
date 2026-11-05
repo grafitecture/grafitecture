@@ -401,8 +401,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.legal-body h3 { margin: 34px 0 10px; }
-.legal-body h3:first-child { margin-top: 0; }
+.legal-body :is(h2, h3) { margin: 34px 0 10px; }
+.legal-body :is(h2, h3):first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
@@ -474,24 +474,24 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   <div class="wrap">
     <header class="legal-hd"><h1 class="h3" id="t-page">Impressum</h1></header>
     <div class="legal-body" lang="de">
-      <h3 class="h6">Angaben gemäß § 5 DDG</h3>
+      <h2 class="h6">Angaben gemäß § 5 DDG</h2>
       <p class="addr">Grafitecture GmbH<br>
 Rebenstr. 9a<br>
 68309 Mannheim<br>
 Deutschland</p>
-      <h3 class="h6">Vertreten durch</h3>
+      <h2 class="h6">Vertreten durch</h2>
       <p>Martin Schweppe, Geschäftsführer</p>
-      <h3 class="h6">Kontakt</h3>
+      <h2 class="h6">Kontakt</h2>
       <p>E-Mail: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">Registereintrag</h3>
+      <h2 class="h6">Registereintrag</h2>
       <p>Handelsregister: Amtsgericht Mannheim, HRB 432625</p>
-      <h3 class="h6">Umsatzsteuer-Identifikationsnummer</h3>
+      <h2 class="h6">Umsatzsteuer-Identifikationsnummer</h2>
       <p>DE209730809 (gemäß § 27a Umsatzsteuergesetz)</p>
-      <h3 class="h6">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+      <h2 class="h6">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>Martin Schweppe, Anschrift wie oben</p>
-      <h3 class="h6">Verbraucherstreitbeilegung</h3>
+      <h2 class="h6">Verbraucherstreitbeilegung</h2>
       <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-      <h3 class="h6">Marken</h3>
+      <h2 class="h6">Marken</h2>
       <p>Die gezeigten Kundenlogos sind Marken der jeweiligen Inhaber und dienen ausschließlich als Referenz.</p>
     </div>
   </div>

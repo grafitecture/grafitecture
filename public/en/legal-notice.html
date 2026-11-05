@@ -401,8 +401,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.legal-body h3 { margin: 34px 0 10px; }
-.legal-body h3:first-child { margin-top: 0; }
+.legal-body :is(h2, h3) { margin: 34px 0 10px; }
+.legal-body :is(h2, h3):first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
@@ -475,24 +475,24 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
     <header class="legal-hd"><h1 class="h3" id="t-page">Legal notice</h1></header>
     <div class="legal-body" lang="en">
       <p class="note">English translation for convenience. The German version is legally binding.</p>
-      <h3 class="h6">Information pursuant to Section 5 DDG</h3>
+      <h2 class="h6">Information pursuant to Section 5 DDG</h2>
       <p class="addr">Grafitecture GmbH<br>
 Rebenstr. 9a<br>
 68309 Mannheim<br>
 Germany</p>
-      <h3 class="h6">Represented by</h3>
+      <h2 class="h6">Represented by</h2>
       <p>Martin Schweppe, Managing Director</p>
-      <h3 class="h6">Contact</h3>
+      <h2 class="h6">Contact</h2>
       <p>Email: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">Commercial register</h3>
+      <h2 class="h6">Commercial register</h2>
       <p>Amtsgericht Mannheim (Mannheim Local Court), HRB 432625</p>
-      <h3 class="h6">VAT identification number</h3>
+      <h2 class="h6">VAT identification number</h2>
       <p>DE209730809 (pursuant to Section 27a of the German VAT Act)</p>
-      <h3 class="h6">Responsible for content pursuant to Section 18 (2) MStV</h3>
+      <h2 class="h6">Responsible for content pursuant to Section 18 (2) MStV</h2>
       <p>Martin Schweppe, address as above</p>
-      <h3 class="h6">Consumer dispute resolution</h3>
+      <h2 class="h6">Consumer dispute resolution</h2>
       <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
-      <h3 class="h6">Trademarks</h3>
+      <h2 class="h6">Trademarks</h2>
       <p>The client logos shown are trademarks of their respective owners and are used solely as references.</p>
     </div>
   </div>

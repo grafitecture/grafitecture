@@ -401,8 +401,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.legal-body h3 { margin: 34px 0 10px; }
-.legal-body h3:first-child { margin-top: 0; }
+.legal-body :is(h2, h3) { margin: 34px 0 10px; }
+.legal-body :is(h2, h3):first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
@@ -475,16 +475,16 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
     <header class="legal-hd"><h1 class="h3" id="t-page">Privacy policy</h1></header>
     <div class="legal-body" lang="en">
       <p class="note">English translation for convenience. The German version is legally binding.</p>
-      <h3 class="h6">1. Controller</h3>
+      <h2 class="h6">1. Controller</h2>
       <p>Grafitecture GmbH, Rebenstr. 9a, 68309 Mannheim, Germany, represented by its Managing Director Martin Schweppe. Email: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">2. Hosting by Vercel</h3>
+      <h2 class="h6">2. Hosting by Vercel</h2>
       <p>This website is hosted by Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA. When you visit it, Vercel processes the technically necessary access data on our behalf: IP address, date and time, requested page, referrer, browser and operating system. This is needed to deliver the website and protect it against attacks (Art. 6(1)(f) GDPR). The data is stored only as long as required for this purpose.</p>
       <p>We have a data processing agreement with Vercel (Art. 28 GDPR). Vercel also processes data in the USA. Transfers are based on the EU-U.S. Data Privacy Framework, under which Vercel is certified (Art. 45 GDPR), and on standard contractual clauses (Art. 46(2)(c) GDPR).</p>
-      <h3 class="h6">3. Contact by email</h3>
+      <h2 class="h6">3. Contact by email</h2>
       <p>If you write to us, directly or via the form (which only opens your email app), we process your name, email address and message to answer your enquiry (Art. 6(1)(b) GDPR for enquiries about an assignment, otherwise point (f)). We delete the data once it is no longer needed and no statutory retention obligations apply.</p>
-      <h3 class="h6">4. No cookies, no tracking</h3>
+      <h2 class="h6">4. No cookies, no tracking</h2>
       <p>This website sets no cookies, stores nothing on your device, uses no analytics and loads no third-party content. Font and graphics are loaded directly from this website. Our Instagram profile is only referenced by a plain link: Instagram (Meta Platforms Ireland Ltd.) receives data only once you click it, and processes it under its own privacy policy.</p>
-      <h3 class="h6">5. Your rights</h3>
+      <h2 class="h6">5. Your rights</h2>
       <p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15 to 18, 20 and 21 GDPR). An email to martin.schweppe@grafitecture.de is sufficient. You may also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). The authority responsible for us is the State Commissioner for Data Protection and Freedom of Information Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
       <p class="note">Last updated: November 2026</p>
     </div>

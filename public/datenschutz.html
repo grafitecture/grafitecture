@@ -401,8 +401,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
   display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
 }
-.legal-body h3 { margin: 34px 0 10px; }
-.legal-body h3:first-child { margin-top: 0; }
+.legal-body :is(h2, h3) { margin: 34px 0 10px; }
+.legal-body :is(h2, h3):first-child { margin-top: 0; }
 .legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
 .legal-body .addr { font-weight: 500; }
 .legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
@@ -474,16 +474,16 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   <div class="wrap">
     <header class="legal-hd"><h1 class="h3" id="t-page">Datenschutz</h1></header>
     <div class="legal-body" lang="de">
-      <h3 class="h6">1. Verantwortlicher</h3>
+      <h2 class="h6">1. Verantwortlicher</h2>
       <p>Grafitecture GmbH, Rebenstr. 9a, 68309 Mannheim, vertreten durch den Geschäftsführer Martin Schweppe. E-Mail: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">2. Hosting bei Vercel</h3>
+      <h2 class="h6">2. Hosting bei Vercel</h2>
       <p>Diese Website wird bei Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA, gehostet. Beim Aufruf verarbeitet Vercel in unserem Auftrag die technisch notwendigen Zugriffsdaten: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Referrer sowie Browser und Betriebssystem. Das ist nötig, um die Website auszuliefern und vor Angriffen zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Die Daten werden nur so lange gespeichert, wie es dafür erforderlich ist.</p>
       <p>Mit Vercel besteht ein Vertrag über die Auftragsverarbeitung (Art. 28 DSGVO). Vercel verarbeitet Daten auch in den USA. Die Übermittlung stützt sich auf das EU-US Data Privacy Framework, unter dem Vercel zertifiziert ist (Art. 45 DSGVO), sowie auf Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO).</p>
-      <h3 class="h6">3. Kontakt per E-Mail</h3>
+      <h2 class="h6">3. Kontakt per E-Mail</h2>
       <p>Wenn Sie uns schreiben, direkt oder über das Formular (es öffnet nur Ihr E-Mail-Programm), verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht, um die Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bei Anfragen zu einem Auftrag, sonst lit. f). Wir löschen die Daten, wenn sie nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
-      <h3 class="h6">4. Keine Cookies, kein Tracking</h3>
+      <h2 class="h6">4. Keine Cookies, kein Tracking</h2>
       <p>Diese Website setzt keine Cookies, speichert nichts auf Ihrem Gerät, nutzt keine Analyse-Dienste und lädt keine Inhalte von Drittanbietern. Schrift und Grafiken werden direkt von dieser Website geladen. Auf unser Instagram-Profil verweisen wir nur mit einem einfachen Link: Instagram (Meta Platforms Ireland Ltd.) erhält erst dann Daten, wenn Sie ihn anklicken, und verarbeitet sie nach seiner eigenen Datenschutzerklärung.</p>
-      <h3 class="h6">5. Ihre Rechte</h3>
+      <h2 class="h6">5. Ihre Rechte</h2>
       <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 18, 20 und 21 DSGVO). Eine E-Mail an martin.schweppe@grafitecture.de genügt. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
       <p class="note">Stand: November 2026</p>
     </div>

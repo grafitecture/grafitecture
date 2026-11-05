@@ -661,6 +661,8 @@ def render_legal(page: str, lang: str) -> str:
     h2 = re.search(r"<h2[^>]*>(.*?)</h2>", dlg, flags=re.S).group(1)
     name = re.search(rf'<span lang="{lang}">(.*?)</span>', h2).group(1)
     text = re.search(rf'<div class="legal-body" lang="{lang}">.*?</div>', dlg, flags=re.S).group(0)
+    # under the page's h1 the sections are h2 (in the dialog they follow its h2 as h3); same look through .h6
+    text = re.sub(r"<h3( class=\"h6\">.*?)</h3>", r"<h2\1</h2>", text, flags=re.S)
     skip = re.search(r'<a class="skip".*?</a>', body).group(0)
     markup = f"""<div class="site nf" id="site" data-lang="{lang}">
 {skip}

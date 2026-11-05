@@ -35,6 +35,7 @@ class Page(HTMLParser):
         super().__init__()
         self.title, self.in_title, self.meta, self.links, self.h1 = "", False, {}, [], 0
         self.lang, self.imgs, self.scripts, self.res, self.cur_script = None, [], [], [], None
+        self.levels, self.in_dialog = [], 0   # heading levels outside <dialog> (dialogs have their own outline)
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -50,8 +51,12 @@ class Page(HTMLParser):
             self.links.append(a)
             if (a.get("rel") or "") in ("stylesheet", "preload", "icon", "apple-touch-icon", "manifest"):
                 self.res.append(a.get("href", ""))
-        elif tag == "h1":
+        elif tag == "dialog":
+            self.in_dialog += 1
+        if tag == "h1":
             self.h1 += 1
+        if re.fullmatch(r"h[1-6]", tag) and not self.in_dialog:
+            self.levels.append(int(tag[1]))
         elif tag == "img":
             self.imgs.append(a)
             self.res.append(a.get("src", ""))
@@ -63,6 +68,8 @@ class Page(HTMLParser):
                 self.cur_script = {"type": a.get("type"), "text": "", "src": a.get("src")}
 
     def handle_endtag(self, tag):
+        if tag == "dialog":
+            self.in_dialog -= 1
         if tag == "title":
             self.in_title = False
         if tag == "script" and self.cur_script is not None:
@@ -140,6 +147,10 @@ for path, p in pages.items():
         warn(w, f"description has {len(d)} characters (guide 140–160)")
     if p.h1 != 1:
         err(w, f"{p.h1} h1 elements (want exactly 1)")
+    for prev, cur in zip(p.levels, p.levels[1:]):
+        if cur > prev + 1:
+            err(w, f"heading jumps from h{prev} to h{cur}")
+            break
     if p.lang not in ("de", "en"):
         err(w, f"html lang is {p.lang!r}")
     canon = [l.get("href") for l in p.links if l.get("rel") == "canonical"]
