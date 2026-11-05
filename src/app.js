@@ -77,6 +77,13 @@
   } catch (e) { /* ignore */ }
   setLang(initial);
 
+  /* ---------------- keyboard focus on the form fields (05.11.2026) ----------------
+     Text fields count as :focus-visible even after a click, so styles.css shows their #435960 focus ring only while
+     the keyboard is in use: Tab switches it on, a pointer press off. */
+  const root = document.documentElement;
+  document.addEventListener('keydown', (e) => { if (e.key === 'Tab') root.dataset.kbd = ''; }, true);
+  document.addEventListener('pointerdown', () => { delete root.dataset.kbd; }, true);
+
   /* ---------------- header line + current section ---------------- */
   const hdr = $('#hdr');
   let ticking = false;

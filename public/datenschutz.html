@@ -330,6 +330,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 }
 .field textarea { min-height: 128px; }
 .field input:focus, .field textarea:focus { border-bottom-width: 2px; padding-bottom: 9px; }
+/* keyboard focus (05.11.2026, WCAG 2.4.7 / 1.4.11): the #435960 ring like everywhere, but only after the Tab key was
+   used (app.js sets data-kbd); after a click the field keeps its look, only the line gets thicker as before */
+html[data-kbd] .field :is(input, textarea):focus { outline: 2px solid var(--c); outline-offset: 4px; }
 .field.invalid input, .field.invalid textarea { border-bottom-width: 3px; padding-bottom: 8px; }
 .f-err { font-size: .875rem; }
 .f-err::before { content: "→ "; }

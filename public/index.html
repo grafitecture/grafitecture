@@ -331,6 +331,9 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 }
 .field textarea { min-height: 128px; }
 .field input:focus, .field textarea:focus { border-bottom-width: 2px; padding-bottom: 9px; }
+/* keyboard focus (05.11.2026, WCAG 2.4.7 / 1.4.11): the #435960 ring like everywhere, but only after the Tab key was
+   used (app.js sets data-kbd); after a click the field keeps its look, only the line gets thicker as before */
+html[data-kbd] .field :is(input, textarea):focus { outline: 2px solid var(--c); outline-offset: 4px; }
 .field.invalid input, .field.invalid textarea { border-bottom-width: 3px; padding-bottom: 8px; }
 .f-err { font-size: .875rem; }
 .f-err::before { content: "→ "; }
@@ -567,7 +570,7 @@ mit KI.</span></h1>
 <section class="sec" id="ueber-mich" data-sec aria-labelledby="t-about">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-about"><span lang="de">Human in the loop.</span></h2>
+      <h2 id="t-about"><span lang="de"><span lang="en-GB">Human in the loop.</span></span></h2>
     </header>
     <div class="about-grid">
       <div class="about-side">
@@ -868,6 +871,13 @@ Deutschland</p>
     }
   } catch (e) { /* ignore */ }
   setLang(initial);
+
+  /* ---------------- keyboard focus on the form fields (05.11.2026) ----------------
+     Text fields count as :focus-visible even after a click, so styles.css shows their #435960 focus ring only while
+     the keyboard is in use: Tab switches it on, a pointer press off. */
+  const root = document.documentElement;
+  document.addEventListener('keydown', (e) => { if (e.key === 'Tab') root.dataset.kbd = ''; }, true);
+  document.addEventListener('pointerdown', () => { delete root.dataset.kbd; }, true);
 
   /* ---------------- header line + current section ---------------- */
   const hdr = $('#hdr');
