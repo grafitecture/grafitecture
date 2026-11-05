@@ -7,11 +7,14 @@
 <meta name="description" content="Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: KI-Websites, KI-Agenten, Content-Engines und Workflow-Automation. Grafitecture GmbH, Mannheim, seit 2000.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="https://www.grafitecture.de/">
+<link rel="alternate" hreflang="de" href="https://www.grafitecture.de/">
+<link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en">
+<link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/">
 <meta name="google-site-verification" content="E5hh_5YzfsqNIsu4hf9doWHHFXT4N5GLNTrq7SMHQeg">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" href="assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grafitecture">
 <meta property="og:url" content="https://www.grafitecture.de/">
@@ -26,7 +29,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Grafitecture GmbH", "url": "https://www.grafitecture.de/", "email": "martin.schweppe@grafitecture.de", "image": "https://www.grafitecture.de/assets/og/grafitecture-og.png", "logo": "https://www.grafitecture.de/assets/logo/grafitecture.svg", "foundingDate": "2000", "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309", "addressLocality": "Mannheim", "addressCountry": "DE"}, "employee": {"@type": "Person", "name": "Martin Schweppe", "jobTitle": "Geschäftsführer, Diplom-Designer"}, "knowsLanguage": ["de", "en"], "sameAs": ["https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/"]}</script>
 <style>
-@font-face { font-family: "Google Sans"; src: url("assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Google Sans"; src: url("/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
 /* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
    and „Bereit?“ are lime fields, every line is lime, and every mouse-over is lime), one typeface (Google Sans) on a
    golden-ratio scale, very large headlines and wide white space. The footer is white (Martin, 28.10.).
@@ -129,12 +132,14 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .nav a { transition: color .2s ease, border-color .2s ease; }
 .nav a[aria-current="true"] { border-bottom-color: var(--line); }
 .lang { display: inline-flex; gap: 4px; }
-.lang button {
+/* buttons (claude.ai preview and 404 page: switch in place) or links (/ and /en, since 05.11.2026), same look */
+.lang :is(button, a) {
   appearance: none; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--c); cursor: pointer;
   font: 500 .8125rem/1 var(--font); letter-spacing: .1em; padding: 8px 4px;
 }
-.lang button[aria-pressed="true"] { border-bottom-color: var(--line); }
-.lang button[aria-pressed="false"] { font-weight: 400; }
+.lang a { display: inline-block; text-decoration: none; }
+.lang :is(button[aria-pressed="true"], a[aria-current="page"]) { border-bottom-color: var(--line); }
+.lang :is(button[aria-pressed="false"], a:not([aria-current="page"])) { font-weight: 400; }
 .hdr .hdr-cta { display: none; }
 .menu-btn {
   appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer;
@@ -166,8 +171,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-panel .m-legal { display: flex; gap: 22px; font-size: .9375rem; }
 .menu-panel .lang { margin-right: -4px; }   /* the last letter lines up with the right edge of the list above */
 /* a 44 px tall touch target for each language button, without changing how it looks */
-.menu-panel .lang button { position: relative; }
-.menu-panel .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
+.menu-panel .lang :is(button, a) { position: relative; }
+.menu-panel .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
 .menu-panel .m-legal a { text-decoration: none; }
 
 /* ---------- buttons ---------- */
@@ -394,15 +399,22 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
    menu), a plain lime field like the hero (no shimmer), then the footer of the start page ---------- */
 .nf .hdr .lang { display: inline-flex; margin-right: -4px; }
 /* a 44 px tall touch target for each language button, as in the menu */
-.nf .hdr .lang button { position: relative; }
-.nf .hdr .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
+.nf .hdr .lang :is(button, a) { position: relative; }
+.nf .hdr .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
+
+/* ---------- Impressum and Datenschutz as pages of their own (05.11.2026): /impressum, /datenschutz,
+   /en/legal-notice, /en/privacy-policy. Same header as the 404 page, the text as on the white sheet of the dialog
+   (title with its line, the same type), then the footer. On the start page they still open as dialogs. ---------- */
+.legal-page { padding-block: clamp(3rem, 2rem + 4vw, 7rem) clamp(4rem, 2.5rem + 4vw, 8rem); }
+.legal-page .wrap > * { max-width: 692px; }   /* the text width of the 820 px sheet (820 - 2 x 64) */
+.legal-page .legal-hd { position: static; padding-top: 0; }
 
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
 .btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
+.lang :is(button, a), .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
@@ -411,7 +423,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
      Impressum, Datenschutz, language and menu buttons, header and footer logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
-  .lang button:hover, .menu-btn:hover { color: var(--lime); }
+  .lang :is(button, a):hover, .menu-btn:hover { color: var(--lime); }
   .logo:hover svg g, .ftr-logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
@@ -433,44 +445,44 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 </head>
 <body>
 <div class="site" id="site" data-lang="de">
-<a class="skip" href="#main"><span lang="de">Zum Inhalt springen</span><span lang="en">Skip to content</span></a>
+<a class="skip" href="#main"><span lang="de">Zum Inhalt springen</span></a>
 
 <header class="hdr" id="hdr">
   <div class="hdr-in">
     <a class="logo" href="#top" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
     <nav class="nav" id="nav" aria-label="Navigation">
-      <a href="#leistungen" data-nav="leistungen"><span lang="de">Leistungen</span><span lang="en">Services</span></a>
-      <a href="#ueber-mich" data-nav="ueber-mich"><span lang="de">Über mich</span><span lang="en">About</span></a>
-      <a href="#ablauf" data-nav="ablauf"><span lang="de">Ablauf</span><span lang="en">Process</span></a>
-      <a href="#referenzen" data-nav="referenzen"><span lang="de">Referenzen</span><span lang="en">Clients</span></a>
-      <a href="#kontakt" data-nav="kontakt"><span lang="de">Kontakt</span><span lang="en">Contact</span></a>
+      <a href="#leistungen" data-nav="leistungen"><span lang="de">Leistungen</span></a>
+      <a href="#ueber-mich" data-nav="ueber-mich"><span lang="de">Über mich</span></a>
+      <a href="#ablauf" data-nav="ablauf"><span lang="de">Ablauf</span></a>
+      <a href="#referenzen" data-nav="referenzen"><span lang="de">Referenzen</span></a>
+      <a href="#kontakt" data-nav="kontakt"><span lang="de">Kontakt</span></a>
     </nav>
     <div class="lang" role="group" aria-label="Sprache / Language">
-      <button type="button" data-set-lang="de" aria-pressed="true" title="Deutsch">DE</button>
-      <button type="button" data-set-lang="en" aria-pressed="false" title="English">EN</button>
+      <a href="/" hreflang="de" data-set-lang="de" title="Deutsch" aria-current="page">DE</a>
+      <a href="/en" hreflang="en" data-set-lang="en" title="English">EN</a>
     </div>
-    <a class="btn btn-sm hdr-cta" href="#kontakt"><span lang="de">Gespräch buchen</span><span lang="en">Book a call</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><span lang="de">Menü</span><span lang="en">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <a class="btn btn-sm hdr-cta" href="#kontakt"><span lang="de">Gespräch buchen</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><span lang="de">Menü</span><span class="bars" aria-hidden="true"></span></button>
   </div>
 </header>
 
 <div class="menu-panel" id="menu-panel" hidden>
   <ol>
-    <li><a class="m-link" href="#leistungen"><span lang="de">Leistungen</span><span lang="en">Services</span></a></li>
-    <li><a class="m-link" href="#ueber-mich"><span lang="de">Über mich</span><span lang="en">About</span></a></li>
-    <li><a class="m-link" href="#ablauf"><span lang="de">Ablauf</span><span lang="en">Process</span></a></li>
-    <li><a class="m-link" href="#referenzen"><span lang="de">Referenzen</span><span lang="en">Clients</span></a></li>
-    <li><a class="m-link" href="#kontakt"><span lang="de">Kontakt</span><span lang="en">Contact</span></a></li>
+    <li><a class="m-link" href="#leistungen"><span lang="de">Leistungen</span></a></li>
+    <li><a class="m-link" href="#ueber-mich"><span lang="de">Über mich</span></a></li>
+    <li><a class="m-link" href="#ablauf"><span lang="de">Ablauf</span></a></li>
+    <li><a class="m-link" href="#referenzen"><span lang="de">Referenzen</span></a></li>
+    <li><a class="m-link" href="#kontakt"><span lang="de">Kontakt</span></a></li>
   </ol>
-  <a class="btn" href="#kontakt"><span lang="de">Kostenloses Strategiegespräch</span><span lang="en">Free strategy call</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  <a class="btn" href="#kontakt"><span lang="de">Kostenloses Strategiegespräch</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
   <div class="m-foot">
     <div class="m-legal">
-      <a href="#impressum" data-open="impressum"><span lang="de">Impressum</span><span lang="en">Legal notice</span></a>
-      <a href="#datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></a>
+      <a href="/impressum" data-open="impressum"><span lang="de">Impressum</span></a>
+      <a href="/datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span></a>
     </div>
     <div class="lang" role="group" aria-label="Sprache / Language">
-      <button type="button" data-set-lang="de" aria-pressed="true" title="Deutsch">DE</button>
-      <button type="button" data-set-lang="en" aria-pressed="false" title="English">EN</button>
+      <a href="/" hreflang="de" data-set-lang="de" title="Deutsch" aria-current="page">DE</a>
+      <a href="/en" hreflang="en" data-set-lang="en" title="English">EN</a>
     </div>
   </div>
 </div>
@@ -481,21 +493,22 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="hero is-lime" id="top" data-sec aria-labelledby="hero-title">
   <div class="wrap">
     <div class="hero-top">
-      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span><span lang="en">Less routine. More design.</span></p>
+      <p class="small"><span lang="de">Weniger Routine. Mehr Gestaltung.</span></p>
       <button type="button" class="sheen-btn" data-sheen-btn hidden>
-        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
-        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
+        <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span></span></span>
+        <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span></span></span>
       </button>
     </div>
     <div>
-      <h1 id="hero-title"><span lang="de">Marken<br>mit KI.</span><span lang="en">Brands<br>with AI.</span></h1>
+      <h1 id="hero-title"><span lang="de">Marken<br>
+mit KI.</span></h1>
       <div class="hero-foot">
-        <p class="h4"><span lang="de">Ich baue KI-Systeme, die für Ihre Marke arbeiten.</span><span lang="en">I build AI systems that work for your brand.</span></p>
+        <p class="h4"><span lang="de">Ich baue KI-Systeme, die für Ihre Marke arbeiten.</span></p>
         <div class="hero-side">
-          <p><span lang="de">Autonome KI-Agenten, KI-gestützte Websites und Content-Engines, die mit Ihrem Unternehmen wachsen. Mit dem Blick eines Diplom-Designers und 26&nbsp;Jahren Markenerfahrung.</span><span lang="en">Autonomous AI agents, AI-powered websites and content engines that grow with your business. With a graduate designer’s eye and 26&nbsp;years of brand experience.</span></p>
+          <p><span lang="de">Autonome KI-Agenten, KI-gestützte Websites und Content-Engines, die mit Ihrem Unternehmen wachsen. Mit dem Blick eines Diplom-Designers und 26&nbsp;Jahren Markenerfahrung.</span></p>
           <div class="cta-row">
-            <a class="btn" href="#kontakt"><span lang="de">Kostenloses Strategiegespräch</span><span lang="en">Free strategy call</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-            <a class="btn btn-line" href="#leistungen"><span lang="de">Leistungen</span><span lang="en">Services</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="btn" href="#kontakt"><span lang="de">Kostenloses Strategiegespräch</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="btn btn-line" href="#leistungen"><span lang="de">Leistungen</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </div>
         </div>
       </div>
@@ -507,33 +520,34 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="sec" id="leistungen" data-sec aria-labelledby="t-leistungen">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-leistungen"><span lang="de">Was ich baue</span><span lang="en">What I build</span></h2>
-      <p class="h5 lead lead-2l"><span lang="de"><span class="ln">KI-Websites, Agenten und Content-Systeme.</span><br><span class="ln">Auf dem Fundament von 26&nbsp;Jahren Gestaltung.</span></span><span lang="en"><span class="ln">AI websites, agents and content systems.</span><br><span class="ln">On a foundation of 26&nbsp;years of design.</span></span></p>
+      <h2 id="t-leistungen"><span lang="de">Was ich baue</span></h2>
+      <p class="h5 lead lead-2l"><span lang="de"><span class="ln">KI-Websites, Agenten und Content-Systeme.</span><br>
+<span class="ln">Auf dem Fundament von 26&nbsp;Jahren Gestaltung.</span></span></p>
     </header>
     <ul class="rows svc">
       <li class="row">
-        <h3 class="h4"><span lang="de">KI-Websites &amp; MVPs</span><span lang="en">AI websites &amp; MVPs</span></h3>
-        <p><span lang="de">Von der Idee zur funktionierenden Website oder App in Wochen statt Monaten, mit KI im Fundament. Gestaltet wie eine Marke, gebaut wie ein Produkt, mit intelligenten Funktionen, an die Ihre Mitbewerber noch nicht denken.</span><span lang="en">From idea to a working website or app in weeks, not months, with AI in the foundation. Designed like a brand, built like a product, with intelligent features your competitors haven’t thought of yet.</span></p>
+        <h3 class="h4"><span lang="de">KI-Websites &amp; MVPs</span></h3>
+        <p><span lang="de">Von der Idee zur funktionierenden Website oder App in Wochen statt Monaten, mit KI im Fundament. Gestaltet wie eine Marke, gebaut wie ein Produkt, mit intelligenten Funktionen, an die Ihre Mitbewerber noch nicht denken.</span></p>
       </li>
       <li class="row">
-        <h3 class="h4"><span lang="de">KI-Agenten</span><span lang="en">AI agents</span></h3>
-        <p><span lang="de">Agenten-Systeme, die recherchieren, Anfragen vorqualifizieren, Termine koordinieren und Entscheidungen vorbereiten. Rund um die Uhr und ohne Babysitting, während Sie sich um Strategie und Wachstum kümmern.</span><span lang="en">Agent systems that research, pre-qualify enquiries, coordinate appointments and prepare decisions. Around the clock and without babysitting, while you focus on strategy and growth.</span></p>
+        <h3 class="h4"><span lang="de">KI-Agenten</span></h3>
+        <p><span lang="de">Agenten-Systeme, die recherchieren, Anfragen vorqualifizieren, Termine koordinieren und Entscheidungen vorbereiten. Rund um die Uhr und ohne Babysitting, während Sie sich um Strategie und Wachstum kümmern.</span></p>
       </li>
       <li class="row">
-        <h3 class="h4"><span lang="de">Content-Engines</span><span lang="en">Content engines</span></h3>
-        <p><span lang="de">Automatisierte Pipelines für Text, Bild und Video, die Inhalte erstellen, anpassen und über alle Kanäle ausspielen. Konsistent im Look Ihrer Marke, ohne dass ein ganzes Team daran hängt.</span><span lang="en">Automated pipelines for text, image and video that create, adapt and publish content across every channel. Consistent with your brand’s look, without tying up an entire team.</span></p>
+        <h3 class="h4"><span lang="de">Content-Engines</span></h3>
+        <p><span lang="de">Automatisierte Pipelines für Text, Bild und Video, die Inhalte erstellen, anpassen und über alle Kanäle ausspielen. Konsistent im Look Ihrer Marke, ohne dass ein ganzes Team daran hängt.</span></p>
       </li>
       <li class="row">
-        <h3 class="h4"><span lang="de">KI-Strategie &amp; Marken&shy;architektur</span><span lang="en">AI strategy &amp; brand architecture</span></h3>
-        <p><span lang="de">Jedes Unternehmen hat andere Hebel für KI. Ich finde Ihre und entwerfe das System drumherum. Sie erhalten einen klaren Plan und eine priorisierte Roadmap für die Umsetzung.</span><span lang="en">Every business has different levers for AI. I find yours and design the system around them. You walk away with a clear plan and a prioritised implementation roadmap.</span></p>
+        <h3 class="h4"><span lang="de">KI-Strategie &amp; Marken&shy;architektur</span></h3>
+        <p><span lang="de">Jedes Unternehmen hat andere Hebel für KI. Ich finde Ihre und entwerfe das System drumherum. Sie erhalten einen klaren Plan und eine priorisierte Roadmap für die Umsetzung.</span></p>
       </li>
       <li class="row">
-        <h3 class="h4"><span lang="de">Workflow-Automation</span><span lang="en">Workflow automation</span></h3>
-        <p><span lang="de">Ich verbinde Ihre bestehenden Tools mit KI-Logik, damit Daten fließen und Abläufe von selbst starten. Kein Copy-and-paste mehr zwischen Programmen, kein manuelles Anstoßen von Prozessen.</span><span lang="en">I connect your existing tools with AI logic so data flows and processes start on their own. No more copy-and-paste between apps, no more manually triggering processes.</span></p>
+        <h3 class="h4"><span lang="de">Workflow-Automation</span></h3>
+        <p><span lang="de">Ich verbinde Ihre bestehenden Tools mit KI-Logik, damit Daten fließen und Abläufe von selbst starten. Kein Copy-and-paste mehr zwischen Programmen, kein manuelles Anstoßen von Prozessen.</span></p>
       </li>
       <li class="row">
-        <h3 class="h4"><span lang="de">Prompt- &amp; System-Design</span><span lang="en">Prompt &amp; system design</span></h3>
-        <p><span lang="de">Präzise Prompts und Systemarchitekturen, die verlässliche, markengerechte Ergebnisse in Produktionsqualität liefern, statt Zufallstreffern aus dem Chatfenster.</span><span lang="en">Precise prompts and system architectures that deliver reliable, on-brand, production-grade results instead of lucky hits from a chat window.</span></p>
+        <h3 class="h4"><span lang="de">Prompt- &amp; System-Design</span></h3>
+        <p><span lang="de">Präzise Prompts und Systemarchitekturen, die verlässliche, markengerechte Ergebnisse in Produktionsqualität liefern, statt Zufallstreffern aus dem Chatfenster.</span></p>
       </li>
     </ul>
   </div>
@@ -543,27 +557,27 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="sec" id="ueber-mich" data-sec aria-labelledby="t-about">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-about"><span lang="de">Human in the loop.</span><span lang="en">Human in the loop.</span></h2>
+      <h2 id="t-about"><span lang="de">Human in the loop.</span></h2>
     </header>
     <div class="about-grid">
       <div class="about-side">
-        <figure class="photo"><img src="assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" data-alt-de="Martin Schweppe, Diplom-Designer" data-alt-en="Martin Schweppe, graduate designer" width="1280" height="1707" loading="lazy" decoding="async"><figcaption class="small">Martin Schweppe</figcaption></figure>
+        <figure class="photo"><img src="/assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, /assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" width="1280" height="1707" loading="lazy" decoding="async"><figcaption class="small">Martin Schweppe</figcaption></figure>
         <dl class="facts">
-        <div><dt class="small"><span lang="de">Abschluss</span><span lang="en">Degree</span></dt><dd>Diplom-Designer</dd></div>
-        <div><dt class="small"><span lang="de">Büro</span><span lang="en">Studio</span></dt><dd>Grafitecture GmbH</dd></div>
-        <div><dt class="small"><span lang="de">Standort</span><span lang="en">Location</span></dt><dd>Mannheim</dd></div>
-        <div><dt class="small"><span lang="de">Seit</span><span lang="en">Since</span></dt><dd>2000</dd></div>
+        <div><dt class="small"><span lang="de">Abschluss</span></dt><dd>Diplom-Designer</dd></div>
+        <div><dt class="small"><span lang="de">Büro</span></dt><dd>Grafitecture GmbH</dd></div>
+        <div><dt class="small"><span lang="de">Standort</span></dt><dd>Mannheim</dd></div>
+        <div><dt class="small"><span lang="de">Seit</span></dt><dd>2000</dd></div>
       </dl>
       </div>
       <div class="about-text">
-        <p class="h4"><span lang="de">Ich baue KI, die arbeitet. Und dabei gut aussieht.</span><span lang="en">I build AI that works. And looks good doing it.</span></p>
-        <p><span lang="de">Seit 2000 gestalte ich mit Grafitecture in Mannheim Marken: erst auf Papier, dann im Web, heute mit künstlicher Intelligenz. In 26&nbsp;Jahren habe ich gelernt, dass der Engpass selten die Idee ist. Es ist die Umsetzung: wiederkehrende Abläufe, Datenpflege und Content-Produktion, die ganze Teams binden.</span><span lang="en">Since 2000 I have been designing brands with Grafitecture in Mannheim: first on paper, then on the web, today with artificial intelligence. Twenty-six years have taught me that the bottleneck is rarely the idea. It is the execution: recurring workflows, data upkeep and content production that tie up entire teams.</span></p>
-        <p><span lang="de">Heute entwerfe und betreibe ich Systeme, die solche Abläufe komplett übernehmen. Von KI-Agenten, die rund um die Uhr arbeiten, bis zu Websites, die in Wochen live gehen. Mit dem Anspruch eines Gestalters: Alles, was ich baue, muss funktionieren und zur Marke passen.</span><span lang="en">Today I design and run systems that take over these workflows entirely. From AI agents that work around the clock to websites that go live in weeks. With a designer’s standards: everything I build has to work and fit the brand.</span></p>
-        <p><span lang="de">Mein Ziel ist einfach: Ich gebe Unternehmerinnen und Unternehmern Zeit zurück. Ob Agentensystem, KI-gestütztes Produkt oder Content-Engine, es muss im echten Betrieb laufen, nicht nur in der Demo.</span><span lang="en">My goal is simple: to give business owners their time back. Whether it’s an agent system, an AI-powered product or a content engine, it has to run in real operations, not just in a demo.</span></p>
+        <p class="h4"><span lang="de">Ich baue KI, die arbeitet. Und dabei gut aussieht.</span></p>
+        <p><span lang="de">Seit 2000 gestalte ich mit Grafitecture in Mannheim Marken: erst auf Papier, dann im Web, heute mit künstlicher Intelligenz. In 26&nbsp;Jahren habe ich gelernt, dass der Engpass selten die Idee ist. Es ist die Umsetzung: wiederkehrende Abläufe, Datenpflege und Content-Produktion, die ganze Teams binden.</span></p>
+        <p><span lang="de">Heute entwerfe und betreibe ich Systeme, die solche Abläufe komplett übernehmen. Von KI-Agenten, die rund um die Uhr arbeiten, bis zu Websites, die in Wochen live gehen. Mit dem Anspruch eines Gestalters: Alles, was ich baue, muss funktionieren und zur Marke passen.</span></p>
+        <p><span lang="de">Mein Ziel ist einfach: Ich gebe Unternehmerinnen und Unternehmern Zeit zurück. Ob Agentensystem, KI-gestütztes Produkt oder Content-Engine, es muss im echten Betrieb laufen, nicht nur in der Demo.</span></p>
         <ul class="plain">
-          <li><span lang="de">Diplom-Designer und Unternehmer seit 2000</span><span lang="en">Graduate designer (Dipl.-Des.) and entrepreneur since 2000</span></li>
-          <li><span lang="de">Kunden aus Gesundheit, Gastronomie, Finanzen und Logistik</span><span lang="en">Clients across healthcare, hospitality, finance and logistics</span></li>
-          <li><span lang="de">Print, Web und KI aus einer Hand</span><span lang="en">Print, web and AI from a single studio</span></li>
+          <li><span lang="de">Diplom-Designer und Unternehmer seit 2000</span></li>
+          <li><span lang="de">Kunden aus Gesundheit, Gastronomie, Finanzen und Logistik</span></li>
+          <li><span lang="de">Print, Web und KI aus einer Hand</span></li>
         </ul>
       </div>
     </div>
@@ -574,15 +588,16 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="sec is-lime" id="ablauf" data-sec aria-labelledby="t-ablauf">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-ablauf"><span lang="de">So läuft’s</span><span lang="en">How it works</span></h2>
-      <p class="h5 lead lead-2l"><span lang="de"><span class="ln">Vom ersten Gespräch zum laufenden System,</span><br><span class="ln">in fünf klaren Schritten.</span></span><span lang="en"><span class="ln">From the first call to a running system,</span><br><span class="ln">in five clear steps.</span></span></p>
+      <h2 id="t-ablauf"><span lang="de">So läuft’s</span></h2>
+      <p class="h5 lead lead-2l"><span lang="de"><span class="ln">Vom ersten Gespräch zum laufenden System,</span><br>
+<span class="ln">in fünf klaren Schritten.</span></span></p>
     </header>
     <ol class="rows steps">
-      <li class="row"><span class="num" aria-hidden="true">01</span><h3 class="h4"><span lang="de">Erstgespräch</span><span lang="en">Discovery</span></h3><p><span lang="de">Wir prüfen, ob es passt. Sie erhalten ein Angebot mit klaren Preisen und entscheiden in Ruhe.</span><span lang="en">We check the fit. You get a proposal with clear pricing and decide in your own time.</span></p></li>
-      <li class="row"><span class="num" aria-hidden="true">02</span><h3 class="h4">Onboarding</h3><p><span lang="de">Wir legen Umfang, Prioritäten und Zeitplan fest: Welche Agenten zuerst? Welche Abläufe bringen am meisten?</span><span lang="en">We agree on scope, priorities and timeline: which agents come first, which workflows matter most?</span></p></li>
-      <li class="row"><span class="num" aria-hidden="true">03</span><h3 class="h4"><span lang="de">Technik-Setup</span><span lang="en">Tech setup</span></h3><p><span lang="de">Zugänge, Integrationen und Infrastruktur werden eingerichtet und sauber dokumentiert.</span><span lang="en">Access, integrations and infrastructure are set up and cleanly documented.</span></p></li>
-      <li class="row"><span class="num" aria-hidden="true">04</span><h3 class="h4"><span lang="de">Übergabe</span><span lang="en">Handover</span></h3><p><span lang="de">Live-Demo, vollständiger Code in Ihrem GitHub-Repository, das System geht in Betrieb.</span><span lang="en">Live demo, complete code in your GitHub repository, and the system goes live.</span></p></li>
-      <li class="row"><span class="num" aria-hidden="true">05</span><h3 class="h4">Check-in</h3><p><span lang="de">Nach einer Woche prüfen wir die Ergebnisse, justieren nach und vereinbaren auf Wunsch eine laufende Betreuung.</span><span lang="en">After one week we review the results, fine-tune, and agree on ongoing support if you like.</span></p></li>
+      <li class="row"><span class="num" aria-hidden="true">01</span><h3 class="h4"><span lang="de">Erstgespräch</span></h3><p><span lang="de">Wir prüfen, ob es passt. Sie erhalten ein Angebot mit klaren Preisen und entscheiden in Ruhe.</span></p></li>
+      <li class="row"><span class="num" aria-hidden="true">02</span><h3 class="h4">Onboarding</h3><p><span lang="de">Wir legen Umfang, Prioritäten und Zeitplan fest: Welche Agenten zuerst? Welche Abläufe bringen am meisten?</span></p></li>
+      <li class="row"><span class="num" aria-hidden="true">03</span><h3 class="h4"><span lang="de">Technik-Setup</span></h3><p><span lang="de">Zugänge, Integrationen und Infrastruktur werden eingerichtet und sauber dokumentiert.</span></p></li>
+      <li class="row"><span class="num" aria-hidden="true">04</span><h3 class="h4"><span lang="de">Übergabe</span></h3><p><span lang="de">Live-Demo, vollständiger Code in Ihrem GitHub-Repository, das System geht in Betrieb.</span></p></li>
+      <li class="row"><span class="num" aria-hidden="true">05</span><h3 class="h4">Check-in</h3><p><span lang="de">Nach einer Woche prüfen wir die Ergebnisse, justieren nach und vereinbaren auf Wunsch eine laufende Betreuung.</span></p></li>
     </ol>
   </div>
 </section>
@@ -591,39 +606,39 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <section class="sec" id="referenzen" data-sec aria-labelledby="t-ref">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="t-ref"><span lang="de">Referenzen</span><span lang="en">Clients</span></h2>
-      <p class="h5 lead"><span lang="de">Von der Zahnarztpraxis bis zur Hafenbar: ausgewählte Kunden aus 26&nbsp;Jahren.</span><span lang="en">From dental practices to harbour bars: selected clients from 26&nbsp;years.</span></p>
+      <h2 id="t-ref"><span lang="de">Referenzen</span></h2>
+      <p class="h5 lead"><span lang="de">Von der Zahnarztpraxis bis zur Hafenbar: ausgewählte Kunden aus 26&nbsp;Jahren.</span></p>
     </header>
     <ul class="logos">
-      <li><a href="https://www.lannee.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/l-annee.png?v=f5258e015e" alt="L&#x27;Année" width="121" height="45" style="--w:121" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.dentaid-direkt.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/dentaid.png?v=d71372c261" alt="Dentaid" width="132" height="38" style="--w:132" loading="lazy" decoding="async"></a></li>
-      <li><img src="assets/clients/healthklick.png?v=695bb89768" alt="Healthklick" width="220" height="26" style="--w:220" loading="lazy" decoding="async"></li>
-      <li><a href="https://flaesh.com/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/flash.png?v=6175f6c833" alt="fläsh" width="115" height="49" style="--w:115" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.kaufhaus-ganz.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/kaufhaus-ganz.png?v=45084fc8ee" alt="Kaufhaus Ganz" width="97" height="60" style="--w:97" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.onkelottobar.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/onkel-otto-bar.png?v=f1d53ea769" alt="Onkel Otto Bar" width="220" height="30" style="--w:220" loading="lazy" decoding="async"></a></li>
-      <li><a href="http://42health.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/42health.png?v=f1e8482994" alt="42health" width="137" height="42" style="--w:137" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.tinytecture.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/tinytecture.png?v=91432e73c6" alt="tinytecture" width="186" height="36" style="--w:186" loading="lazy" decoding="async"></a></li>
-      <li><a href="http://detmers.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/detmers.png?v=0eff359b5a" alt="Detmers" width="156" height="38" style="--w:156" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.lannee.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/1898.png?v=cf469ba151" alt="1898" width="129" height="47" style="--w:129" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.core-cc.com/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/core.png?v=befb6ba587" alt="CORE" width="142" height="48" style="--w:142" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.raumrent.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/raumrent.png?v=1c542b2c4e" alt="raumrent" width="129" height="50" style="--w:129" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.ultracain.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/ultracain.png?v=92806b44a2" alt="Ultracain" width="139" height="46" style="--w:139" loading="lazy" decoding="async"></a></li>
-      <li><img src="assets/clients/vitaphone.png?v=701d581797" alt="Vitaphone" width="154" height="44" style="--w:154" loading="lazy" decoding="async"></li>
-      <li><a href="https://steinbeis-finance.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/steinbeis-finance.png?v=5d78b625aa" alt="Steinbeis Finance" width="139" height="49" style="--w:139" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.creatingsmiles.eu/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/creating-smiles.png?v=71dcb2867b" alt="Creating Smiles" width="220" height="20" style="--w:220" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.flaeshapp.com/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/flaeshapp.png?v=c8dfeac76e" alt="flaeshapp" width="178" height="36" style="--w:178" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.zahnarztpraxis-theurer.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/zahnarztpraxis-theurer.png?v=64b0834e50" alt="Zahnarztpraxis Theurer" width="121" height="64" style="--w:121" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.gemeinschaftspraxis-guenther.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/gemeinschaftspraxis-gunther.png?v=64eb98ca25" alt="Gemeinschaftspraxis Günther" width="220" height="20" style="--w:220" loading="lazy" decoding="async"></a></li>
-      <li><img src="assets/clients/tanja-weber.png?v=f363b1d959" alt="Tanja Weber" width="172" height="48" style="--w:172" loading="lazy" decoding="async"></li>
-      <li><img src="assets/clients/covendos.png?v=3753f95404" alt="Covendos" width="71" height="70" style="--w:71" loading="lazy" decoding="async"></li>
-      <li><a href="https://www.sanremo.ma/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/zweite-liebe.png?v=ae57b352a5" alt="Zweite Liebe" width="142" height="58" style="--w:142" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.whitesmile.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/whitesmile.png?v=ac78ddef3c" alt="WHITEsmile" width="208" height="28" style="--w:208" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://ahrens-gonzalves.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/ag.png?v=05089f11af" alt="ag+" width="83" height="65" style="--w:83" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.cci-transport.de/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/cci-transport.png?v=8e72a0baa0" alt="CCI Transport" width="189" height="32" style="--w:189" loading="lazy" decoding="async"></a></li>
-      <li><a href="https://www.sanremo.ma/" target="_blank" rel="noopener noreferrer"><img src="assets/clients/sanremo.png?v=a74694ecdc" alt="SanRemo" width="175" height="42" style="--w:175" loading="lazy" decoding="async"></a></li>
-      <li><img src="assets/clients/starks.png?v=870a388743" alt="starks" width="220" height="21" style="--w:220" loading="lazy" decoding="async"></li>
-      <li><img src="assets/clients/ecowerth.png?v=b42bb1587d" alt="ecowerth" width="184" height="32" style="--w:184" loading="lazy" decoding="async"></li>
-      <li><img src="assets/clients/covendos-healthcare-group.png?v=f60e51fdb9" alt="Covendos Healthcare Group" width="103" height="66" style="--w:103" loading="lazy" decoding="async"></li>
+      <li><a href="https://www.lannee.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/l-annee.png?v=f5258e015e" alt="L&#x27;Année" width="121" height="45" style="--w:121" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.dentaid-direkt.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/dentaid.png?v=d71372c261" alt="Dentaid" width="132" height="38" style="--w:132" loading="lazy" decoding="async"></a></li>
+      <li><img src="/assets/clients/healthklick.png?v=695bb89768" alt="Healthklick" width="220" height="26" style="--w:220" loading="lazy" decoding="async"></li>
+      <li><a href="https://flaesh.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/flash.png?v=6175f6c833" alt="fläsh" width="115" height="49" style="--w:115" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.kaufhaus-ganz.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/kaufhaus-ganz.png?v=45084fc8ee" alt="Kaufhaus Ganz" width="97" height="60" style="--w:97" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.onkelottobar.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/onkel-otto-bar.png?v=f1d53ea769" alt="Onkel Otto Bar" width="220" height="30" style="--w:220" loading="lazy" decoding="async"></a></li>
+      <li><a href="http://42health.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/42health.png?v=f1e8482994" alt="42health" width="137" height="42" style="--w:137" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.tinytecture.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/tinytecture.png?v=91432e73c6" alt="tinytecture" width="186" height="36" style="--w:186" loading="lazy" decoding="async"></a></li>
+      <li><a href="http://detmers.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/detmers.png?v=0eff359b5a" alt="Detmers" width="156" height="38" style="--w:156" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.lannee.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/1898.png?v=cf469ba151" alt="1898" width="129" height="47" style="--w:129" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.core-cc.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/core.png?v=befb6ba587" alt="CORE" width="142" height="48" style="--w:142" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.raumrent.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/raumrent.png?v=1c542b2c4e" alt="raumrent" width="129" height="50" style="--w:129" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.ultracain.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/ultracain.png?v=92806b44a2" alt="Ultracain" width="139" height="46" style="--w:139" loading="lazy" decoding="async"></a></li>
+      <li><img src="/assets/clients/vitaphone.png?v=701d581797" alt="Vitaphone" width="154" height="44" style="--w:154" loading="lazy" decoding="async"></li>
+      <li><a href="https://steinbeis-finance.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/steinbeis-finance.png?v=5d78b625aa" alt="Steinbeis Finance" width="139" height="49" style="--w:139" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.creatingsmiles.eu/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/creating-smiles.png?v=71dcb2867b" alt="Creating Smiles" width="220" height="20" style="--w:220" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.flaeshapp.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/flaeshapp.png?v=c8dfeac76e" alt="flaeshapp" width="178" height="36" style="--w:178" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.zahnarztpraxis-theurer.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/zahnarztpraxis-theurer.png?v=64b0834e50" alt="Zahnarztpraxis Theurer" width="121" height="64" style="--w:121" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.gemeinschaftspraxis-guenther.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/gemeinschaftspraxis-gunther.png?v=64eb98ca25" alt="Gemeinschaftspraxis Günther" width="220" height="20" style="--w:220" loading="lazy" decoding="async"></a></li>
+      <li><img src="/assets/clients/tanja-weber.png?v=f363b1d959" alt="Tanja Weber" width="172" height="48" style="--w:172" loading="lazy" decoding="async"></li>
+      <li><img src="/assets/clients/covendos.png?v=3753f95404" alt="Covendos" width="71" height="70" style="--w:71" loading="lazy" decoding="async"></li>
+      <li><a href="https://www.sanremo.ma/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/zweite-liebe.png?v=ae57b352a5" alt="Zweite Liebe" width="142" height="58" style="--w:142" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.whitesmile.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/whitesmile.png?v=ac78ddef3c" alt="WHITEsmile" width="208" height="28" style="--w:208" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://ahrens-gonzalves.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/ag.png?v=05089f11af" alt="ag+" width="83" height="65" style="--w:83" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.cci-transport.de/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/cci-transport.png?v=8e72a0baa0" alt="CCI Transport" width="189" height="32" style="--w:189" loading="lazy" decoding="async"></a></li>
+      <li><a href="https://www.sanremo.ma/" target="_blank" rel="noopener noreferrer"><img src="/assets/clients/sanremo.png?v=a74694ecdc" alt="SanRemo" width="175" height="42" style="--w:175" loading="lazy" decoding="async"></a></li>
+      <li><img src="/assets/clients/starks.png?v=870a388743" alt="starks" width="220" height="21" style="--w:220" loading="lazy" decoding="async"></li>
+      <li><img src="/assets/clients/ecowerth.png?v=b42bb1587d" alt="ecowerth" width="184" height="32" style="--w:184" loading="lazy" decoding="async"></li>
+      <li><img src="/assets/clients/covendos-healthcare-group.png?v=f60e51fdb9" alt="Covendos Healthcare Group" width="103" height="66" style="--w:103" loading="lazy" decoding="async"></li>
     </ul>
   </div>
 </section>
@@ -633,42 +648,42 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   <div class="wrap">
     <header class="sec-head sec-head-photo">
       <div class="sec-head-text">
-      <h2 id="t-kontakt"><span lang="de">Bereit?</span><span lang="en">Ready?</span></h2>
-      <p class="h5 lead"><span lang="de">Überlassen Sie die Routine der KI. Buchen Sie ein kostenloses Strategiegespräch, und wir bauen Ihr System.</span><span lang="en">Let AI run the boring stuff. Book a free strategy call and let’s build yours.</span></p>
+      <h2 id="t-kontakt"><span lang="de">Bereit?</span></h2>
+      <p class="h5 lead"><span lang="de">Überlassen Sie die Routine der KI. Buchen Sie ein kostenloses Strategiegespräch, und wir bauen Ihr System.</span></p>
       </div>
-      <figure class="photo"><img src="assets/photos/eingang-1280.jpg?v=547a87adab" srcset="assets/photos/eingang-640.jpg?v=cce089c50b 640w, assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Hauseingang mit Holztür und der Jahreszahl 1926" data-alt-de="Hauseingang mit Holztür und der Jahreszahl 1926" data-alt-en="Entrance with a wooden door marked 1926" width="1280" height="1707" loading="lazy" decoding="async"></figure>
+      <figure class="photo"><img src="/assets/photos/eingang-1280.jpg?v=547a87adab" srcset="/assets/photos/eingang-640.jpg?v=cce089c50b 640w, /assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Hauseingang mit Holztür und der Jahreszahl 1926" width="1280" height="1707" loading="lazy" decoding="async"></figure>
     </header>
     <div class="contact-grid">
       <article class="panel">
-        <p class="small"><span lang="de">30 Minuten · kostenlos</span><span lang="en">30 minutes · free</span></p>
-        <h3 class="h4"><span lang="de">Strategie&shy;gespräch</span><span lang="en">Strategy call</span></h3>
-        <p><span lang="de">Wir sprechen über Ihr aktuelles Setup, finden die Stellen, an denen KI am meisten bewirkt, und skizzieren einen konkreten Plan. Sie gehen mit einem klaren nächsten Schritt aus dem Gespräch.</span><span lang="en">We look at your current setup, identify where AI can make the biggest impact and sketch a concrete plan. You leave with a clear next step.</span></p>
-        <a class="btn" id="call-btn" href="mailto:martin.schweppe@grafitecture.de?subject=Strategiegespr%C3%A4ch"><span lang="de">Gespräch anfragen</span><span lang="en">Request a call</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <p class="small"><span lang="de">30 Minuten · kostenlos</span></p>
+        <h3 class="h4"><span lang="de">Strategie&shy;gespräch</span></h3>
+        <p><span lang="de">Wir sprechen über Ihr aktuelles Setup, finden die Stellen, an denen KI am meisten bewirkt, und skizzieren einen konkreten Plan. Sie gehen mit einem klaren nächsten Schritt aus dem Gespräch.</span></p>
+        <a class="btn" id="call-btn" href="mailto:martin.schweppe@grafitecture.de?subject=Strategiegespr%C3%A4ch"><span lang="de">Gespräch anfragen</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         <div class="mailline">
           <a href="mailto:martin.schweppe@grafitecture.de" id="mail-addr">martin.schweppe@grafitecture.de</a>
-          <button type="button" class="copy" data-copy="martin.schweppe@grafitecture.de"><span class="cp-idle"><span lang="de">Adresse kopieren</span><span lang="en">Copy address</span></span><span class="cp-done" hidden><span lang="de">Kopiert</span><span lang="en">Copied</span></span></button>
+          <button type="button" class="copy" data-copy="martin.schweppe@grafitecture.de"><span class="cp-idle"><span lang="de">Adresse kopieren</span></span><span class="cp-done" hidden><span lang="de">Kopiert</span></span></button>
         </div>
       </article>
 
       <form class="panel" id="msg-form" action="mailto:martin.schweppe@grafitecture.de" method="post" enctype="text/plain" novalidate aria-labelledby="t-msg">
-        <p class="small"><span lang="de">Schriftlich</span><span lang="en">In writing</span></p>
-        <h3 class="h4" id="t-msg"><span lang="de">Direkte Nachricht</span><span lang="en">Direct message</span></h3>
-        <p><span lang="de">Beschreiben Sie Ihr Vorhaben, ich antworte in der Regel innerhalb von 24&nbsp;Stunden.</span><span lang="en">Describe your project and I’ll usually reply within 24&nbsp;hours.</span></p>
+        <p class="small"><span lang="de">Schriftlich</span></p>
+        <h3 class="h4" id="t-msg"><span lang="de">Direkte Nachricht</span></h3>
+        <p><span lang="de">Beschreiben Sie Ihr Vorhaben, ich antworte in der Regel innerhalb von 24&nbsp;Stunden.</span></p>
         <div class="fields">
-          <label class="field" for="f-name"><span class="small"><span lang="de">Name</span><span lang="en">Name</span></span><input id="f-name" name="name" type="text" autocomplete="name" required><span class="f-err" hidden></span></label>
+          <label class="field" for="f-name"><span class="small"><span lang="de">Name</span></span><input id="f-name" name="name" type="text" autocomplete="name" required><span class="f-err" hidden></span></label>
           <label class="field" for="f-mail"><span class="small">E-Mail</span><input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email" required><span class="f-err" hidden></span></label>
-          <label class="field wide" for="f-msg"><span class="small"><span lang="de">Nachricht</span><span lang="en">Message</span></span><textarea id="f-msg" name="message" rows="4" required></textarea><span class="f-err" hidden></span></label>
+          <label class="field wide" for="f-msg"><span class="small"><span lang="de">Nachricht</span></span><textarea id="f-msg" name="message" rows="4" required></textarea><span class="f-err" hidden></span></label>
         </div>
         <div class="form-foot">
-          <button type="submit" class="btn"><span lang="de">Nachricht senden</span><span lang="en">Send message</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-          <span class="hint"><span lang="de">Öffnet Ihr E-Mail-Programm mit der vorbereiteten Nachricht.</span><span lang="en">Opens your email app with the message ready to send.</span></span>
+          <button type="submit" class="btn"><span lang="de">Nachricht senden</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          <span class="hint"><span lang="de">Öffnet Ihr E-Mail-Programm mit der vorbereiteten Nachricht.</span></span>
         </div>
         <div class="form-note" id="form-note" role="status" aria-live="polite" hidden>
-          <p><span lang="de">Ihr E-Mail-Programm sollte sich jetzt mit der Nachricht öffnen. Falls nicht, kopieren Sie den Text und senden Sie ihn an martin.schweppe@grafitecture.de.</span><span lang="en">Your email app should now open with the message. If it doesn’t, copy the text and send it to martin.schweppe@grafitecture.de.</span></p>
+          <p><span lang="de">Ihr E-Mail-Programm sollte sich jetzt mit der Nachricht öffnen. Falls nicht, kopieren Sie den Text und senden Sie ihn an martin.schweppe@grafitecture.de.</span></p>
           <pre id="form-preview"></pre>
-          <div><button type="button" class="copy" id="copy-msg"><span class="cp-idle"><span lang="de">Nachricht kopieren</span><span lang="en">Copy message</span></span><span class="cp-done" hidden><span lang="de">Kopiert</span><span lang="en">Copied</span></span></button></div>
+          <div><button type="button" class="copy" id="copy-msg"><span class="cp-idle"><span lang="de">Nachricht kopieren</span></span><span class="cp-done" hidden><span lang="de">Kopiert</span></span></button></div>
         </div>
-        <p class="privacy-hint"><span lang="de">Ihre Angaben verwende ich nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="#datenschutz" data-open="datenschutz">Datenschutz</a>.</span><span lang="en">I only use your details to answer your enquiry. More in the <a href="#datenschutz" data-open="datenschutz">privacy policy</a>.</span></p>
+        <p class="privacy-hint"><span lang="de">Ihre Angaben verwende ich nur, um Ihre Anfrage zu beantworten. Mehr dazu im <a href="/datenschutz" data-open="datenschutz">Datenschutz</a>.</span></p>
       </form>
     </div>
   </div>
@@ -682,10 +697,17 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
       <a class="ftr-logo" href="#top" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
     </div>
     <div class="ftr-grid">
-      <p><span class="small"><span lang="de">Büro</span><span lang="en">Studio</span></span>Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim</p>
-      <p><span class="small"><span lang="de">Kontakt</span><span lang="en">Contact</span></span><a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>
-      <p><span class="small">Social</span><a href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
-      <div><span class="small"><span lang="de">Rechtliches</span><span lang="en">Legal</span></span><p class="ftr-legal"><a href="#impressum" data-open="impressum"><span lang="de">Impressum</span><span lang="en">Legal notice</span></a><a href="#datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></a></p></div>
+      <p><span class="small"><span lang="de">Büro</span></span>
+        Grafitecture GmbH<br>
+Rebenstr. 9a<br>
+68309 Mannheim</p>
+      <p><span class="small"><span lang="de">Kontakt</span></span>
+        <a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>
+      <p><span class="small">Social</span>
+        <a href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+      <div><span class="small"><span lang="de">Rechtliches</span></span>
+        <p class="ftr-legal"><a href="/impressum" data-open="impressum"><span lang="de">Impressum</span></a>
+          <a href="/datenschutz" data-open="datenschutz"><span lang="de">Datenschutz</span></a></p></div>
     </div>
     <p class="ftr-meta small">© 2000–2026 Grafitecture GmbH</p>
   </div>
@@ -695,12 +717,15 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <dialog class="legal" id="impressum" aria-labelledby="t-imp">
   <div class="legal-in">
     <header class="legal-hd">
-      <h2 class="h3" id="t-imp"><span lang="de">Impressum</span><span lang="en">Legal notice</span></h2>
-      <button type="button" class="x" data-close><span lang="de">Schließen</span><span lang="en">Close</span> <span aria-hidden="true">×</span></button>
+      <h2 class="h3" id="t-imp"><span lang="de">Impressum</span></h2>
+      <button type="button" class="x" data-close><span lang="de">Schließen</span> <span aria-hidden="true">×</span></button>
     </header>
     <div class="legal-body" lang="de">
       <h3 class="h6">Angaben gemäß § 5 DDG</h3>
-      <p class="addr">Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim<br>Deutschland</p>
+      <p class="addr">Grafitecture GmbH<br>
+Rebenstr. 9a<br>
+68309 Mannheim<br>
+Deutschland</p>
       <h3 class="h6">Vertreten durch</h3>
       <p>Martin Schweppe, Geschäftsführer</p>
       <h3 class="h6">Kontakt</h3>
@@ -716,29 +741,11 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
       <h3 class="h6">Marken</h3>
       <p>Die gezeigten Kundenlogos sind Marken der jeweiligen Inhaber und dienen ausschließlich als Referenz.</p>
     </div>
-    <div class="legal-body" lang="en">
-      <p class="note">English translation for convenience. The German version is legally binding.</p>
-      <h3 class="h6">Information pursuant to Section 5 DDG</h3>
-      <p class="addr">Grafitecture GmbH<br>Rebenstr. 9a<br>68309 Mannheim<br>Germany</p>
-      <h3 class="h6">Represented by</h3>
-      <p>Martin Schweppe, Managing Director</p>
-      <h3 class="h6">Contact</h3>
-      <p>Email: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">Commercial register</h3>
-      <p>Amtsgericht Mannheim (Mannheim Local Court), HRB 432625</p>
-      <h3 class="h6">VAT identification number</h3>
-      <p>DE209730809 (pursuant to Section 27a of the German VAT Act)</p>
-      <h3 class="h6">Responsible for content pursuant to Section 18 (2) MStV</h3>
-      <p>Martin Schweppe, address as above</p>
-      <h3 class="h6">Consumer dispute resolution</h3>
-      <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
-      <h3 class="h6">Trademarks</h3>
-      <p>The client logos shown are trademarks of their respective owners and are used solely as references.</p>
-    </div>
+    
   </div>
   <button type="button" class="sheen-btn" data-sheen-btn hidden>
-    <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
-    <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
+    <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span></span></span>
+    <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span></span></span>
   </button>
 </dialog>
 
@@ -746,8 +753,8 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 <dialog class="legal" id="datenschutz" aria-labelledby="t-ds">
   <div class="legal-in">
     <header class="legal-hd">
-      <h2 class="h3" id="t-ds"><span lang="de">Datenschutz</span><span lang="en">Privacy policy</span></h2>
-      <button type="button" class="x" data-close><span lang="de">Schließen</span><span lang="en">Close</span> <span aria-hidden="true">×</span></button>
+      <h2 class="h3" id="t-ds"><span lang="de">Datenschutz</span></h2>
+      <button type="button" class="x" data-close><span lang="de">Schließen</span> <span aria-hidden="true">×</span></button>
     </header>
     <div class="legal-body" lang="de">
       <h3 class="h6">1. Verantwortlicher</h3>
@@ -763,25 +770,11 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
       <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 18, 20 und 21 DSGVO). Eine E-Mail an martin.schweppe@grafitecture.de genügt. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
       <p class="note">Stand: November 2026</p>
     </div>
-    <div class="legal-body" lang="en">
-      <p class="note">English translation for convenience. The German version is legally binding.</p>
-      <h3 class="h6">1. Controller</h3>
-      <p>Grafitecture GmbH, Rebenstr. 9a, 68309 Mannheim, Germany, represented by its Managing Director Martin Schweppe. Email: martin.schweppe@grafitecture.de</p>
-      <h3 class="h6">2. Hosting by Vercel</h3>
-      <p>This website is hosted by Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA. When you visit it, Vercel processes the technically necessary access data on our behalf: IP address, date and time, requested page, referrer, browser and operating system. This is needed to deliver the website and protect it against attacks (Art. 6(1)(f) GDPR). The data is stored only as long as required for this purpose.</p>
-      <p>We have a data processing agreement with Vercel (Art. 28 GDPR). Vercel also processes data in the USA. Transfers are based on the EU-U.S. Data Privacy Framework, under which Vercel is certified (Art. 45 GDPR), and on standard contractual clauses (Art. 46(2)(c) GDPR).</p>
-      <h3 class="h6">3. Contact by email</h3>
-      <p>If you write to us, directly or via the form (which only opens your email app), we process your name, email address and message to answer your enquiry (Art. 6(1)(b) GDPR for enquiries about an assignment, otherwise point (f)). We delete the data once it is no longer needed and no statutory retention obligations apply.</p>
-      <h3 class="h6">4. No cookies, no tracking</h3>
-      <p>This website sets no cookies, stores nothing on your device, uses no analytics and loads no third-party content. Font and graphics are loaded directly from this website. Our Instagram profile is only referenced by a plain link: Instagram (Meta Platforms Ireland Ltd.) receives data only once you click it, and processes it under its own privacy policy.</p>
-      <h3 class="h6">5. Your rights</h3>
-      <p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15 to 18, 20 and 21 GDPR). An email to martin.schweppe@grafitecture.de is sufficient. You may also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). The authority responsible for us is the State Commissioner for Data Protection and Freedom of Information Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
-      <p class="note">Last updated: November 2026</p>
-    </div>
+    
   </div>
   <button type="button" class="sheen-btn" data-sheen-btn hidden>
-    <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span><span lang="en">Pause colour shift</span></span></span>
-    <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span><span lang="en">Resume colour shift</span></span></span>
+    <span class="if-on"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M3 1v10M7 1v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="vh"><span lang="de">Farbspiel anhalten</span></span></span>
+    <span class="if-off"><svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1.4v9.2L9 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span class="vh"><span lang="de">Farbspiel fortsetzen</span></span></span>
   </button>
 </dialog>
 </div>
@@ -820,14 +813,19 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
     }
   };
 
-  /* ---------------- language ---------------- */
-  let lang = 'de';
+  /* ---------------- language ----------------
+     One page per language since 05.11.2026 (Martin): / carries only the German text, /en only the English one, so
+     search engines and AI crawlers read clean text. There the DE/EN switch is a link to the other page: it keeps the
+     section in view (/en#leistungen …), and an open menu opens again on the other page (#menu, see the menu below).
+     The claude.ai preview still carries both languages and switches in place (buttons instead of links). */
+  let lang = site.dataset.lang === 'en' ? 'en' : 'de';
+  const inPlace = $$('button[data-set-lang]');
   function setLang(l) {
     lang = l === 'en' ? 'en' : 'de';
     site.dataset.lang = lang;
     document.documentElement.lang = lang;
     document.title = T[lang].title;
-    $$('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+    inPlace.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
     $$('img[data-alt-de]').forEach((img) => { img.alt = lang === 'de' ? img.dataset.altDe : img.dataset.altEn; });
     const call = $('#call-btn');
     if (call) call.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(T[lang].call);
@@ -837,11 +835,27 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
       if (err && key) err.textContent = T[lang].err[key];
     });
   }
-  $$('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
-  let initial = 'de';
+  inPlace.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+  $$('a[data-set-lang]').forEach((a) => a.addEventListener('click', (e) => {
+    if (a.getAttribute('aria-current') === 'page') { e.preventDefault(); return; }   // already this language
+    const menu = $('#menu-panel');
+    let hash = '';
+    if (menu && !menu.hidden) hash = '#menu';
+    else if (window.scrollY > 24) {
+      const cur = $('[data-nav][aria-current="true"]');
+      if (cur) hash = '#' + cur.dataset.nav;
+    }
+    if (hash) { e.preventDefault(); location.href = a.href.split('#')[0] + hash; }
+  }));
+  let initial = lang;
   try {
+    // old links: …/?lang=en and …/#en (the claude.ai preview switches in place, the German page goes to /en)
     const q = new URLSearchParams(location.search).get('lang');
-    if (location.hash === '#en' || q === 'en') initial = 'en';
+    if (location.hash === '#en' || q === 'en') {
+      const en = $('a[data-set-lang="en"]');
+      if (inPlace.length) initial = 'en';
+      else if (en && lang !== 'en') { location.replace(en.href); return; }
+    }
   } catch (e) { /* ignore */ }
   setLang(initial);
 
@@ -1046,11 +1060,21 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   }
   if (menuBtn && panel) {
     menuBtn.addEventListener('click', () => setMenu(panel.hidden));
-    panel.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+    // a link in the menu closes it; the language links keep it open (they reopen it on the other page)
+    panel.addEventListener('click', (e) => { if (e.target.closest('a') && !e.target.closest('[data-set-lang]')) setMenu(false); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !panel.hidden) { setMenu(false); menuBtn.focus(); }
     });
     window.addEventListener('resize', () => { if (window.innerWidth >= 1100 && !panel.hidden) setMenu(false); });
+    // arriving from the language switch in the menu (/en#menu): the menu opens again, focus on the active language
+    if (location.hash === '#menu') {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
+      if (window.innerWidth < 1100) {
+        setMenu(true);
+        const cur = $('a[data-set-lang][aria-current="page"]', panel);
+        if (cur) cur.focus({ preventScroll: true });
+      }
+    }
   }
 
   /* ---------------- copy buttons ---------------- */

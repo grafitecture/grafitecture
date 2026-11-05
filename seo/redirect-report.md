@@ -1,0 +1,84 @@
+# Redirect-Report
+
+Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 10:56 UTC.
+69 Weiterleitungen aus `seo/redirect-map.csv` und `vercel.json`, dazu 7 Adressen, die 404 liefern müssen.
+**Alle in Ordnung.**
+
+| Alt | Neu | Status | Ergebnis |
+|---|---|---|---|
+| `/impressum.html` | `/impressum` | 308 | ✅ |
+| `/impressum.htm` | `/impressum` | 308 | ✅ |
+| `/impressum.php` | `/impressum` | 308 | ✅ |
+| `/impressum.asp` | `/impressum` | 308 | ✅ |
+| `/Impressum` | `/impressum` | 308 | ✅ |
+| `/Impressum/` | `/impressum` | 308 | ✅ |
+| `/imprint` | `/en/legal-notice` | 308 | ✅ |
+| `/imprint/` | `/en/legal-notice` | 308 | ✅ |
+| `/legal-notice` | `/en/legal-notice` | 308 | ✅ |
+| `/legal-notice/` | `/en/legal-notice` | 308 | ✅ |
+| `/Datenschutz` | `/datenschutz` | 308 | ✅ |
+| `/Datenschutz/` | `/datenschutz` | 308 | ✅ |
+| `/datenschutzerklaerung` | `/datenschutz` | 308 | ✅ |
+| `/datenschutzerklaerung/` | `/datenschutz` | 308 | ✅ |
+| `/datenschutzerklarung` | `/datenschutz` | 308 | ✅ |
+| `/datenschutzerklarung/` | `/datenschutz` | 308 | ✅ |
+| `/privacy` | `/en/privacy-policy` | 308 | ✅ |
+| `/privacy/` | `/en/privacy-policy` | 308 | ✅ |
+| `/privacy-policy` | `/en/privacy-policy` | 308 | ✅ |
+| `/privacy-policy/` | `/en/privacy-policy` | 308 | ✅ |
+| `/kontakt` | `/#kontakt` | 308 | ✅ |
+| `/kontakt/` | `/#kontakt` | 308 | ✅ |
+| `/Kontakt` | `/#kontakt` | 308 | ✅ |
+| `/Kontakt/` | `/#kontakt` | 308 | ✅ |
+| `/contact` | `/en#kontakt` | 308 | ✅ |
+| `/contact/` | `/en#kontakt` | 308 | ✅ |
+| `/files/GT_ANFAHRT.pdf` | `/#kontakt` | 308 | ✅ |
+| `/leistungen` | `/#leistungen` | 308 | ✅ |
+| `/leistungen/` | `/#leistungen` | 308 | ✅ |
+| `/Leistungen` | `/#leistungen` | 308 | ✅ |
+| `/Leistungen/` | `/#leistungen` | 308 | ✅ |
+| `/services` | `/en#leistungen` | 308 | ✅ |
+| `/services/` | `/en#leistungen` | 308 | ✅ |
+| `/ueber-mich` | `/#ueber-mich` | 308 | ✅ |
+| `/ueber-mich/` | `/#ueber-mich` | 308 | ✅ |
+| `/agentur` | `/#ueber-mich` | 308 | ✅ |
+| `/agentur/` | `/#ueber-mich` | 308 | ✅ |
+| `/agentur-2` | `/#ueber-mich` | 308 | ✅ |
+| `/agentur-2/` | `/#ueber-mich` | 308 | ✅ |
+| `/author/martinschweppe` | `/#ueber-mich` | 308 | ✅ |
+| `/author/martinschweppe/` | `/#ueber-mich` | 308 | ✅ |
+| `/about` | `/en#ueber-mich` | 308 | ✅ |
+| `/about/` | `/en#ueber-mich` | 308 | ✅ |
+| `/about-us` | `/en#ueber-mich` | 308 | ✅ |
+| `/about-us/` | `/en#ueber-mich` | 308 | ✅ |
+| `/referenzen` | `/#referenzen` | 308 | ✅ |
+| `/referenzen/` | `/#referenzen` | 308 | ✅ |
+| `/Referenzen` | `/#referenzen` | 308 | ✅ |
+| `/Referenzen/` | `/#referenzen` | 308 | ✅ |
+| `/kunden` | `/#referenzen` | 308 | ✅ |
+| `/kunden/` | `/#referenzen` | 308 | ✅ |
+| `/arbeiten` | `/#referenzen` | 308 | ✅ |
+| `/arbeiten/` | `/#referenzen` | 308 | ✅ |
+| `/arbeiten/beispiel` | `/#referenzen` | 308 | ✅ |
+| `/wp-sitemap.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/wp-sitemap-posts-page-1.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/wp-sitemap-users-1.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/sitemap_index.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/sitemap-index.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/author-sitemap.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/page-sitemap.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/post-sitemap.xml` | `/sitemap.xml` | 308 | ✅ |
+| `/apple-touch-icon-precomposed.png` | `/apple-touch-icon.png` | 308 | ✅ |
+| `/apple-touch-icon-180x180.png` | `/apple-touch-icon.png` | 308 | ✅ |
+| `/en/` | `/en` | 308 | ✅ |
+| `/impressum/` | `/impressum` | 308 | ✅ |
+| `/en/legal-notice/` | `/en/legal-notice` | 308 | ✅ |
+| `/datenschutz/` | `/datenschutz` | 308 | ✅ |
+| `/en/privacy-policy/` | `/en/privacy-policy` | 308 | ✅ |
+| `/gibt-es-nicht-1793876212509` | (404) | 404 | ✅ |
+| `/wp-login.php` | (404) | 404 | ✅ |
+| `/wp-admin/` | (404) | 404 | ✅ |
+| `/xmlrpc.php` | (404) | 404 | ✅ |
+| `/.env` | (404) | 404 | ✅ |
+| `/.git/config` | (404) | 404 | ✅ |
+| `/feed` | (404) | 404 | ✅ |

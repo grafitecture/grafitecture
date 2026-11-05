@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datenschutz · Grafitecture GmbH, Mannheim</title>
+<meta name="description" content="Datenschutzerklärung der Grafitecture GmbH: Hosting bei Vercel, Kontakt per E-Mail, keine Cookies und kein Tracking, Ihre Rechte nach der DSGVO.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="https://www.grafitecture.de/datenschutz">
+<link rel="alternate" hreflang="de" href="https://www.grafitecture.de/datenschutz">
+<link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en/privacy-policy">
+<link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/datenschutz">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Grafitecture">
+<meta property="og:url" content="https://www.grafitecture.de/datenschutz">
+<meta property="og:title" content="Datenschutz · Grafitecture GmbH, Mannheim">
+<meta property="og:description" content="Datenschutzerklärung der Grafitecture GmbH: Hosting bei Vercel, Kontakt per E-Mail, keine Cookies und kein Tracking, Ihre Rechte nach der DSGVO.">
+<meta property="og:image" content="https://www.grafitecture.de/assets/og/grafitecture-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face { font-family: "Google Sans"; src: url("/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647") format("woff"); font-weight: 400 700; font-style: normal; font-display: swap; }
+/* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
+   and „Bereit?“ are lime fields, every line is lime, and every mouse-over is lime), one typeface (Google Sans) on a
+   golden-ratio scale, very large headlines and wide white space. The footer is white (Martin, 28.10.).
+   Images: two photos. */
+:root {
+  color-scheme: light;
+  --c: #435960;   /* the one colour: text, buttons, logo */
+  --w: #FFFFFF;   /* white */
+  --r: 4px;      /* very slight rounding: buttons and photos (Martin, 25.10.) */
+  /* the accent (Martin, 25.10., replaces the pink), always the full tone, never a tint or a transparency.
+     The lime fields carry #435960 type (6.4:1). On mouse-over, type and logos themselves turn lime,
+     nothing is put behind them (Martin's choice; lime on white is only 1.2:1); on the lime fields they turn white
+     instead. Buttons and the client-logo field fill lime with #435960 type (white on the lime hero). */
+  --lime: #dafd55;
+  /* every line, underline and outline (Martin, 29.10.): lime on white, white on the lime and shimmering fields
+     (.is-lime sets it). Not the keyboard focus ring: it stays #435960, a lime ring would not show on white. */
+  --line: var(--lime);
+
+  --font: "Google Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Golden-ratio type scale (phi = 1.618), max values reached at 1920 px viewport, fluid down to 375 px */
+  --h1: clamp(3.75rem, 0.31rem + 14.7vw, 17.942rem);
+  --h2: clamp(2.75rem, 0.73rem + 8.63vw, 11.089rem);
+  --h3: clamp(2.125rem, 0.975rem + 4.9vw, 6.854rem);
+  --h4: clamp(1.625rem, 0.99rem + 2.705vw, 4.236rem);
+  --h5: clamp(1.3rem, 0.98rem + 1.366vw, 2.618rem);
+  --h6: clamp(1.125rem, 1rem + 0.51vw, 1.618rem);
+  --p: 1rem;
+  --small: 0.618rem;
+  --xs: 0.382rem;
+
+  --s2: 1rem; --s3: 1.618rem; --s4: 2.618rem; --s5: 4.236rem; --s6: 6.854rem;
+  --sec: clamp(7rem, 2.5rem + 13vw, 17.942rem);   /* white space between sections */
+  --g: 20px;
+  --maxw: 1680px;
+  --hdr: 72px;
+  --logo-h: 26px;
+  --logo-k: .4;    /* client logo scale (halved on 25.10.) */
+}
+@media (min-width: 760px) { :root { --g: 40px; --hdr: 88px; --logo-h: 30px; --logo-k: .45; } }
+@media (min-width: 1100px) { :root { --g: clamp(56px, 5vw, 104px); --hdr: 104px; --logo-h: 34px; --logo-k: .5; } }
+@media (min-width: 1600px) { :root { --logo-k: .56; } }
+
+/* ---------- base ---------- */
+[hidden] { display: none !important; }
+.site *, .site *::before, .site *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--w); color: var(--c);
+  font-family: var(--font); font-size: var(--p); line-height: 1.618; font-weight: 400;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--w); }
+.site { position: relative; overflow-x: clip; }
+.site[data-lang="de"] [lang="en"], .site[data-lang="en"] [lang="de"] { display: none !important; }
+.site :is(h1, h2, h3, h4, h5, h6, p, li, dd) { overflow-wrap: break-word; }
+.site p, .site li { hyphens: auto; }
+[data-sec] { scroll-margin-top: var(--hdr); }
+img, svg { max-width: 100%; }
+a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; text-decoration-color: var(--line); }
+a { transition: color .2s ease, text-decoration-color .2s ease; }
+::selection { background: var(--c); color: var(--w); }
+:focus-visible { outline: 2px solid var(--c); outline-offset: 4px; }
+
+h1, .h1 { font-size: var(--h1); line-height: .92; letter-spacing: -.045em; font-weight: 400; }
+h2, .h2 { font-size: var(--h2); line-height: .95; letter-spacing: -.04em; font-weight: 400; }
+h3, .h3 { font-size: var(--h3); line-height: 1; letter-spacing: -.03em; font-weight: 400; }
+h4, .h4 { font-size: var(--h4); line-height: 1.08; letter-spacing: -.022em; font-weight: 400; }
+h5, .h5 { font-size: var(--h5); line-height: 1.26; letter-spacing: -.012em; font-weight: 400; }
+h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-weight: 500; }
+.site :is(h1, h2, h3, h4, h5, h6) { margin: 0; text-wrap: balance; color: inherit; }
+.site p { margin: 0; }
+.small { font-size: var(--small); line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; font-weight: 500; }
+
+.wrap {
+  width: 100%; max-width: calc(var(--maxw) + 2 * var(--g)); margin-inline: auto;
+  padding-left: max(var(--g), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--g), env(safe-area-inset-right, 0px));
+}
+.skip { position: absolute; left: 12px; top: -80px; z-index: 100; background: var(--c); color: var(--w); padding: 12px 16px; text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* ---------- header ---------- */
+.hdr {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--w);
+  box-shadow: 0 1px 0 transparent; transition: box-shadow .3s ease;
+}
+.hdr.is-scrolled { box-shadow: 0 1px 0 var(--line); }
+.hdr-in {
+  display: flex; align-items: center; gap: clamp(18px, 2.6vw, 44px); height: var(--hdr);
+  max-width: calc(var(--maxw) + 2 * var(--g)); margin-inline: auto;
+  padding-left: max(var(--g), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--g), env(safe-area-inset-right, 0px));
+}
+.logo { display: inline-flex; margin-right: auto; padding-block: 6px; color: var(--c); }
+.logo svg { height: var(--logo-h); width: auto; display: block; }
+.nav { display: none; gap: clamp(22px, 2.4vw, 44px); }
+.nav a { text-decoration: none; font-size: .9375rem; padding-block: 10px; border-bottom: 1px solid transparent; }
+.nav a { transition: color .2s ease, border-color .2s ease; }
+.nav a[aria-current="true"] { border-bottom-color: var(--line); }
+.lang { display: inline-flex; gap: 4px; }
+/* buttons (claude.ai preview and 404 page: switch in place) or links (/ and /en, since 05.11.2026), same look */
+.lang :is(button, a) {
+  appearance: none; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--c); cursor: pointer;
+  font: 500 .8125rem/1 var(--font); letter-spacing: .1em; padding: 8px 4px;
+}
+.lang a { display: inline-block; text-decoration: none; }
+.lang :is(button[aria-pressed="true"], a[aria-current="page"]) { border-bottom-color: var(--line); }
+.lang :is(button[aria-pressed="false"], a:not([aria-current="page"])) { font-weight: 400; }
+.hdr .hdr-cta { display: none; }
+.menu-btn {
+  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 10px; padding: 8px 0; font: 500 .9375rem/1 var(--font);
+}
+.menu-btn .bars { width: 22px; height: 10px; position: relative; display: inline-block; }
+.menu-btn .bars::before, .menu-btn .bars::after { content: ""; position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; transition: transform .3s, top .3s, bottom .3s; }
+.menu-btn .bars::before { top: 0; } .menu-btn .bars::after { bottom: 0; }
+.menu-btn[aria-expanded="true"] .bars::before { top: 4.25px; transform: rotate(45deg); }
+.menu-btn[aria-expanded="true"] .bars::after { bottom: 4.25px; transform: rotate(-45deg); }
+/* language switch (Martin 28.10.): in the header only from 1100 px; on phones and tablets it sits in the menu,
+   in its bottom row next to Impressum and Datenschutz, so the header there shows only the logo and „Menü“ */
+.hdr .lang { display: none; }
+@media (min-width: 1100px) {
+  .nav { display: flex; }
+  .hdr .lang { display: inline-flex; }
+  .hdr .hdr-cta { display: inline-flex; }
+  .menu-btn { display: none; }
+}
+.menu-panel {
+  position: fixed; inset: 0; z-index: 45; background: var(--w);
+  padding: calc(var(--hdr) + env(safe-area-inset-top, 0px) + 24px) max(var(--g), env(safe-area-inset-right, 0px)) calc(32px + env(safe-area-inset-bottom, 0px)) max(var(--g), env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: 32px; overflow-y: auto;
+}
+.menu-panel ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.menu-panel li { border-bottom: 1px solid var(--line); }
+.menu-panel a.m-link { display: block; padding-block: 16px; text-decoration: none; font-size: var(--h4); line-height: 1.1; letter-spacing: -.02em; }
+.menu-panel .m-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px 22px; flex-wrap: wrap; }
+.menu-panel .m-legal { display: flex; gap: 22px; font-size: .9375rem; }
+.menu-panel .lang { margin-right: -4px; }   /* the last letter lines up with the right edge of the list above */
+/* a 44 px tall touch target for each language button, without changing how it looks */
+.menu-panel .lang :is(button, a) { position: relative; }
+.menu-panel .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
+.menu-panel .m-legal a { text-decoration: none; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 22px;
+  min-height: 58px; padding: 0 28px; border: 1.5px solid var(--c); background: var(--c); color: var(--w);
+  font: 500 1rem/1.2 var(--font); text-decoration: none; cursor: pointer;
+  transition: background-color .3s ease, color .3s ease;
+}
+.btn svg { width: 22px; height: 10px; flex: none; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.btn-line { background: transparent; color: var(--c); border-color: var(--line); }   /* filled buttons keep their edge in the fill colour */
+.btn-sm { min-height: 46px; padding: 0 20px; font-size: .9375rem; gap: 14px; }
+
+/* ---------- sections ---------- */
+.sec { padding-block: var(--sec); }
+.sec-head { display: grid; gap: var(--s4); margin-bottom: clamp(4rem, 2rem + 6vw, 11rem); }
+.lead { max-width: 30ch; }
+/* two fixed lines (break after the first sentence); each line stays whole wherever the width allows */
+.lead.lead-2l { max-width: none; }
+@media (min-width: 560px) { .lead-2l .ln { white-space: nowrap; } }
+
+/* ---------- main headlines (Martin, 25.10.): plain #435960; the lime wave that ran through them was removed on
+   28.10. at Martin's request (git history) ---------- */
+
+/* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“ and „Bereit?“, full width ----------
+   Plain #dafd55 behind #435960 type and white lines; no image, no animation. Mouse-over rules for them at the end.
+   The footer was a lime field too and is white since 28.10. (Martin). */
+.is-lime { background: var(--lime); color: var(--c); --line: var(--w); }   /* lines on the fields are white (Martin, 29.10.) */
+
+/* ---------- hero ---------- */
+.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
+.hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
+/* phones: "Marken mit KI." a little higher, closer to the kicker (Martin 27.10.) */
+@media (max-width: 759px) { .hero .wrap { justify-content: flex-start; gap: var(--s5); } }
+.hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
+.hero-foot .h4 { max-width: 16ch; }
+.hero-side { display: grid; gap: var(--s4); align-content: end; max-width: 40rem; }
+.hero-side p { font-size: var(--h6); line-height: 1.55; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+@media (min-width: 1100px) {
+  .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
+}
+
+/* ---------- hero: the surface shimmers (Martin, 26.10.; two colours of the whole spectrum since 28.10.) ----------
+   Only the hero field changes colour, like shot silk: always two colours at a time, travelling together around
+   the whole colour wheel (yellow, green and cyan as full neon, red, pink, violet and blue as light neon tones).
+   app.js paints them on a canvas (.sheen) at a sixth of the resolution, which the browser scales up smoothly
+   behind the content. The type stays at least 4.5:1 on every colour. Without JavaScript and with reduced motion
+   it stays plain lime. The small button pauses it (WCAG 2.2.2). The footer shimmered too until 28.10.; it is
+   plain white now (Martin). */
+.hero { position: relative; isolation: isolate; }
+.sheen { position: absolute; inset: 0; z-index: -1; display: block; width: 100%; height: 100%; pointer-events: none; }
+.hero-top, .ftr-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+/* the kicker always stays on one line (Martin 27.10.); on the narrowest phones with a little less tracking */
+.hero-top .small { white-space: nowrap; }
+@media (max-width: 379px) { .hero-top .small { letter-spacing: .1em; } }
+.sheen-btn {
+  appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer; flex: none;
+  display: inline-flex; padding: 14px; margin: -14px -14px -14px 0;
+}
+.sheen-btn .if-on, .sheen-btn .if-off { display: inline-flex; }
+.sheen-btn.is-paused .if-on, .sheen-btn:not(.is-paused) .if-off { display: none; }
+.sheen-btn svg { width: 10px; height: 12px; flex: none; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- lists: services and process ---------- */
+.rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
+.row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--line); }
+.row p { max-width: 52ch; }
+.row .num { font-size: var(--h4); line-height: 1.08; letter-spacing: -.03em; }
+.rows.steps .row { grid-template-columns: 2.6em minmax(0, 1fr); column-gap: var(--s2); align-items: baseline; }
+.rows.steps .row .num { font-size: var(--h4); }
+.rows.steps .row p { grid-column: 2; }
+/* services on phones: only the headlines, the descriptions stay on tablet and desktop (Martin 27.10.) */
+@media (max-width: 759px) { .rows.svc .row p { display: none; } }
+@media (min-width: 900px) {
+  .rows.svc .row { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--s5); align-items: start; }
+  .rows.steps .row { grid-template-columns: clamp(5rem, 8vw, 10rem) minmax(0, 5fr) minmax(0, 6fr); gap: var(--s5); align-items: baseline; }
+  .rows.steps .row p { grid-column: auto; }
+}
+
+/* ---------- about ---------- */
+.about-grid { display: grid; gap: var(--s5); }
+.about-side { display: grid; gap: var(--s4); align-content: start; min-width: 0; }
+.sec-head-photo .sec-head-text { display: grid; gap: var(--s4); align-content: start; min-width: 0; }
+.about-side .photo, .sec-head-photo .photo { max-width: 520px; }
+@media (min-width: 1100px) {
+  .about-side .photo, .sec-head-photo .photo { max-width: none; }
+  .sec-head-photo { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: var(--s6); align-items: start; }
+}
+/* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
+.photo { margin: 0; }
+.photo img { display: block; width: 100%; max-width: 100%; height: auto; }
+/* a very small caption under the portrait (Martin, 29.10.): the smallest step of the scale, like the other labels */
+.photo figcaption { margin-top: 10px; }
+.facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); align-content: start; }
+.facts > div { padding: 18px 0 20px; border-bottom: 1px solid var(--line); min-width: 0; }
+.facts > div:nth-child(odd) { padding-right: 16px; }
+.facts dd { margin: 6px 0 0; font-size: var(--h6); line-height: 1.3; }
+.about-text { display: grid; gap: var(--s3); align-content: start; }
+.about-text .h4 { max-width: 20ch; margin-bottom: var(--s3); }
+.about-text p:not(.h4) { max-width: 62ch; }
+.plain { list-style: none; margin: var(--s3) 0 0; padding: 0; border-top: 1px solid var(--line); }
+.plain li { padding: 16px 0; border-bottom: 1px solid var(--line); font-size: var(--h6); line-height: 1.4; }
+@media (min-width: 1100px) { .about-grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--s6); } }
+
+/* ---------- client logos (no cell borders, so any number of logos sits cleanly) ---------- */
+.logos {
+  list-style: none; margin: 0; padding: clamp(1.25rem, .8rem + 2vw, 3rem) 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.logos li {
+  display: grid; place-items: center; min-width: 0;
+  min-height: clamp(84px, 6vw + 62px, 176px); padding: clamp(14px, 1.6vw, 30px);
+}
+.logos a { position: relative; display: grid; place-items: center; width: 100%; height: 100%; text-decoration: none; }
+/* hover: a smaller lime field behind the logo, the logo stays #435960 */
+.logos a::before {
+  content: ""; position: absolute; inset: 16% 12%; background: var(--lime);
+  opacity: 0; transform: scale(.94); transition: opacity .25s ease, transform .25s ease;
+}
+.logos a:focus-visible::before { opacity: 1; transform: none; }
+.logos img { position: relative; display: block; width: calc(var(--w, 140) * var(--logo-k) * 1px); max-width: 40%; height: auto; }
+.logos .logo-txt { position: relative; font-size: var(--h6); line-height: 1.25; text-align: center; letter-spacing: -.01em; }
+.logos a:focus-visible { outline: 2px solid var(--c); outline-offset: -4px; }
+@media (min-width: 760px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } .logos img { max-width: 50%; } }
+
+/* ---------- contact ---------- */
+.contact-grid { display: grid; gap: var(--s5); }
+.panel { display: grid; gap: var(--s3); align-content: start; min-width: 0; border-top: 1px solid var(--line); padding-top: var(--s4); }
+.panel p { max-width: 54ch; }
+.panel .btn { justify-self: start; margin-top: 6px; }
+.mailline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-top: var(--s3); }
+.mailline a { font-size: var(--h6); word-break: break-all; text-decoration: none; }
+.copy {
+  appearance: none; background: transparent; color: var(--c); border: 1px solid var(--line); cursor: pointer;
+  font: 500 var(--small)/1 var(--font); letter-spacing: .16em; text-transform: uppercase; padding: 9px 11px;
+}
+.fields { display: grid; gap: var(--s4); }
+.field { display: grid; gap: 8px; }
+.field input, .field textarea {
+  width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--c);
+  padding: 8px 0 10px; margin: 0; font: 400 1.125rem/1.5 var(--font); outline: none; border-radius: 0; resize: vertical;
+}
+.field textarea { min-height: 128px; }
+.field input:focus, .field textarea:focus { border-bottom-width: 2px; padding-bottom: 9px; }
+.field.invalid input, .field.invalid textarea { border-bottom-width: 3px; padding-bottom: 8px; }
+.f-err { font-size: .875rem; }
+.f-err::before { content: "→ "; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.form-foot .hint { font-size: .875rem; max-width: 36ch; }
+.form-note { border: 1px solid var(--line); padding: 18px 20px; display: grid; gap: 12px; }
+.form-note pre { margin: 0; white-space: pre-wrap; font: 400 .875rem/1.5 var(--font); max-height: 180px; overflow: auto; }
+.privacy-hint { font-size: .875rem; }
+@media (min-width: 760px) { .fields { grid-template-columns: 1fr 1fr; column-gap: var(--s4); } .field.wide { grid-column: 1 / -1; } }
+@media (min-width: 1100px) { .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s6); } }
+
+/* ---------- footer: white (Martin, 28.10.; before that lime with the shimmer), #435960 type and logo, lime line ---------- */
+.ftr { background: var(--w); padding-block: clamp(4rem, 2.5rem + 4vw, 8rem) calc(48px + env(safe-area-inset-bottom, 0px)); }
+/* e-mail, Impressum, Datenschutz: not underlined; on mouse-over the type turns lime like everywhere on white
+   (rules at the end) */
+.ftr a { text-decoration: none; }
+/* same size as the header logo at every width */
+.ftr-top { margin-bottom: var(--s5); }
+.ftr-logo { display: inline-flex; padding-block: 6px; color: var(--c); }
+.ftr-logo svg { display: block; height: var(--logo-h); width: auto; }
+.ftr-grid { display: grid; gap: var(--s4); border-top: 1px solid var(--line); padding-top: var(--s4); }
+.ftr-grid .small { display: block; margin-bottom: 10px; }
+.ftr-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.site .ftr-meta { margin-top: var(--s5); }
+/* Büro, Kontakt, Social, Rechtliches (Social since 01.11., Martin): two by two from 760 px, four columns from
+   1300 px (below that the e-mail address would wrap in a quarter column) */
+@media (min-width: 760px) { .ftr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1300px) { .ftr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- legal dialogs ----------
+   Impressum and Datenschutz open as a white sheet from the right. Behind it the screen shimmers like the hero
+   (Martin, 29.10.; before that a plain #435960 backdrop): the dialog itself covers the whole viewport in lime,
+   app.js paints the shimmer on a canvas (.sheen) over the part the sheet leaves free and keeps it in step with the
+   hero, and the sheet (.legal-in) scrolls on its own. A click on the field closes the dialog. Up to 820 px the sheet
+   fills the screen, so there is no field to see. Without JavaScript and with reduced motion the field is plain lime,
+   like the hero. */
+dialog.legal {
+  position: fixed; inset: 0; z-index: 70; isolation: isolate; overflow: hidden;
+  padding: 0; border: 0; margin: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+  background: var(--lime); color: var(--c);
+}
+dialog.legal::backdrop { background: transparent; }
+dialog.legal[open] { animation: field-in .45s ease; }
+dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1); }
+@keyframes field-in { from { opacity: 0; } }
+@keyframes sheet-in { from { transform: translateX(40px); } }
+.legal .sheen { width: calc(100% - min(820px, 100%)); }
+/* the pause icon (WCAG 2.2.2) in the top left corner of the field, on the page margin */
+.legal .sheen-btn {
+  position: absolute; margin: 0;
+  top: calc(28px + env(safe-area-inset-top, 0px) - 14px); left: calc(max(var(--g), env(safe-area-inset-left, 0px)) - 14px);
+}
+@media (max-width: 820px) { .legal .sheen, .legal .sheen-btn { display: none; } }
+.legal-in {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(820px, 100%);
+  overflow-y: auto; overscroll-behavior: contain; background: var(--w);
+  padding: 0 max(24px, env(safe-area-inset-right, 0px)) calc(64px + env(safe-area-inset-bottom, 0px)) max(24px, env(safe-area-inset-left, 0px));
+}
+@media (min-width: 760px) { .legal-in { padding-left: 64px; padding-right: 64px; } }
+.legal-hd {
+  position: sticky; top: 0; z-index: 2; background: var(--w);
+  display: flex; align-items: end; justify-content: space-between; gap: 20px;
+  padding: calc(28px + env(safe-area-inset-top, 0px)) 0 20px; border-bottom: 1px solid var(--line); margin-bottom: var(--s4);
+}
+.x {
+  appearance: none; border: 1px solid var(--line); background: transparent; color: var(--c); cursor: pointer; flex: none;
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; font: 500 .875rem/1 var(--font);
+}
+.legal-body h3 { margin: 34px 0 10px; }
+.legal-body h3:first-child { margin-top: 0; }
+.legal-body p { margin: 0 0 .9em; line-height: 1.65; max-width: 66ch; }
+.legal-body .addr { font-weight: 500; }
+.legal-body .note { border-left: 2px solid var(--line); padding-left: 14px; }
+
+/* ---------- 404 page (05.11.2026, src/404.html): the white header with logo and DE/EN at every width (there is no
+   menu), a plain lime field like the hero (no shimmer), then the footer of the start page ---------- */
+.nf .hdr .lang { display: inline-flex; margin-right: -4px; }
+/* a 44 px tall touch target for each language button, as in the menu */
+.nf .hdr .lang :is(button, a) { position: relative; }
+.nf .hdr .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
+
+/* ---------- Impressum and Datenschutz as pages of their own (05.11.2026): /impressum, /datenschutz,
+   /en/legal-notice, /en/privacy-policy. Same header as the 404 page, the text as on the white sheet of the dialog
+   (title with its line, the same type), then the footer. On the start page they still open as dialogs. ---------- */
+.legal-page { padding-block: clamp(3rem, 2rem + 4vw, 7rem) clamp(4rem, 2.5rem + 4vw, 8rem); }
+.legal-page .wrap > * { max-width: 692px; }   /* the text width of the 820 px sheet (820 - 2 x 64) */
+.legal-page .legal-hd { position: static; padding-top: 0; }
+
+/* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
+.btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
+
+/* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
+.logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
+.lang :is(button, a), .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
+.copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
+.btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
+
+/* only where a real pointer can hover: on touch screens a tap would otherwise leave the lime state stuck */
+@media (hover: hover) {
+  /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
+     Impressum, Datenschutz, language and menu buttons, header and footer logo */
+  .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
+  .lang :is(button, a):hover, .menu-btn:hover { color: var(--lime); }
+  .logo:hover svg g, .ftr-logo:hover svg g { fill: var(--lime); }
+  /* buttons and the client-logo field fill lime, the type on them stays #435960 */
+  .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
+  .btn:hover svg { transform: translateX(5px); }
+  .logos a:hover::before { opacity: 1; transform: none; }
+  .site .logos a:hover { color: var(--c); }
+  /* on the lime fields (hero, process, contact) and the field behind Impressum/Datenschutz lime would not show:
+     there the type turns white, and buttons fill white with #435960 type */
+  .site .is-lime a:hover, .is-lime .sheen-btn:hover, .legal .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
+  .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.legal[open], dialog.legal[open] .legal-in { animation: none; }
+  .site *, .site *::before, .site *::after { transition-duration: .01ms !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="site nf" id="site" data-lang="de">
+<a class="skip" href="#main"><span lang="de">Zum Inhalt springen</span></a>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="/" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <a href="/datenschutz" hreflang="de" data-set-lang="de" title="Deutsch" aria-current="page">DE</a>
+      <a href="/en/privacy-policy" hreflang="en" data-set-lang="en" title="English">EN</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="sec legal-page" aria-labelledby="t-page">
+  <div class="wrap">
+    <header class="legal-hd"><h1 class="h3" id="t-page">Datenschutz</h1></header>
+    <div class="legal-body" lang="de">
+      <h3 class="h6">1. Verantwortlicher</h3>
+      <p>Grafitecture GmbH, Rebenstr. 9a, 68309 Mannheim, vertreten durch den Geschäftsführer Martin Schweppe. E-Mail: martin.schweppe@grafitecture.de</p>
+      <h3 class="h6">2. Hosting bei Vercel</h3>
+      <p>Diese Website wird bei Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA, gehostet. Beim Aufruf verarbeitet Vercel in unserem Auftrag die technisch notwendigen Zugriffsdaten: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Referrer sowie Browser und Betriebssystem. Das ist nötig, um die Website auszuliefern und vor Angriffen zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Die Daten werden nur so lange gespeichert, wie es dafür erforderlich ist.</p>
+      <p>Mit Vercel besteht ein Vertrag über die Auftragsverarbeitung (Art. 28 DSGVO). Vercel verarbeitet Daten auch in den USA. Die Übermittlung stützt sich auf das EU-US Data Privacy Framework, unter dem Vercel zertifiziert ist (Art. 45 DSGVO), sowie auf Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO).</p>
+      <h3 class="h6">3. Kontakt per E-Mail</h3>
+      <p>Wenn Sie uns schreiben, direkt oder über das Formular (es öffnet nur Ihr E-Mail-Programm), verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht, um die Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bei Anfragen zu einem Auftrag, sonst lit. f). Wir löschen die Daten, wenn sie nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+      <h3 class="h6">4. Keine Cookies, kein Tracking</h3>
+      <p>Diese Website setzt keine Cookies, speichert nichts auf Ihrem Gerät, nutzt keine Analyse-Dienste und lädt keine Inhalte von Drittanbietern. Schrift und Grafiken werden direkt von dieser Website geladen. Auf unser Instagram-Profil verweisen wir nur mit einem einfachen Link: Instagram (Meta Platforms Ireland Ltd.) erhält erst dann Daten, wenn Sie ihn anklicken, und verarbeitet sie nach seiner eigenen Datenschutzerklärung.</p>
+      <h3 class="h6">5. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 18, 20 und 21 DSGVO). Eine E-Mail an martin.schweppe@grafitecture.de genügt. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+      <p class="note">Stand: November 2026</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <a class="ftr-logo" href="/" aria-label="Grafitecture"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="71 382.39 453.28 77.12"><g fill="#435960"><path d="M92.28,459.51c-3.84,0-7.31-.39-10.4-1.16-3.09-.77-5.81-1.93-8.16-3.48l2.4-8.64c1.44.96,3.01,1.75,4.72,2.36,1.71.61,3.45,1.08,5.24,1.4,1.79.32,3.53.48,5.24.48,3.57,0,6.24-.85,8-2.56,1.76-1.71,2.64-4.16,2.64-7.36v-8.4h.72c-.85,2.61-2.53,4.67-5.04,6.16-2.51,1.49-5.39,2.24-8.64,2.24-3.63,0-6.79-.81-9.48-2.44-2.69-1.63-4.79-3.96-6.28-7-1.49-3.04-2.24-6.61-2.24-10.72s.75-7.68,2.24-10.72c1.49-3.04,3.59-5.37,6.28-7,2.69-1.63,5.85-2.44,9.48-2.44,3.25,0,6.12.75,8.6,2.24,2.48,1.49,4.15,3.52,5,6.08l-.64-.32.8-7.12h11.68c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v27.52c0,6.61-1.84,11.67-5.52,15.16-3.68,3.49-9.01,5.24-16,5.24ZM92.52,431.51c2.83,0,5.08-.96,6.76-2.88,1.68-1.92,2.52-4.67,2.52-8.24s-.84-6.32-2.52-8.24c-1.68-1.92-3.93-2.88-6.76-2.88s-5.16.96-6.84,2.88c-1.68,1.92-2.52,4.67-2.52,8.24s.84,6.32,2.52,8.24c1.68,1.92,3.96,2.88,6.84,2.88Z"/><path d="M123.56,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M171.88,442.38c-3.52,0-6.63-.83-9.32-2.48-2.69-1.65-4.77-4.08-6.24-7.28-1.47-3.2-2.2-6.99-2.2-11.36s.75-8.13,2.24-11.28c1.49-3.15,3.57-5.56,6.24-7.24,2.67-1.68,5.76-2.52,9.28-2.52,3.25,0,6.17.8,8.76,2.4,2.59,1.6,4.31,3.71,5.16,6.32h-.96l.96-7.84h11.6c-.21,1.71-.37,3.44-.48,5.2-.11,1.76-.16,3.52-.16,5.28v30h-12l-.08-7.6h.96c-.85,2.56-2.56,4.6-5.12,6.12s-5.44,2.28-8.64,2.28ZM175.56,433.34c2.77,0,5.01-.97,6.72-2.92,1.71-1.95,2.56-5,2.56-9.16s-.85-7.13-2.56-9.08c-1.71-1.95-3.95-2.92-6.72-2.92s-5.01.97-6.72,2.92c-1.71,1.95-2.56,4.97-2.56,9.08s.84,7.21,2.52,9.16c1.68,1.95,3.93,2.92,6.76,2.92Z"/><path d="M209.72,441.59v-31.6h-7.68v-8.88h11.12l-3.44,3.04v-5.84c0-5.23,1.36-9.19,4.08-11.88,2.72-2.69,6.67-4.04,11.84-4.04,1.23,0,2.56.08,4,.24s2.69.45,3.76.88v9.36c-.8-.27-1.67-.47-2.6-.6-.93-.13-1.88-.2-2.84-.2-1.81,0-3.31.49-4.48,1.48-1.17.99-1.76,2.73-1.76,5.24v4.24l-1.76-1.92h29.44v40.48h-12.08v-31.6h-15.52v31.6h-12.08ZM236.92,394.38v-11.28h13.04v11.28h-13.04Z"/><path d="M278.28,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88-1.12.16-2.21.24-3.28.24Z"/><path d="M311,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.38,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.7-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12s-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88s4.77,2.88,8.4,2.88c2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/><path d="M354.12,442.38c-4.27,0-8.04-.84-11.32-2.52-3.28-1.68-5.8-4.12-7.56-7.32-1.76-3.2-2.64-6.99-2.64-11.36s.89-8.13,2.68-11.28c1.79-3.15,4.29-5.55,7.52-7.2,3.23-1.65,7-2.48,11.32-2.48,2.72,0,5.39.39,8,1.16,2.61.77,4.69,1.91,6.24,3.4l-3.44,8.32c-1.33-1.17-2.87-2.08-4.6-2.72-1.73-.64-3.43-.96-5.08-.96-3.25,0-5.79,1-7.6,3-1.81,2-2.72,4.92-2.72,8.76s.91,6.8,2.72,8.88c1.81,2.08,4.35,3.12,7.6,3.12,1.65,0,3.33-.32,5.04-.96,1.71-.64,3.25-1.55,4.64-2.72l3.44,8.32c-1.6,1.44-3.71,2.56-6.32,3.36-2.61.8-5.25,1.2-7.92,1.2Z"/><path d="M394.52,442.38c-5.28,0-9.25-1.31-11.92-3.92-2.67-2.61-4-6.59-4-11.92v-16.56h-7.68v-8.88h7.68v-10l12.08-2.96v12.96h10.4v8.88h-10.4v16c0,2.56.53,4.32,1.6,5.28,1.07.96,2.45,1.44,4.16,1.44.96,0,1.79-.08,2.48-.24.69-.16,1.39-.37,2.08-.64v9.44c-1.01.43-2.08.72-3.2.88s-2.21.24-3.28.24Z"/><path d="M421.95,442.38c-5.07,0-8.84-1.39-11.32-4.16-2.48-2.77-3.72-7.01-3.72-12.72v-24.4h12.08v24.32c0,2.61.55,4.53,1.64,5.76,1.09,1.23,2.71,1.84,4.84,1.84,2.4,0,4.39-.84,5.96-2.52,1.57-1.68,2.36-3.91,2.36-6.68v-22.72h12.08v40.48h-11.84v-7.76h1.28c-1.28,2.77-3.05,4.89-5.32,6.36-2.27,1.47-4.95,2.2-8.04,2.2Z"/><path d="M455.72,441.59v-29.76c0-1.81-.04-3.63-.12-5.44-.08-1.81-.25-3.57-.52-5.28h11.68l1.44,11.68-1.92.08c.53-2.88,1.4-5.25,2.6-7.12,1.2-1.87,2.69-3.25,4.48-4.16,1.79-.91,3.8-1.36,6.04-1.36,1.12,0,1.96.04,2.52.12.56.08,1.16.25,1.8.52l-.16,10.56c-1.12-.48-2.07-.79-2.84-.92-.77-.13-1.72-.2-2.84-.2-2.24,0-4.12.43-5.64,1.28-1.52.85-2.61,2.12-3.28,3.8-.67,1.68-1,3.67-1,5.96v20.24h-12.24Z"/><path d="M508.36,442.38c-7.04,0-12.53-1.88-16.48-5.64-3.95-3.76-5.92-8.92-5.92-15.48,0-4.16.84-7.81,2.52-10.96,1.68-3.15,4.03-5.61,7.04-7.4,3.01-1.79,6.55-2.68,10.6-2.68s7.4.85,10.04,2.56c2.64,1.71,4.65,4.09,6.04,7.16,1.39,3.07,2.08,6.63,2.08,10.68v2.8h-28.4v-5.92h19.68l-1.36,1.12c0-3.41-.69-5.99-2.08-7.72-1.39-1.73-3.36-2.6-5.92-2.6-2.88,0-5.08,1.04-6.6,3.12-1.52,2.08-2.28,5.07-2.28,8.96v1.2c0,4,.99,6.96,2.96,8.88,1.97,1.92,4.77,2.88,8.4,2.88,2.24,0,4.33-.28,6.28-.84,1.95-.56,3.8-1.45,5.56-2.68l3.28,8c-1.92,1.44-4.21,2.56-6.88,3.36-2.67.8-5.52,1.2-8.56,1.2Z"/></g></svg></a>
+    </div>
+    <div class="ftr-grid">
+      <p><span class="small"><span lang="de">Büro</span></span>
+        Grafitecture GmbH<br>
+
+Rebenstr. 9a<br>
+
+68309 Mannheim</p>
+      <p><span class="small"><span lang="de">Kontakt</span></span>
+        <a href="mailto:martin.schweppe@grafitecture.de">martin.schweppe@&#8203;grafitecture.de</a></p>
+      <p><span class="small">Social</span>
+        <a href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+      <div><span class="small"><span lang="de">Rechtliches</span></span>
+        <p class="ftr-legal"><a href="/impressum"><span lang="de">Impressum</span></a>
+          <a href="/datenschutz"><span lang="de">Datenschutz</span></a></p></div>
+    </div>
+    <p class="ftr-meta small">© 2000–2026 Grafitecture GmbH</p>
+  </div>
+</footer>
+</div>
+</body>
+</html>

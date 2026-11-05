@@ -1,0 +1,41 @@
+alt,neu,status,grund,quelle
+/impressum.html,/impressum,308,alte Impressum-Adresse mit Dateiendung,Prüfmuster
+/impressum.htm,/impressum,308,alte Impressum-Adresse mit Dateiendung,Prüfmuster
+/impressum.php,/impressum,308,alte Impressum-Adresse mit Dateiendung,Prüfmuster
+/impressum.asp,/impressum,308,alte Impressum-Adresse mit Dateiendung,Prüfmuster
+/Impressum,/impressum,308,Großschreibung,vercel-404-log
+/imprint,/en/legal-notice,308,englischer Begriff für Impressum,vercel-404-log (10)
+/legal-notice,/en/legal-notice,308,englischer Begriff für Impressum,Prüfmuster
+/Datenschutz,/datenschutz,308,Großschreibung,Prüfmuster
+/datenschutzerklaerung,/datenschutz,308,alte Datenschutz-Adresse (WordPress-Standard),Prüfmuster
+/datenschutzerklarung,/datenschutz,308,alte Datenschutz-Adresse ohne Umlaut,Prüfmuster
+/privacy,/en/privacy-policy,308,englischer Begriff für Datenschutz,Prüfmuster
+/privacy-policy,/en/privacy-policy,308,englischer Begriff für Datenschutz (WordPress-Standard),Prüfmuster
+/kontakt,/#kontakt,308,alte Kontaktseite → Abschnitt Kontakt,vercel-404-log (5)
+/Kontakt,/#kontakt,308,Großschreibung,Prüfmuster
+/contact,/en#kontakt,308,englischer Begriff → Kontakt auf der englischen Seite,vercel-404-log (6)
+/files/GT_ANFAHRT.pdf,/#kontakt,308,alter Anfahrtsplan (PDF) → Kontakt (Adresse im Footer),vercel-404-log (1)
+/leistungen,/#leistungen,308,alte Leistungsseite → Abschnitt Leistungen,Prüfmuster
+/Leistungen,/#leistungen,308,Großschreibung,Prüfmuster
+/services,/en#leistungen,308,englischer Begriff → Leistungen auf der englischen Seite,Prüfmuster
+/ueber-mich,/#ueber-mich,308,Abschnitt Über mich,Prüfmuster
+/agentur,/#ueber-mich,308,alte Agentur-Seite → Über mich,Prüfmuster
+/agentur-2,/#ueber-mich,308,alte Agentur-Seite (WordPress-Duplikat) → Über mich,vercel-404-log
+/author/martinschweppe,/#ueber-mich,308,WordPress-Autorenarchiv → Über mich,vercel-404-log (11)
+/about,/en#ueber-mich,308,englischer Begriff → Über mich auf der englischen Seite,vercel-404-log (4)
+/about-us,/en#ueber-mich,308,englischer Begriff → Über mich auf der englischen Seite,vercel-404-log (4)
+/referenzen,/#referenzen,308,alte Referenzseite → Abschnitt Referenzen,Prüfmuster
+/Referenzen,/#referenzen,308,Großschreibung,Prüfmuster
+/kunden,/#referenzen,308,alte Kundenseite → Referenzen,Prüfmuster
+/arbeiten,/#referenzen,308,alte Arbeiten-Übersicht → Referenzen,Prüfmuster
+/arbeiten/:path*,/#referenzen,308,alte Arbeiten-Seiten (z. B. /arbeiten/internet) → Referenzen,vercel-404-log (1)
+/wp-sitemap.xml,/sitemap.xml,308,WordPress-Sitemap,vercel-404-log (26)
+/wp-sitemap-posts-page-1.xml,/sitemap.xml,308,WordPress-Sitemap,vercel-404-log (7)
+/wp-sitemap-users-1.xml,/sitemap.xml,308,WordPress-Sitemap,vercel-404-log (5)
+/sitemap_index.xml,/sitemap.xml,308,Sitemap-Index (Yoast),vercel-404-log (7)
+/sitemap-index.xml,/sitemap.xml,308,Sitemap-Index,Prüfmuster
+/author-sitemap.xml,/sitemap.xml,308,Yoast-Sitemap,vercel-404-log (1)
+/page-sitemap.xml,/sitemap.xml,308,Yoast-Sitemap,Prüfmuster
+/post-sitemap.xml,/sitemap.xml,308,Yoast-Sitemap,Prüfmuster
+/apple-touch-icon-precomposed.png,/apple-touch-icon.png,308,ältere iOS-Anfrage,vercel-404-log (4)
+/apple-touch-icon-180x180.png,/apple-touch-icon.png,308,iOS-Anfrage mit Größe,vercel-404-log (1)

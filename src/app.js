@@ -31,14 +31,19 @@
     }
   };
 
-  /* ---------------- language ---------------- */
-  let lang = 'de';
+  /* ---------------- language ----------------
+     One page per language since 05.11.2026 (Martin): / carries only the German text, /en only the English one, so
+     search engines and AI crawlers read clean text. There the DE/EN switch is a link to the other page: it keeps the
+     section in view (/en#leistungen …), and an open menu opens again on the other page (#menu, see the menu below).
+     The claude.ai preview still carries both languages and switches in place (buttons instead of links). */
+  let lang = site.dataset.lang === 'en' ? 'en' : 'de';
+  const inPlace = $$('button[data-set-lang]');
   function setLang(l) {
     lang = l === 'en' ? 'en' : 'de';
     site.dataset.lang = lang;
     document.documentElement.lang = lang;
     document.title = T[lang].title;
-    $$('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+    inPlace.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
     $$('img[data-alt-de]').forEach((img) => { img.alt = lang === 'de' ? img.dataset.altDe : img.dataset.altEn; });
     const call = $('#call-btn');
     if (call) call.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(T[lang].call);
@@ -48,11 +53,27 @@
       if (err && key) err.textContent = T[lang].err[key];
     });
   }
-  $$('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
-  let initial = 'de';
+  inPlace.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
+  $$('a[data-set-lang]').forEach((a) => a.addEventListener('click', (e) => {
+    if (a.getAttribute('aria-current') === 'page') { e.preventDefault(); return; }   // already this language
+    const menu = $('#menu-panel');
+    let hash = '';
+    if (menu && !menu.hidden) hash = '#menu';
+    else if (window.scrollY > 24) {
+      const cur = $('[data-nav][aria-current="true"]');
+      if (cur) hash = '#' + cur.dataset.nav;
+    }
+    if (hash) { e.preventDefault(); location.href = a.href.split('#')[0] + hash; }
+  }));
+  let initial = lang;
   try {
+    // old links: …/?lang=en and …/#en (the claude.ai preview switches in place, the German page goes to /en)
     const q = new URLSearchParams(location.search).get('lang');
-    if (location.hash === '#en' || q === 'en') initial = 'en';
+    if (location.hash === '#en' || q === 'en') {
+      const en = $('a[data-set-lang="en"]');
+      if (inPlace.length) initial = 'en';
+      else if (en && lang !== 'en') { location.replace(en.href); return; }
+    }
   } catch (e) { /* ignore */ }
   setLang(initial);
 
@@ -257,11 +278,21 @@
   }
   if (menuBtn && panel) {
     menuBtn.addEventListener('click', () => setMenu(panel.hidden));
-    panel.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+    // a link in the menu closes it; the language links keep it open (they reopen it on the other page)
+    panel.addEventListener('click', (e) => { if (e.target.closest('a') && !e.target.closest('[data-set-lang]')) setMenu(false); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !panel.hidden) { setMenu(false); menuBtn.focus(); }
     });
     window.addEventListener('resize', () => { if (window.innerWidth >= 1100 && !panel.hidden) setMenu(false); });
+    // arriving from the language switch in the menu (/en#menu): the menu opens again, focus on the active language
+    if (location.hash === '#menu') {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
+      if (window.innerWidth < 1100) {
+        setMenu(true);
+        const cur = $('a[data-set-lang][aria-current="page"]', panel);
+        if (cur) cur.focus({ preventScroll: true });
+      }
+    }
   }
 
   /* ---------------- copy buttons ---------------- */

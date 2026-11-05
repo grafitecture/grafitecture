@@ -8,123 +8,150 @@
   ],
   "redirects": [
     {
-      "source": "/impressum",
-      "destination": "/#impressum",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "grafitecturewebseite-grafitecture.vercel.app"
+        }
+      ],
+      "destination": "https://www.grafitecture.de/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "grafitecturewebseite-git-main-grafitecture.vercel.app"
+        }
+      ],
+      "destination": "https://www.grafitecture.de/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/",
+      "destination": "/en",
       "permanent": true
     },
     {
       "source": "/impressum/",
-      "destination": "/#impressum",
+      "destination": "/impressum",
       "permanent": true
     },
     {
-      "source": "/Impressum",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/Impressum/",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/imprint",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/imprint/",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/impressum.html",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/impressum.htm",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/impressum.php",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/impressum.asp",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/legal-notice",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/legal-notice/",
-      "destination": "/#impressum",
-      "permanent": true
-    },
-    {
-      "source": "/datenschutz",
-      "destination": "/#datenschutz",
+      "source": "/en/legal-notice/",
+      "destination": "/en/legal-notice",
       "permanent": true
     },
     {
       "source": "/datenschutz/",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/en/privacy-policy/",
+      "destination": "/en/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.html",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.htm",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.php",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/impressum.asp",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/Impressum",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/Impressum/",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/imprint",
+      "destination": "/en/legal-notice",
+      "permanent": true
+    },
+    {
+      "source": "/imprint/",
+      "destination": "/en/legal-notice",
+      "permanent": true
+    },
+    {
+      "source": "/legal-notice",
+      "destination": "/en/legal-notice",
+      "permanent": true
+    },
+    {
+      "source": "/legal-notice/",
+      "destination": "/en/legal-notice",
       "permanent": true
     },
     {
       "source": "/Datenschutz",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/Datenschutz/",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/datenschutzerklaerung",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/datenschutzerklaerung/",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/datenschutzerklarung",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/datenschutzerklarung/",
-      "destination": "/#datenschutz",
+      "destination": "/datenschutz",
       "permanent": true
     },
     {
       "source": "/privacy",
-      "destination": "/#datenschutz",
+      "destination": "/en/privacy-policy",
       "permanent": true
     },
     {
       "source": "/privacy/",
-      "destination": "/#datenschutz",
+      "destination": "/en/privacy-policy",
       "permanent": true
     },
     {
       "source": "/privacy-policy",
-      "destination": "/#datenschutz",
+      "destination": "/en/privacy-policy",
       "permanent": true
     },
     {
       "source": "/privacy-policy/",
-      "destination": "/#datenschutz",
+      "destination": "/en/privacy-policy",
       "permanent": true
     },
     {
@@ -149,11 +176,16 @@
     },
     {
       "source": "/contact",
-      "destination": "/#kontakt",
+      "destination": "/en#kontakt",
       "permanent": true
     },
     {
       "source": "/contact/",
+      "destination": "/en#kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/files/GT_ANFAHRT.pdf",
       "destination": "/#kontakt",
       "permanent": true
     },
@@ -179,12 +211,12 @@
     },
     {
       "source": "/services",
-      "destination": "/#leistungen",
+      "destination": "/en#leistungen",
       "permanent": true
     },
     {
       "source": "/services/",
-      "destination": "/#leistungen",
+      "destination": "/en#leistungen",
       "permanent": true
     },
     {
@@ -194,26 +226,6 @@
     },
     {
       "source": "/ueber-mich/",
-      "destination": "/#ueber-mich",
-      "permanent": true
-    },
-    {
-      "source": "/about",
-      "destination": "/#ueber-mich",
-      "permanent": true
-    },
-    {
-      "source": "/about/",
-      "destination": "/#ueber-mich",
-      "permanent": true
-    },
-    {
-      "source": "/about-us",
-      "destination": "/#ueber-mich",
-      "permanent": true
-    },
-    {
-      "source": "/about-us/",
       "destination": "/#ueber-mich",
       "permanent": true
     },
@@ -248,6 +260,26 @@
       "permanent": true
     },
     {
+      "source": "/about",
+      "destination": "/en#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/en#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/en#ueber-mich",
+      "permanent": true
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/en#ueber-mich",
+      "permanent": true
+    },
+    {
       "source": "/referenzen",
       "destination": "/#referenzen",
       "permanent": true
@@ -278,6 +310,21 @@
       "permanent": true
     },
     {
+      "source": "/arbeiten",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/arbeiten/",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
+      "source": "/arbeiten/:path*",
+      "destination": "/#referenzen",
+      "permanent": true
+    },
+    {
       "source": "/wp-sitemap.xml",
       "destination": "/sitemap.xml",
       "permanent": true
@@ -303,7 +350,27 @@
       "permanent": true
     },
     {
+      "source": "/author-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/page-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/post-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
       "source": "/apple-touch-icon-precomposed.png",
+      "destination": "/apple-touch-icon.png",
+      "permanent": true
+    },
+    {
+      "source": "/apple-touch-icon-180x180.png",
       "destination": "/apple-touch-icon.png",
       "permanent": true
     }

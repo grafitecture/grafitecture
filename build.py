@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
-"""Builds the website from src/ and assets/ (V3, 25.10.2026). Standard library only, no installs.
+"""Builds the website from src/ and assets/ (V3, 25.10.2026; technical pass „tech-max“, 05.11.2026).
+Standard library only, no installs.
    public/        the live site. Committed to Git; Vercel serves this folder as is (no build step on Vercel).
-                  index.html from src/body.html, 404.html from src/404.html (with the footer of body.html),
-                  sitemap.xml, robots.txt, favicon.ico.
-   vercel.json    Vercel settings (output folder, headers), written to the repository root.
-   dist/artifact/ preview page for a claude.ai artifact (font and logos inlined). Not committed.
+                  One page per language (Martin, 05.11.2026), built from the bilingual src/body.html by keeping
+                  only the elements of that language: index.html = /  (German), en.html = /en  (English).
+                  Impressum and Datenschutz also as pages of their own (Martin, 05.11.2026): impressum.html,
+                  datenschutz.html, en/legal-notice.html, en/privacy-policy.html. On / and /en they still open
+                  as dialogs, as before.
+                  404.html from src/404.html (both languages, switched in place; noindex), sitemap.xml,
+                  robots.txt, favicon.ico.
+   vercel.json    Vercel settings (output folder, redirects, headers), written to the repository root.
+                  Redirects come from seo/redirect-map.csv (one row per old address).
+   dist/artifact/ preview page for a claude.ai artifact (both languages, font and logos inlined). Not committed.
 
 Run:  python3 build.py        then commit public/ and vercel.json together with the source change.
 
@@ -15,13 +22,36 @@ Placeholders in src/body.html:
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
    {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
 """
-import base64, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
+import base64, csv, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
+from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / "src"
 ASSETS = ROOT / "assets"
 DIST = ROOT / "dist"
-SITE_URL = "https://www.grafitecture.de/"
+SITE = "https://www.grafitecture.de"
+SITE_URL = SITE + "/"
+
+# One canonical address per page and language (05.11.2026): https, www, no trailing slash (like the old WordPress
+# site: /impressum, /author/martinschweppe, /feed were all asked for without one). /en/ etc. redirect to /en.
+LANGS = ("de", "en")
+PAGES = {
+    "home": {"de": "/", "en": "/en"},
+    "impressum": {"de": "/impressum", "en": "/en/legal-notice"},
+    "datenschutz": {"de": "/datenschutz", "en": "/en/privacy-policy"},
+}
+# production aliases on vercel.app (behind Vercel Authentication): send them to the real domain
+VERCEL_ALIASES = ["grafitecturewebseite-grafitecture.vercel.app", "grafitecturewebseite-git-main-grafitecture.vercel.app"]
+
+
+def abs_url(path: str) -> str:
+    return SITE_URL if path == "/" else SITE + path
+
+
+def out_file(path: str) -> str:
+    """public/ file for a page address (cleanUrls: /en → en.html, /en/legal-notice → en/legal-notice.html)."""
+    return "index.html" if path == "/" else path.lstrip("/") + ".html"
+
 
 FONTS = [
     # family, file, extra descriptors  (Google Sans, SIL OFL, subset to Latin, variable weight 400–700)
@@ -61,9 +91,34 @@ CLIENTS = [
     ("Covendos Healthcare Group", None),   # Martin 30.10., not linked
 ]
 
-TITLE_DE = "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des., Mannheim"
-DESC_DE = ("Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: KI-Websites, KI-Agenten, "
-           "Content-Engines und Workflow-Automation. Grafitecture GmbH, Mannheim, seit 2000.")
+# Title and description: Martin's wording, unchanged on 05.11.2026 at his request (the title is longer than the
+# ~60 characters Google shows; seo_check.py reports that as a warning only). English: the title app.js already used;
+# the English description was missing and is a translation of the German one (05.11.2026).
+TITLE = {"de": "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des., Mannheim",
+         "en": "Grafitecture · AI systems for brands · Martin Schweppe, Dipl.-Des., Mannheim"}
+DESC = {"de": ("Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: KI-Websites, KI-Agenten, "
+               "Content-Engines und Workflow-Automation. Grafitecture GmbH, Mannheim, seit 2000."),
+        "en": ("Martin Schweppe, graduate designer, builds AI systems for brands: AI websites, AI agents, "
+               "content engines and workflow automation. Grafitecture GmbH, Mannheim, since 2000.")}
+OG_TITLE = {"de": "Grafitecture · Marken mit KI. Ich baue KI-Systeme, die für Ihre Marke arbeiten.",
+            "en": "Grafitecture · Brands with AI. I build AI systems that work for your brand."}
+OG_ALT = {"de": "Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim",
+          "en": "Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim"}
+# title and description of the legal pages (new on 05.11.2026)
+LEGAL_META = {
+    ("impressum", "de"): ("Impressum · Grafitecture GmbH, Mannheim",
+                          "Impressum der Grafitecture GmbH, Mannheim: Anschrift, Vertretung durch Martin Schweppe, "
+                          "Handelsregister HRB 432625 und Umsatzsteuer-Identifikationsnummer."),
+    ("impressum", "en"): ("Legal notice · Grafitecture GmbH, Mannheim",
+                          "Legal notice of Grafitecture GmbH, Mannheim, Germany: address, managing director "
+                          "Martin Schweppe, commercial register HRB 432625 and VAT identification number."),
+    ("datenschutz", "de"): ("Datenschutz · Grafitecture GmbH, Mannheim",
+                            "Datenschutzerklärung der Grafitecture GmbH: Hosting bei Vercel, Kontakt per E-Mail, "
+                            "keine Cookies und kein Tracking, Ihre Rechte nach der DSGVO."),
+    ("datenschutz", "en"): ("Privacy policy · Grafitecture GmbH, Mannheim",
+                            "Privacy policy of Grafitecture GmbH, Mannheim: hosting by Vercel, contact by email, "
+                            "no cookies and no tracking, and your rights under the GDPR."),
+}
 OG_IMAGE = "assets/og/grafitecture-og.png"
 # Google Search Console, property https://www.grafitecture.de/ (Martin's account, 05.11.2026): ownership check by
 # meta tag. Keep it, or the property loses its verification. (A file check would not work: cleanUrls redirects .html.)
@@ -84,7 +139,7 @@ def versioned(rel: str) -> str:
 
 
 def font_css(inline: bool, prefix: str = "") -> str:
-    """prefix "/" makes the font URL absolute, for the 404 page, which shows up under any path."""
+    """prefix "/" makes the font URL absolute (404 page, pages under /en/)."""
     out = []
     for fam, file, extra in FONTS:
         fmt = "woff2" if file.endswith(".woff2") else "woff"
@@ -144,13 +199,13 @@ def display_sizes():
 
 
 def logo_src(f: pathlib.Path, mode: str) -> str:
-    """deploy: separate file with content hash (cacheable); inline: data URI, so the preview never depends on
-    supporting files."""
+    """deploy: separate file with content hash (cacheable), absolute (pages under /en/); inline: data URI, so the
+    preview never depends on supporting files."""
     rel = f"assets/clients/{f.name}"
     if mode == "inline":
         mime = "image/svg+xml" if f.suffix == ".svg" else "image/png"
         return f"data:{mime};base64,{base64.b64encode(f.read_bytes()).decode()}"
-    return versioned(rel) if mode == "deploy" else rel
+    return "/" + versioned(rel) if mode == "deploy" else rel
 
 
 def clients_html(mode: str) -> str:
@@ -182,17 +237,21 @@ PHOTOS = {
 }
 
 
-def photo_html(key: str, mode: str) -> str:
+def photo_html(key: str, mode: str, lang=None) -> str:
+    """lang None: both alt texts (the preview switches them in place); 'de'/'en': the alt text of that page."""
     stem, alt_de, alt_en, sizes, caption = PHOTOS[key]
     small, large = ASSETS / "photos" / f"{stem}-640.jpg", ASSETS / "photos" / f"{stem}-1280.jpg"
     w, h = natural_size_jpeg(large)
-    alts = f'alt="{html.escape(alt_de)}" data-alt-de="{html.escape(alt_de)}" data-alt-en="{html.escape(alt_en)}"'
+    if lang:
+        alts = f'alt="{html.escape(alt_de if lang == "de" else alt_en)}"'
+    else:
+        alts = f'alt="{html.escape(alt_de)}" data-alt-de="{html.escape(alt_de)}" data-alt-en="{html.escape(alt_en)}"'
     if mode == "inline":
         src = f'src="data:image/jpeg;base64,{base64.b64encode(small.read_bytes()).decode()}"'
     else:
         a, b = f"assets/photos/{small.name}", f"assets/photos/{large.name}"
         if mode == "deploy":
-            a, b = versioned(a), versioned(b)
+            a, b = "/" + versioned(a), "/" + versioned(b)
         src = f'src="{b}" srcset="{a} 640w, {b} 1280w" sizes="{sizes}"'
     cap = f'<figcaption class="small">{html.escape(caption)}</figcaption>' if caption else ""
     return (f'<figure class="photo"><img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async">'
@@ -212,7 +271,7 @@ def natural_size_jpeg(f: pathlib.Path):
     raise ValueError(f"no SOF in {f}")
 
 
-def render_body(mode: str) -> str:
+def render_body(mode: str, lang=None) -> str:
     body = (SRC / "body.html").read_text()
     body = (body.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
                 .replace("{{LOGO_WHITE}}", inline_logo("grafitecture-white.svg"))
@@ -220,14 +279,113 @@ def render_body(mode: str) -> str:
                 .replace("{{CLIENTS}}", clients_html(mode))
                 .replace("{{CLIENT_COUNT}}", str(len(CLIENTS))))
     for key in PHOTOS:
-        body = body.replace("{{" + key + "}}", photo_html(key, mode))
+        body = body.replace("{{" + key + "}}", photo_html(key, mode, lang))
     left = re.findall(r"\{\{[A-Z_]+\}\}", body)
     assert not left, f"unreplaced placeholders: {left}"
     return body
 
 
+# ---------------------------------------------------------------- one language per page (05.11.2026)
+
+class _OneLanguage(HTMLParser):
+    """Copies HTML unchanged, except: every element whose lang attribute is `drop` is left out with all it contains,
+    and a line break follows each <br> (text extractors without CSS otherwise glue „Marken“ and „mit KI.“ together;
+    in the browser a break at the start of a line is collapsed, so nothing moves)."""
+    VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+
+    def __init__(self, drop):
+        super().__init__(convert_charrefs=False)
+        self.drop, self.out, self.skip = drop, [], 0
+
+    def handle_starttag(self, tag, attrs):
+        if self.skip:
+            if tag not in self.VOID:
+                self.skip += 1
+            return
+        if self.drop and dict(attrs).get("lang") == self.drop and tag not in self.VOID:
+            self.skip = 1
+            return
+        self.out.append(self.get_starttag_text())
+        if tag == "br" and self.drop:
+            self.out.append("\n")
+
+    def handle_startendtag(self, tag, attrs):
+        if not self.skip:
+            self.out.append(self.get_starttag_text())
+
+    def handle_endtag(self, tag):
+        if self.skip:
+            if tag not in self.VOID:
+                self.skip -= 1
+            return
+        self.out.append(f"</{tag}>")
+
+    def handle_data(self, d):
+        if not self.skip:
+            self.out.append(d)
+
+    def handle_entityref(self, name):
+        if not self.skip:
+            self.out.append(f"&{name};")
+
+    def handle_charref(self, name):
+        if not self.skip:
+            self.out.append(f"&#{name};")
+
+    def handle_comment(self, d):
+        if not self.skip:
+            self.out.append(f"<!--{d}-->")
+
+
+def only_lang(markup: str, lang) -> str:
+    """Keeps the elements of `lang` and drops those of the other language (lang None: copy unchanged)."""
+    drop = None if lang is None else ("en" if lang == "de" else "de")
+    p = _OneLanguage(drop)
+    p.feed(markup)
+    p.close()
+    return "".join(p.out)
+
+
+LANG_BTN = re.compile(r'<button type="button" data-set-lang="(de|en)" aria-pressed="(?:true|false)" title="([^"]+)">(DE|EN)</button>')
+
+
+def lang_links(markup: str, lang: str, page: str) -> str:
+    """The DE/EN buttons become links to the same page in the other language (the active one: aria-current)."""
+    def rep(m):
+        l, title, label = m.group(1), m.group(2), m.group(3)
+        cur = ' aria-current="page"' if l == lang else ""
+        # no lang attribute: styles.css hides [lang] of the other language
+        return f'<a href="{PAGES[page][l]}" hreflang="{l}" data-set-lang="{l}" title="{title}"{cur}>{label}</a>'
+    out, n = LANG_BTN.subn(rep, markup)
+    assert n >= 2, "language buttons not found"
+    return out
+
+
+def legal_links(markup: str, lang: str, keep_dialog: bool) -> str:
+    """Impressum and Datenschutz links point to their pages; on / and /en a click still opens the dialog
+    (app.js reads data-open), on the legal pages and the 404 page they are plain links."""
+    for page in ("impressum", "datenschutz"):
+        target = PAGES[page][lang]
+        old = f'href="#{page}" data-open="{page}"'
+        assert old in markup, old
+        markup = markup.replace(old, f'href="{target}" data-open="{page}"' if keep_dialog else f'href="{target}"')
+    return markup
+
+
+def page_body(lang: str) -> str:
+    """The start page in one language."""
+    body = render_body("deploy", lang)
+    body = body.replace('<div class="site" id="site" data-lang="de">', f'<div class="site" id="site" data-lang="{lang}">', 1)
+    if lang == "en":
+        body = body.replace("?subject=Strategiegespr%C3%A4ch", "?subject=Strategy%20call", 1)
+    body = legal_links(body, lang, keep_dialog=True)
+    return lang_links(only_lang(body, lang), lang, "home")
+
+
 styles = (SRC / "styles.css").read_text()
 app = (SRC / "app.js").read_text()
+for l in LANGS:   # app.js sets document.title from its own table: keep both in step
+    assert TITLE[l] in app, f"title ({l}) in app.js differs from TITLE in build.py"
 
 ld = {
     "@context": "https://schema.org",
@@ -252,49 +410,58 @@ def copy_clients(out: pathlib.Path):
         shutil.copytree(d, out / "assets" / "clients", ignore=shutil.ignore_patterns("*.txt", "*.json", ".*"))
 
 
-# Permanent redirects (308) for addresses that people and search engines still ask for (05.11.2026).
-# Taken from the 404 requests Vercel logged since the launch on 20.10.: mostly pages of the old WordPress site
-# (/impressum 71 requests, /datenschutz 21, /author/martinschweppe 11, /imprint 10, /contact 6, /kontakt 5, …) and
-# its sitemaps (/wp-sitemap.xml 26, …). Impressum and Datenschutz open as dialogs (app.js opens #impressum and
-# #datenschutz on load), the sections are anchors. Everything else (scanners asking for /login, /.env, /admin …)
-# gets the 404 page.
-REDIRECTS = {
-    "/#impressum": ["/impressum", "/Impressum", "/imprint", "/impressum.html", "/impressum.htm", "/impressum.php",
-                    "/impressum.asp", "/legal-notice"],
-    "/#datenschutz": ["/datenschutz", "/Datenschutz", "/datenschutzerklaerung", "/datenschutzerklarung", "/privacy",
-                      "/privacy-policy"],
-    "/#kontakt": ["/kontakt", "/Kontakt", "/contact"],
-    "/#leistungen": ["/leistungen", "/Leistungen", "/services"],
-    "/#ueber-mich": ["/ueber-mich", "/about", "/about-us", "/agentur", "/agentur-2", "/author/martinschweppe"],
-    "/#referenzen": ["/referenzen", "/Referenzen", "/kunden"],
-    "/sitemap.xml": ["/wp-sitemap.xml", "/wp-sitemap-posts-page-1.xml", "/wp-sitemap-users-1.xml",
-                     "/sitemap_index.xml", "/sitemap-index.xml"],
-    "/apple-touch-icon.png": ["/apple-touch-icon-precomposed.png"],
-}
+# ---------------------------------------------------------------- redirects (seo/redirect-map.csv)
+
+def redirect_map():
+    """seo/redirect-map.csv: alt, neu, status, grund, quelle. One row per old address (Vercel path syntax, e.g.
+    /arbeiten/:path*). Addresses without a file extension also match with a trailing slash."""
+    with (ROOT / "seo" / "redirect-map.csv").open(encoding="utf-8", newline="") as fh:
+        return list(csv.DictReader(fh))
 
 
 def redirects() -> list:
     out = []
-    for dest, sources in REDIRECTS.items():
-        for src in sources:
-            for variant in (src, src + "/") if not re.search(r"\.\w+$", src) else (src,):
-                out.append({"source": variant, "destination": dest, "permanent": True})
+    # 1. production aliases on vercel.app → www (they are behind Vercel Authentication anyway)
+    for host in VERCEL_ALIASES:
+        out.append({"source": "/:path*", "has": [{"type": "host", "value": host}],
+                    "destination": SITE + "/:path*", "permanent": True})
+    # 2. the pages themselves: with a trailing slash → without (one canonical address)
+    for paths in PAGES.values():
+        for p in paths.values():
+            if p != "/":
+                out.append({"source": p + "/", "destination": p, "permanent": True})
+    # 3. old addresses
+    for r in redirect_map():
+        src, dest, status = r["alt"], r["neu"], int(r["status"])
+        variants = [src] if re.search(r"\.\w+$", src) or src.endswith("*") else [src, src + "/"]
+        for v in variants:
+            rule = {"source": v, "destination": dest}
+            rule.update({"permanent": True} if status == 308 else {"statusCode": status})
+            out.append(rule)
     return out
 
 
-def footer_for_404() -> str:
-    """The footer of the start page, with links that lead back to it (Impressum and Datenschutz open there)."""
+# ---------------------------------------------------------------- 404 page
+
+def footer_html(lang=None, plain=False) -> str:
+    """The footer of the start page with absolute links, for the 404 page (lang None: both languages, links of the
+    German pages; the script switches them) and the legal pages (one language)."""
     body = (SRC / "body.html").read_text()
     ftr = re.search(r'<footer class="ftr">.*?</footer>', body, flags=re.S).group(0)
-    ftr = ftr.replace('href="#top"', 'href="/"')
-    ftr = re.sub(r' data-open="[^"]*"', "", ftr)
-    return ftr.replace('href="#', 'href="/#')
+    ftr = ftr.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
+    ftr = ftr.replace('href="#top"', f'href="{PAGES["home"][lang or "de"]}"')
+    ftr = legal_links(ftr, lang or "de", keep_dialog=False)
+    return only_lang(ftr, lang) if lang else ftr
 
 
+# 404 page: switches in place (both languages); in English its links lead to the English pages.
+NF_LINKS_EN = {"/": "/en", "/#kontakt": "/en#kontakt", "/impressum": "/en/legal-notice",
+               "/datenschutz": "/en/privacy-policy"}
 NF_SCRIPT = """(() => {
   'use strict';
   const site = document.getElementById('site');
   const T = { de: 'Seite nicht gefunden · Grafitecture', en: 'Page not found · Grafitecture' };
+  const EN = %s;
   const links = Array.from(document.querySelectorAll('a[href^="/"]'));
   links.forEach((a) => { a.dataset.href = a.getAttribute('href'); });
   function setLang(l) {
@@ -303,22 +470,20 @@ NF_SCRIPT = """(() => {
     document.documentElement.lang = lang;
     document.title = T[lang];
     document.querySelectorAll('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
-    // the start page then opens in the same language (app.js reads ?lang=en): /?lang=en, /?lang=en#kontakt
-    links.forEach((a) => {
-      const h = a.dataset.href, i = h.indexOf('#');
-      a.setAttribute('href', lang === 'en' ? '/?lang=en' + (i < 0 ? '' : h.slice(i)) : h);
-    });
+    links.forEach((a) => { const h = a.dataset.href; a.setAttribute('href', lang === 'en' ? (EN[h] || h) : h); });
   }
   document.querySelectorAll('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang)));
   let initial = 'de';
-  try { if (new URLSearchParams(location.search).get('lang') === 'en' || location.hash === '#en') initial = 'en'; } catch (e) { /* ignore */ }
+  try {
+    if (/^\\/en(\\/|$)/.test(location.pathname) || new URLSearchParams(location.search).get('lang') === 'en' || location.hash === '#en') initial = 'en';
+  } catch (e) { /* ignore */ }
   setLang(initial);
-})();"""
+})();""" % json.dumps(NF_LINKS_EN)
 
 
 def render_404() -> str:
     body = (SRC / "404.html").read_text()
-    body = (body.replace("{{FOOTER}}", footer_for_404())
+    body = (body.replace("{{FOOTER}}", footer_html())
                 .replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
                 .replace("{{ARROW}}", ARROW))
     left = re.findall(r"\{\{[A-Z_]+\}\}", body)
@@ -351,6 +516,110 @@ def render_404() -> str:
 """
 
 
+# ---------------------------------------------------------------- page head
+
+def head(lang: str, page: str, title: str, desc: str) -> str:
+    font_url = "/" + versioned("assets/fonts/GoogleSans-latin-wght.woff")
+    alt = "".join(f'<link rel="alternate" hreflang="{l}" href="{abs_url(PAGES[page][l])}">\n' for l in LANGS)
+    alt += f'<link rel="alternate" hreflang="x-default" href="{abs_url(PAGES[page]["de"])}">\n'
+    verify = (f'<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">\n'
+              if (page, lang) == ("home", "de") else "")
+    og = f"""<meta property="og:type" content="website">
+<meta property="og:site_name" content="Grafitecture">
+<meta property="og:url" content="{abs_url(PAGES[page][lang])}">
+<meta property="og:title" content="{html.escape(OG_TITLE[lang] if page == 'home' else title)}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:image" content="{SITE_URL}{OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{html.escape(OG_ALT[lang])}">
+<meta property="og:locale" content="{'de_DE' if lang == 'de' else 'en_GB'}">
+<meta property="og:locale:alternate" content="{'en_GB' if lang == 'de' else 'de_DE'}">
+<meta name="twitter:card" content="summary_large_image">
+"""
+    if page == "home":
+        og += f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n'
+    return f"""<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{html.escape(title)}</title>
+<meta name="description" content="{html.escape(desc)}">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="{abs_url(PAGES[page][lang])}">
+{alt}{verify}<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
+{og}<style>
+{font_css(False, "/")}
+{styles}
+</style>"""
+
+
+def render_home(lang: str) -> str:
+    return f"""<!doctype html>
+<html lang="{lang}">
+<head>
+{head(lang, "home", TITLE[lang], DESC[lang])}
+</head>
+<body>
+{page_body(lang)}
+<script>
+{app}
+</script>
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------- legal pages (05.11.2026)
+
+def nf_header(lang: str) -> str:
+    """The header of the 404 page (logo, DE/EN, no menu); render_legal turns the buttons into links."""
+    src = (SRC / "404.html").read_text()
+    hdr = re.search(r'<header class="hdr" id="hdr">.*?</header>', src, flags=re.S).group(0)
+    hdr = hdr.replace("{{LOGO_DARK}}", inline_logo("grafitecture.svg"))
+    return hdr.replace('<a class="logo" href="/"', f'<a class="logo" href="{PAGES["home"][lang]}"', 1)
+
+
+def render_legal(page: str, lang: str) -> str:
+    """Impressum / Datenschutz as a page: the text of the dialog in body.html (one source for both)."""
+    body = (SRC / "body.html").read_text()
+    dlg = re.search(rf'<dialog class="legal" id="{page}".*?</dialog>', body, flags=re.S).group(0)
+    h2 = re.search(r"<h2[^>]*>(.*?)</h2>", dlg, flags=re.S).group(1)
+    name = re.search(rf'<span lang="{lang}">(.*?)</span>', h2).group(1)
+    text = re.search(rf'<div class="legal-body" lang="{lang}">.*?</div>', dlg, flags=re.S).group(0)
+    skip = re.search(r'<a class="skip".*?</a>', body).group(0)
+    markup = f"""<div class="site nf" id="site" data-lang="{lang}">
+{skip}
+
+{nf_header(lang)}
+
+<main id="main">
+<section class="sec legal-page" aria-labelledby="t-page">
+  <div class="wrap">
+    <header class="legal-hd"><h1 class="h3" id="t-page">{name}</h1></header>
+    {text}
+  </div>
+</section>
+</main>
+
+{footer_html(lang)}
+</div>"""
+    title, desc = LEGAL_META[(page, lang)]
+    return f"""<!doctype html>
+<html lang="{lang}">
+<head>
+{head(lang, page, title, desc)}
+</head>
+<body>
+{lang_links(only_lang(markup, lang), lang, page)}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------- other files
+
 def favicon_ico(png: pathlib.Path) -> bytes:
     """/favicon.ico (asked for 43 times since the launch): the 32 px PNG wrapped in an ICO container."""
     data = png.read_bytes()
@@ -360,10 +629,11 @@ def favicon_ico(png: pathlib.Path) -> bytes:
     return header + entry + data
 
 
-SITEMAP = f"""<?xml version="1.0" encoding="UTF-8"?>
+def sitemap() -> str:
+    urls = "".join(f"  <url><loc>{abs_url(p)}</loc></url>\n" for paths in PAGES.values() for p in paths.values())
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>{SITE_URL}</loc></url>
-</urlset>
+{urls}</urlset>
 """
 
 
@@ -390,6 +660,12 @@ def vercel_config() -> dict:
     }
 
 
+def write(out: pathlib.Path, rel: str, text: str):
+    f = out / rel
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(text)
+
+
 def build_deploy():
     out = ROOT / "public"   # generated only: everything in it is rebuilt from src/ and assets/
     if out.exists():
@@ -400,52 +676,14 @@ def build_deploy():
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
-    font_url = versioned("assets/fonts/GoogleSans-latin-wght.woff")
-    html_doc = f"""<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{TITLE_DE}</title>
-<meta name="description" content="{DESC_DE}">
-<meta name="theme-color" content="#FFFFFF">
-<link rel="canonical" href="{SITE_URL}">
-<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Grafitecture">
-<meta property="og:url" content="{SITE_URL}">
-<meta property="og:title" content="Grafitecture · Marken mit KI. Ich baue KI-Systeme, die für Ihre Marke arbeiten.">
-<meta property="og:description" content="{DESC_DE}">
-<meta property="og:image" content="{SITE_URL}{OG_IMAGE}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim">
-<meta property="og:locale" content="de_DE">
-<meta property="og:locale:alternate" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-<style>
-{font_css(False)}
-{styles}
-</style>
-</head>
-<body>
-{render_body("deploy")}
-<script>
-{app}
-</script>
-</body>
-</html>
-"""
-    (out / "index.html").write_text(html_doc)
-    (out / "404.html").write_text(render_404())   # Vercel serves it with status 404 for any unknown address
-    (out / "sitemap.xml").write_text(SITEMAP)
+    for lang in LANGS:
+        write(out, out_file(PAGES["home"][lang]), render_home(lang))
+        for page in ("impressum", "datenschutz"):
+            write(out, out_file(PAGES[page][lang]), render_legal(page, lang))
+    write(out, "404.html", render_404())   # Vercel serves it with status 404 for any unknown address
+    write(out, "sitemap.xml", sitemap())
     (out / "favicon.ico").write_bytes(favicon_ico(ASSETS / "icons" / "favicon-32.png"))
-    (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
+    write(out, "robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
     (ROOT / "vercel.json").write_text(json.dumps(vercel_config(), indent=2) + "\n")
     return out
 
@@ -457,12 +695,12 @@ def build_artifact():
     (out / "assets").mkdir(parents=True)
     # the artifact viewer cannot submit forms anywhere: drop the no-JS mailto fallback, the script handles submit
     no_js_fallback = ' action="mailto:martin.schweppe@grafitecture.de" method="post" enctype="text/plain"'
-    body = render_body("inline")   # client logos embedded as data URIs
+    body = render_body("inline")   # client logos embedded as data URIs; both languages, switched in place
     assert body.count(no_js_fallback) == 1
     body = body.replace(no_js_fallback, "")
     page = f"""<title>Grafitecture</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="{DESC_DE}">
+<meta name="description" content="{DESC["de"]}">
 <style>
 {font_css(True)}
 {styles}
@@ -477,9 +715,11 @@ def build_artifact():
 
 
 if __name__ == "__main__":
+    src_body = (SRC / "body.html").read_text()
+    assert only_lang(src_body, None).lower() == src_body.lower(), "HTML copy is not lossless"
     d = build_deploy()
     a = build_artifact()
-    for p in (d / "index.html", a / "index.html"):
-        print(p, f"{p.stat().st_size/1024:.1f} KB")
+    for p in sorted(d.rglob("*.html")) + [a / "index.html"]:
+        print(p.relative_to(ROOT), f"{p.stat().st_size/1024:.1f} KB")
     shown = sum(1 for n, _ in CLIENTS if client_logo(slug(n)))
     print(f"clients: {len(CLIENTS)} total, {shown} with logo file, {len(CLIENTS) - shown} as text")

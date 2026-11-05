@@ -100,12 +100,14 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .nav a { transition: color .2s ease, border-color .2s ease; }
 .nav a[aria-current="true"] { border-bottom-color: var(--line); }
 .lang { display: inline-flex; gap: 4px; }
-.lang button {
+/* buttons (claude.ai preview and 404 page: switch in place) or links (/ and /en, since 05.11.2026), same look */
+.lang :is(button, a) {
   appearance: none; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--c); cursor: pointer;
   font: 500 .8125rem/1 var(--font); letter-spacing: .1em; padding: 8px 4px;
 }
-.lang button[aria-pressed="true"] { border-bottom-color: var(--line); }
-.lang button[aria-pressed="false"] { font-weight: 400; }
+.lang a { display: inline-block; text-decoration: none; }
+.lang :is(button[aria-pressed="true"], a[aria-current="page"]) { border-bottom-color: var(--line); }
+.lang :is(button[aria-pressed="false"], a:not([aria-current="page"])) { font-weight: 400; }
 .hdr .hdr-cta { display: none; }
 .menu-btn {
   appearance: none; background: transparent; border: 0; color: var(--c); cursor: pointer;
@@ -137,8 +139,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-panel .m-legal { display: flex; gap: 22px; font-size: .9375rem; }
 .menu-panel .lang { margin-right: -4px; }   /* the last letter lines up with the right edge of the list above */
 /* a 44 px tall touch target for each language button, without changing how it looks */
-.menu-panel .lang button { position: relative; }
-.menu-panel .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
+.menu-panel .lang :is(button, a) { position: relative; }
+.menu-panel .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
 .menu-panel .m-legal a { text-decoration: none; }
 
 /* ---------- buttons ---------- */
@@ -365,15 +367,22 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
    menu), a plain lime field like the hero (no shimmer), then the footer of the start page ---------- */
 .nf .hdr .lang { display: inline-flex; margin-right: -4px; }
 /* a 44 px tall touch target for each language button, as in the menu */
-.nf .hdr .lang button { position: relative; }
-.nf .hdr .lang button::after { content: ""; position: absolute; inset: -7px -2px; }
+.nf .hdr .lang :is(button, a) { position: relative; }
+.nf .hdr .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
+
+/* ---------- Impressum and Datenschutz as pages of their own (05.11.2026): /impressum, /datenschutz,
+   /en/legal-notice, /en/privacy-policy. Same header as the 404 page, the text as on the white sheet of the dialog
+   (title with its line, the same type), then the footer. On the start page they still open as dialogs. ---------- */
+.legal-page { padding-block: clamp(3rem, 2rem + 4vw, 7rem) clamp(4rem, 2.5rem + 4vw, 8rem); }
+.legal-page .wrap > * { max-width: 692px; }   /* the text width of the 820 px sheet (820 - 2 x 64) */
+.legal-page .legal-hd { position: static; padding-top: 0; }
 
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
 .btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
-.lang button, .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
+.lang :is(button, a), .menu-btn, .sheen-btn { transition: color .2s ease, border-color .2s ease; }
 .copy, .x { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 .btn { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
 
@@ -382,7 +391,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   /* type and logo themselves turn lime, nothing behind them (Martin, 25.10.): links, nav, menu, e-mail,
      Impressum, Datenschutz, language and menu buttons, header and footer logo */
   .site a:hover { color: var(--lime); text-decoration-color: var(--lime); }
-  .lang button:hover, .menu-btn:hover { color: var(--lime); }
+  .lang :is(button, a):hover, .menu-btn:hover { color: var(--lime); }
   .logo:hover svg g, .ftr-logo:hover svg g { fill: var(--lime); }
   /* buttons and the client-logo field fill lime, the type on them stays #435960 */
   .site :is(.btn, .btn-line, .copy, .x):hover { background: var(--lime); border-color: var(--lime); color: var(--c); }
