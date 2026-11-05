@@ -12,18 +12,20 @@
 <link rel="alternate" hreflang="en" href="https://www.grafitecture.de/en">
 <link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grafitecture">
 <meta property="og:url" content="https://www.grafitecture.de/en">
 <meta property="og:title" content="Grafitecture · Brands with AI. I build AI systems that work for your brand.">
 <meta property="og:description" content="Martin Schweppe, graduate designer, builds AI systems for brands: AI websites, AI agents, content engines and workflow automation. Grafitecture GmbH, Mannheim, since 2000.">
-<meta property="og:image" content="https://www.grafitecture.de/assets/og/grafitecture-og.png">
+<meta property="og:image" content="https://www.grafitecture.de/assets/og/grafitecture-og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim">
+<meta property="og:image:alt" content="Grafitecture: Brands with AI. Martin Schweppe, graduate designer, Mannheim">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,6 +267,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 }
 /* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
 .photo { margin: 0; }
+.photo picture { display: block; }   /* AVIF with the JPEG as fallback (05.11.2026) */
 .photo img { display: block; width: 100%; max-width: 100%; height: auto; }
 /* a very small caption under the portrait (Martin, 29.10.): the smallest step of the scale, like the other labels */
 .photo figcaption { margin-top: 10px; }
@@ -561,7 +564,7 @@ with AI.</span></h1>
     </header>
     <div class="about-grid">
       <div class="about-side">
-        <figure class="photo"><img src="/assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, /assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, graduate designer" width="1280" height="1707" loading="lazy" decoding="async"><figcaption class="small">Martin Schweppe</figcaption></figure>
+        <figure class="photo"><picture><source type="image/avif" srcset="/assets/photos/martin-schweppe-640.avif?v=ad3b6e3dcf 640w, /assets/photos/martin-schweppe-1280.avif?v=20d335d93a 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"><img src="/assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, /assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, graduate designer" width="1280" height="1707" loading="lazy" decoding="async"></picture><figcaption class="small">Martin Schweppe</figcaption></figure>
         <dl class="facts">
         <div><dt class="small"><span lang="en">Degree</span></dt><dd>Diplom-Designer</dd></div>
         <div><dt class="small"><span lang="en">Studio</span></dt><dd>Grafitecture GmbH</dd></div>
@@ -651,7 +654,7 @@ with AI.</span></h1>
       <h2 id="t-kontakt"><span lang="en">Ready?</span></h2>
       <p class="h5 lead"><span lang="en">Let AI run the boring stuff. Book a free strategy call and let’s build yours.</span></p>
       </div>
-      <figure class="photo"><img src="/assets/photos/eingang-1280.jpg?v=547a87adab" srcset="/assets/photos/eingang-640.jpg?v=cce089c50b 640w, /assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Entrance with a wooden door marked 1926" width="1280" height="1707" loading="lazy" decoding="async"></figure>
+      <figure class="photo"><picture><source type="image/avif" srcset="/assets/photos/eingang-640.avif?v=a2507483d0 640w, /assets/photos/eingang-1280.avif?v=4ac14248df 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"><img src="/assets/photos/eingang-1280.jpg?v=547a87adab" srcset="/assets/photos/eingang-640.jpg?v=cce089c50b 640w, /assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Entrance with a wooden door marked 1926" width="1280" height="1707" loading="lazy" decoding="async"></picture></figure>
     </header>
     <div class="contact-grid">
       <article class="panel">

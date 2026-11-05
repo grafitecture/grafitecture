@@ -373,6 +373,11 @@
       "source": "/apple-touch-icon-180x180.png",
       "destination": "/apple-touch-icon.png",
       "permanent": true
+    },
+    {
+      "source": "/apple-touch-icon-192x192.png",
+      "destination": "/icon-192.png",
+      "permanent": true
     }
   ],
   "headers": [

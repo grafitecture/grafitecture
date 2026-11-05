@@ -107,7 +107,7 @@ DESC = {"de": ("Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: K
 OG_TITLE = {"de": "Grafitecture · Marken mit KI. Ich baue KI-Systeme, die für Ihre Marke arbeiten.",
             "en": "Grafitecture · Brands with AI. I build AI systems that work for your brand."}
 OG_ALT = {"de": "Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim",
-          "en": "Grafitecture: Marken mit KI. Martin Schweppe, Diplom-Designer, Mannheim"}
+          "en": "Grafitecture: Brands with AI. Martin Schweppe, graduate designer, Mannheim"}
 # title and description of the legal pages (new on 05.11.2026)
 LEGAL_META = {
     ("impressum", "de"): ("Impressum · Grafitecture GmbH, Mannheim",
@@ -123,7 +123,8 @@ LEGAL_META = {
                             "Privacy policy of Grafitecture GmbH, Mannheim: hosting by Vercel, contact by email, "
                             "no cookies and no tracking, and your rights under the GDPR."),
 }
-OG_IMAGE = "assets/og/grafitecture-og.png"
+# link preview images (1200x630, tools/render_assets.py): „Marken / mit KI.“ and, since 05.11.2026, „Brands / with AI.“
+OG_IMAGE = {"de": "assets/og/grafitecture-og.png", "en": "assets/og/grafitecture-og-en.png"}
 # Google Search Console, property https://www.grafitecture.de/ (Martin's account, 05.11.2026): ownership check by
 # meta tag. Keep it, or the property loses its verification. (A file check would not work: cleanUrls redirects .html.)
 GOOGLE_SITE_VERIFICATION = "E5hh_5YzfsqNIsu4hf9doWHHFXT4N5GLNTrq7SMHQeg"
@@ -258,8 +259,12 @@ def photo_html(key: str, mode: str, lang=None) -> str:
             a, b = "/" + versioned(a), "/" + versioned(b)
         src = f'src="{b}" srcset="{a} 640w, {b} 1280w" sizes="{sizes}"'
     cap = f'<figcaption class="small">{html.escape(caption)}</figcaption>' if caption else ""
-    return (f'<figure class="photo"><img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async">'
-            f'{cap}</figure>')
+    img = f'<img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async">'
+    if mode == "deploy" and small.with_suffix(".avif").exists() and large.with_suffix(".avif").exists():
+        # AVIF (05.11.2026, tools/encode_photos.py): about a third smaller; browsers without AVIF take the JPEG
+        av = ["/" + versioned("assets/photos/" + f.with_suffix(".avif").name) for f in (small, large)]
+        img = f'<picture><source type="image/avif" srcset="{av[0]} 640w, {av[1]} 1280w" sizes="{sizes}">{img}</picture>'
+    return f'<figure class="photo">{img}{cap}</figure>'
 
 
 def natural_size_jpeg(f: pathlib.Path):
@@ -397,7 +402,7 @@ ld = {
     "name": "Grafitecture GmbH",
     "url": SITE_URL,
     "email": "martin.schweppe@grafitecture.de",
-    "image": SITE_URL + OG_IMAGE,
+    "image": SITE_URL + OG_IMAGE["de"],
     "logo": SITE_URL + "assets/logo/grafitecture.svg",
     "foundingDate": "2000",
     "address": {"@type": "PostalAddress", "streetAddress": "Rebenstr. 9a", "postalCode": "68309",
@@ -533,7 +538,7 @@ def head(lang: str, page: str, title: str, desc: str) -> str:
 <meta property="og:url" content="{abs_url(PAGES[page][lang])}">
 <meta property="og:title" content="{html.escape(OG_TITLE[lang] if page == 'home' else title)}">
 <meta property="og:description" content="{html.escape(desc)}">
-<meta property="og:image" content="{SITE_URL}{OG_IMAGE}">
+<meta property="og:image" content="{SITE_URL}{OG_IMAGE[lang]}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{html.escape(OG_ALT[lang])}">
@@ -551,8 +556,10 @@ def head(lang: str, page: str, title: str, desc: str) -> str:
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="{abs_url(PAGES[page][lang])}">
 {alt}{verify}<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="{font_url}" as="font" type="font/woff" crossorigin>
 {og}<style>
 {font_css(False, "/")}
@@ -678,6 +685,17 @@ def sitemap(dates: dict) -> str:
 """
 
 
+def manifest() -> dict:
+    """Web app manifest (05.11.2026): name, colours and the „g“ icon for home screens and browser UIs."""
+    icons = []
+    for size in (192, 512):
+        for purpose in ("any", "maskable"):   # the „g“ fills 62 % of the square, inside the maskable safe zone
+            icons.append({"src": f"/icon-{size}.png", "sizes": f"{size}x{size}", "type": "image/png", "purpose": purpose})
+    return {"name": "Grafitecture", "short_name": "Grafitecture", "description": DESC["de"], "lang": "de",
+            "start_url": "/", "scope": "/", "display": "browser", "background_color": "#FFFFFF", "theme_color": "#FFFFFF",
+            "icons": icons}
+
+
 def vercel_config() -> dict:
     return {
         "$schema": "https://openapi.vercel.sh/vercel.json",
@@ -718,8 +736,9 @@ def build_deploy():
     for sub in ("fonts", "logo", "og", "photos"):
         shutil.copytree(ASSETS / sub, out / "assets" / sub)
     copy_clients(out)
-    for icon in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
+    for icon in ("favicon.svg", "favicon-32.png", "favicon-48.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
+    write(out, "site.webmanifest", json.dumps(manifest(), indent=2, ensure_ascii=False) + "\n")
     docs = {}
     for lang in LANGS:
         docs[PAGES["home"][lang]] = render_home(lang)

@@ -13,8 +13,10 @@
 <link rel="alternate" hreflang="x-default" href="https://www.grafitecture.de/">
 <meta name="google-site-verification" content="E5hh_5YzfsqNIsu4hf9doWHHFXT4N5GLNTrq7SMHQeg">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647" as="font" type="font/woff" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Grafitecture">
@@ -266,6 +268,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 }
 /* photos (Martin, 25.10.): shown as supplied, no frame (slight rounding, see the end of the file) */
 .photo { margin: 0; }
+.photo picture { display: block; }   /* AVIF with the JPEG as fallback (05.11.2026) */
 .photo img { display: block; width: 100%; max-width: 100%; height: auto; }
 /* a very small caption under the portrait (Martin, 29.10.): the smallest step of the scale, like the other labels */
 .photo figcaption { margin-top: 10px; }
@@ -562,7 +565,7 @@ mit KI.</span></h1>
     </header>
     <div class="about-grid">
       <div class="about-side">
-        <figure class="photo"><img src="/assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, /assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" width="1280" height="1707" loading="lazy" decoding="async"><figcaption class="small">Martin Schweppe</figcaption></figure>
+        <figure class="photo"><picture><source type="image/avif" srcset="/assets/photos/martin-schweppe-640.avif?v=ad3b6e3dcf 640w, /assets/photos/martin-schweppe-1280.avif?v=20d335d93a 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"><img src="/assets/photos/martin-schweppe-1280.jpg?v=8686535776" srcset="/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16 640w, /assets/photos/martin-schweppe-1280.jpg?v=8686535776 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Martin Schweppe, Diplom-Designer" width="1280" height="1707" loading="lazy" decoding="async"></picture><figcaption class="small">Martin Schweppe</figcaption></figure>
         <dl class="facts">
         <div><dt class="small"><span lang="de">Abschluss</span></dt><dd>Diplom-Designer</dd></div>
         <div><dt class="small"><span lang="de">Büro</span></dt><dd>Grafitecture GmbH</dd></div>
@@ -652,7 +655,7 @@ mit KI.</span></h1>
       <h2 id="t-kontakt"><span lang="de">Bereit?</span></h2>
       <p class="h5 lead"><span lang="de">Überlassen Sie die Routine der KI. Buchen Sie ein kostenloses Strategiegespräch, und wir bauen Ihr System.</span></p>
       </div>
-      <figure class="photo"><img src="/assets/photos/eingang-1280.jpg?v=547a87adab" srcset="/assets/photos/eingang-640.jpg?v=cce089c50b 640w, /assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Hauseingang mit Holztür und der Jahreszahl 1926" width="1280" height="1707" loading="lazy" decoding="async"></figure>
+      <figure class="photo"><picture><source type="image/avif" srcset="/assets/photos/eingang-640.avif?v=a2507483d0 640w, /assets/photos/eingang-1280.avif?v=4ac14248df 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw"><img src="/assets/photos/eingang-1280.jpg?v=547a87adab" srcset="/assets/photos/eingang-640.jpg?v=cce089c50b 640w, /assets/photos/eingang-1280.jpg?v=547a87adab 1280w" sizes="(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw" alt="Hauseingang mit Holztür und der Jahreszahl 1926" width="1280" height="1707" loading="lazy" decoding="async"></picture></figure>
     </header>
     <div class="contact-grid">
       <article class="panel">

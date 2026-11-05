@@ -39,3 +39,4 @@ alt,neu,status,grund,quelle
 /post-sitemap.xml,/sitemap.xml,308,Yoast-Sitemap,Prüfmuster
 /apple-touch-icon-precomposed.png,/apple-touch-icon.png,308,ältere iOS-Anfrage,vercel-404-log (4)
 /apple-touch-icon-180x180.png,/apple-touch-icon.png,308,iOS-Anfrage mit Größe,vercel-404-log (1)
+/apple-touch-icon-192x192.png,/icon-192.png,308,Anfrage mit Größe,vercel-404-log (1)

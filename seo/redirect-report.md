@@ -1,7 +1,7 @@
 # Redirect-Report
 
-Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 10:56 UTC.
-69 Weiterleitungen aus `seo/redirect-map.csv` und `vercel.json`, dazu 7 Adressen, die 404 liefern müssen.
+Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 11:01 UTC.
+70 Weiterleitungen aus `seo/redirect-map.csv` und `vercel.json`, dazu 7 Adressen, die 404 liefern müssen.
 **Alle in Ordnung.**
 
 | Alt | Neu | Status | Ergebnis |
@@ -70,12 +70,13 @@ Geprüft gegen `http://127.0.0.1:8080` am 2026-11-05 10:56 UTC.
 | `/post-sitemap.xml` | `/sitemap.xml` | 308 | ✅ |
 | `/apple-touch-icon-precomposed.png` | `/apple-touch-icon.png` | 308 | ✅ |
 | `/apple-touch-icon-180x180.png` | `/apple-touch-icon.png` | 308 | ✅ |
+| `/apple-touch-icon-192x192.png` | `/icon-192.png` | 308 | ✅ |
 | `/en/` | `/en` | 308 | ✅ |
 | `/impressum/` | `/impressum` | 308 | ✅ |
 | `/en/legal-notice/` | `/en/legal-notice` | 308 | ✅ |
 | `/datenschutz/` | `/datenschutz` | 308 | ✅ |
 | `/en/privacy-policy/` | `/en/privacy-policy` | 308 | ✅ |
-| `/gibt-es-nicht-1793876212509` | (404) | 404 | ✅ |
+| `/gibt-es-nicht-1793876466066` | (404) | 404 | ✅ |
 | `/wp-login.php` | (404) | 404 | ✅ |
 | `/wp-admin/` | (404) | 404 | ✅ |
 | `/xmlrpc.php` | (404) | 404 | ✅ |

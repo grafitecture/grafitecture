@@ -1,9 +1,9 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 10:57 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:01 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
-## Intern (44)
+## Intern (51)
 
 | Adresse | Antwort | | Seiten |
 |---|---|---|---|
@@ -39,15 +39,22 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/clients/zahnarztpraxis-theurer.png?v=64b0834e50` | 200 | ✅ | /en, / |
 | `/assets/clients/zweite-liebe.png?v=ae57b352a5` | 200 | ✅ | /en, / |
 | `/assets/fonts/GoogleSans-latin-wght.woff?v=84a5bb1647` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
-| `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
+| `/assets/og/grafitecture-og-en.png` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en |
+| `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /impressum, / |
+| `/assets/photos/eingang-1280.avif?v=4ac14248df` | 200 | ✅ | /en, / |
 | `/assets/photos/eingang-1280.jpg?v=547a87adab` | 200 | ✅ | /en, / |
+| `/assets/photos/eingang-640.avif?v=a2507483d0` | 200 | ✅ | /en, / |
 | `/assets/photos/eingang-640.jpg?v=cce089c50b` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-1280.avif?v=20d335d93a` | 200 | ✅ | /en, / |
 | `/assets/photos/martin-schweppe-1280.jpg?v=8686535776` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-640.avif?v=ad3b6e3dcf` | 200 | ✅ | /en, / |
 | `/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16` | 200 | ✅ | /en, / |
 | `/datenschutz` | 200 | ✅ | /datenschutz, /en/privacy-policy, /impressum, / |
 | `/en` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, / |
 | `/en/legal-notice` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, /impressum |
 | `/en/privacy-policy` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en |
 | `/favicon-32.png` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
+| `/favicon-48.png` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
 | `/favicon.svg` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
 | `/impressum` | 200 | ✅ | /datenschutz, /en/legal-notice, /impressum, / |
+| `/site.webmanifest` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
