@@ -65,6 +65,9 @@ TITLE_DE = "Grafitecture · KI-Systeme für Marken · Martin Schweppe, Dipl.-Des
 DESC_DE = ("Martin Schweppe, Diplom-Designer, baut KI-Systeme für Marken: KI-Websites, KI-Agenten, "
            "Content-Engines und Workflow-Automation. Grafitecture GmbH, Mannheim, seit 2000.")
 OG_IMAGE = "assets/og/grafitecture-og.png"
+# Google Search Console, property https://www.grafitecture.de/ (Martin's account, 05.11.2026): ownership check by
+# meta tag. Keep it, or the property loses its verification. (A file check would not work: cleanUrls redirects .html.)
+GOOGLE_SITE_VERIFICATION = "E5hh_5YzfsqNIsu4hf9doWHHFXT4N5GLNTrq7SMHQeg"
 
 ARROW = ('<svg viewBox="0 0 22 10" aria-hidden="true" focusable="false">'
          '<path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>')
@@ -407,6 +410,7 @@ def build_deploy():
 <meta name="description" content="{DESC_DE}">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="{SITE_URL}">
+<meta name="google-site-verification" content="{GOOGLE_SITE_VERIFICATION}">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
