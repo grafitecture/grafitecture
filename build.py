@@ -67,21 +67,21 @@ FONT_FILE = "assets/fonts/" + FONTS[0][1]
 # name, website (None = not linked). Order = order on the page.
 CLIENTS = [
     ("L'Année", "https://www.lannee.de/"),   # Martin 30.10. (before 1898.ma)
-    ("Dentaid", "https://www.dentaid-direkt.de/"),
+    ("Dentaid", "https://dentaid-direkt.de/"),   # final address (05.11.2026, was www., 301)
     ("Healthklick", None),
     ("fläsh", "https://flaesh.com/"),
     ("Kaufhaus Ganz", "https://www.kaufhaus-ganz.de/"),
     ("Onkel Otto Bar", "https://www.onkelottobar.de/"),
-    ("42health", "http://42health.de/"),
+    ("42health", "https://42health.de/"),   # https (05.11.2026, http answered 301)
     ("tinytecture", "https://www.tinytecture.de/"),
-    ("Detmers", "http://detmers.de/"),
+    ("Detmers", "https://detmers.de/"),   # https (05.11.2026, http answered 301)
     ("1898", "https://www.lannee.de/"),   # Martin 30.10. (before 1898.ma)
     ("CORE", "https://www.core-cc.com/"),
     ("raumrent", "https://www.raumrent.de/"),
     ("Ultracain", "https://www.ultracain.de/"),
     ("Vitaphone", None),
     ("Steinbeis Finance", "https://steinbeis-finance.de/"),
-    ("Creating Smiles", "https://www.creatingsmiles.eu/"),
+    ("Creating Smiles", "https://creatingsmiles.eu/"),   # final address (05.11.2026, was www., 301)
     ("flaeshapp", "https://www.flaeshapp.com/"),
     ("Zahnarztpraxis Theurer", "https://www.zahnarztpraxis-theurer.de/"),
     ("Gemeinschaftspraxis Günther", "https://www.gemeinschaftspraxis-guenther.de/"),

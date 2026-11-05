@@ -34,6 +34,9 @@ jobs:
           npx playwright install --with-deps chromium
       - name: npm run seo:check -- --full
         run: npm run seo:check -- --full
+      - name: Lighthouse-Werte
+        if: always()
+        run: python3 scripts/lighthouse_summary.py
       - name: Externe Links (nur Hinweis, bricht nicht ab)
         if: always()
         run: |
