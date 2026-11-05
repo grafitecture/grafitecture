@@ -5,11 +5,14 @@ Website der Grafitecture GmbH, Mannheim. One-Pager auf Deutsch und Englisch, sta
 ## Aufbau
 
 ```
-public/        fertige Website, wird von Vercel so ausgeliefert (nicht von Hand bearbeiten)
+public/        fertige Website, wird von Vercel so ausgeliefert (nicht von Hand bearbeiten):
+               / (Deutsch), /en (Englisch), /impressum, /datenschutz, /en/legal-notice, /en/privacy-policy
 src/           Inhalt (body.html), Gestaltung (styles.css), Verhalten (app.js)
 assets/        Schrift, Logo, Kundenlogos, Fotos, Icons, Vorschaubild für Links
 build.py       baut public/ und vercel.json aus src/ und assets/
-tools/         Hilfsskripte für Kundenlogos, Icons und den Farbkreis des Hero (brauchen Pillow bzw. Playwright, colour_wheel.py nur Python)
+tools/         Hilfsskripte für Kundenlogos, Icons, Vorschaubilder, AVIF-Fotos, WOFF2-Schrift und den Farbkreis des Hero
+scripts/       Prüfungen (npm run seo:check), lokaler Vercel-Nachbau (serve.py), IndexNow
+seo/           Weiterleitungen (redirect-map.csv), Audit, Berichte, Inhalts-Empfehlungen
 vercel.json    Vercel-Einstellungen: Ausgabeordner public/, Function Region Frankfurt, Sicherheits- und Cache-Header
 KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 ```
@@ -18,7 +21,10 @@ KONZEPT.md     Gestaltung, Inhalte, Rechtstexte, offene Punkte
 
 1. Text oder Gestaltung in `src/` ändern.
 2. `python3 build.py` ausführen (nur Python-Standardbibliothek, keine Installation nötig).
-3. Alles committen, auch `public/` und `vercel.json`, und nach `main` pushen. Vercel veröffentlicht automatisch.
+3. `npm run seo:check` ausführen – muss grün sein.
+4. Alles committen, auch `public/`, `vercel.json` und `seo/lastmod.json`, und nach `main` pushen. Vercel veröffentlicht automatisch; GitHub Actions prüft jeden Push (inkl. Lighthouse und axe) und nach dem Deployment die Live-Seite.
+
+Eine Adresse ändern oder entfernen: neue Zeile in `seo/redirect-map.csv`, `python3 build.py`, `npm run seo:check`.
 
 ## Vercel einrichten (einmalig)
 
@@ -41,5 +47,5 @@ Die Content-Security-Policy erlaubt nur Inhalte von der eigenen Domain. Auf Vors
 
 ## Sprache und Links
 
-Standard ist Deutsch. Englisch über den Schalter DE/EN (am Desktop in der Kopfzeile, auf Handy und Tablet im Menü) oder per `…/#en` bzw. `…/?lang=en`.
-Impressum und Datenschutz direkt verlinkbar: `…/#impressum`, `…/#datenschutz`.
+Deutsch unter `/`, Englisch unter `/en` (seit 05.11.2026 je eine eigene Seite). Der Schalter DE/EN wechselt die Seite und behält den Abschnitt; alte Links `…/?lang=en` und `…/#en` führen auf `/en`.
+Impressum und Datenschutz als Seiten: `/impressum`, `/datenschutz`, `/en/legal-notice`, `/en/privacy-policy`; `…/#impressum` öffnet weiterhin den Dialog auf der Startseite.
