@@ -185,6 +185,23 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .menu-panel .lang :is(button, a)::after { content: ""; position: absolute; inset: -7px -2px; }
 .menu-panel .m-legal a { text-decoration: none; }
 
+/* ---------- the robot, scene 1 (Martin 16.11.): the logo starts upside down, the robot turns it ----------
+   Only with JavaScript, without reduced motion and only where the header carries data-robo (the start pages).
+   app.js takes over at once (.rb-on); should it never do so, the logo turns back by itself after 4 s.
+   The robot is drawn and moved by app.js (see there).
+   The robot stands in .rb-stage, absolutely over the header: no clicks, no layout shift. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .hdr[data-robo] .logo svg { transform: rotate(180deg); animation: rb-safe 0s 4s forwards; }
+  .hdr[data-robo].rb-on .logo svg { animation: none; }
+}
+@keyframes rb-safe { to { transform: none; } }
+.rb-stage { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.rb-stage svg { position: absolute; left: 0; top: 0; width: 0; height: 0; display: block; max-width: none; overflow: visible; }
+@media print {
+  .rb-stage { display: none; }
+  .hdr[data-robo] .logo svg { transform: none !important; }
+}
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: space-between; gap: 22px;

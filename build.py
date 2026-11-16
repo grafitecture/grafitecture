@@ -9,6 +9,8 @@ Standard library only, no installs.
                   as dialogs, as before.
                   404.html from src/404.html (both languages, switched in place; noindex), sitemap.xml,
                   robots.txt, favicon.ico.
+                  Since 16.11.2026 the robot (scene 1) walks into the header of / and /en: no extra files and no
+                  extra inline script (it lives in app.js), so the CSP keeps one hash per page script.
    vercel.json    Vercel settings (output folder, redirects, headers), written to the repository root.
                   Redirects come from seo/redirect-map.csv (one row per old address).
    dist/artifact/ preview page for a claude.ai artifact (both languages, font and logos inlined). Not committed.
@@ -397,8 +399,11 @@ def legal_links(markup: str, lang: str, keep_dialog: bool) -> str:
 
 
 def page_body(lang: str) -> str:
-    """The start page in one language."""
+    """The start page in one language. Its header carries data-robo: there the robot turns the logo the right way
+    up (scene 1, Martin 16.11.2026; styles.css and app.js). The 404 and legal pages take the header of src/404.html,
+    without data-robo, so their logo is never upside down."""
     body = render_body("deploy", lang)
+    assert body.count('<header class="hdr" id="hdr" data-robo>') == 1, "the start page header lost data-robo"
     body = body.replace('<div class="site" id="site" data-lang="de">', f'<div class="site" id="site" data-lang="{lang}">', 1)
     if lang == "en":
         body = body.replace("?subject=Strategiegespr%C3%A4ch", "?subject=Strategy%20call", 1)

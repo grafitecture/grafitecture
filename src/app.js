@@ -138,6 +138,32 @@
   let clock = 0, last = 0;   // the shared timeline in seconds, and the time of its last frame
   const legalOpen = () => !!document.querySelector('dialog.legal[open]');
   const syncSheens = () => sheens.forEach((sync) => sync());
+  let stopRobot = null;      // ends the robot's scene (below); the pause icons stop it too
+
+  // the colour wheel, variant A (Martin 28.10.): 36 colours 10° apart in OKLCH hue, from the lime towards green,
+  // cyan, blue, violet, pink, orange and yellow; each the most saturated colour of its hue on which #435960 keeps
+  // at least 4.6:1, so with blending, rounding and dither it never drops below 4.5:1 (tools/colour_wheel.py).
+  // Shared since 16.11. with the robot, whose chest window shows the pair the hero shows.
+  const WHEEL = 'dafd55 a7ff00 4bff00 00ff7b 00ffab 00ffca 00ffe2 00fff6 00f4ff 00e3ff 60dbff 82d7ff 96d3ff a4d0ff b0cdff bacbff c3c9ff cdc5ff d7c2ff e3beff f3b8ff ffb3f7 ffb6e5 ffb8d8 ffb9cd ffbac3 ffbbb9 ffbcb0 ffbda5 ffbe99 ffbf8a ffc074 ffc24d ffcc00 ffe300 fdff00'
+    .split(' ').map((c) => [0, 2, 4].map((i) => parseInt(c.slice(i, i + 2), 16)));
+  const SPEED = 4;              // Martin 28.10.: faster again (26.10.: 1, 27.10.: 1.6); the areas drift in 22–37 s
+  const TURN = 288;             // s for the pair to go once around the wheel at SPEED 1 (72 s now)
+  const GAP = [80, 20, 197];    // the second colour runs 80° ± 20° ahead, period at SPEED 1 (49 s now)
+  const FADE = 4, TAU = Math.PI * 2;   // s to fade in
+  const lin = (v) => (v <= 10.31475 ? v / 3294.6 : ((v / 255 + 0.055) / 1.055) ** 2.4);         // sRGB 0–255 to linear light
+  const enc = (l) => 255 * (l <= 0.0031308 ? 12.92 * l : 1.055 * l ** (1 / 2.4) - 0.055);   // and back
+  // the wheel at a hue (degrees from the lime), in linear light
+  function wheel(deg) {
+    const u = (((deg / 10) % 36) + 36) % 36, k = Math.floor(u), f = u - k, a = WHEEL[k], b = WHEEL[(k + 1) % 36];
+    return [0, 1, 2].map((c) => lin(a[c] + (b[c] - a[c]) * f));
+  }
+  // the pair at time c (s on the shared timeline), in linear light; both start at the lime and part while the
+  // field fades in
+  function pair(c) {
+    const t = c * SPEED, e = Math.min(1, c / FADE), ramp = e * e * (3 - 2 * e);
+    const hue = (360 * t) / TURN, gap = GAP[0] + GAP[1] * Math.sin((TAU * t) / GAP[2]);
+    return [wheel(ramp * hue), wheel(ramp * (hue + gap))];
+  }
   if (!reduceMotion.matches && window.requestAnimationFrame) {
     const add = (field, covered) => {
       const cv = document.createElement('canvas');
@@ -152,6 +178,7 @@
         sheenPaused = p;
         sheenBtns.forEach((b) => b.classList.toggle('is-paused', p));
         syncSheens();
+        if (p && stopRobot) stopRobot();   // the pause icon also ends the robot's scene at once (WCAG 2.2.2)
       };
       sheenBtns.forEach((b) => {
         b.hidden = false;
@@ -164,11 +191,6 @@
   // a shimmering field: a canvas painted behind its content (in a dialog only beside the sheet, see styles.css);
   // covered() says when the field is hidden although on screen. Returns its sync function.
   function sheen(field, cv, g, covered) {
-    // the colour wheel, variant A (Martin 28.10.): 36 colours 10° apart in OKLCH hue, from the lime towards green,
-    // cyan, blue, violet, pink, orange and yellow; each the most saturated colour of its hue on which #435960 keeps
-    // at least 4.6:1, so with blending, rounding and dither it never drops below 4.5:1 (tools/colour_wheel.py)
-    const WHEEL = 'dafd55 a7ff00 4bff00 00ff7b 00ffab 00ffca 00ffe2 00fff6 00f4ff 00e3ff 60dbff 82d7ff 96d3ff a4d0ff b0cdff bacbff c3c9ff cdc5ff d7c2ff e3beff f3b8ff ffb3f7 ffb6e5 ffb8d8 ffb9cd ffbac3 ffbbb9 ffbcb0 ffbda5 ffbe99 ffbf8a ffc074 ffc24d ffcc00 ffe300 fdff00'
-      .split(' ').map((c) => [0, 2, 4].map((i) => parseInt(c.slice(i, i + 2), 16)));
     // areas: centre x, y (share of the field), drift x, y (share), drift periods (s), radius (share of the
     // longer side); the first two (top left, bottom right) carry the first colour, the last two the second
     const AREAS = [
@@ -177,14 +199,9 @@
       [0.85, 0.25, 0.12, 0.14, 113, 89, 0.58],
       [0.30, 0.75, 0.10, 0.12, 89, 149, 0.52],
     ];
-    const SPEED = 4;              // Martin 28.10.: faster again (26.10.: 1, 27.10.: 1.6); the areas drift in 22–37 s
-    const TURN = 288;             // s for the pair to go once around the wheel at SPEED 1 (72 s now)
-    const GAP = [80, 20, 197];    // the second colour runs 80° ± 20° ahead, period at SPEED 1 (49 s now)
     const SOFT = 2;               // each area falls off like a bell, weight e^-SOFT at its radius
-    const FADE = 4, RES = 6, TAU = Math.PI * 2;   // s to fade in, CSS px per canvas pixel
+    const RES = 6;                // CSS px per canvas pixel
     const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
-    const lin = (v) => (v <= 10.31475 ? v / 3294.6 : ((v / 255 + 0.055) / 1.055) ** 2.4);         // sRGB 0–255 to linear light
-    const enc = (l) => 255 * (l <= 0.0031308 ? 12.92 * l : 1.055 * l ** (1 / 2.4) - 0.055);   // and back
     const mix = new Float32Array(256 * 3);      // this frame's blend from the first colour to the second
     let W = 0, H = 0, w = 1, h = 1, img = null, xs = [], ys = [];
     let painted = -1, raf = 0, inView = true;
@@ -192,16 +209,8 @@
     cv.setAttribute('aria-hidden', 'true');
     field.prepend(cv);
 
-    // the wheel at a hue (degrees from the lime), in linear light
-    function wheel(deg) {
-      const u = (((deg / 10) % 36) + 36) % 36, k = Math.floor(u), f = u - k, a = WHEEL[k], b = WHEEL[(k + 1) % 36];
-      return [0, 1, 2].map((c) => lin(a[c] + (b[c] - a[c]) * f));
-    }
     function paint() {
-      const t = clock * SPEED, e = Math.min(1, clock / FADE), ramp = e * e * (3 - 2 * e), m = Math.max(w, h);
-      // the pair; both start at the lime and part while the field fades in
-      const hue = (360 * t) / TURN, gap = GAP[0] + GAP[1] * Math.sin((TAU * t) / GAP[2]);
-      const ca = wheel(ramp * hue), cb = wheel(ramp * (hue + gap));
+      const t = clock * SPEED, m = Math.max(w, h), [ca, cb] = pair(clock);
       for (let k = 0; k < 256; k++) {
         for (let c = 0; c < 3; c++) mix[k * 3 + c] = enc(ca[c] + ((cb[c] - ca[c]) * k) / 255);
       }
@@ -420,4 +429,222 @@
     const id = (location.hash || '').slice(1);
     if (legalIds.includes(id)) openLegal(id);
   });
+
+  /* ---------------- the robot, scene 1 (Martin 16.11.): he turns the upside-down logo the right way up ----------------
+     A tin toy robot after Martin's second flat Higgsfield draft (job d9d6a470): strictly frontal and flat, a square
+     head, a line for a mouth, only #435960 and lime in full tones, and in the chest window the two colours the hero
+     shows at that moment. On load the logo in the header stands upside down (styles.css: only with JavaScript, without
+     reduced motion and only where the header carries data-robo). After 1.5 s the robot trots in from the right in
+     small tin-toy steps, stops at the logo, grabs its end, flicks it the right way up with a little spring, nods and
+     walks off to the left; 5–6 s in all, once per page view (nothing is stored; /en is a page of its own, so it plays
+     there again). It is aria-hidden, takes no clicks and sits absolutely in the header, so nothing moves (CLS 0);
+     the pause icons of the shimmer end the scene at once (WCAG 2.2.2). One timeline: pose(t) gives every part for
+     any moment, so a dropped frame never puts the robot out of step.
+     Drawing in a 88 × 144 grid, x = 0 on the middle axis, feet on y = 143.5. Each part is a group with its pivot in
+     data-p: legs at the hips, torso at the middle of its lower edge (it carries head and arms), head at the neck,
+     antenna at its foot, arms at the shoulder joints; the pupils move as one. Feet, hands, ears, eyes, mouth, rivets
+     and buttons are lime, the rest #435960. */
+  const ROBOT_SVG = (id) => '<svg viewBox="-44 0 88 144" aria-hidden="true" focusable="false">'
+    + '<defs><linearGradient id="' + id + '">'
+    + [0, 25, 50, 75, 100].map((o) => '<stop offset="' + o + '%" stop-color="#dafd55"/>').join('') + '</linearGradient></defs>'
+    + '<g data-k="legL" data-p="-14.5 108"><path fill="#435960" d="M-21 100h13v35h-13z"/><path fill="#dafd55" d="M-25.5 134.5h22v9h-22z"/></g>'
+    + '<g data-k="legR" data-p="14.5 108"><path fill="#435960" d="M8 100h13v35h-13z"/><path fill="#dafd55" d="M3.5 134.5h22v9h-22z"/></g>'
+    + '<g data-k="torso" data-p="0 108">'
+    +   '<path fill="#435960" d="M-7.5 46h15v7h-15zM-28.5 52h57v56h-57z"/>'
+    +   '<path fill="#dafd55" d="M-23.5 55h3v3h-3zm14.5 0h3v3h-3zm15 0h3v3h-3zm14.5 0h3v3h-3zM-23.5 101.5h3v3h-3zm14.5 0h3v3h-3zm15 0h3v3h-3zm14.5 0h3v3h-3zM-14.5 89h6v6h-6zm11.5 0h6v6h-6zm11.5 0h6v6h-6z"/>'
+    +   '<rect x="-21" y="61.5" width="42" height="23" fill="url(#' + id + ')"/>'
+    +   '<g data-k="head" data-p="0 47">'
+    +     '<g data-k="ant" data-p="0 15"><path fill="#435960" d="M-1.5 5h3v11h-3z"/><path fill="#dafd55" d="M-3.5 0h7v6h-7z"/></g>'
+    +     '<path fill="#435960" d="M-20 15h40v32h-40z"/>'
+    +     '<path fill="#dafd55" d="M-25.5 25h5.5v14h-5.5zm45.5 0h5.5v14h-5.5zM-14 23h9v9h-9zm19 0h9v9h-9zM-7.5 38.5h15v3h-15z"/>'
+    +     '<g data-k="eyes"><path fill="#435960" d="M-11 26h3v3h-3zm19 0h3v3h-3z"/></g>'
+    +   '</g>'
+    +   '<g data-k="armL" data-p="-29.5 63.5"><path fill="#435960" d="M-31 62h3v3h-3zM-42.5 59h12v38h-12z"/><path fill="#dafd55" d="M-43.5 96.5h14v11h-4.5v-5h-5v5h-4.5z"/></g>'
+    +   '<g data-k="armR" data-p="29.5 63.5"><path fill="#435960" d="M28 62h3v3h-3zM30.5 59h12v38h-12z"/><path fill="#dafd55" d="M29.5 96.5h14v11h-4.5v-5h-5v5h-4.5z"/></g>'
+    + '</g></svg>';
+
+  // the parts of a robot svg, with a setter: translate(dx dy), then rotate(a) about the part's pivot
+  function robotParts(svg) {
+    const P = {};
+    $$('[data-k]', svg).forEach((g) => { P[g.dataset.k] = g; });
+    const r2 = (v) => Math.round(v * 100) / 100;
+    P.set = (k, dx, dy, a) => {
+      const g = P[k];
+      let tr = dx || dy ? 'translate(' + r2(dx) + ' ' + r2(dy) + ')' : '';
+      if (a && g.dataset.p) tr += ' rotate(' + r2(a) + ' ' + g.dataset.p + ')';
+      g.setAttribute('transform', tr.trim());
+    };
+    // the chest window: the two colours (linear light) blended across it like the hero blends them
+    const stops = $$('stop', svg);
+    let was = '';
+    P.paint = (ca, cb) => {
+      const key = ca.join() + cb.join();
+      if (key === was) return;
+      was = key;
+      stops.forEach((s, i) => {
+        let u = i / (stops.length - 1);
+        u = u * u * (3 - 2 * u);
+        s.setAttribute('stop-color', '#' + [0, 1, 2].map((c) => {
+          const v = Math.round(Math.max(0, Math.min(255, enc(ca[c] + (cb[c] - ca[c]) * u))));
+          return (v < 16 ? '0' : '') + v.toString(16);
+        }).join(''));
+      });
+    };
+    return P;
+  }
+
+  // easing helpers: share of a span, smoothstep, ease-out with a little overshoot, a damped wobble,
+  // and a spring that settles from 0 to 1 with one small overshoot (about 9 %, peak after 0.4 s)
+  const span = (t, a, b) => (t <= a ? 0 : t >= b ? 1 : (t - a) / (b - a));
+  const smooth = (u) => u * u * (3 - 2 * u);
+  const outBack = (u) => 1 + 2.2 * (u - 1) ** 3 + 1.2 * (u - 1) ** 2;
+  const wobble = (s, f) => (s > 0 ? Math.exp(-5 * s) * Math.sin(2 * Math.PI * f * s) : 0);
+  function spring(s) {
+    if (s <= 0) return 0;
+    if (s >= 1.4) return 1;
+    const wd = Math.PI / 0.4, k = 0.75 * wd;   // damping ratio 0.6
+    return 1 - Math.exp(-k * s) * (Math.cos(wd * s) + (k / wd) * Math.sin(wd * s));
+  }
+
+  // one tin-toy step cycle (two steps) at phase ph (cycles) and strength amp (0–1): the lifted leg reaches out
+  // to the left (the robot walks leftwards), the body bobs and rocks, head, antenna and arms lag behind
+  function gait(ph, amp) {
+    const s = Math.sin(2 * Math.PI * ph), up = (v) => (v > 0 ? v ** 0.7 : 0);
+    return {
+      legL: [0, -4.5 * amp * up(s), 5 * amp * s],
+      legR: [0, -4.5 * amp * up(-s), -5 * amp * s],
+      torso: [0, -1.6 * amp * Math.abs(s) ** 0.8, 2.5 * amp * s],
+      head: [0, 0, -2 * amp * Math.sin(2 * Math.PI * ph - 0.6)],
+      ant: 7 * amp * Math.sin(2 * Math.PI * ph - 1.2),
+      arm: -6 * amp * s,
+    };
+  }
+
+  // the whole scene at t s after the robot sets off. m: x0 start, x1 at the logo, x2 gone (px, robot centre),
+  // din and dout (s) for walking in and out. Returns the robot centre x (px), the logo angle and each part.
+  const ACT = 2.45;   // s at the logo: reach, hold, flick, nod
+  function pose(t, m) {
+    const p = { x: m.x1, logo: 0, legL: [0, 0, 0], legR: [0, 0, 0], torso: [0, 0, 0], head: [0, 0, 0], ant: 0, eyes: 0, armL: 0, armR: 0 };
+    const walk = (g) => {
+      p.legL = g.legL; p.legR = g.legR; p.torso = g.torso; p.head = g.head; p.ant = g.ant;
+      p.armL = g.arm; p.armR = g.arm;
+    };
+    if (t < m.din) {                                   // trotting in, quick at first, slowing down to the logo
+      const u = t / m.din, e = 1 - (1 - u) ** 2;
+      p.x = m.x0 + (m.x1 - m.x0) * e;
+      p.logo = 180;
+      walk(gait(2.6 * t + e * m.din, Math.min(1, t / 0.12, (m.din - t) / 0.35)));
+      return p;
+    }
+    const r = t - m.din;
+    if (r < ACT) {                                     // at the logo
+      const look = smooth(span(r, 0.1, 0.35)) - smooth(span(r, 1.1, 1.45));
+      p.head = [0, 2.5 * (Math.sin(Math.PI * span(r, 1.55, 1.77)) + Math.sin(Math.PI * span(r, 1.81, 2.03))), -5 * look];
+      p.eyes = -1.5 * look;
+      p.torso = [0, 1.2 * Math.sin(Math.PI * span(r, 0, 0.25)) + 0.8 * Math.sin(Math.PI * span(r, 0.7, 0.9)), 1.5 * wobble(r - 0.85, 2.5)];
+      p.ant = 8 * wobble(r - 0.85, 3) + 9 * wobble(r - 1.55, 3);
+      p.armL = r < 0.85 ? 90 * outBack(span(r, 0.25, 0.6))                 // reach and hold the end of the logo
+        : r < 1 ? 90 + 45 * (1 - (1 - span(r, 0.85, 0.97)) ** 2)        // flick
+        : 135 * (1 - smooth(span(r, 1, 1.4)));                          // and down again
+      p.armR = -10 * Math.sin(Math.PI * span(r, 0.77, 1.2));
+      p.logo = r < 0.85 ? 180 - 4 * Math.sin(Math.PI * span(r, 0.7, 0.85)) : 180 * (1 - spring(r - 0.85));
+      return p;
+    }
+    const s = r - ACT, u = Math.min(1, s / m.dout);   // and off to the left, speeding up
+    p.x = m.x1 + (m.x2 - m.x1) * u * u;
+    walk(gait(2.6 * s + u * u * m.dout, Math.min(1, s / 0.2)));
+    return p;
+  }
+
+  function robot(colours) {   // colours(t): the chest window's two colours, t s after the page started
+    const hdr = $('#hdr');
+    if (!hdr || !hdr.hasAttribute('data-robo')) return;
+    const link = $('.logo', hdr), mark = link && $('svg', link);
+    const scripting = window.matchMedia ? window.matchMedia('(scripting: enabled)') : null;
+    const DELAY = 1.5;
+    let stage = null, svg = null, P = null, raf = 0, t = 0, last = 0, m = null, k0 = 0;
+
+    function finish() {
+      if (raf > 0) cancelAnimationFrame(raf);
+      raf = -1;
+      hdr.removeAttribute('data-robo');
+      hdr.classList.remove('rb-on');
+      if (mark) mark.style.transform = '';
+      if (stage) stage.remove();
+      document.removeEventListener('visibilitychange', wake);
+      if (reduceMotion.removeEventListener) reduceMotion.removeEventListener('change', finish);
+    }
+    function wake() {
+      if (raf === 0 && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); }
+    }
+    if (!mark || !scripting || !scripting.matches || reduceMotion.matches || !window.requestAnimationFrame || legalOpen()) {
+      finish();
+      return null;
+    }
+    hdr.classList.add('rb-on');   // from here the script holds the logo (styles.css would turn it back after 4 s)
+
+    // where things are, in px from the header's top left; k = px per grid unit, chosen so that the claw of the
+    // raised arm meets the middle of the logo while the feet stand on the lower edge of the header
+    function measure() {
+      const h = hdr.getBoundingClientRect(), l = link.getBoundingClientRect();
+      const H = hdr.offsetHeight, ly = (l.top + l.bottom) / 2 - h.top;
+      const k = Math.max(0.25, (H - ly) / 87);
+      const x1 = l.right - h.left + 68.5 * k;
+      return { k, H, x0: h.width + 50 * k, x1, x2: -50 * k };
+    }
+
+    stage = document.createElement('div');
+    stage.className = 'rb-stage';
+    stage.setAttribute('aria-hidden', 'true');
+    stage.innerHTML = ROBOT_SVG('rb-win');
+    svg = stage.firstChild;
+    P = robotParts(svg);
+    hdr.appendChild(stage);
+    m = measure();
+    m.din = Math.min(2.4, Math.max(1.7, (m.x0 - m.x1) / 650));
+    m.dout = Math.min(1.4, Math.max(1, (m.x1 - m.x2) / 450));
+
+    function draw(p) {
+      if (m.k !== k0) {
+        k0 = m.k;
+        svg.style.width = 88 * m.k + 'px';
+        svg.style.height = 144 * m.k + 'px';
+        svg.style.left = -44 * m.k + 'px';
+        svg.style.top = m.H - 143.5 * m.k + 'px';
+      }
+      svg.style.transform = 'translateX(' + Math.round(p.x * 10) / 10 + 'px)';
+      mark.style.transform = 'rotate(' + Math.round(p.logo * 100) / 100 + 'deg)';
+      ['legL', 'legR', 'torso', 'head'].forEach((n) => P.set(n, p[n][0], p[n][1], p[n][2]));
+      P.set('ant', 0, 0, p.ant);
+      P.set('eyes', p.eyes, 0, 0);
+      P.set('armL', 0, 0, p.armL);
+      P.set('armR', 0, 0, p.armR);
+      const c = colours(t);
+      P.paint(c[0], c[1]);
+    }
+    function frame(now) {
+      raf = 0;
+      try {
+        if (last) t += Math.min(now - last, 50) / 1000;   // a slow or hidden tab pauses the scene, it never jumps
+        last = now;
+        const s = t - DELAY;
+        Object.assign(m, measure());
+        if (s >= m.din + ACT + m.dout) { finish(); return; }
+        draw(pose(Math.max(0, s), m));
+      } catch (e) {
+        finish();
+        return;
+      }
+      if (!document.hidden) raf = requestAnimationFrame(frame);
+    }
+    draw(pose(0, m));   // sized and in place (off screen to the right) before the page is painted again
+    document.addEventListener('visibilitychange', wake);
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', finish);
+    wake();
+    return finish;
+  }
+
+  // the chest window shows the hero's pair; while the hero is out of view (the page opened further down) its clock
+  // rests, so the robot then runs the colours on with his own time
+  stopRobot = robot((t) => pair(Math.max(clock, t)));
 })();
