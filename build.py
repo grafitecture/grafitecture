@@ -249,7 +249,8 @@ def clients_html(mode: str) -> str:
     return "\n".join(rows)
 
 
-# photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos.
+# photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos. The portrait was replaced on
+# 17.11.2026 by a black-and-white studio portrait made with Higgsfield (GPT Image 2.6, max, 4K) from Martin's selfies.
 # Last field: a very small caption under the photo, the same in both languages (None = no caption).
 PHOTOS = {
     "IMG_PORTRAIT": ("martin-schweppe", "Martin Schweppe, Diplom-Designer", "Martin Schweppe, graduate designer",

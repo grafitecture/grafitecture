@@ -45,10 +45,10 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/photos/eingang-1280.jpg?v=547a87adab` | 200 | ✅ | /en, / |
 | `/assets/photos/eingang-640.avif?v=a2507483d0` | 200 | ✅ | /en, / |
 | `/assets/photos/eingang-640.jpg?v=cce089c50b` | 200 | ✅ | /en, / |
-| `/assets/photos/martin-schweppe-1280.avif?v=20d335d93a` | 200 | ✅ | /en, / |
-| `/assets/photos/martin-schweppe-1280.jpg?v=8686535776` | 200 | ✅ | /en, / |
-| `/assets/photos/martin-schweppe-640.avif?v=ad3b6e3dcf` | 200 | ✅ | /en, / |
-| `/assets/photos/martin-schweppe-640.jpg?v=56d10b3f16` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-1280.avif?v=ad821f4078` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-1280.jpg?v=eb45e7c490` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-640.avif?v=2dcb483335` | 200 | ✅ | /en, / |
+| `/assets/photos/martin-schweppe-640.jpg?v=890c3add8e` | 200 | ✅ | /en, / |
 | `/datenschutz` | 200 | ✅ | /datenschutz, /en/privacy-policy, /impressum, / |
 | `/en` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, / |
 | `/en/legal-notice` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, /impressum |
