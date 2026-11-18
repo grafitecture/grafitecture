@@ -876,7 +876,10 @@ def build_deploy():
     if out.exists():
         shutil.rmtree(out)
     (out / "assets").mkdir(parents=True)
-    for sub in ("fonts", "logo", "og", "photos"):
+    # signatur/: the animated image of Martin's Gmail signature (Martin 18.11.2026), linked from the signature as
+    # https://www.grafitecture.de/assets/signatur/grafitecture-signatur-roboter@2x.gif. /assets is cached for a year
+    # (immutable) and the signature links the file without ?v=, so a changed image needs a new file name.
+    for sub in ("fonts", "logo", "og", "photos", "signatur"):
         # the WOFF is kept in assets/ for tools/render_assets.py only; the site uses the WOFF2
         shutil.copytree(ASSETS / sub, out / "assets" / sub, ignore=shutil.ignore_patterns("*.woff") if sub == "fonts" else None)
     copy_clients(out)
