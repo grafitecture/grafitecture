@@ -40,7 +40,7 @@ PLAN = [
      "Quelle: YouGov im Auftrag von Seokratie, 509 Entscheider; Retail-News, 2.8.2026.\n#MarkenMitKI #GEO #SEO #KISuche #Marketing",
      "Lime-Fläche mit dem Wort GEO in sehr großer Schrift."),
     ("R11", "Reel", "Reel: Vorher. Nachher. (sieben eigene Fotos)",
-     "Sieben eigene Fotos von 2008 bis 2017, vorher und nachher. Die KI macht das Licht, das Motiv bleibt echt.\n\n"
+     "Sieben eigene Fotos von 2008 bis 2021, vorher und nachher. Die KI macht das Licht, das Motiv bleibt echt.\n\n"
      "Genau so arbeite ich mit Ihren Bildern: Bildwelt mit KI. Schreiben Sie mir »Bilder«.\n\n"
      "Bilder: eigene Fotos, bearbeitet mit KI (Higgsfield).\n#MarkenMitKI #HumanInTheLoop #Bildbearbeitung #Fotografie #Design",
      "Sieben Fotos wechseln vom Handy-Original zur bearbeiteten Fassung, eine Lime-Linie wischt von links nach rechts."),
@@ -65,18 +65,18 @@ PLAN = [
      "03 Bildwelt mit KI. 04 KI-Agenten.\n\nDrei Sätze zu Ihrem Vorhaben reichen. Schreiben Sie mir »Angebot«.\n"
      "#MarkenMitKI #KIAgentur #Website #KIAgenten #Mannheim",
      "Typografisches Reel: die vier Angebote nacheinander auf Weiß und Lime."),
-    ("H4", "Karussell", "Human in the loop 04: Kaffeemaschine, Atelier 2015",
-     "Human in the loop · 04\n\nDie Maschine macht den Kaffee. Den Geschmack macht der Mensch.\n\n"
-     "So arbeite ich mit KI: Sie übernimmt die Routine, ich entscheide, was rausgeht. Das Foto entstand 2015 in meinem Atelier, "
-     "die KI hat Licht, Chrom und Horizont gerichtet. Wischen Sie für das Original.\n\n" + KI_FOTO +
-     "\n#MarkenMitKI #HumanInTheLoop #Gastronomie #Design #Kaffee",
-     "Alte verchromte Kaffeemaschine mit mehreren Kesseln auf einem grauen Planschrank in einem weißen Atelier."),
-    ("H5", "Einzelbild", "Human in the loop 05: KEINE WERBUNG, Atelier 2015",
-     "Human in the loop · 05\n\nHing jahrelang in meinem Atelier: ein Werbeschild gegen Werbung.\n\n"
-     "Gute Werbung fühlt sich nicht wie Werbung an. Mit KI gilt das mehr denn je: kennzeichnen, echtes Material, ein Mensch gibt frei.\n\n"
-     "Bild: eigenes Foto (2015), bearbeitet mit KI (Higgsfield): Licht, Format, Buchrücken ohne Titel.\n"
-     "#MarkenMitKI #HumanInTheLoop #Werbung #Design #Atelier",
-     "Weiße Wand mit altem Tennisschläger, gerahmtem Aquarell und einem Schild KEINE WERBUNG, darunter Schreibmaschine und bunte Bücher."),
+    ("H4", "Karussell", "Human in the loop 04: BAR, 2021",
+     "Human in the loop · 04\n\nB. A. R. Drei Leuchtkästen, und jeder weiß sofort, wo er ist. August 2021.\n\n"
+     "Niemand liest an einer Bar einen Absatz. Gute Werbung ist so kurz wie möglich und so groß wie nötig. "
+     "Das gilt für Schilder, für Websites und für jeden Post. Wischen Sie für das Original.\n\n" + KI_FOTO +
+     "\n#MarkenMitKI #HumanInTheLoop #Werbung #Typografie #Gastronomie",
+     "Dunkle Bar mit drei Leuchtkästen B, A und R in blauen Rahmen, darunter rote Lampen auf einer Holztheke und Barhocker."),
+    ("H5", "Einzelbild", "Human in the loop 05: Spargel, Mannheim 2017",
+     "Human in the loop · 05\n\nSpargelzeit in Mannheim, April 2017. Geschält, sortiert, bereit.\n\n"
+     "Die beste Werbung für ein Restaurant ist die Saison. Wer sie zeigt, braucht kein Stockfoto. Echtes Produkt, echtes Foto, die KI macht nur das Licht.\n\n"
+     "Bild: eigenes Foto (2017), bearbeitet mit KI (Higgsfield): Licht, Farbe, Format.\n"
+     "#MarkenMitKI #HumanInTheLoop #Gastronomie #Spargelzeit #Mannheim",
+     "Geschälter weißer Spargel mit zartrosa Spitzen, Stange an Stange in einer Kiste mit grünem Papier."),
     ("K9", "Karussell", "KI-Essen macht weniger Appetit (Studie 2026)",
      "87 Personen, 60 Bildpaare: Eine Studie der Universität Duisburg-Essen zeigt, KI-Bilder von Essen wirken weniger echt und machen weniger Appetit. "
      "Gesund und kalorienreich wurden sie gleich eingeschätzt.\n\n"
@@ -96,13 +96,12 @@ PLAN = [
      "Warum jetzt: Fast jeder Zweite, der einer KI-Empfehlung folgt, geht essen. Ein Gespräch, ein Angebot mit klaren Preisen. Schreiben Sie mir »Gastro«.\n\n"
      "Quelle: Yext, Consumer Search Behaviors Report 2026; t3n, 4.8.2026.\n#MarkenMitKI #Gastronomie #Restaurant #Website #Mannheim",
      "Lime-Fläche mit dem Titel Das Gastro-Paket."),
-    ("H6", "Karussell", "Human in the loop 06: Pizza, Mannheim 2017",
-     "Human in the loop · 06\n\nEchtes Essen. Echtes Foto. Mannheim, Juni 2017.\n\n"
-     "KI-generierte Essensbilder machen weniger Appetit, das zeigt eine Studie der Universität Duisburg-Essen. "
-     "Deshalb bleibt bei mir das Gericht echt. Die KI macht nur Licht, Hintergrund und Format. Wischen Sie für das Original.\n\n"
-     "Quelle: Diel u. a., Universität Duisburg-Essen, berichtet von dpa, 5.11.2026. " + KI_FOTO +
-     "\n#MarkenMitKI #HumanInTheLoop #Gastronomie #Foodfotografie #Pizza",
-     "Pizza Margherita von oben, mit Basilikum und dunklen Stellen am Rand, auf einem weißen Teller auf grauem Stein."),
+    ("H6", "Karussell", "Human in the loop 06: Mise en place, Mannheim 2018",
+     "Human in the loop · 06\n\nMise en place. Mannheim, Januar 2018.\n\n"
+     "In einer guten Küche liegt alles bereit, bevor der erste Gast kommt. So arbeite ich mit KI: "
+     "Die Vorbereitung macht die Maschine. Angerichtet wird von Hand. Wischen Sie für das Original.\n\n" + KI_FOTO +
+     "\n#MarkenMitKI #HumanInTheLoop #Gastronomie #Design #MiseEnPlace",
+     "Viele Steakmesser mit glänzend roten Griffen und Stahlklingen liegen kreuz und quer übereinander."),
     ("K13", "Karussell", "Warum Grafitecture?",
      "Sechs Gründe, KI mit einem Gestalter zu machen: 26 Jahre Gestaltung seit 2000 in Mannheim. Ein Ansprechpartner statt Ticket-System. "
      "Systeme statt Tool-Listen. Jedes Ergebnis geht über meinen Tisch. Der Code gehört Ihnen. Zahlen mit Quelle, KI-Inhalte gekennzeichnet.\n\n"
@@ -121,12 +120,13 @@ PLAN = [
      "04 KI-Agenten: ein Agent, ein klarer Job.\n\nBei jedem Angebot steht dabei, was die KI macht und was ich entscheide. "
      "Schreiben Sie mir »Angebot«.\n#MarkenMitKI #KIAgentur #Website #KIAgenten #Mannheim",
      "Farbverlauf in Mint und Hellblau mit dem Titel Vier Angebote."),
-    ("H7", "Einzelbild", "Human in the loop 07: Café-Stuhl, 2016",
-     "Human in the loop · 07\n\nEin Caféstuhl, auf der Lehne der Name der Werkstatt in Gold: Küster, Perry & Co Nachf., Frankfurt a. M.\n\n"
-     "Wer etwas gut macht, steht mit seinem Namen dafür. Human in the loop heißt bei Grafitecture genau das: Martin Schweppe.\n\n"
-     "Bild: eigenes Foto (2016), bearbeitet mit KI (Higgsfield): Licht, Hintergrund, Format.\n"
-     "#MarkenMitKI #HumanInTheLoop #Design #Handwerk #Gastronomie",
-     "Lehne eines alten Bugholz-Caféstuhls mit Rohrgeflecht und goldener Schreibschrift des Herstellers."),
+    ("H7", "Einzelbild", "Human in the loop 07: Mannheim von oben, 2021",
+     "Human in the loop · 07\n\nMannheim vom Fernmeldeturm aus, Oktober 2021. Der Neckar, ein Frachtschiff, die Stadt in Herbstfarben.\n\n"
+     "Von hier oben sieht man, wie alles zusammenhängt. So sehe ich auch Marken: erst das Ganze, dann das Detail. "
+     "Gestaltung aus Mannheim seit 2000. Human in the loop ist Martin Schweppe.\n\n"
+     "Bild: eigenes Foto (2021), bearbeitet mit KI (Higgsfield): Licht, Spiegelung im Fenster entfernt, Format.\n"
+     "#MarkenMitKI #HumanInTheLoop #Mannheim #Neckar #Design",
+     "Blick vom Mannheimer Fernmeldeturm auf den Neckar mit Frachtschiff, Bahnlinie, Häuser mit roten Dächern und Bäume in Herbstfarben, darüber dunkle Wolken."),
 ]
 
 HIGHLIGHTS = {
@@ -177,11 +177,11 @@ def package():
               "## Quellen", "",
               "- Yext, Consumer Search Behaviors Report 2026; t3n, 4.8.2026 (K7, K12, R7, R10)",
               "- YouGov im Auftrag von Seokratie, 509 Entscheider; Retail-News, 2.8.2026 (K8)",
-              "- Diel u. a., Universität Duisburg-Essen / LVR-Universitätsklinik Essen; dpa via tageskarte.io, 5.11.2026 (K9, H6)",
+              "- Diel u. a., Universität Duisburg-Essen / LVR-Universitätsklinik Essen; dpa via tageskarte.io, 5.11.2026 (K9)",
               "- Sprout Social, Q1 2026 Pulse Survey; 8.4.2026 (K10)", "",
               "## Fotos (Mediathek, ohne Personen)", "",
               "H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B 6.3.2008 (Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · "
-              "H4 Kaffeemaschine Atelier 13.11.2015 · H5 KEINE WERBUNG Atelier 13.11.2015 · H6 Pizza 30.6.2017 · H7 Café-Stuhl 19.11.2016 · "
+              "H4 BAR 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Messer Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · "
               "R8 Wasserturm 15.11.2017. Originale in _arbeit/originale, Higgsfield-Fassungen in _arbeit/hf."]
     (PKG / "00_PLAN.md").write_text("\n".join(lines) + "\n")
     shutil.copy(OUT / "Raster-Vorschau_Paket3.png", PKG / "Raster-Vorschau_Paket3.png")

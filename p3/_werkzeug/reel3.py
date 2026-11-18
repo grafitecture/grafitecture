@@ -160,21 +160,24 @@ R10 = [
 R11_INTRO = dict(dur=2.4, bg="lime", html="""
 <div class="a kk" style="top:420px" data-in="0.05">Human in the loop</div>
 <div class="a big" style="top:620px" data-in="0.1">Vorher.<br>Nachher.</div>
-<div class="a sm" style="top:1120px" data-in="0.6">Sieben eigene Fotos, 2008 bis 2017.</div>
+<div class="a sm" style="top:1120px" data-in="0.6">Sieben eigene Fotos, 2008 bis 2021.</div>
 """)
 R11_OUTRO = dict(dur=3.0, bg="white", html="""
 <div class="a med" style="top:620px" data-in="0.1">Die KI macht das Licht.</div>
 <div class="a med" style="top:900px" data-in="0.8">Das Motiv bleibt echt.</div>
 <div class="a kk" style="top:1240px" data-in="1.3">Bildwelt mit KI · Angebot 03</div>
 """)
-PAIRS = [("D18_2011", "H1"), ("E22_2008", "H2"), ("I3_2016", "H3"), ("B2_2015", "H4"),
-         ("B15_2015", "H5"), ("I11_2017", "H6"), ("I6_2016", "H7")]
+PAIRS = [("D18_2011", "H1"), ("E22_2008", "H2"), ("I3_2016", "H3"), ("N1_2021", "H4"),
+         ("N2_2017", "H5"), ("N3_2018", "H6"), ("N5_2021", "H7")]
 
 REELS = {"R7": R7, "R8": R8, "R9": R9, "R10": R10}
 
 
-def fill(im):
-    return ImageOps.fit(im.convert("RGB"), (W, H), Image.LANCZOS, centering=(0.5, 0.5))
+CENTER = {"H4": (0.1, 0.5), "N1_2021": (0.15, 0.5)}
+
+
+def fill(im, key=None):
+    return ImageOps.fit(im.convert("RGB"), (W, H), Image.LANCZOS, centering=CENTER.get(key, (0.5, 0.5)))
 
 
 def make_wipes(path, each=1.7):
@@ -186,8 +189,8 @@ def make_wipes(path, each=1.7):
     k = 0
     lime = (218, 253, 85)
     for o, h in PAIRS:
-        a = fill(Image.open(P / f"orig/{o}.jpg"))
-        b = fill(Image.open(P / f"hf/{h}.png"))
+        a = fill(Image.open(P / f"orig/{o}.jpg"), o)
+        b = fill(Image.open(P / f"hf/{h}.png"), h)
         n = int(each * FPS)
         for i in range(n):
             t = i / FPS

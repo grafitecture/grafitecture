@@ -9,8 +9,8 @@ P = pathlib.Path("/home/claude/ig3/photos")
 HF = P / "hf"
 ORIG = P / "orig"
 
-ORIG_OF = {"H1": "D18_2011", "H2": "E22_2008", "H3": "I3_2016", "H4": "B2_2015", "H5": "B15_2015",
-           "H6": "I11_2017", "H7": "I6_2016", "W": "I15_2017"}
+ORIG_OF = {"H1": "D18_2011", "H2": "E22_2008", "H3": "I3_2016", "H4": "N1_2021", "H5": "N2_2017",
+           "H6": "N3_2018", "H7": "N5_2021", "W": "I15_2017"}
 
 
 def K(t):
@@ -116,23 +116,23 @@ POSTS["H1"] = [
 POSTS["H2"] = [photo("H2", 2, "Mannheim · 2008")]
 POSTS["H3"] = [photo("H3", 3, "Mannheim · 2016")]
 POSTS["H4"] = [
-    photo("H4", 4, "Atelier · 2015", arrow=True),
-    before("H4", "Handyfoto · November 2015", "Licht, Chrom, gerader Horizont, Format 4:5",
+    photo("H4", 4, "Bar · 2021", arrow=True),
+    before("H4", "Handyfoto · August 2021", "Licht, Rauschen, Format 4:5",
            "Motiv, Ausschnitt, Prüfung, Freigabe"),
-    thought(4, "Die Maschine macht den Kaffee.",
-            "Den Geschmack macht der Mensch. Mit KI ist es genauso: Sie erledigt die Routine. "
-            "Was rausgeht, entscheide ich."),
+    thought(4, "Drei Buchstaben reichen.",
+            "Niemand liest an einer Bar einen Absatz. Gute Werbung ist so kurz wie möglich und so groß wie nötig. "
+            "Das gilt für Schilder, für Websites und für jeden Post."),
 ]
-POSTS["H5"] = [photo("H5", 5, "Atelier · 2015")]
+POSTS["H5"] = [photo("H5", 5, "Mannheim · 2017")]
 POSTS["H6"] = [
-    photo("H6", 6, "Mannheim · 2017", arrow=True),
-    before("H6", "Handyfoto · Juni 2017", "Licht, Hintergrund, Format 4:5",
-           "Das Gericht bleibt, wie es war. Freigabe"),
-    thought(6, "Echtes Essen. Echtes Foto.",
-            "KI-generierte Essensbilder machen weniger Appetit, das zeigt eine Studie der Universität "
-            "Duisburg-Essen. Deshalb bleibt das Gericht echt. Die KI macht nur das Licht."),
+    photo("H6", 6, "Mannheim · 2018", arrow=True),
+    before("H6", "Handyfoto · Januar 2018", "Farbstich weg, Stahl, Licht, Format 4:5",
+           "Motiv, Ausschnitt, Prüfung, Freigabe"),
+    thought(6, "Mise en place.",
+            "In einer guten Küche liegt alles bereit, bevor der erste Gast kommt. So arbeite ich mit KI: "
+            "Die Vorbereitung macht die Maschine. Angerichtet wird von Hand."),
 ]
-POSTS["H7"] = [photo("H7", 7, "Café-Stuhl · 2016")]
+POSTS["H7"] = [photo("H7", 7, "Mannheim · 2021")]
 
 # ============================================================ K7 · 4 von 10 (Gastronomie, KI-Suche)
 POSTS["K7"] = [
@@ -250,7 +250,7 @@ POSTS["K9"] = [
 {top(K("So arbeite ich"), "")}
 <div class="two" style="margin-top:56px;column-gap:24px">
 <figure class="photo" style="height:600px"><img src="{img(ORIG / 'I11_2017.jpg')}"></figure>
-<figure class="photo" style="height:600px"><img src="{img(HF / 'H6.png')}"></figure>
+<figure class="photo" style="height:600px"><img src="{img(HF / 'K9_Pizza.png')}"></figure>
 </div>
 <div class="two" style="margin-top:20px;column-gap:24px"><span class="k">Handyfoto</span><span class="k">Mit KI: Licht, Hintergrund</span></div>
 <div class="grow"></div>
