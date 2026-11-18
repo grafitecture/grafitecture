@@ -1,0 +1,57 @@
+/* Grafitecture Instagram templates. CI from grafitecture.de: #435960 type, white, lime #dafd55 (always the full
+   tone), Google Sans, golden-ratio scale, lime lines on white and white lines on lime, very large type. */
+@font-face { font-family: "GS"; src: url("FONT_URL") format("woff"); font-weight: 400 700; font-style: normal; }
+:root { --c: #435960; --w: #ffffff; --lime: #dafd55; --line: var(--lime); --pad: 96px; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: "GS", "Helvetica Neue", Arial, sans-serif; color: var(--c); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; font-kerning: normal; }
+.slide { width: 1080px; height: 1350px; position: relative; overflow: hidden; padding: var(--pad); display: flex; flex-direction: column; background: var(--w); }
+.slide.reel { width: 1080px; height: 1920px; }
+.white { background: var(--w); --line: var(--lime); }
+.lime { background: var(--lime); --line: var(--w); }
+.shim { background: var(--lime); --line: var(--w); }
+canvas.sheen { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+.slide > *:not(canvas):not(.bleed) { position: relative; z-index: 1; }
+
+/* type scale for a 1080 px canvas (body 38 px, ratio phi) */
+.k { font-size: 24px; line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; font-weight: 500; }
+.h1 { font-size: 282px; line-height: .92; letter-spacing: -.045em; font-weight: 400; }
+.h2 { font-size: 214px; line-height: .94; letter-spacing: -.042em; font-weight: 400; }
+.h3 { font-size: 168px; line-height: .98; letter-spacing: -.035em; font-weight: 400; }
+.h4 { font-size: 124px; line-height: 1.0; letter-spacing: -.03em; font-weight: 400; }
+.h5 { font-size: 86px; line-height: 1.06; letter-spacing: -.024em; font-weight: 400; }
+.h6 { font-size: 56px; line-height: 1.16; letter-spacing: -.014em; font-weight: 400; }
+.p, p { font-size: 38px; line-height: 1.42; letter-spacing: -.004em; margin: 0; }
+.src { font-size: 24px; line-height: 1.45; letter-spacing: .005em; }
+.m0 { margin: 0; }
+b, strong { font-weight: 500; }
+
+.top { display: flex; justify-content: space-between; align-items: center; min-height: 40px; }
+.logo svg { height: 40px; width: auto; display: block; }
+.logo.lg svg { height: 52px; }
+.grow { flex: 1 1 auto; }
+.stack { display: flex; flex-direction: column; }
+.gap1 { gap: 16px; } .gap2 { gap: 28px; } .gap3 { gap: 44px; } .gap4 { gap: 68px; } .gap5 { gap: 110px; }
+.end { margin-top: auto; }
+.arrow svg { width: 66px; height: 30px; display: block; }
+
+.rule { border-top: 3px solid var(--line); }
+.rows { list-style: none; margin: 0; padding: 0; border-top: 3px solid var(--line); }
+.rows li { border-bottom: 3px solid var(--line); padding: 26px 0 28px; display: grid; grid-template-columns: 1fr; gap: 6px; }
+.rows.num li { grid-template-columns: 150px 1fr; align-items: baseline; }
+.rows .n { font-size: 56px; letter-spacing: -.02em; line-height: 1.1; }
+.rows .t { font-size: 44px; line-height: 1.22; letter-spacing: -.012em; }
+.rows .d { font-size: 32px; line-height: 1.4; }
+.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+
+.photo { margin: 0; overflow: hidden; border-radius: 4px; }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bleed { position: absolute; left: 0; right: 0; bottom: 0; z-index: 0; overflow: hidden; }
+.bleed img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cap { font-size: 22px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; line-height: 1.4; }
+
+.code { border: 3px solid var(--line); padding: 34px 38px; border-radius: 4px; font-size: 33px; line-height: 1.42; }
+.code p { font-size: 33px; line-height: 1.42; }
+.code p + p { margin-top: 18px; }
+.strike { text-decoration: line-through; text-decoration-color: var(--c); text-decoration-thickness: 3px; }
+.nowrap { white-space: nowrap; }
