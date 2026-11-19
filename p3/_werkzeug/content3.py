@@ -71,12 +71,13 @@ def before(key, when, ai, me):
 """)
 
 
-def thought(n, line, body):
+def thought(n, line, body, extra=""):
     return slide("lime", f"""
 {top(K(f"Human in the loop · {n:02d}"), "")}
 <div class="grow"></div>
 <p class="h4 m0" style="max-width:9ch">{line}</p>
 <p class="h6" style="margin-top:60px;max-width:21ch">{body}</p>
+{extra}
 <div class="rule" style="margin-top:64px"></div>
 <div class="top" style="margin-top:28px"><span class="k">{SIGN}</span><span class="k">grafitecture.de</span></div>
 """)
@@ -130,7 +131,8 @@ POSTS["H6"] = [
            "Motiv, Ausschnitt, Prüfung, Freigabe"),
     thought(6, "Mise en place.",
             "In einer guten Küche liegt alles bereit, bevor der erste Gast kommt. So arbeite ich mit KI: "
-            "Die Vorbereitung macht die Maschine. Angerichtet wird von Hand."),
+            "Die Vorbereitung macht die Maschine. Angerichtet wird von Hand.",
+            extra=f'<img src="{img(P / "zweite-liebe.png")}" alt="Zweite Liebe" style="display:block;width:340px;margin-top:64px">'),
 ]
 POSTS["H7"] = [photo("H7", 7, "Mannheim · 2021")]
 

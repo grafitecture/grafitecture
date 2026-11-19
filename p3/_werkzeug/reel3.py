@@ -176,6 +176,63 @@ REELS = {"R7": R7, "R8": R8, "R9": R9, "R10": R10}
 CENTER = {"H4": (0.1, 0.5), "N1_2021": (0.15, 0.5)}
 
 
+# ------------------------------------------------------------ R12 · BAR: erst am Haus, dann in der Bar
+def kenburns(src, out, dur, box0, box1, size=(W, H)):
+    """Langsame Kamerafahrt über ein Foto: box = (x0, y0, x1, y1) in Bildpixeln, gleiches Seitenverhältnis wie size."""
+    im = Image.open(src).convert("RGB")
+    d = R.WORK / (pathlib.Path(out).stem + "_kb")
+    if d.exists():
+        shutil.rmtree(d)
+    d.mkdir(parents=True)
+    n = int(round(dur * FPS))
+    for i in range(n):
+        t = i / max(1, n - 1)
+        e = t * t * (3 - 2 * t)
+        b = [box0[j] + (box1[j] - box0[j]) * e for j in range(4)]
+        im.resize(size, Image.LANCZOS, box=tuple(b)).save(d / f"{i:04d}.png")
+    R.ff("-framerate", FPS, "-i", d / "%04d.png", "-c:v", "libx264", "-crf", "14", "-preset", "veryfast",
+         "-pix_fmt", "yuv420p", "-r", FPS, out)
+
+
+def make_bar_clips():
+    R.VID.mkdir(parents=True, exist_ok=True)
+    # Fassade (1520 × 2688): leicht heran an das Schild
+    kenburns(P / "hf/BAR1.png", R.VID / "bar_haus.mp4", 3.8, (0, 0, 1520, 2688), (210, 300, 1430, 2469))
+    # von oben (1520 × 2688): langsam nach unten
+    kenburns(P / "hf/BAR2.png", R.VID / "bar_oben.mp4", 3.2, (60, 0, 1460, 2489), (60, 199, 1460, 2688))
+    # in der Bar (1792 × 2240): von den Buchstaben zurück auf die ganze Bar
+    kenburns(P / "hf/H4_full.png", R.VID / "bar_innen.mp4", 4.4, (20, 280, 800, 1667), (0, 0, 1260, 2240))
+
+
+SHADE = '<div style="position:absolute;left:0;right:0;bottom:0;height:900px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.55))"></div>'
+
+R12 = [
+    dict(dur=2.6, bg="lime", html="""
+<div class="a kk" style="top:420px" data-in="0.05">Human in the loop · Reel</div>
+<div class="a big" style="top:600px;font-size:176px" data-in="0.1">Drei<br>Buchstaben.</div>
+<div class="a sm" style="top:1080px" data-in="0.6">Eine Geschichte aus Mannheim.</div>
+"""),
+    dict(dur=3.8, video="bar_haus.mp4", html=SHADE + """
+<div class="a kk wht" style="top:1250px" data-in="0.2">Mannheim · 2010</div>
+<div class="a med wht" style="top:1320px" data-in="0.5">Erst hingen sie am Haus.</div>
+"""),
+    dict(dur=3.2, video="bar_oben.mp4", html=SHADE + """
+<div class="a kk wht" style="top:1250px" data-in="0.1">B · A · R</div>
+<div class="a med wht" style="top:1320px" data-in="0.3">Drei Leucht&shy;kästen.</div>
+"""),
+    dict(dur=4.4, video="bar_innen.mp4", html=SHADE + """
+<div class="a kk wht" style="top:1250px" data-in="0.2">Heute</div>
+<div class="a med wht" style="top:1320px" data-in="0.5">Jetzt leuchten sie in der Bar.</div>
+"""),
+    dict(dur=3.0, bg="white", html="""
+<div class="a med" style="top:620px" data-in="0.1">Gute Gestaltung zieht um.</div>
+<div class="a sm" style="top:1000px" data-in="0.7">Die KI macht das Licht der alten Fotos.<br>Die Geschichte ist echt.</div>
+"""),
+    end_card(hitl=True),
+]
+REELS["R12"] = R12
+
+
 def fill(im, key=None):
     return ImageOps.fit(im.convert("RGB"), (W, H), Image.LANCZOS, centering=CENTER.get(key, (0.5, 0.5)))
 
@@ -255,7 +312,7 @@ async def build(ids):
             dur = float(sum(durs))
             cuts = np.cumsum([0] + durs)[:-1]
             wav = R.WORK / f"{rid}.wav"
-            R.make_audio(wav, dur, cuts, seed={"R7": 0, "R8": 1, "R9": 2, "R10": 0, "R11": 1}[rid])
+            R.make_audio(wav, dur, cuts, seed={"R7": 0, "R8": 1, "R9": 2, "R10": 0, "R11": 1, "R12": 2}[rid])
             R.ff("-i", silent, "-i", wav, "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest",
                  "-movflags", "+faststart", R.OUT / f"{rid}.mp4")
             print(rid, f"{dur:.1f}s")

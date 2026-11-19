@@ -65,12 +65,12 @@ PLAN = [
      "03 Bildwelt mit KI. 04 KI-Agenten.\n\nDrei Sätze zu Ihrem Vorhaben reichen. Schreiben Sie mir »Angebot«.\n"
      "#MarkenMitKI #KIAgentur #Website #KIAgenten #Mannheim",
      "Typografisches Reel: die vier Angebote nacheinander auf Weiß und Lime."),
-    ("H4", "Karussell", "Human in the loop 04: BAR, 2021",
-     "Human in the loop · 04\n\nB. A. R. Drei Leuchtkästen, und jeder weiß sofort, wo er ist. August 2021.\n\n"
-     "Niemand liest an einer Bar einen Absatz. Gute Werbung ist so kurz wie möglich und so groß wie nötig. "
-     "Das gilt für Schilder, für Websites und für jeden Post. Wischen Sie für das Original.\n\n" + KI_FOTO +
-     "\n#MarkenMitKI #HumanInTheLoop #Werbung #Typografie #Gastronomie",
-     "Dunkle Bar mit drei Leuchtkästen B, A und R in blauen Rahmen, darunter rote Lampen auf einer Holztheke und Barhocker."),
+    ("R12", "Reel", "Reel: Drei Buchstaben. (BAR, Mannheim)",
+     "Human in the loop · Reel\n\nB. A. R. 2010 hingen die drei Leuchtkästen am Haus in Mannheim. Heute leuchten sie in der Bar.\n\n"
+     "Gute Gestaltung wird nicht alt, sie zieht um. Die KI hat das Licht der alten Fotos gemacht und das Format erweitert. Die Geschichte ist echt.\n\n"
+     "Bilder: eigene Fotos, bearbeitet mit KI (Higgsfield): Licht, Farbe, Format, Kamerafahrt.\n"
+     "#MarkenMitKI #HumanInTheLoop #Werbung #Typografie #Mannheim",
+     "Reel: Ein senkrechtes Schild aus drei Leuchtkästen B, A, R an einer Mannheimer Sandsteinfassade, dann von oben gesehen, dann leuchtend an der Wand einer dunklen Bar."),
     ("H5", "Einzelbild", "Human in the loop 05: Spargel, Mannheim 2017",
      "Human in the loop · 05\n\nSpargelzeit in Mannheim, April 2017. Geschält, sortiert, bereit.\n\n"
      "Die beste Werbung für ein Restaurant ist die Saison. Wer sie zeigt, braucht kein Stockfoto. Echtes Produkt, echtes Foto, die KI macht nur das Licht.\n\n"
@@ -97,11 +97,11 @@ PLAN = [
      "Quelle: Yext, Consumer Search Behaviors Report 2026; t3n, 4.8.2026.\n#MarkenMitKI #Gastronomie #Restaurant #Website #Mannheim",
      "Lime-Fläche mit dem Titel Das Gastro-Paket."),
     ("H6", "Karussell", "Human in the loop 06: Mise en place, Mannheim 2018",
-     "Human in the loop · 06\n\nMise en place. Mannheim, Januar 2018.\n\n"
+     "Human in the loop · 06\n\nMise en place. Rote Laguiole-Messer für die Zweite Liebe, Mannheim, Januar 2018.\n\n"
      "In einer guten Küche liegt alles bereit, bevor der erste Gast kommt. So arbeite ich mit KI: "
      "Die Vorbereitung macht die Maschine. Angerichtet wird von Hand. Wischen Sie für das Original.\n\n" + KI_FOTO +
      "\n#MarkenMitKI #HumanInTheLoop #Gastronomie #Design #MiseEnPlace",
-     "Viele Steakmesser mit glänzend roten Griffen und Stahlklingen liegen kreuz und quer übereinander."),
+     "Viele Laguiole-Messer mit glänzend roten Griffen und Stahlklingen liegen kreuz und quer übereinander."),
     ("K13", "Karussell", "Warum Grafitecture?",
      "Sechs Gründe, KI mit einem Gestalter zu machen: 26 Jahre Gestaltung seit 2000 in Mannheim. Ein Ansprechpartner statt Ticket-System. "
      "Systeme statt Tool-Listen. Jedes Ergebnis geht über meinen Tisch. Der Code gehört Ihnen. Zahlen mit Quelle, KI-Inhalte gekennzeichnet.\n\n"
@@ -134,7 +134,7 @@ HIGHLIGHTS = {
                  "Storys S_Angebot_01 bis 04 und S_Gastro-Paket", "alte Reels R3 (02:14) und R6 (Recherche-Agent)"],
     "WEBSITE": ["Highlight-Cover/HL_Website.png", "Reel R10 Lesbar für Menschen und Maschinen", "altes Reel R5 Website, Tag 1",
                 "Story S2 Website kostenlos (Paket 2) oder S_Angebot_01_Website"],
-    "HUMAN IN THE LOOP": ["Highlight-Cover/HL_Human_in_the_loop.png", "Reel R8 Mein Foto. Bewegt.", "Reel R11 Vorher. Nachher.",
+    "HUMAN IN THE LOOP": ["Highlight-Cover/HL_Human_in_the_loop.png", "Reel R8 Mein Foto. Bewegt.", "Reel R11 Vorher. Nachher.", "Reel R12 Drei Buchstaben.",
                           "Story S_Human_in_the_loop", "altes Reel R2 Ich entscheide"],
 }
 
@@ -153,7 +153,7 @@ def package():
         shutil.rmtree(PKG)
     PKG.mkdir(parents=True)
     lines = ["# Instagram Paket 3 · Stand 18.11.2026", "",
-             "20 Beiträge: 11 Karussells, 5 Reels, 4 Einzelbilder. Neue Serie HUMAN IN THE LOOP mit eigenen Fotos (ohne Personen), "
+             "20 Beiträge: 10 Karussells, 6 Reels, 4 Einzelbilder. Neue Serie HUMAN IN THE LOOP mit eigenen Fotos (ohne Personen), "
              "mit Higgsfield bearbeitet (GPT Image 2.6; Clip R8 mit Kling 3.0).", "",
              "Reihenfolge beim Posten: 01 zuerst, 20 zuletzt. Im Profil steht 20 oben links. Raster: Raster-Vorschau_Paket3.png.", "",
              "| Nr | ID | Format | Beitrag |", "|---|---|---|---|"]
@@ -181,7 +181,7 @@ def package():
               "- Sprout Social, Q1 2026 Pulse Survey; 8.4.2026 (K10)", "",
               "## Fotos (Mediathek, ohne Personen)", "",
               "H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B 6.3.2008 (Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · "
-              "H4 BAR 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Messer Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · "
+              "R12 BAR-Schild am Haus (Kameradatum 6.3.2008, laut Martin 2010) und in der Bar 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Laguiole-Messer Zweite Liebe, Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · "
               "R8 Wasserturm 15.11.2017. Originale in _arbeit/originale, Higgsfield-Fassungen in _arbeit/hf."]
     (PKG / "00_PLAN.md").write_text("\n".join(lines) + "\n")
     shutil.copy(OUT / "Raster-Vorschau_Paket3.png", PKG / "Raster-Vorschau_Paket3.png")
