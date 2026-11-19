@@ -160,7 +160,7 @@ R10 = [
 R11_INTRO = dict(dur=2.4, bg="lime", html="""
 <div class="a kk" style="top:420px" data-in="0.05">Human in the loop</div>
 <div class="a big" style="top:620px" data-in="0.1">Vorher.<br>Nachher.</div>
-<div class="a sm" style="top:1120px" data-in="0.6">Sieben eigene Fotos, 2008 bis 2021.</div>
+<div class="a sm" style="top:1120px" data-in="0.6">Sieben eigene Fotos, 2010 bis 2021.</div>
 """)
 R11_OUTRO = dict(dur=3.0, bg="white", html="""
 <div class="a med" style="top:620px" data-in="0.1">Die KI macht das Licht.</div>

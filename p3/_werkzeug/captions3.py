@@ -21,8 +21,8 @@ PLAN = [
      "Neue Serie mit eigenen Fotos aus meinem Archiv. Die KI macht Licht, Farbe und Format. Motiv, Ausschnitt und Freigabe entscheide ich. "
      "Wischen Sie für das Original.\n\n" + KI_FOTO + "\n#MarkenMitKI #HumanInTheLoop #Design #Mannheim #Jugendstil",
      "Jugendstil-Treppenhaus mit grünem, geschwungenem Eisengeländer und brauner Holztür mit Glaseinsatz."),
-    ("H2", "Einzelbild", "Human in the loop 02: Leuchtkasten B, Mannheim 2008",
-     "Human in the loop · 02\n\nEin Buchstabe, drei Farben, von der Straße aus in einer Sekunde gelesen. Mannheim, März 2008.\n\n"
+    ("H2", "Einzelbild", "Human in the loop 02: Leuchtkasten B, Mannheim 2010",
+     "Human in the loop · 02\n\nEin Buchstabe, drei Farben, von der Straße aus in einer Sekunde gelesen. Mannheim, 2010.\n\n"
      "Werbung muss nicht laut sein. Nur klar.\n\n"
      "Bild: eigenes Foto, bearbeitet mit KI (Higgsfield): Licht, Farbe, Format, eine Person am Straßenrand entfernt.\n"
      "#MarkenMitKI #HumanInTheLoop #Werbung #Typografie #Mannheim",
@@ -40,7 +40,7 @@ PLAN = [
      "Quelle: YouGov im Auftrag von Seokratie, 509 Entscheider; Retail-News, 2.8.2026.\n#MarkenMitKI #GEO #SEO #KISuche #Marketing",
      "Lime-Fläche mit dem Wort GEO in sehr großer Schrift."),
     ("R11", "Reel", "Reel: Vorher. Nachher. (sieben eigene Fotos)",
-     "Sieben eigene Fotos von 2008 bis 2021, vorher und nachher. Die KI macht das Licht, das Motiv bleibt echt.\n\n"
+     "Sieben eigene Fotos von 2010 bis 2021, vorher und nachher. Die KI macht das Licht, das Motiv bleibt echt.\n\n"
      "Genau so arbeite ich mit Ihren Bildern: Bildwelt mit KI. Schreiben Sie mir »Bilder«.\n\n"
      "Bilder: eigene Fotos, bearbeitet mit KI (Higgsfield).\n#MarkenMitKI #HumanInTheLoop #Bildbearbeitung #Fotografie #Design",
      "Sieben Fotos wechseln vom Handy-Original zur bearbeiteten Fassung, eine Lime-Linie wischt von links nach rechts."),
@@ -180,7 +180,7 @@ def package():
               "- Diel u. a., Universität Duisburg-Essen / LVR-Universitätsklinik Essen; dpa via tageskarte.io, 5.11.2026 (K9)",
               "- Sprout Social, Q1 2026 Pulse Survey; 8.4.2026 (K10)", "",
               "## Fotos (Mediathek, ohne Personen)", "",
-              "H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B 6.3.2008 (Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · "
+              "H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B (Kameradatum 6.3.2008, laut Martin 2010; Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · "
               "R12 BAR-Schild am Haus (Kameradatum 6.3.2008, laut Martin 2010) und in der Bar 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Laguiole-Messer Zweite Liebe, Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · "
               "R8 Wasserturm 15.11.2017. Originale in _arbeit/originale, Higgsfield-Fassungen in _arbeit/hf."]
     (PKG / "00_PLAN.md").write_text("\n".join(lines) + "\n")

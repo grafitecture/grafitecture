@@ -8,7 +8,7 @@ Reihenfolge beim Posten: 01 zuerst, 20 zuletzt. Im Profil steht 20 oben links. R
 |---|---|---|---|
 | 01 | K7 | Karussell | 4 von 10 fragen die KI nach dem Restaurant |
 | 02 | H1 | Karussell | Human in the loop 01: Treppenhaus, Mannheim 2011 |
-| 03 | H2 | Einzelbild | Human in the loop 02: Leuchtkasten B, Mannheim 2008 |
+| 03 | H2 | Einzelbild | Human in the loop 02: Leuchtkasten B, Mannheim 2010 |
 | 04 | R8 | Reel | Reel: Mein Foto. Bewegt. (Wasserturm 2017) |
 | 05 | K8 | Karussell | GEO: Das neue SEO |
 | 06 | R11 | Reel | Reel: Vorher. Nachher. (sieben eigene Fotos) |
@@ -44,4 +44,4 @@ Highlights gehen nur in der App: Story posten (Reel teilen oder MP4/PNG als Stor
 
 ## Fotos (Mediathek, ohne Personen)
 
-H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B 6.3.2008 (Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · R12 BAR-Schild am Haus (Kameradatum 6.3.2008, laut Martin 2010) und in der Bar 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Laguiole-Messer Zweite Liebe, Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · R8 Wasserturm 15.11.2017. Originale in _arbeit/originale, Higgsfield-Fassungen in _arbeit/hf.
+H1 Treppenhaus 18.1.2011 · H2 Leuchtkasten B (Kameradatum 6.3.2008, laut Martin 2010; Person am Straßenrand per KI entfernt) · H3 701, 4.10.2016 · R12 BAR-Schild am Haus (Kameradatum 6.3.2008, laut Martin 2010) und in der Bar 21.8.2021 · H5 Spargel Mannheim 27.4.2017 · H6 Laguiole-Messer Zweite Liebe, Mannheim 8.1.2018 · H7 Mannheim vom Fernmeldeturm 23.10.2021 · R8 Wasserturm 15.11.2017. Originale in _arbeit/originale, Higgsfield-Fassungen in _arbeit/hf.
