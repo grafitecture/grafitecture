@@ -139,7 +139,7 @@ POSTS["K7"] = [
     slide("lime", f"""
 {top(logo(), K("KI-Suche · Gastronomie"))}
 <div class="grow"></div>
-<div style="font-size:330px;line-height:.86;letter-spacing:-.05em;margin-left:-10px;white-space:nowrap">4 von<br>10</div>
+<div style="font-size:228px;line-height:.9;letter-spacing:-.045em;margin-left:-6px;white-space:nowrap">4 von 10</div>
 <p class="h6" style="margin-top:60px;max-width:19ch">suchen lokale Geschäfte inzwischen mit KI. Auch Ihr Restaurant.</p>
 <div class="top" style="margin-top:56px;align-items:flex-end"><p class="src m0" style="max-width:36ch">{YEXT}</p><span class="arrow">{ARROW}</span></div>
 """),
