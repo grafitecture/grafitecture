@@ -41,6 +41,9 @@ MAP = {
     "starks.webp": "starks",
     "ecowerth.png": "ecowerth",          # colour logo (29.10.2026), see SHADING
     "covendos-healthcare-group.png": "covendos-healthcare-group",   # colour logo, red on transparent (30.10.2026)
+    # dark red on transparent (20.11.2026), cut from Martin's screenshot (JPEG on a light ground) by linear unmixing
+    # of background and type colour; JPEG noise under 10 % dropped
+    "dr-andreas-frank-steuerberatung.png": "dr-andreas-frank-steuerberatung",
 }
 
 # Colour sources: light grey that only shades, and the colours it touches. It is left out, because in one colour it

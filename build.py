@@ -97,6 +97,7 @@ CLIENTS = [
     ("starks", None),
     ("ecowerth", None),
     ("Covendos Healthcare Group", None),   # Martin 30.10., not linked
+    ("Dr. Andreas Frank Steuerberatung", None),   # Martin 20.11., not linked
 ]
 
 # Title and description: Martin's wording, unchanged on 05.11.2026 at his request (the title is longer than the
