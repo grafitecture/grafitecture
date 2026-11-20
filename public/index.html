@@ -331,6 +331,19 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1100px) { .logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } .logos img { max-width: 50%; } }
 
+/* ---------- Instagram (Martin 20.11.2026): the 12 tiles at the top of the profile, 4:5 like the posts.
+   3 columns on phones (as in the app), 4 on tablets, 6 on desktop: always full rows. Copies served from this
+   site, each tile a plain link to its post; on mouse-over a lime frame around the tile, nothing on the image. ---------- */
+.ig { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(4px, .6vw, 12px); }
+.ig li { min-width: 0; }
+.ig a { display: block; border-radius: var(--r); transition: box-shadow .2s ease; }
+.ig picture { display: block; }
+.ig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.ig a:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+.site .ig-more { margin-top: var(--s4); }
+@media (min-width: 760px) { .ig { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .ig { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
 /* ---------- contact ---------- */
 .contact-grid { display: grid; gap: var(--s5); }
 .panel { display: grid; gap: var(--s3); align-content: start; min-width: 0; border-top: 1px solid var(--line); padding-top: var(--s4); }
@@ -442,7 +455,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 .legal-page .legal-hd { position: static; padding-top: 0; }
 
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
-.btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
+.btn, .copy, .x, .photo img, .logos a::before, .ig img { border-radius: var(--r); }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
@@ -462,6 +475,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
+  .ig a:hover { box-shadow: 0 0 0 3px var(--lime); }   /* Instagram tiles: a lime frame, the image stays as it is */
   /* on the lime fields (hero, process, contact) and the field behind Impressum/Datenschutz lime would not show:
      there the type turns white, and buttons fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover, .legal .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
@@ -676,6 +690,31 @@ mit KI.</span></h1>
   </div>
 </section>
 
+<!-- ===================== INSTAGRAM ===================== -->
+<section class="sec" id="instagram" aria-labelledby="t-ig">
+  <div class="wrap">
+    <header class="sec-head">
+      <h2 id="t-ig">Instagram</h2>
+      <p class="h5 lead"><span lang="de">Aus der Werkstatt: neue Beiträge, Referenzen und <span lang="en-GB">Human in the loop</span>.</span></p>
+    </header>
+    <ul class="ig">
+      <li><a href="https://www.instagram.com/p/Df7cJoElEpj/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df7cJoElEpj-400.avif?v=ec5c114151 400w, /assets/instagram/Df7cJoElEpj-800.avif?v=07d38216c0 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df7cJoElEpj-800.jpg?v=2dce05be71" srcset="/assets/instagram/Df7cJoElEpj-400.jpg?v=92bb8ee3f8 400w, /assets/instagram/Df7cJoElEpj-800.jpg?v=2dce05be71 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Eric und Martin Schweppe, Porträt in Schwarz-Weiß" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/DfPcfviIFMX/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/DfPcfviIFMX-400.avif?v=3bcf2d93ba 400w, /assets/instagram/DfPcfviIFMX-800.avif?v=c9ed843569 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/DfPcfviIFMX-800.jpg?v=eb68f7b914" srcset="/assets/instagram/DfPcfviIFMX-400.jpg?v=a2324d38a8 400w, /assets/instagram/DfPcfviIFMX-800.jpg?v=eb68f7b914 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Marken mit KI. Ich baue KI-Systeme, die für Ihre Marke arbeiten." width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/DIOf5y8tnaM/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/DIOf5y8tnaM-400.avif?v=79c9ba14d6 400w, /assets/instagram/DIOf5y8tnaM-800.avif?v=ad7d8614ef 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/DIOf5y8tnaM-800.jpg?v=1f95939611" srcset="/assets/instagram/DIOf5y8tnaM-400.jpg?v=c04d4f6089 400w, /assets/instagram/DIOf5y8tnaM-800.jpg?v=1f95939611 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Messestand von fläsh mit großen weißen Buchstaben, IDS Köln 2025" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/reel/Df7TqPJnNKJ/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df7TqPJnNKJ-400.avif?v=62497113af 400w, /assets/instagram/Df7TqPJnNKJ-640.avif?v=93faeaf14f 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df7TqPJnNKJ-640.jpg?v=0cef15db59" srcset="/assets/instagram/Df7TqPJnNKJ-400.jpg?v=0579609a30 400w, /assets/instagram/Df7TqPJnNKJ-640.jpg?v=0cef15db59 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Reel: Von der Garage zum L’Année. Eine Geschichte aus Mannheim." width="640" height="800" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/reel/Df60P_6DiEM/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df60P_6DiEM-400.avif?v=dde48e5642 400w, /assets/instagram/Df60P_6DiEM-640.avif?v=b57bfee962 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df60P_6DiEM-640.jpg?v=71bc1e83a3" srcset="/assets/instagram/Df60P_6DiEM-400.jpg?v=6f9ad2e816 400w, /assets/instagram/Df60P_6DiEM-640.jpg?v=71bc1e83a3 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Reel: die drei Leuchtkästen B, A, R über dem Tresen der Bar" width="640" height="800" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df618LFFgJR/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df618LFFgJR-400.avif?v=7d3a6f0b6c 400w, /assets/instagram/Df618LFFgJR-800.avif?v=8d85a2f40c 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df618LFFgJR-800.jpg?v=c27ddbeb3f" srcset="/assets/instagram/Df618LFFgJR-400.jpg?v=06979fb2bf 400w, /assets/instagram/Df618LFFgJR-800.jpg?v=c27ddbeb3f 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Vier Angebote. Marken mit KI. Ein Ansprechpartner. Klare Preise." width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df62BGtINTm/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df62BGtINTm-400.avif?v=9b188cc085 400w, /assets/instagram/Df62BGtINTm-800.avif?v=03a1ab1677 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df62BGtINTm-800.jpg?v=ce00e2ed8b" srcset="/assets/instagram/Df62BGtINTm-400.jpg?v=d8f3d48401 400w, /assets/instagram/Df62BGtINTm-800.jpg?v=ce00e2ed8b 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Mannheim vom Fernmeldeturm: der Neckar mit Frachtschiff, die Stadt in Herbstfarben" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/reel/Df61lEwijvG/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df61lEwijvG-400.avif?v=2196cf90ab 400w, /assets/instagram/Df61lEwijvG-640.avif?v=5b870ee250 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df61lEwijvG-640.jpg?v=aeff604085" srcset="/assets/instagram/Df61lEwijvG-400.jpg?v=b1833f0a9e 400w, /assets/instagram/Df61lEwijvG-640.jpg?v=aeff604085 640w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Reel: Lesbar für Menschen und Maschinen. Ihre neue Website. Kostenlos." width="640" height="800" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df61N46FSaR/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df61N46FSaR-400.avif?v=7742694de2 400w, /assets/instagram/Df61N46FSaR-800.avif?v=30f9df6a35 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df61N46FSaR-800.jpg?v=4f6d1f8138" srcset="/assets/instagram/Df61N46FSaR-400.jpg?v=8e30126ca8 400w, /assets/instagram/Df61N46FSaR-800.jpg?v=4f6d1f8138 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Rote Laguiole-Messer für die Zweite Liebe, Mannheim" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df61bjBltMx/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df61bjBltMx-400.avif?v=11c40d827d 400w, /assets/instagram/Df61bjBltMx-800.avif?v=0c9b5d29b6 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df61bjBltMx-800.jpg?v=10f7d8d69f" srcset="/assets/instagram/Df61bjBltMx-400.jpg?v=2d94687de6 400w, /assets/instagram/Df61bjBltMx-800.jpg?v=10f7d8d69f 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Warum Grafitecture? Sechs Gründe, KI mit einem Gestalter zu machen." width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df66wpUO8PA/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df66wpUO8PA-400.avif?v=06ba493947 400w, /assets/instagram/Df66wpUO8PA-800.avif?v=43f42d721a 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df66wpUO8PA-800.jpg?v=ad2ea94fc3" srcset="/assets/instagram/Df66wpUO8PA-400.jpg?v=71332881f8 400w, /assets/instagram/Df66wpUO8PA-800.jpg?v=ad2ea94fc3 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="Blick aus dem Autofenster auf das Meer bei Nervi" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+      <li><a href="https://www.instagram.com/p/Df6zqsLFdvJ/" target="_blank" rel="noopener noreferrer"><picture><source type="image/avif" srcset="/assets/instagram/Df6zqsLFdvJ-400.avif?v=32a4cbf844 400w, /assets/instagram/Df6zqsLFdvJ-800.avif?v=bcb225e738 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"><img src="/assets/instagram/Df6zqsLFdvJ-800.jpg?v=b63c46e489" srcset="/assets/instagram/Df6zqsLFdvJ-400.jpg?v=5254f5bbe6 400w, /assets/instagram/Df6zqsLFdvJ-800.jpg?v=b63c46e489 800w" sizes="(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw" alt="56 % sehen in Social Media oft oder sehr oft KI-Slop. Quelle: Sprout Social, Q1 2026 Pulse Survey" width="800" height="1000" loading="lazy" decoding="async"></picture></a></li>
+    </ul>
+    <p class="ig-more"><a class="btn btn-line" href="https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/" target="_blank" rel="noopener noreferrer"><span lang="de">Alle Beiträge auf Instagram</span><svg viewBox="0 0 22 10" aria-hidden="true" focusable="false"><path d="M0 5h20.5M16 .8 20.5 5 16 9.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></p>
+  </div>
+</section>
+
 <!-- ===================== KONTAKT ===================== -->
 <section class="sec is-lime" id="kontakt" data-sec aria-labelledby="t-kontakt">
   <div class="wrap">
@@ -798,7 +837,7 @@ Deutschland</p>
       <h3 class="h6">3. Kontakt per E-Mail</h3>
       <p>Wenn Sie uns schreiben, direkt oder über das Formular (es öffnet nur Ihr E-Mail-Programm), verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht, um die Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bei Anfragen zu einem Auftrag, sonst lit. f). Wir löschen die Daten, wenn sie nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
       <h3 class="h6">4. Keine Cookies, kein Tracking</h3>
-      <p>Diese Website setzt keine Cookies, speichert nichts auf Ihrem Gerät, nutzt keine Analyse-Dienste und lädt keine Inhalte von Drittanbietern. Schrift und Grafiken werden direkt von dieser Website geladen. Auf unser Instagram-Profil verweisen wir nur mit einem einfachen Link: Instagram (Meta Platforms Ireland Ltd.) erhält erst dann Daten, wenn Sie ihn anklicken, und verarbeitet sie nach seiner eigenen Datenschutzerklärung.</p>
+      <p>Diese Website setzt keine Cookies, speichert nichts auf Ihrem Gerät, nutzt keine Analyse-Dienste und lädt keine Inhalte von Drittanbietern. Schrift und Grafiken werden direkt von dieser Website geladen. Auf unser Instagram-Profil und einzelne Beiträge verweisen wir nur mit einfachen Links; die Vorschaubilder der Beiträge liegen als Kopie auf dieser Website. Instagram (Meta Platforms Ireland Ltd.) erhält erst dann Daten, wenn Sie einen dieser Links anklicken, und verarbeitet sie nach seiner eigenen Datenschutzerklärung.</p>
       <h3 class="h6">5. Ihre Rechte</h3>
       <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 18, 20 und 21 DSGVO). Eine E-Mail an martin.schweppe@grafitecture.de genügt. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
       <p class="note">Stand: November 2026</p>

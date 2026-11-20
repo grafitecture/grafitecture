@@ -330,6 +330,19 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1100px) { .logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } .logos img { max-width: 50%; } }
 
+/* ---------- Instagram (Martin 20.11.2026): the 12 tiles at the top of the profile, 4:5 like the posts.
+   3 columns on phones (as in the app), 4 on tablets, 6 on desktop: always full rows. Copies served from this
+   site, each tile a plain link to its post; on mouse-over a lime frame around the tile, nothing on the image. ---------- */
+.ig { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(4px, .6vw, 12px); }
+.ig li { min-width: 0; }
+.ig a { display: block; border-radius: var(--r); transition: box-shadow .2s ease; }
+.ig picture { display: block; }
+.ig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.ig a:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+.site .ig-more { margin-top: var(--s4); }
+@media (min-width: 760px) { .ig { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .ig { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
 /* ---------- contact ---------- */
 .contact-grid { display: grid; gap: var(--s5); }
 .panel { display: grid; gap: var(--s3); align-content: start; min-width: 0; border-top: 1px solid var(--line); padding-top: var(--s4); }
@@ -441,7 +454,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
 .legal-page .legal-hd { position: static; padding-top: 0; }
 
 /* ---------- slight rounding on all four corners: buttons, photos, hover field (Martin, 25.10.) ---------- */
-.btn, .copy, .x, .photo img, .logos a::before { border-radius: var(--r); }
+.btn, .copy, .x, .photo img, .logos a::before, .ig img { border-radius: var(--r); }
 
 /* ---------- mouse-over: always lime (Martin, 25.10.) ---------- */
 .logo svg g, .ftr-logo svg g { transition: fill .2s ease; }
@@ -461,6 +474,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
   .btn:hover svg { transform: translateX(5px); }
   .logos a:hover::before { opacity: 1; transform: none; }
   .site .logos a:hover { color: var(--c); }
+  .ig a:hover { box-shadow: 0 0 0 3px var(--lime); }   /* Instagram tiles: a lime frame, the image stays as it is */
   /* on the lime fields (hero, process, contact) and the field behind Impressum/Datenschutz lime would not show:
      there the type turns white, and buttons fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover, .legal .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
@@ -502,7 +516,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
       <h2 class="h6">3. Contact by email</h2>
       <p>If you write to us, directly or via the form (which only opens your email app), we process your name, email address and message to answer your enquiry (Art. 6(1)(b) GDPR for enquiries about an assignment, otherwise point (f)). We delete the data once it is no longer needed and no statutory retention obligations apply.</p>
       <h2 class="h6">4. No cookies, no tracking</h2>
-      <p>This website sets no cookies, stores nothing on your device, uses no analytics and loads no third-party content. Font and graphics are loaded directly from this website. Our Instagram profile is only referenced by a plain link: Instagram (Meta Platforms Ireland Ltd.) receives data only once you click it, and processes it under its own privacy policy.</p>
+      <p>This website sets no cookies, stores nothing on your device, uses no analytics and loads no third-party content. Font and graphics are loaded directly from this website. Our Instagram profile and individual posts are only referenced by plain links; the post previews are copies stored on this website. Instagram (Meta Platforms Ireland Ltd.) receives data only once you click one of these links, and processes it under its own privacy policy.</p>
       <h2 class="h6">5. Your rights</h2>
       <p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection (Art. 15 to 18, 20 and 21 GDPR). An email to martin.schweppe@grafitecture.de is sufficient. You may also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). The authority responsible for us is the State Commissioner for Data Protection and Freedom of Information Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
       <p class="note">Last updated: November 2026</p>

@@ -29,7 +29,7 @@ Ausgewählte Kunden aus 26 Jahren: L'Année, Dentaid, Healthklick, fläsh, Kaufh
 
 ## Seiten
 
-- [Startseite](https://www.grafitecture.de/): Leistungen, Über mich, Ablauf, Referenzen (Kundenlogos) und Kontakt, auf Deutsch
+- [Startseite](https://www.grafitecture.de/): Leistungen, Über mich, Ablauf, Referenzen (Kundenlogos), Instagram und Kontakt, auf Deutsch
 - [Home (English)](https://www.grafitecture.de/en): the same page in English
 - [Impressum](https://www.grafitecture.de/impressum): Anbieterkennzeichnung, Handelsregister, USt-IdNr.
 - [Datenschutz](https://www.grafitecture.de/datenschutz): Datenschutzerklärung

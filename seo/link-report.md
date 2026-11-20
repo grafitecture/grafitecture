@@ -1,9 +1,9 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-05 11:26 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-20 21:54 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
-## Intern (51)
+## Intern (100)
 
 | Adresse | Antwort | | Seiten |
 |---|---|---|---|
@@ -19,6 +19,7 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/clients/creating-smiles.png?v=71dcb2867b` | 200 | ✅ | /en, / |
 | `/assets/clients/dentaid.png?v=d71372c261` | 200 | ✅ | /en, / |
 | `/assets/clients/detmers.png?v=0eff359b5a` | 200 | ✅ | /en, / |
+| `/assets/clients/dr-andreas-frank-steuerberatung.png?v=146cdf5a85` | 200 | ✅ | /en, / |
 | `/assets/clients/ecowerth.png?v=b42bb1587d` | 200 | ✅ | /en, / |
 | `/assets/clients/flaeshapp.png?v=c8dfeac76e` | 200 | ✅ | /en, / |
 | `/assets/clients/flash.png?v=6175f6c833` | 200 | ✅ | /en, / |
@@ -39,6 +40,54 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/clients/zahnarztpraxis-theurer.png?v=64b0834e50` | 200 | ✅ | /en, / |
 | `/assets/clients/zweite-liebe.png?v=ae57b352a5` | 200 | ✅ | /en, / |
 | `/assets/fonts/GoogleSans-latin-wght.woff2?v=b0add59dd8` | 200 | ✅ | /datenschutz, /en/legal-notice, /en/privacy-policy, /en, /impressum, / |
+| `/assets/instagram/DIOf5y8tnaM-400.avif?v=79c9ba14d6` | 200 | ✅ | /en, / |
+| `/assets/instagram/DIOf5y8tnaM-400.jpg?v=c04d4f6089` | 200 | ✅ | /en, / |
+| `/assets/instagram/DIOf5y8tnaM-800.avif?v=ad7d8614ef` | 200 | ✅ | /en, / |
+| `/assets/instagram/DIOf5y8tnaM-800.jpg?v=1f95939611` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60P_6DiEM-400.avif?v=dde48e5642` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60P_6DiEM-400.jpg?v=6f9ad2e816` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60P_6DiEM-640.avif?v=b57bfee962` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60P_6DiEM-640.jpg?v=71bc1e83a3` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df618LFFgJR-400.avif?v=7d3a6f0b6c` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df618LFFgJR-400.jpg?v=06979fb2bf` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df618LFFgJR-800.avif?v=8d85a2f40c` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df618LFFgJR-800.jpg?v=c27ddbeb3f` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61N46FSaR-400.avif?v=7742694de2` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61N46FSaR-400.jpg?v=8e30126ca8` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61N46FSaR-800.avif?v=30f9df6a35` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61N46FSaR-800.jpg?v=4f6d1f8138` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61bjBltMx-400.avif?v=11c40d827d` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61bjBltMx-400.jpg?v=2d94687de6` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61bjBltMx-800.avif?v=0c9b5d29b6` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61bjBltMx-800.jpg?v=10f7d8d69f` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61lEwijvG-400.avif?v=2196cf90ab` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61lEwijvG-400.jpg?v=b1833f0a9e` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61lEwijvG-640.avif?v=5b870ee250` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61lEwijvG-640.jpg?v=aeff604085` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df62BGtINTm-400.avif?v=9b188cc085` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df62BGtINTm-400.jpg?v=d8f3d48401` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df62BGtINTm-800.avif?v=03a1ab1677` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df62BGtINTm-800.jpg?v=ce00e2ed8b` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df66wpUO8PA-400.avif?v=06ba493947` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df66wpUO8PA-400.jpg?v=71332881f8` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df66wpUO8PA-800.avif?v=43f42d721a` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df66wpUO8PA-800.jpg?v=ad2ea94fc3` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6zqsLFdvJ-400.avif?v=32a4cbf844` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6zqsLFdvJ-400.jpg?v=5254f5bbe6` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6zqsLFdvJ-800.avif?v=bcb225e738` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6zqsLFdvJ-800.jpg?v=b63c46e489` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7TqPJnNKJ-400.avif?v=62497113af` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7TqPJnNKJ-400.jpg?v=0579609a30` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7TqPJnNKJ-640.avif?v=93faeaf14f` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7TqPJnNKJ-640.jpg?v=0cef15db59` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7cJoElEpj-400.avif?v=ec5c114151` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7cJoElEpj-400.jpg?v=92bb8ee3f8` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7cJoElEpj-800.avif?v=07d38216c0` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df7cJoElEpj-800.jpg?v=2dce05be71` | 200 | ✅ | /en, / |
+| `/assets/instagram/DfPcfviIFMX-400.avif?v=3bcf2d93ba` | 200 | ✅ | /en, / |
+| `/assets/instagram/DfPcfviIFMX-400.jpg?v=a2324d38a8` | 200 | ✅ | /en, / |
+| `/assets/instagram/DfPcfviIFMX-800.avif?v=c9ed843569` | 200 | ✅ | /en, / |
+| `/assets/instagram/DfPcfviIFMX-800.jpg?v=eb68f7b914` | 200 | ✅ | /en, / |
 | `/assets/og/grafitecture-og-en.png` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en |
 | `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /impressum, / |
 | `/assets/photos/eingang-1280.avif?v=4ac14248df` | 200 | ✅ | /en, / |

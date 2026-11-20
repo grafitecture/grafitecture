@@ -23,6 +23,7 @@ Placeholders in src/body.html:
    {{CLIENTS}} {{CLIENT_COUNT}}  reference list, see CLIENTS below. A client shows its logo when
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
    {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
+   {{INSTAGRAM}}                 the 12 Instagram tiles, see instagram_html() and assets/instagram/feed.json
 """
 import base64, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
 from html.parser import HTMLParser
@@ -286,6 +287,41 @@ def photo_html(key: str, mode: str, lang=None) -> str:
     return f'<figure class="photo">{img}{cap}</figure>'
 
 
+# Instagram (Martin 20.11.2026): the 12 tiles at the top of the profile (pinned posts first, as Instagram shows them),
+# as copies on this site: nothing is loaded from Instagram, each tile is a plain link to its post. Images and alt
+# texts: assets/instagram/feed.json, made by tools/instagram_feed.py from a snapshot (tools/instagram_snapshot.js).
+IG_FEED = ASSETS / "instagram" / "feed.json"
+IG_SIZES = "(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"   # 6 / 4 / 3 columns
+
+
+def instagram_html(mode: str, lang=None) -> str:
+    rows = []
+    for p in json.loads(IG_FEED.read_text())["posts"]:
+        code, widths = p["code"], p["widths"]
+        href = f"https://www.instagram.com/{'reel' if p['kind'] == 'reel' else 'p'}/{code}/"
+        if lang:
+            alts = f'alt="{html.escape(p["alt_" + lang])}"'
+        else:
+            alts = (f'alt="{html.escape(p["alt_de"])}" data-alt-de="{html.escape(p["alt_de"])}" '
+                    f'data-alt-en="{html.escape(p["alt_en"])}"')
+        size = f'width="{p["w"]}" height="{p["h"]}" loading="lazy" decoding="async"'
+        if mode == "inline":
+            small = ASSETS / "instagram" / f"{code}-{widths[0]}.jpg"
+            img = f'<img src="data:image/jpeg;base64,{base64.b64encode(small.read_bytes()).decode()}" {alts} {size}>'
+        else:
+            def urls(ext):
+                rel = [f"assets/instagram/{code}-{x}.{ext}" for x in widths]
+                return ["/" + versioned(r) for r in rel] if mode == "deploy" else rel
+            jpg = urls("jpg")
+            srcset = ", ".join(f"{u} {x}w" for u, x in zip(jpg, widths))
+            img = f'<img src="{jpg[-1]}" srcset="{srcset}" sizes="{IG_SIZES}" {alts} {size}>'
+            if mode == "deploy":
+                av = ", ".join(f"{u} {x}w" for u, x in zip(urls("avif"), widths))
+                img = f'<picture><source type="image/avif" srcset="{av}" sizes="{IG_SIZES}">{img}</picture>'
+        rows.append(f'      <li><a href="{href}" target="_blank" rel="noopener noreferrer">{img}</a></li>')
+    return "\n".join(rows)
+
+
 def natural_size_jpeg(f: pathlib.Path):
     data = f.read_bytes(); i = 2
     while i < len(data):
@@ -305,6 +341,7 @@ def render_body(mode: str, lang=None) -> str:
                 .replace("{{LOGO_WHITE}}", inline_logo("grafitecture-white.svg"))
                 .replace("{{ARROW}}", ARROW)
                 .replace("{{CLIENTS}}", clients_html(mode))
+                .replace("{{INSTAGRAM}}", instagram_html(mode, lang))
                 .replace("{{CLIENT_COUNT}}", str(len(CLIENTS))))
     for key in PHOTOS:
         body = body.replace("{{" + key + "}}", photo_html(key, mode, lang))
@@ -785,7 +822,7 @@ def llms_txt(de_body: str) -> str:
     steps = [text(h) for h in re.findall(r'<li class="row"><span class="num"[^>]*>\d+</span><h3 class="h4">(.*?)</h3>', de_body)]
     svc = "".join(f"- **{n}:** {d}\n" for n, d in services(de_body))
     pages = "".join(f"- [{name}]({abs_url(path)}): {what}\n" for name, path, what in (
-        ("Startseite", "/", "Leistungen, Über mich, Ablauf, Referenzen (Kundenlogos) und Kontakt, auf Deutsch"),
+        ("Startseite", "/", "Leistungen, Über mich, Ablauf, Referenzen (Kundenlogos), Instagram und Kontakt, auf Deutsch"),
         ("Home (English)", "/en", "the same page in English"),
         ("Impressum", "/impressum", "Anbieterkennzeichnung, Handelsregister, USt-IdNr."),
         ("Datenschutz", "/datenschutz", "Datenschutzerklärung")))
@@ -881,9 +918,11 @@ def build_deploy():
     # https://www.grafitecture.de/assets/signatur/grafitecture-signatur-roboter-v3@2x.gif (the older
     # grafitecture-signatur-roboter@2x.gif stays for mails already sent). /assets is cached for a year
     # (immutable) and the signature links the file without ?v=, so a changed image needs a new file name.
-    for sub in ("fonts", "logo", "og", "photos", "signatur"):
-        # the WOFF is kept in assets/ for tools/render_assets.py only; the site uses the WOFF2
-        shutil.copytree(ASSETS / sub, out / "assets" / sub, ignore=shutil.ignore_patterns("*.woff") if sub == "fonts" else None)
+    for sub in ("fonts", "logo", "og", "photos", "signatur", "instagram"):
+        # the WOFF is kept in assets/ for tools/render_assets.py only; the site uses the WOFF2. instagram/feed.json
+        # is read by the build only.
+        skip = {"fonts": ("*.woff",), "instagram": ("*.json",)}.get(sub)
+        shutil.copytree(ASSETS / sub, out / "assets" / sub, ignore=shutil.ignore_patterns(*skip) if skip else None)
     copy_clients(out)
     for icon in ("favicon.svg", "favicon-32.png", "favicon-48.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
         shutil.copy(ASSETS / "icons" / icon, out / icon)
