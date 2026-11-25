@@ -294,6 +294,26 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .sheen-btn svg { width: 10px; height: 12px; flex: none; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
+/* ---------- hero: the two buttons on phones (Martin 25.11.2026) ----------
+   Below 760 px both buttons span the full width, one under the other, with the same height and the same look: a
+   white line (--line on the field), #435960 type, and a fill that shimmers the other way round to the hero. app.js
+   paints a .sheen canvas into each button with the hero's two colours swapped at every point (sheen() with src),
+   so wherever the field behind shows the first colour the button shows the second; still only the hero's pair,
+   the type keeps at least 4.5:1 on every colour, and the hero's pause icon stops the buttons too. Without
+   JavaScript and with reduced motion the fill is plain lime (with the white line it still shows); the 404 page has
+   the same two buttons, plain lime. From 760 px the buttons stay as before (filled and outline, side by side) and
+   their canvases are hidden, so nothing runs there. */
+.btn > .sheen { display: none; transition: opacity .3s ease; }
+@media (max-width: 759px) {
+  .cta-row { display: grid; grid-auto-rows: 1fr; }
+  .cta-row .btn {
+    position: relative; isolation: isolate; overflow: hidden; width: 100%;
+    background: var(--lime); color: var(--c); border-color: var(--line);
+    padding: 8px 20px; gap: 14px;   /* one line down to 360 px; if the text wraps (320 px), room above and below */
+  }
+  .cta-row .btn > .sheen { display: block; }
+}
+
 /* ---------- lists: services and process ---------- */
 .rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
 .row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--line); }
@@ -508,6 +528,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
      there the type turns white, and buttons fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover, .legal .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
+  .cta-row .btn:hover > .sheen { opacity: 0; }   /* the shimmering buttons on phones fill white like the others */
 }
 
 @media (prefers-reduced-motion: reduce) {

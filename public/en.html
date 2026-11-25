@@ -294,6 +294,26 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .sheen-btn svg { width: 10px; height: 12px; flex: none; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
+/* ---------- hero: the two buttons on phones (Martin 25.11.2026) ----------
+   Below 760 px both buttons span the full width, one under the other, with the same height and the same look: a
+   white line (--line on the field), #435960 type, and a fill that shimmers the other way round to the hero. app.js
+   paints a .sheen canvas into each button with the hero's two colours swapped at every point (sheen() with src),
+   so wherever the field behind shows the first colour the button shows the second; still only the hero's pair,
+   the type keeps at least 4.5:1 on every colour, and the hero's pause icon stops the buttons too. Without
+   JavaScript and with reduced motion the fill is plain lime (with the white line it still shows); the 404 page has
+   the same two buttons, plain lime. From 760 px the buttons stay as before (filled and outline, side by side) and
+   their canvases are hidden, so nothing runs there. */
+.btn > .sheen { display: none; transition: opacity .3s ease; }
+@media (max-width: 759px) {
+  .cta-row { display: grid; grid-auto-rows: 1fr; }
+  .cta-row .btn {
+    position: relative; isolation: isolate; overflow: hidden; width: 100%;
+    background: var(--lime); color: var(--c); border-color: var(--line);
+    padding: 8px 20px; gap: 14px;   /* one line down to 360 px; if the text wraps (320 px), room above and below */
+  }
+  .cta-row .btn > .sheen { display: block; }
+}
+
 /* ---------- lists: services and process ---------- */
 .rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
 .row { display: grid; gap: var(--s3); padding-block: clamp(2rem, 1rem + 3vw, 4.5rem); border-top: 1px solid var(--line); }
@@ -508,6 +528,7 @@ dialog.legal[open] .legal-in { animation: sheet-in .45s cubic-bezier(.2,.8,.2,1)
      there the type turns white, and buttons fill white with #435960 type */
   .site .is-lime a:hover, .is-lime .sheen-btn:hover, .legal .sheen-btn:hover { color: var(--w); text-decoration-color: var(--w); }
   .site .is-lime :is(.btn, .btn-line, .copy, .x):hover { background: var(--w); border-color: var(--w); color: var(--c); }
+  .cta-row .btn:hover > .sheen { opacity: 0; }   /* the shimmering buttons on phones fill white like the others */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1049,13 +1070,18 @@ Germany</p>
     return [wheel(ramp * hue), wheel(ramp * (hue + gap))];
   }
   if (!reduceMotion.matches && window.requestAnimationFrame) {
-    const add = (field, covered) => {
+    const add = (field, covered, src) => {
       const cv = document.createElement('canvas');
       const g = cv.getContext('2d');
-      if (g) sheens.push(sheen(field, cv, g, covered));
+      if (g) sheens.push(sheen(field, cv, g, covered, src));
     };
     const hero = $('.hero');
-    if (hero) add(hero, legalOpen);                            // covered while a legal dialog is open
+    if (hero) {
+      add(hero, legalOpen);                                    // covered while a legal dialog is open
+      // the two buttons under the hero text, on phones (Martin 25.11.2026): each fill shows the hero's colour play
+      // the other way round (see sheen()); styles.css shows these canvases only below 760 px, elsewhere they rest
+      $$('.cta-row .btn', hero).forEach((b) => add(b, legalOpen, hero));
+    }
     $$('dialog.legal').forEach((d) => add(d, () => !d.open));  // runs only while its dialog is open
     if (sheens.length) {
       const setPaused = (p) => {
@@ -1074,7 +1100,10 @@ Germany</p>
 
   // a shimmering field: a canvas painted behind its content (in a dialog only beside the sheet, see styles.css);
   // covered() says when the field is hidden although on screen. Returns its sync function.
-  function sheen(field, cv, g, covered) {
+  // With src (the hero's buttons on phones, Martin 25.11.2026) the canvas shows the counterpart of src's field at
+  // the same place: the areas are laid out over src as there, and the two colours are swapped, so wherever the
+  // hero shows its first colour the button shows the second and the other way round; still the same two colours.
+  function sheen(field, cv, g, covered, src) {
     // areas: centre x, y (share of the field), drift x, y (share), drift periods (s), radius (share of the
     // longer side); the first two (top left, bottom right) carry the first colour, the last two the second
     const AREAS = [
@@ -1094,16 +1123,23 @@ Germany</p>
     field.prepend(cv);
 
     function paint() {
-      const t = clock * SPEED, m = Math.max(w, h), [ca, cb] = pair(clock);
+      // the field the areas are laid out over (fw × fh) and this canvas's place in it (ox, oy)
+      let fw = w, fh = h, ox = 0, oy = 0, [ca, cb] = pair(clock);
+      if (src) {
+        const r = src.getBoundingClientRect(), c = cv.getBoundingClientRect();
+        fw = r.width || 1; fh = r.height || 1; ox = c.left - r.left; oy = c.top - r.top;
+        [ca, cb] = [cb, ca];
+      }
+      const t = clock * SPEED, m = Math.max(fw, fh);
       for (let k = 0; k < 256; k++) {
         for (let c = 0; c < 3; c++) mix[k * 3 + c] = enc(ca[c] + ((cb[c] - ca[c]) * k) / 255);
       }
       // per area: its bell along x and along y (the bell is separable)
       AREAS.forEach(([x, y, dx, dy, px, py, r], n) => {
-        const cx = (x + dx * Math.sin((TAU * t) / px)) * w, cy = (y + dy * Math.sin((TAU * t) / py + 1.3)) * h;
+        const cx = (x + dx * Math.sin((TAU * t) / px)) * fw, cy = (y + dy * Math.sin((TAU * t) / py + 1.3)) * fh;
         const k = SOFT / (r * m) ** 2, X = xs[n], Y = ys[n];
-        for (let i = 0; i < W; i++) X[i] = Math.exp(-k * ((i + 0.5) * RES - cx) ** 2);
-        for (let j = 0; j < H; j++) Y[j] = Math.exp(-k * ((j + 0.5) * RES - cy) ** 2);
+        for (let i = 0; i < W; i++) X[i] = Math.exp(-k * (ox + (i + 0.5) * RES - cx) ** 2);
+        for (let j = 0; j < H; j++) Y[j] = Math.exp(-k * (oy + (j + 0.5) * RES - cy) ** 2);
       });
       const d = img.data, [X0, X1, X2, X3] = xs;
       let p = 0;
