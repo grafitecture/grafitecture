@@ -130,7 +130,8 @@
      Since 29.10. (Martin) the screen behind the Impressum and Datenschutz sheet shimmers the same way, instead of
      the plain #435960 backdrop. Hero and dialogs share one timeline: a dialog opens in the colours the hero shows at
      that moment, and the hero carries on from there when it closes. Only the visible field runs (the hero rests
-     while a dialog covers it); each dialog has its own pause icon, and every icon pauses all fields. */
+     while a dialog covers it); each dialog has its own pause icon, and every icon pauses all fields.
+     Since 25.11.2026 (Martin) every call-to-action button shimmers too, on the same timeline (see below). */
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   const sheenBtns = $$('[data-sheen-btn]');
   const sheens = [];
@@ -171,12 +172,11 @@
       if (g) sheens.push(sheen(field, cv, g, covered, src));
     };
     const hero = $('.hero');
-    if (hero) {
-      add(hero, legalOpen);                                    // covered while a legal dialog is open
-      // the two buttons under the hero text, on phones (Martin 25.11.2026): each fill shows the hero's colour play
-      // the other way round (see sheen()); styles.css shows these canvases only below 760 px, elsewhere they rest
-      $$('.cta-row .btn', hero).forEach((b) => add(b, legalOpen, hero));
-    }
+    if (hero) add(hero, legalOpen);                            // covered while a legal dialog is open
+    // every call-to-action button (Martin 25.11.2026): in the hero the fill shows the field behind the other way
+    // round (src = the hero, see sheen()), elsewhere the hero's pair laid out over the button itself; each rests
+    // while it is out of view (also inside the closed menu) or a legal dialog is open
+    $$('.btn').forEach((b) => add(b, legalOpen, hero && hero.contains(b) ? hero : null));
     $$('dialog.legal').forEach((d) => add(d, () => !d.open));  // runs only while its dialog is open
     if (sheens.length) {
       const setPaused = (p) => {
@@ -195,7 +195,7 @@
 
   // a shimmering field: a canvas painted behind its content (in a dialog only beside the sheet, see styles.css);
   // covered() says when the field is hidden although on screen. Returns its sync function.
-  // With src (the hero's buttons on phones, Martin 25.11.2026) the canvas shows the counterpart of src's field at
+  // With src (the hero's two buttons, Martin 25.11.2026) the canvas shows the counterpart of src's field at
   // the same place: the areas are laid out over src as there, and the two colours are swapped, so wherever the
   // hero shows its first colour the button shows the second and the other way round; still the same two colours.
   function sheen(field, cv, g, covered, src) {
