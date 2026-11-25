@@ -195,18 +195,47 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
    The footer was a lime field too and is white since 28.10. (Martin). */
 .is-lime { background: var(--lime); color: var(--c); --line: var(--w); }   /* lines on the fields are white (Martin, 29.10.) */
 
-/* ---------- hero ---------- */
-.hero { min-height: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px)); display: flex; }
-.hero .wrap { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s6); padding-top: clamp(2.5rem, 1rem + 5vw, 7rem); padding-bottom: clamp(3rem, 1rem + 5vw, 7rem); }
-/* phones: "Marken mit KI." a little higher, closer to the kicker (Martin 27.10.) */
-@media (max-width: 759px) { .hero .wrap { justify-content: flex-start; gap: var(--s5); } }
-.hero-foot { display: grid; gap: var(--s4); margin-top: var(--s5); }
-.hero-foot .h4 { max-width: 16ch; }
-.hero-side { display: grid; gap: var(--s4); align-content: end; max-width: 40rem; }
-.hero-side p { font-size: var(--h6); line-height: 1.55; }
+/* ---------- hero ----------
+   One screen on every device (Martin 25.11.2026): header and hero together are exactly one screen height on phones,
+   tablets and desktops, upright and sideways, and the kicker, „Marken mit KI.“, the line and the text under it and
+   the two buttons fill it. --hh is the height left under the header. The H1 sits in a box (.hero-title) that takes
+   all the height the rest leaves, and its size follows that box (cqh), up to the size the type scale allows for
+   the width (--h1, at most 17.942rem). Everything else (spaces, the line, the text, the buttons) takes the smaller
+   of its width-based size and a share of --hh (the --k-… values), so on a flat screen it shrinks a little too and
+   leaves the H1 room. If the H1 reaches its width limit, the height left over stays in its box: on tablets and
+   desktops above the H1 (it sits on the text, as before), on phones under it (it stays close to the kicker, Martin
+   27.10., and the text and the buttons sit at the bottom). Floors keep it readable (H1 2.5rem, text 16 px, buttons
+   44 px tall); where even that does not fit (a phone held sideways) the hero grows and the page scrolls. svh, not
+   dvh: it stays the same when the browser bars slide away, so nothing moves while scrolling. */
+.hero {
+  --hh: calc(100svh - var(--hdr) - env(safe-area-inset-top, 0px));
+  --k-pad: .075; --k-gap: .07; --k-foot: .05; --k-h4: .05; --k-p: .03; --k-side: .04; --k-btn: .07;
+  min-height: var(--hh); display: flex;
+}
+.hero .wrap {
+  display: flex; flex-direction: column;
+  gap: max(var(--s2), min(var(--s6), calc(var(--hh) * var(--k-gap))));
+  padding-top: max(var(--s2), min(clamp(2.5rem, 1rem + 5vw, 7rem), calc(var(--hh) * var(--k-pad))));
+  padding-bottom: max(var(--s2), min(clamp(3rem, 1rem + 5vw, 7rem), calc(var(--hh) * var(--k-pad))));
+}
+.hero-main { flex: 1 0 auto; display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+.hero-title { container-type: size; min-height: calc(2.5rem * 1.84); display: flex; align-items: flex-end; }
+.hero h1 { font-size: max(2.5rem, min(var(--h1), calc(100cqh / 1.84))); }   /* two lines at line-height .92 */
+.hero-foot { display: grid; gap: max(var(--s2), min(var(--s4), calc(var(--hh) * var(--k-side)))); margin-top: max(var(--s2), min(var(--s5), calc(var(--hh) * var(--k-foot)))); }
+.hero-foot .h4 { max-width: 16ch; font-size: max(1.25rem, min(var(--h4), calc(var(--hh) * var(--k-h4)))); }
+.hero-side { display: grid; gap: max(var(--s2), min(var(--s4), calc(var(--hh) * var(--k-side)))); align-content: end; max-width: 40rem; }
+.hero-side p { font-size: max(1rem, min(var(--h6), calc(var(--hh) * var(--k-p)))); line-height: 1.55; }
+.hero .btn { min-height: max(44px, min(58px, calc(var(--hh) * var(--k-btn)))); }
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
-@media (min-width: 1100px) {
-  .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--s5); }
+@media (max-width: 759px) {
+  .hero { --k-pad: .04; --k-gap: .035; --k-foot: .035; --k-h4: .045; --k-side: .03; }   /* tighter on phones, so the H1 keeps its size */
+  .hero .wrap { gap: max(var(--s2), min(var(--s5), calc(var(--hh) * var(--k-gap)))); }
+  .hero-title { align-items: flex-start; }
+}
+/* the line and the text side by side: on desktops, and on tablets held sideways (from 900 px wide and 560 px
+   high, so not on phones), where the stacked version would leave the H1 too little height (Martin 25.11.2026) */
+@media (min-width: 1100px), (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
+  .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; column-gap: var(--s5); }
 }
 
 /* ---------- hero: the surface shimmers (Martin, 26.10.; two colours of the whole spectrum since 28.10.) ----------
