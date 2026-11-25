@@ -5,14 +5,14 @@ Turns a snapshot of the profile grid (tools/instagram_snapshot.js, run in the bu
 the images in assets/instagram and assets/instagram/feed.json, which build.py reads. Nothing is loaded from Instagram
 on the website: it serves these copies, and every tile is a plain link to its post.
 
-- Order as on the profile, pinned posts first (12 tiles: 6 x 2 on desktop, 4 x 3 on tablets, 3 x 4 on phones).
+- Order as on the profile, pinned posts first (18 tiles since 25.11.2026: 6 x 3 from 760 px, 3 x 6 on phones).
 - Every tile is cut to 4:5 around the centre, the format of the posts (reels arrive as 640 x 1136 covers, older
   square posts as 1080 x 1080) and saved 400 and 800 px wide (reels 400 and 640: their cover is only 640 wide),
   each as JPEG and AVIF (the AVIF is offered first, the JPEG is the fallback, as with the photos).
 - Alt texts (DE and EN) live in feed.json, keyed by the post code, and are kept when the feed is refreshed. A new
   post without them stops the run with a list: write alt_de and alt_en into feed.json (describe what the tile
   shows; for a reel start with „Reel:“) and run again.
-- Images of posts that dropped out of the 12 are deleted.
+- Images of posts that dropped out of the 18 are deleted.
 
 Run:  python3 tools/instagram_feed.py /path/to/grafitecture-instagram-feed.json      then python3 build.py
 Needs Pillow with AVIF support (as tools/encode_photos.py)."""

@@ -1,7 +1,19 @@
 {
  "profile": "https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/",
- "taken": "2026-11-20",
+ "taken": "2026-11-25",
  "posts": [
+  {
+   "code": "DgLIubpBmkV",
+   "kind": "reel",
+   "widths": [
+    400,
+    800
+   ],
+   "w": 800,
+   "h": 1000,
+   "alt_de": "Reel: Advent Pop-up in der Garage. Austern & Bubbles im L’Année an den vier Adventswochenenden, samstags und sonntags ab 16 Uhr, Garage, Beilstraße 6, Mannheim-Jungbusch",
+   "alt_en": "Reel: Advent pop-up in the garage. Oysters & bubbles at L’Année on the four Advent weekends, Saturdays and Sundays from 4 pm, Garage, Beilstraße 6, Mannheim-Jungbusch"
+  },
   {
    "code": "Df7cJoElEpj",
    "kind": "p",
@@ -75,7 +87,7 @@
    "alt_en": "Four offers. Brands with AI. One contact. Clear prices."
   },
   {
-   "code": "Df62BGtINTm",
+   "code": "DgFQRG6upNT",
    "kind": "p",
    "widths": [
     400,
@@ -83,8 +95,8 @@
    ],
    "w": 800,
    "h": 1000,
-   "alt_de": "Mannheim vom Fernmeldeturm: der Neckar mit Frachtschiff, die Stadt in Herbstfarben",
-   "alt_en": "Mannheim from the TV tower: the Neckar with a cargo ship, the city in autumn colours"
+   "alt_de": "Wandschrift „Un buen plan“ in großen Lettern, Schwarz auf Rot",
+   "alt_en": "Wall lettering “Un buen plan” in big letters, black on red"
   },
   {
    "code": "Df61lEwijvG",
@@ -145,6 +157,65 @@
    "h": 1000,
    "alt_de": "56 % sehen in Social Media oft oder sehr oft KI-Slop. Quelle: Sprout Social, Q1 2026 Pulse Survey",
    "alt_en": "56 % often or very often see AI slop on social media. Source: Sprout Social, Q1 2026 Pulse Survey"
+  },
+  {
+   "code": "Df69A7vO7SB",
+   "kind": "p",
+   "widths": [
+    400,
+    800
+   ],
+   "w": 800,
+   "h": 1000,
+   "alt_de": "Hellblaue Lego-Vespa auf einer Marmorbrüstung, dahinter Meer und Küste",
+   "alt_en": "Light blue Lego Vespa on a marble balustrade, the sea and the coast behind it"
+  },
+  {
+   "code": "Df61D7wIImu",
+   "kind": "p",
+   "widths": [
+    400,
+    800
+   ],
+   "w": 800,
+   "h": 1000,
+   "alt_de": "Das Gastro-Paket. Damit die KI Ihr Lokal empfiehlt und die Gäste es wiederfinden.",
+   "alt_en": "The gastro package. So that AI recommends your restaurant and guests find it again."
+  },
+  {
+   "code": "Df6z3NFFi86",
+   "kind": "p",
+   "widths": [
+    400,
+    800
+   ],
+   "w": 800,
+   "h": 1000,
+   "alt_de": "Ein Foto. Sieben Formate. Bildwelt mit KI, darunter ein Treppenhaus mit Holztür und verziertem Geländer",
+   "alt_en": "One photo. Seven formats. Imagery with AI, below it a stairwell with a wooden door and an ornate banister"
+  },
+  {
+   "code": "Df60z9vEe6r",
+   "kind": "reel",
+   "widths": [
+    400,
+    640
+   ],
+   "w": 640,
+   "h": 800,
+   "alt_de": "Reel: Fragen Sie mal ChatGPT. Was die KI über Ihr Restaurant erzählt.",
+   "alt_en": "Reel: Just ask ChatGPT. What AI says about your restaurant."
+  },
+  {
+   "code": "Df69YoiO_RX",
+   "kind": "p",
+   "widths": [
+    320
+   ],
+   "w": 320,
+   "h": 400,
+   "alt_de": "Zwei Kinder mit Taucherbrille und Schnorchel am Meer, Varigotti 1978",
+   "alt_en": "Two children with diving masks and snorkels by the sea, Varigotti 1978"
   }
  ]
 }

@@ -291,7 +291,7 @@ def photo_html(key: str, mode: str, lang=None) -> str:
 # as copies on this site: nothing is loaded from Instagram, each tile is a plain link to its post. Images and alt
 # texts: assets/instagram/feed.json, made by tools/instagram_feed.py from a snapshot (tools/instagram_snapshot.js).
 IG_FEED = ASSETS / "instagram" / "feed.json"
-IG_SIZES = "(min-width: 1100px) 16vw, (min-width: 760px) 23vw, 31vw"   # 6 / 4 / 3 columns
+IG_SIZES = "(min-width: 760px) 16vw, 31vw"   # 6 / 3 columns (18 tiles since 25.11.2026)
 
 
 def instagram_html(mode: str, lang=None) -> str:

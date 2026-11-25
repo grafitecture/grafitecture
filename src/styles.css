@@ -342,9 +342,10 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 @media (min-width: 760px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1100px) { .logos { grid-template-columns: repeat(5, minmax(0, 1fr)); } .logos img { max-width: 50%; } }
 
-/* ---------- Instagram (Martin 20.11.2026): the 12 tiles at the top of the profile, 4:5 like the posts.
-   3 columns on phones (as in the app), 4 on tablets, 6 on desktop: always full rows. Copies served from this
-   site, each tile a plain link to its post; on mouse-over a lime frame around the tile, nothing on the image. ---------- */
+/* ---------- Instagram (Martin 20.11.2026): the tiles at the top of the profile, 4:5 like the posts; since
+   25.11.2026 the first 18 (Martin: „zeige insgesamt die letzten 18 posts“), so 3 columns on phones (as in the app,
+   6 rows) and 6 from 760 px (3 rows): always full rows. Copies served from this site, each tile a plain link to
+   its post; on mouse-over a lime frame around the tile, nothing on the image. ---------- */
 .ig { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(4px, .6vw, 12px); }
 .ig li { min-width: 0; }
 .ig a { display: block; border-radius: var(--r); transition: box-shadow .2s ease; }
@@ -352,8 +353,7 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
 .ig img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 .ig a:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
 .site .ig-more { margin-top: var(--s4); }
-@media (min-width: 760px) { .ig { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .ig { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (min-width: 760px) { .ig { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 
 /* ---------- contact ---------- */
 .contact-grid { display: grid; gap: var(--s5); }
