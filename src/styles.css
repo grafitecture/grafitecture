@@ -1,7 +1,7 @@
 /* Layout concept: quiet and plain. One colour (#435960) on white, one accent (lime #dafd55: the hero, „So läuft’s“
    and „Bereit?“ are lime fields, every line is lime, and every mouse-over is lime), one typeface (Google Sans) on a
    golden-ratio scale, very large headlines and wide white space. The footer is white (Martin, 28.10.).
-   Images: two photos. */
+   Images: three photos (the hero photo since 26.11.2026). */
 /* Fallback while Google Sans loads (05.11.2026): Arial, scaled to the width and line metrics of Google Sans, so the
    text does not move when the web font arrives (values from tools/make_woff2.py). Only visible for a moment, if at all. */
 @font-face {
@@ -196,7 +196,8 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
    28.10. at Martin's request (git history) ---------- */
 
 /* ---------- lime fields (Martin, 25./26.10.): hero, „So läuft’s“ and „Bereit?“, full width ----------
-   Plain #dafd55 behind #435960 type and white lines; no image, no animation. Mouse-over rules for them at the end.
+   Plain #dafd55 behind #435960 type and white lines; no animation (the hero shimmers, and since 26.11.2026 it holds
+   one photo, see „hero: the photo“). Mouse-over rules for them at the end.
    The footer was a lime field too and is white since 28.10. (Martin). */
 .is-lime { background: var(--lime); color: var(--c); --line: var(--w); }   /* lines on the fields are white (Martin, 29.10.) */
 
@@ -241,6 +242,38 @@ h6, .h6 { font-size: var(--h6); line-height: 1.4; letter-spacing: -.005em; font-
    high, so not on phones), where the stacked version would leave the H1 too little height (Martin 25.11.2026) */
 @media (min-width: 1100px), (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
   .hero-foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; column-gap: var(--s5); }
+}
+
+/* ---------- hero: the photo above the text (Martin 26.11.2026) ----------
+   „Onkel Otto“ in 1954 (historic photo, colourised with AI), as wide as the text under it (.hero-side, 40rem).
+   Side by side (desktops, tablets held sideways) it stands in the right column next to „Marken mit KI.“, in the
+   height the H1 leaves free there, directly above the text: it takes the height of the H1's row (cropped to fit,
+   object-fit), never more than the H1 itself, and sits on the text. So header and hero still fill exactly one
+   screen, and the H1 keeps its size (it only stays out of the right column: at most half the width minus the gap).
+   Stacked (tablets upright, phones) it stands between the H1 and the line „Ich baue …“, as wide as the text: on
+   tablets as a strip (a share of the screen height, --k-img), on phones in its own proportions. There one screen
+   is not enough for H1, photo, text and buttons: the H1 keeps its size and the hero grows by the photo. Loaded at once
+   (above the fold), not lazily. The caption says it is colourised with AI (AI Act, like the label on Instagram).
+   The rules start with .hero, so they win over the general photo rules further down (.photo, .photo img). */
+.hero { --k-img: .2; --ph-r: 1.6154; }   /* 2688 × 1664, the proportions of the scan */
+.hero .hero-photo {
+  margin-top: max(var(--s2), min(var(--s5), calc(var(--hh) * var(--k-foot)))); max-width: 40rem; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+.hero .hero-photo picture { aspect-ratio: var(--ph-r); max-height: max(8rem, calc(var(--hh) * var(--k-img))); min-height: 0; overflow: hidden; border-radius: var(--r); }
+.hero .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 56%; }
+.hero .hero-photo figcaption { margin-top: 8px; }
+/* stacked: the H1 keeps the size it has without the photo (its width-based size, at most a fifth of the height),
+   the hero grows by what is missing */
+.has-photo .hero-title { min-height: calc(max(2.5rem, min(var(--h1), var(--hh) * .2)) * 1.84); }
+@media (max-width: 759px) { .hero .hero-photo picture { max-height: none; } }   /* phones: the whole photo */
+@media (min-width: 1100px), (min-width: 900px) and (min-height: 560px) and (orientation: landscape) {
+  .hero-main.has-photo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s5); container-type: inline-size; }
+  .has-photo .hero-title, .has-photo .hero-foot { grid-column: 1 / -1; }
+  .has-photo .hero-title { grid-row: 1; min-height: calc(2.5rem * 1.84); }
+  .has-photo h1 { font-size: max(2.5rem, min(var(--h1), calc(100cqh / 1.84), calc((100cqw - var(--s5)) / 6.3))); }   /* „Marken“ is 3.1em wide */
+  .hero .hero-photo { grid-column: 2; grid-row: 1; margin-top: 0; min-height: 8rem; }
+  /* never taller than the H1 (its two lines, 1.84em), so on tall screens it does not reach above it */
+  .hero .hero-photo picture { flex: 1 1 0; aspect-ratio: auto; contain: size;
+    max-height: calc(min(var(--h1), (100cqw - var(--s5)) / 6.3) * 1.84 - 8px - var(--small) * 1.5); }
 }
 
 /* ---------- hero: the surface shimmers (Martin, 26.10.; two colours of the whole spectrum since 28.10.) ----------

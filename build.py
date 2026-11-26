@@ -22,7 +22,7 @@ Placeholders in src/body.html:
    {{ARROW}}                     arrow icon for buttons
    {{CLIENTS}} {{CLIENT_COUNT}}  reference list, see CLIENTS below. A client shows its logo when
                                  assets/clients/<slug>.svg|png exists (one colour, #435960), otherwise its name.
-   {{IMG_PORTRAIT}} {{IMG_DOOR}} photos, see PHOTOS below
+   {{IMG_HERO}} {{IMG_PORTRAIT}} {{IMG_DOOR}}  photos, see PHOTOS below
    {{INSTAGRAM}}                 the 12 Instagram tiles, see instagram_html() and assets/instagram/feed.json
 """
 import base64, csv, datetime, hashlib, html, json, math, pathlib, re, shutil, struct, unicodedata
@@ -253,13 +253,27 @@ def clients_html(mode: str) -> str:
 
 # photos supplied by Martin (25.10.2026); 640 and 1280 px wide JPEGs in assets/photos. The portrait was replaced on
 # 17.11.2026 by a black-and-white studio portrait made with Higgsfield (GPT Image 2.6, max, 4K) from Martin's selfies.
-# Last field: a very small caption under the photo, the same in both languages (None = no caption).
+# Last field: a very small caption under the photo, the same in both languages, or a pair (German, English)
+# (None = no caption).
+# The hero photo (Martin 26.11.2026): the Onkel Otto Bar in 1954, a scan colourised with Higgsfield (seedream 5.5,
+# job a7399ca7-b415-4324-8a52-edd6129bc83d) and stretched back to the 1.615 : 1 of the scan; above the fold, so it
+# loads at once (HERO_PHOTOS), and its caption says that it is colourised with AI.
 PHOTOS = {
+    "IMG_HERO": ("onkel-otto-1954",
+                 "Die Onkel Otto Bar 1954: Leuchtschrift „Onkel Otto“ über dem Eingang, Schild „Bier · Bar · Tanz“, "
+                 "davor ein grüner Ford Taunus und ein hellblauer VW Käfer auf Kopfsteinpflaster mit Straßenbahnschienen. "
+                 "Historisches Foto, mit KI koloriert.",
+                 "The Onkel Otto Bar in 1954: the neon sign „Onkel Otto“ above the entrance, a sign reading "
+                 "„Bier · Bar · Tanz“, a green Ford Taunus and a light blue VW Beetle in front, on a cobbled street with "
+                 "tram tracks. Historic photo, colourised with AI.",
+                 "(min-width: 1440px) 640px, (min-width: 1100px) 44vw, (min-width: 760px) 640px, 92vw",
+                 ("Onkel Otto Bar, 1954. Mit KI koloriert.", "Onkel Otto Bar, 1954. Colourised with AI.")),
     "IMG_PORTRAIT": ("martin-schweppe", "Martin Schweppe, Diplom-Designer", "Martin Schweppe, graduate designer",
                      "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw", "Martin Schweppe"),  # caption: Martin 29.10.
     "IMG_DOOR": ("eingang", "Hauseingang mit Holztür und der Jahreszahl 1926", "Entrance with a wooden door marked 1926",
                  "(min-width: 1100px) 30vw, (min-width: 600px) 520px, 92vw", None),
 }
+HERO_PHOTOS = {"IMG_HERO"}   # loaded at once with high priority, class hero-photo (styles.css)
 
 
 def photo_html(key: str, mode: str, lang=None) -> str:
@@ -278,13 +292,20 @@ def photo_html(key: str, mode: str, lang=None) -> str:
         if mode == "deploy":
             a, b = "/" + versioned(a), "/" + versioned(b)
         src = f'src="{b}" srcset="{a} 640w, {b} 1280w" sizes="{sizes}"'
-    cap = f'<figcaption class="small">{html.escape(caption)}</figcaption>' if caption else ""
-    img = f'<img {src} {alts} width="{w}" height="{h}" loading="lazy" decoding="async">'
+    if isinstance(caption, tuple):   # German and English (the page drops the other language, the preview switches)
+        de, en = (html.escape(c) for c in caption)
+        caption_html = {"de": de, "en": en}.get(lang, f'<span lang="de">{de}</span><span lang="en">{en}</span>')
+    else:
+        caption_html = html.escape(caption) if caption else ""
+    cap = f'<figcaption class="small">{caption_html}</figcaption>' if caption else ""
+    load = 'fetchpriority="high"' if key in HERO_PHOTOS else 'loading="lazy"'   # the hero is above the fold
+    img = f'<img {src} {alts} width="{w}" height="{h}" {load} decoding="async">'
     if mode == "deploy" and small.with_suffix(".avif").exists() and large.with_suffix(".avif").exists():
         # AVIF (05.11.2026, tools/encode_photos.py): about a third smaller; browsers without AVIF take the JPEG
         av = ["/" + versioned("assets/photos/" + f.with_suffix(".avif").name) for f in (small, large)]
         img = f'<picture><source type="image/avif" srcset="{av[0]} 640w, {av[1]} 1280w" sizes="{sizes}">{img}</picture>'
-    return f'<figure class="photo">{img}{cap}</figure>'
+    cls = "photo hero-photo" if key in HERO_PHOTOS else "photo"
+    return f'<figure class="{cls}">{img}{cap}</figure>'
 
 
 # Instagram (Martin 20.11.2026): the 12 tiles at the top of the profile (pinned posts first, as Instagram shows them),

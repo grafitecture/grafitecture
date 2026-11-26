@@ -1,9 +1,9 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-24 20:20 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-26 20:01 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
-## Intern (100)
+## Intern (126)
 
 | Adresse | Antwort | | Seiten |
 |---|---|---|---|
@@ -48,10 +48,18 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/instagram/Df60P_6DiEM-400.jpg?v=6f9ad2e816` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df60P_6DiEM-640.avif?v=b57bfee962` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df60P_6DiEM-640.jpg?v=71bc1e83a3` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60z9vEe6r-400.avif?v=c405974ed7` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60z9vEe6r-400.jpg?v=32b2ef84b7` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60z9vEe6r-640.avif?v=e8a348bddc` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df60z9vEe6r-640.jpg?v=bc1bd9e510` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df618LFFgJR-400.avif?v=7d3a6f0b6c` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df618LFFgJR-400.jpg?v=06979fb2bf` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df618LFFgJR-800.avif?v=8d85a2f40c` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df618LFFgJR-800.jpg?v=c27ddbeb3f` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61D7wIImu-400.avif?v=d6e874a63d` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61D7wIImu-400.jpg?v=cc7e18a452` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61D7wIImu-800.avif?v=9a5c9b2bbc` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df61D7wIImu-800.jpg?v=cba96e6c39` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df61N46FSaR-400.avif?v=7742694de2` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df61N46FSaR-400.jpg?v=8e30126ca8` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df61N46FSaR-800.avif?v=30f9df6a35` | 200 | ✅ | /en, / |
@@ -64,14 +72,20 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/instagram/Df61lEwijvG-400.jpg?v=b1833f0a9e` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df61lEwijvG-640.avif?v=5b870ee250` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df61lEwijvG-640.jpg?v=aeff604085` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df62BGtINTm-400.avif?v=9b188cc085` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df62BGtINTm-400.jpg?v=d8f3d48401` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df62BGtINTm-800.avif?v=03a1ab1677` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df62BGtINTm-800.jpg?v=ce00e2ed8b` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df66wpUO8PA-400.avif?v=06ba493947` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df66wpUO8PA-400.jpg?v=71332881f8` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df66wpUO8PA-800.avif?v=43f42d721a` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df66wpUO8PA-800.jpg?v=ad2ea94fc3` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69A7vO7SB-400.avif?v=3067e7f42c` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69A7vO7SB-400.jpg?v=184ab2142b` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69A7vO7SB-800.avif?v=f116719fc3` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69A7vO7SB-800.jpg?v=877612ea53` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69YoiO_RX-320.avif?v=fe78c81826` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df69YoiO_RX-320.jpg?v=fc5cdcda1b` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6z3NFFi86-400.avif?v=e347bbd227` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6z3NFFi86-400.jpg?v=9da2e649ce` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6z3NFFi86-800.avif?v=d7629bdd46` | 200 | ✅ | /en, / |
+| `/assets/instagram/Df6z3NFFi86-800.jpg?v=1ab88eb141` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6zqsLFdvJ-400.avif?v=32a4cbf844` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6zqsLFdvJ-400.jpg?v=5254f5bbe6` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6zqsLFdvJ-800.avif?v=bcb225e738` | 200 | ✅ | /en, / |
@@ -88,6 +102,14 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/instagram/DfPcfviIFMX-400.jpg?v=a2324d38a8` | 200 | ✅ | /en, / |
 | `/assets/instagram/DfPcfviIFMX-800.avif?v=c9ed843569` | 200 | ✅ | /en, / |
 | `/assets/instagram/DfPcfviIFMX-800.jpg?v=eb68f7b914` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgFQRG6upNT-400.avif?v=1e8fb7c9cd` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgFQRG6upNT-400.jpg?v=cc73ad4465` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgFQRG6upNT-800.avif?v=b1198a34f0` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgFQRG6upNT-800.jpg?v=bb54752487` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgLIubpBmkV-400.avif?v=f116e70f5e` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgLIubpBmkV-400.jpg?v=2b7ce71c7f` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgLIubpBmkV-800.avif?v=98dc7297d9` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgLIubpBmkV-800.jpg?v=c4ff6c636a` | 200 | ✅ | /en, / |
 | `/assets/og/grafitecture-og-en.png` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en |
 | `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /impressum, / |
 | `/assets/photos/eingang-1280.avif?v=4ac14248df` | 200 | ✅ | /en, / |
@@ -98,6 +120,10 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/photos/martin-schweppe-1280.jpg?v=88d9354e5a` | 200 | ✅ | /en, / |
 | `/assets/photos/martin-schweppe-640.avif?v=fdc9fd83ac` | 200 | ✅ | /en, / |
 | `/assets/photos/martin-schweppe-640.jpg?v=99529540a1` | 200 | ✅ | /en, / |
+| `/assets/photos/onkel-otto-1954-1280.avif?v=9d09f51824` | 200 | ✅ | /en, / |
+| `/assets/photos/onkel-otto-1954-1280.jpg?v=af0a03e709` | 200 | ✅ | /en, / |
+| `/assets/photos/onkel-otto-1954-640.avif?v=2140d4dc7d` | 200 | ✅ | /en, / |
+| `/assets/photos/onkel-otto-1954-640.jpg?v=39c40022ea` | 200 | ✅ | /en, / |
 | `/datenschutz` | 200 | ✅ | /datenschutz, /en/privacy-policy, /impressum, / |
 | `/en` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, / |
 | `/en/legal-notice` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en, /impressum |
