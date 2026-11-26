@@ -1,7 +1,19 @@
 {
  "profile": "https://www.instagram.com/g.r.a.f.i.t.e.c.t.u.r.e/",
- "taken": "2026-11-25",
+ "taken": "2026-11-26",
  "posts": [
+  {
+   "code": "DgN7VYzuiaS",
+   "kind": "p",
+   "widths": [
+    400,
+    800
+   ],
+   "w": 800,
+   "h": 1000,
+   "alt_de": "Die Onkel Otto Bar im Mannheimer Jungbusch, 1954: Leuchtschrift „Onkel Otto“ über dem Eingang, davor ein grüner Ford Taunus und ein hellblauer VW Käfer auf Kopfsteinpflaster. Historisches Foto, mit KI koloriert.",
+   "alt_en": "The Onkel Otto Bar in Mannheim’s Jungbusch district, 1954: the neon sign „Onkel Otto“ above the entrance, a green Ford Taunus and a light blue VW Beetle in front, on cobblestones. Historic photo, colourised with AI."
+  },
   {
    "code": "DgLIubpBmkV",
    "kind": "reel",
@@ -205,17 +217,6 @@
    "h": 800,
    "alt_de": "Reel: Fragen Sie mal ChatGPT. Was die KI über Ihr Restaurant erzählt.",
    "alt_en": "Reel: Just ask ChatGPT. What AI says about your restaurant."
-  },
-  {
-   "code": "Df69YoiO_RX",
-   "kind": "p",
-   "widths": [
-    320
-   ],
-   "w": 320,
-   "h": 400,
-   "alt_de": "Zwei Kinder mit Taucherbrille und Schnorchel am Meer, Varigotti 1978",
-   "alt_en": "Two children with diving masks and snorkels by the sea, Varigotti 1978"
   }
  ]
 }

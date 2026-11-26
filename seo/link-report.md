@@ -1,9 +1,9 @@
 # Link-Report
 
-Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-26 20:01 UTC.
+Geprüft: 6 Seiten aus `public/` gegen `http://127.0.0.1:8080`, 2026-11-26 20:15 UTC.
 Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle internen Links in Ordnung.**
 
-## Intern (126)
+## Intern (128)
 
 | Adresse | Antwort | | Seiten |
 |---|---|---|---|
@@ -80,8 +80,6 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/instagram/Df69A7vO7SB-400.jpg?v=184ab2142b` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df69A7vO7SB-800.avif?v=f116719fc3` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df69A7vO7SB-800.jpg?v=877612ea53` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df69YoiO_RX-320.avif?v=fe78c81826` | 200 | ✅ | /en, / |
-| `/assets/instagram/Df69YoiO_RX-320.jpg?v=fc5cdcda1b` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6z3NFFi86-400.avif?v=e347bbd227` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6z3NFFi86-400.jpg?v=9da2e649ce` | 200 | ✅ | /en, / |
 | `/assets/instagram/Df6z3NFFi86-800.avif?v=d7629bdd46` | 200 | ✅ | /en, / |
@@ -110,6 +108,10 @@ Interne Links müssen direkt 200 liefern (keine Weiterleitung, kein 404). **Alle
 | `/assets/instagram/DgLIubpBmkV-400.jpg?v=2b7ce71c7f` | 200 | ✅ | /en, / |
 | `/assets/instagram/DgLIubpBmkV-800.avif?v=98dc7297d9` | 200 | ✅ | /en, / |
 | `/assets/instagram/DgLIubpBmkV-800.jpg?v=c4ff6c636a` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgN7VYzuiaS-400.avif?v=0867f82d0a` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgN7VYzuiaS-400.jpg?v=27b6b3d6ff` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgN7VYzuiaS-800.avif?v=a6791fb939` | 200 | ✅ | /en, / |
+| `/assets/instagram/DgN7VYzuiaS-800.jpg?v=1d80ba9f7a` | 200 | ✅ | /en, / |
 | `/assets/og/grafitecture-og-en.png` | 200 | ✅ | /en/legal-notice, /en/privacy-policy, /en |
 | `/assets/og/grafitecture-og.png` | 200 | ✅ | /datenschutz, /impressum, / |
 | `/assets/photos/eingang-1280.avif?v=4ac14248df` | 200 | ✅ | /en, / |
