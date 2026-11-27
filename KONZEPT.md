@@ -130,7 +130,7 @@ Quellcode: `src/body.html`, `src/styles.css`, `src/app.js`, `build.py`, `tools/`
 
 ### Technik
 
-- Favicon, Apple-Touch-Icon und OG-Bild (1200 × 630) aus der Wortmarke, nur zwei Farben (`tools/render_assets.py`).
+- Favicon, Apple-Touch-Icon und OG-Bild (1200 × 630) aus der Wortmarke (`tools/render_assets.py`). OG-Bild nur in #435960 und Weiß. Favicon und Icons seit 27.11.2026 (Martin: „gelb mit verlauf. graues g aus logo.“): das g der Wortmarke in #435960 auf einem diagonalen Verlauf von Gelb #ffe300 (oben links) zu Lime #dafd55 (unten rechts, Variante B von dreien), beide Töne aus dem Farbkreis des Hero (`WHEEL`), #435960 hat darauf mindestens 4,6 : 1. Vorher weißes g auf #435960.
 - `vercel.json`: Content-Security-Policy (nur eigene Domain), X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy; `/assets` ein Jahr cachebar, URLs mit Inhalts-Hash (`?v=…`), damit Änderungen trotzdem sofort ankommen. Function Region Frankfurt (`regions: ["fra1"]`).
 - Kontaktformular: prüft Eingaben, öffnet das Mailprogramm mit vorbereiteter Nachricht und zeigt sie zusätzlich zum Kopieren. Ohne JavaScript öffnet es ebenfalls nur das Mailprogramm; nichts wird an einen Server geschickt.
 - Geprüft mit Playwright bei 1920, 1512, 820 und 390 px, DE und EN: keine Konsolen- oder CSP-Fehler, kein horizontales Scrollen, nur #435960, Weiß und Lime im Einsatz, Menü, Overlays, Deep-Links und Formular funktionieren.

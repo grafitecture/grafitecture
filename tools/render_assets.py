@@ -3,7 +3,9 @@
    assets/icons/apple-touch-icon.png (180), favicon-32.png, favicon-48.png, icon-192.png, icon-512.png (web manifest,
    05.11.2026), assets/og/grafitecture-og.png and grafitecture-og-en.png (1200x630, „Brands / with AI.“, 05.11.2026),
    assets/logo/grafitecture-logo.png (wordmark on white for structured data, 05.11.2026).
-   Two colours only: #435960 and white. Run once after the logo changes; build.py copies the results.
+   Two colours only: #435960 and white, except the icons: since 27.11.2026 (Martin: „gelb mit verlauf. graues g aus logo.“)
+   the g is #435960 on a diagonal gradient yellow #ffe300 -> lime #dafd55 (both from WHEEL in src/app.js, #435960 >= 4.6:1).
+   Run once after the logo changes; build.py copies the results.
    CHROME=/path/to/chrome uses an installed Chrome instead of Playwright's own Chromium."""
 import asyncio, base64, os, pathlib, re
 from playwright.async_api import async_playwright
@@ -11,6 +13,7 @@ from playwright.async_api import async_playwright
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 A = ROOT / "assets"
 C, W = "#435960", "#FFFFFF"
+Y0, Y1 = "#ffe300", "#dafd55"   # favicon gradient, top left -> bottom right (Martin 27.11.2026)
 
 logo_w = (A / "logo" / "grafitecture-white.svg").read_text()
 logo_w = re.sub(r"<title>.*?</title>", "", logo_w, flags=re.S)
@@ -24,8 +27,11 @@ def g_svg(pad=0.70):
     cx, cy = GX + GW / 2, GY + GH / 2
     x, y = cx - side / 2, cy - side / 2
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{x:.2f} {y:.2f} {side:.2f} {side:.2f}">'
-            f'<rect x="{x:.2f}" y="{y:.2f}" width="{side:.2f}" height="{side:.2f}" fill="{C}"/>'
-            f'<path fill="{W}" d="{g_path}"/></svg>')
+            f'<defs><linearGradient id="y" gradientUnits="userSpaceOnUse" x1="{x:.2f}" y1="{y:.2f}" '
+            f'x2="{x + side:.2f}" y2="{y + side:.2f}"><stop offset="0" stop-color="{Y0}"/><stop offset="1" stop-color="{Y1}"/>'
+            f'</linearGradient></defs>'
+            f'<rect x="{x:.2f}" y="{y:.2f}" width="{side:.2f}" height="{side:.2f}" fill="url(#y)"/>'
+            f'<path fill="{C}" d="{g_path}"/></svg>')
 
 OG_TEXT = {"de": ("Marken<br>mit KI.", "Martin Schweppe, Diplom-Designer · Mannheim"),
            "en": ("Brands<br>with AI.", "Martin Schweppe, graduate designer · Mannheim")}
