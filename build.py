@@ -69,7 +69,7 @@ FONT_FILE = "assets/fonts/" + FONTS[0][1]
 
 # name, website (None = not linked). Order = order on the page.
 CLIENTS = [
-    ("L'Année", "https://www.lannee.de/"),   # Martin 30.10. (before 1898.ma)
+    ("L'Année", "https://www.lannee.de/popup"),   # Martin 28.11.2026 (Advent pop-up; before lannee.de, before that 1898.ma)
     ("Dentaid", "https://dentaid-direkt.de/"),   # final address (05.11.2026, was www., 301)
     ("Healthklick", None),
     ("fläsh", "https://flaesh.com/"),
